@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: juan
+Build-Jdk: 11.0.2
+Implementation-Title: SICECD
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.cocay
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/SICECD
+Created-By: Maven Integration for Eclipse
+
