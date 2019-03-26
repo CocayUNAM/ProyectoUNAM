@@ -14,6 +14,11 @@ public class WebController {
 	@Autowired
 	TestRepository testRepository;
 	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String login(Model model){
+		return "login";
+	}
+	
 	@RequestMapping(value = "/find-test", method = RequestMethod.GET)
 	public String findTest(Model model){
 		//http://localhost:8080/find-test
