@@ -58,8 +58,8 @@ INSERT INTO public.test(name) VALUES ('Contaduria');
 /*
 Autor: Héctos Santaella Marin Ciencias
 Fecha: 27/03/2019
-Accion: Creación de tablas: Log_sys, Log_evento_sys, Usuario_sys, Estatus_usuario_sys, Perfil_sys, Grado_profesor,
-Turno, Genero, Estado, Inscripcion, Grupo, Curso, Profesor
+Accion: Creación de tablas: Log_sys, Log_evento_sys, Usuario_sys, Estatus_usuario_sys, 
+Perfil_sys, Grado_profesor, Turno, Genero, Estado, Inscripcion, Grupo, Curso, Profesor
 */
 
 CREATE TABLE Usuario_sys(
