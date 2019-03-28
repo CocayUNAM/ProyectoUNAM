@@ -35,11 +35,13 @@ public class SicecdApplication implements WebMvcConfigurer  {
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(
+        		"favicon.ico",
                 "/css/**",
                 "/fonts/**",
                 "/img/**",
                 "/js/**")
                 .addResourceLocations(
+                		"classpath:/static/favicon.ico",
                         "classpath:/static/css/",
                         "classpath:/static/fonts/",
                         "classpath:/static/img/",
