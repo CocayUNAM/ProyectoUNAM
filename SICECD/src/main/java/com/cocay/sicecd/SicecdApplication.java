@@ -27,6 +27,7 @@ public class SicecdApplication implements WebMvcConfigurer  {
 	    templateResolver.setPrefix("classpath:/templates/");
 	    templateResolver.setSuffix(".html");
 	    templateResolver.setTemplateMode(TemplateMode.HTML);
+	    //We need change to true when we put the system into production
 	    templateResolver.setCacheable(false);
 	    return templateResolver;
 	}
