@@ -17,10 +17,10 @@ public class SicecdApplicationTests {
 	GeneroRep _genero;
 	@Test
 	public void contextLoads() {
+		Genero genero=new Genero();
+		genero.setGenero("masculino");
+		
+		_genero.save(genero);
 	}
-	Genero genero=new Genero();
-	genero.setGenero("masculino")
-	
-	_genero.save(genero);
 
 }
