@@ -37,7 +37,7 @@ public class WebController {
 	}
 	
 	@RequestMapping(value = "/table-export", method = RequestMethod.GET)
-	public String exampleExport(Model model){
+	public String exampleExport(){
 		return "example/table-export";
 	}
 	

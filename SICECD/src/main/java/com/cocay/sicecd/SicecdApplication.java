@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
-@SpringBootApplication
+@SpringBootApplication //same as @Configuration @EnableAutoConfiguration @ComponentScan
 @EnableWebMvc
 @ComponentScan(basePackages= {
 		"com.cocay.sicecd.model"
@@ -43,11 +43,13 @@ public class SicecdApplication implements WebMvcConfigurer  {
 	@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(
+        		"favicon.ico",
                 "/css/**",
                 "/fonts/**",
                 "/img/**",
                 "/js/**")
                 .addResourceLocations(
+                		"classpath:/static/favicon.ico",
                         "classpath:/static/css/",
                         "classpath:/static/fonts/",
                         "classpath:/static/img/",
