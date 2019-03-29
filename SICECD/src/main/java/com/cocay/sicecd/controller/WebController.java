@@ -27,37 +27,37 @@ public class WebController {
 	}
 	
 	@RequestMapping(value = "/table-row-select", method = RequestMethod.GET)
-	public String exampleTableRowSelect(Model model){
+	public String exampleTableRowSelect(){
 		return "example/table-row-select";
 	}
 	
 	@RequestMapping(value = "/table-basic", method = RequestMethod.GET)
-	public String exampleTableBasic(Model model){
+	public String exampleTableBasic(){
 		return "example/table-basic";
 	}
 	
 	@RequestMapping(value = "/table-export", method = RequestMethod.GET)
-	public String exampleExport(Model model){
+	public String exampleExport(){
 		return "example/table-export";
 	}
 	
 	@RequestMapping(value = "/table-jsgrid", method = RequestMethod.GET)
-	public String exampleJsgrid(Model model){
+	public String exampleJsgrid(){
 		return "example/table-jsgrid";
 	}
 	
 	@RequestMapping(value = "/form-basic", method = RequestMethod.GET)
-	public String exampleFormBasic(Model model){
+	public String exampleFormBasic(){
 		return "example/form-basic";
 	}
 	
 	@RequestMapping(value = "/form-validation", method = RequestMethod.GET)
-	public String exampleFormValidation(Model model){
+	public String exampleFormValidation(){
 		return "example/form-validation";
 	}
 	
 	@RequestMapping(value = "/blank", method = RequestMethod.GET)
-	public String exampleBlank(Model model){
+	public String exampleBlank(){
 		return "example/blank";
 	}
 }
