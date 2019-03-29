@@ -10,6 +10,6 @@ import com.cocay.sicecd.model.Turno;
 
 @Repository
 public interface TurnoRep extends PagingAndSortingRepository<Turno, Integer>{
-	List<Test> findByName(String name);
+	List<Turno> findByNombre(String name);
 
 }

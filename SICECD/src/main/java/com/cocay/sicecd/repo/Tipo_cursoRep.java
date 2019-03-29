@@ -10,6 +10,6 @@ import com.cocay.sicecd.model.Tipo_curso;
 
 @Repository
 public interface Tipo_cursoRep extends PagingAndSortingRepository<Tipo_curso, Integer>{
-	List<Test> findByName(String name);
+	List<Tipo_curso> findByNombre(String name);
 
 }

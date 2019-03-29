@@ -10,6 +10,6 @@ import com.cocay.sicecd.model.Test;
 
 @Repository
 public interface GeneroRep extends PagingAndSortingRepository<Genero, Integer>{
-	List<Test> findByName(String name);
+	//List<Genero> findByName(String name);
 
 }

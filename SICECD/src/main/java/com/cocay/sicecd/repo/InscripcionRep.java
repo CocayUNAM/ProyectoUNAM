@@ -10,6 +10,5 @@ import com.cocay.sicecd.model.Test;
 
 @Repository
 public interface InscripcionRep extends PagingAndSortingRepository<Inscripcion, Integer>{
-	List<Test> findByName(String name);
 
 }

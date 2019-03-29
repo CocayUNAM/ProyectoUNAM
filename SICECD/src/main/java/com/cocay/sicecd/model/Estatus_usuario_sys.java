@@ -22,7 +22,6 @@ public class Estatus_usuario_sys {
 	@Column(name = "pk_estatus_usuario_sys")
 	int pk_estatus_usuario_sys;
 	@Column(name = "nombre")
-
 	String nombre;
 
 	@OneToMany(mappedBy = "fk_id_estatus_usuario_sys", targetEntity =Usuario_sys .class)

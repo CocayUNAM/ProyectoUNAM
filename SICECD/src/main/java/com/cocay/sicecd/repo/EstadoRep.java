@@ -10,6 +10,6 @@ import com.cocay.sicecd.model.Test;
 
 @Repository
 public interface EstadoRep extends PagingAndSortingRepository<Estado, Integer>{
-	List<Test> findByName(String name);
+	List<Estado> findByNombre(String name);
 
 }

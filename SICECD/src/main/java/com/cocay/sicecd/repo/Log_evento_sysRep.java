@@ -10,6 +10,6 @@ import com.cocay.sicecd.model.Test;
 
 @Repository
 public interface Log_evento_sysRep extends PagingAndSortingRepository<Log_evento_sys, Integer>{
-	List<Test> findByName(String name);
+	List<Log_evento_sys> findByNombre(String name);
 
 }

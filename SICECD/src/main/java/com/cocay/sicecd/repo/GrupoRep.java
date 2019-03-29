@@ -10,6 +10,6 @@ import com.cocay.sicecd.model.Test;
 
 @Repository
 public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
-	List<Test> findByName(String name);
+	List<Grupo> findByClave(String name);
 
 }

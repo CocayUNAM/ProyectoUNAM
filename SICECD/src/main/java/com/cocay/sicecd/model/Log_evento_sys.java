@@ -21,10 +21,37 @@ public class Log_evento_sys {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_log_evento_sys")
 	int pk_id_log_evento_sys;
+	@Column(name = "nombre")
 	
 	String nombre;
 
 	@OneToMany(mappedBy = "fk_id_log_evento_sys", targetEntity=Log_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Log_sys> Log_sys_s = new ArrayList<>();
+
+	public int getPk_id_log_evento_sys() {
+		return pk_id_log_evento_sys;
+	}
+
+	public void setPk_id_log_evento_sys(int pk_id_log_evento_sys) {
+		this.pk_id_log_evento_sys = pk_id_log_evento_sys;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public List<Log_sys> getLog_sys_s() {
+		return Log_sys_s;
+	}
+
+	public void setLog_sys_s(List<Log_sys> log_sys_s) {
+		Log_sys_s = log_sys_s;
+	}
+	
+	
 }

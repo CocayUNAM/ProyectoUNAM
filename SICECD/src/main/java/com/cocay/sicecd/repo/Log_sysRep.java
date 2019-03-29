@@ -10,6 +10,6 @@ import com.cocay.sicecd.model.Test;
 
 @Repository
 public interface Log_sysRep extends PagingAndSortingRepository<Log_sys, Integer>{
-	List<Test> findByName(String name);
+	List<Log_sys> findByIp(String name);
 
 }
