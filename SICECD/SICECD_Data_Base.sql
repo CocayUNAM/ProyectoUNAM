@@ -191,3 +191,11 @@ CREATE TABLE Tipo_curso(
 ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Estado (pk_id_estado ) ON DELETE CASCADE;
 
 --DROP TABLE Tipo_curso;
+
+/*
+Autor: Juan Carlos Hernández de Anda
+Fecha: 01/04/2019
+Accion: Corrección de llave foranea
+*/
+ALTER TABLE Curso DROP CONSTRAINT curso_fk_id_tipo_curso_fkey;
+ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Tipo_curso (pk_id_tipo_curso) ON DELETE CASCADE;
