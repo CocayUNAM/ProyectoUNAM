@@ -21,7 +21,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 public class Curso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "pk_id_profesor")
+	@Column(name = "pk_id_curso")
 	int pk_id_curso;
 	
 	@Column(name = "clave")
