@@ -19,7 +19,7 @@ Fecha: 25/03/2019
 Accion: Creacion de la Base de Datos
 */
 CREATE DATABASE "SICECD"
-    WITH 
+    WITH
     OWNER = "SICECD"
     ENCODING = 'UTF8'
     LC_COLLATE = 'Spanish_Spain.1252'
@@ -58,7 +58,7 @@ INSERT INTO public.test(name) VALUES ('Contaduria');
 /*
 Autor: Héctos Santaella Marin Ciencias
 Fecha: 27/03/2019
-Accion: Creación de tablas: Log_sys, Log_evento_sys, Usuario_sys, Estatus_usuario_sys, 
+Accion: Creación de tablas: Log_sys, Log_evento_sys, Usuario_sys, Estatus_usuario_sys,
 Perfil_sys, Grado_profesor, Turno, Genero, Estado, Inscripcion, Grupo, Curso, Profesor
 */
 
@@ -150,6 +150,24 @@ CREATE TABLE Grado_profesor(
   pk_id_grado_profesor SERIAL PRIMARY KEY,
   nombre VARCHAR(30)
 );
+/*
+Autor: Juan Carlos Hernández de Anda
+Fecha: 25/03/2019
+Accion: Creacion de la tabla Tipo_curso
+*/
+
+CREATE TABLE Tipo_curso(
+  pk_id_tipo_curso SERIAL PRIMARY KEY,
+  nombre VARCHAR(70)
+);
+
+/*
+Autor: Juan Carlos Hernández de Anda
+Fecha: 01/04/2019
+Accion: Corrección de llave foranea
+*/
+--ALTER TABLE Curso DROP CONSTRAINT curso_fk_id_tipo_curso_fkey;
+ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Tipo_curso (pk_id_tipo_curso) ON DELETE CASCADE;
 
 ALTER TABLE Usuario_sys ADD FOREIGN KEY(fk_id_estatus_usuario_sys) REFERENCES Estatus_usuario_sys (pk_estatus_usuario_sys ) ON DELETE CASCADE;
 ALTER TABLE Usuario_sys ADD FOREIGN KEY(fk_id_perfil_sys) REFERENCES Perfil_sys (pk_id_perfil_sys ) ON DELETE CASCADE;
@@ -158,7 +176,6 @@ ALTER TABLE Log_sys ADD FOREIGN KEY(fk_id_log_evento_sys) REFERENCES Log_evento_
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_estado) REFERENCES Estado (pk_id_estado ) ON DELETE CASCADE;
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_turno) REFERENCES Turno (pk_id_turno ) ON DELETE CASCADE;
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_grado_profesor) REFERENCES Grado_profesor (pk_id_grado_profesor) ON DELETE CASCADE;
---ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Estado (pk_id_estado ) ON DELETE CASCADE;
 ALTER TABLE Grupo ADD FOREIGN KEY(fk_id_curso) REFERENCES Curso (pk_id_curso ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_grupo) REFERENCES Grupo (pk_id_grupo ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_profesor) REFERENCES Profesor (pk_id_profesor ) ON DELETE CASCADE;
@@ -178,19 +195,10 @@ ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_profesor) REFERENCES Profesor (pk_
 --DROP TABLE Profesor;
 
 
-/*
-Autor: Juan Carlos Hernández de Anda
-Fecha: 25/03/2019
-Accion: Creacion de la tabla Tipo_curso
-*/
 
-CREATE TABLE Tipo_curso(
-  pk_id_tipo_curso SERIAL PRIMARY KEY,
-  nombre VARCHAR(70)
-);
-ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Estado (pk_id_estado ) ON DELETE CASCADE;
 
 --DROP TABLE Tipo_curso;
+<<<<<<< HEAD
 
 /*
 Autor: Juan Carlos Hernández de Anda
@@ -199,3 +207,5 @@ Accion: Corrección de llave foranea
 */
 ALTER TABLE Curso DROP CONSTRAINT curso_fk_id_tipo_curso_fkey;
 ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Tipo_curso (pk_id_tipo_curso) ON DELETE CASCADE;
+=======
+>>>>>>> refs/remotes/origin/master
