@@ -27,6 +27,8 @@ public class Usuario_sys {
 	String rfc;
 	@Column(name = "password")
 	String password;
+	@Column(name="rol")
+	String rol;
 	@Column(name = "correo")
 	String correo;
 	@Column(name = "nombre")

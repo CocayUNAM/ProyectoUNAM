@@ -1,5 +1,9 @@
 package com.cocay.sicecd.controller;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +18,40 @@ public class WebController {
 	@Autowired
 	TestRepository testRepository;
 	
+	/*
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loggea(HttpServletRequest request, Principal principal) {
+        if (request.isUserInRole("ROLE_USUARIO")) {
+            return "example/user/inicio";
+        }
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            return "example/admin/inicio";
+        }
+        return "example/error";
+    }*/
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(Model model, String error, String logout) {
+        if (error != null) {
+            model.addAttribute("errorMsg", "Your username and password are invalid.");
+        	System.out.println("\nusuairio erroneo----");
+        	System.out.println(error);
+        	System.out.println("\nusuairio erroneo-hjk-");
+
+        }
+
+        if (logout != null)
+            model.addAttribute("msg", "You have been logged out successfully.");
+
+        return "login";
+    }
+
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String login(Model model){
 		return "login";
 	}
-	
+    
 	@RequestMapping(value = "/find-test", method = RequestMethod.GET)
 	public String findTest(Model model){
 		//http://localhost:8080/find-test
