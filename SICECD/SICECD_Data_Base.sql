@@ -193,12 +193,8 @@ ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_profesor) REFERENCES Profesor (pk_
 --DROP TABLE Grupo;
 --DROP TABLE Curso;
 --DROP TABLE Profesor;
-
-
-
-
 --DROP TABLE Tipo_curso;
-<<<<<<< HEAD
+
 
 /*
 Autor: Juan Carlos Hernández de Anda
@@ -207,5 +203,3 @@ Accion: Corrección de llave foranea
 */
 ALTER TABLE Curso DROP CONSTRAINT curso_fk_id_tipo_curso_fkey;
 ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Tipo_curso (pk_id_tipo_curso) ON DELETE CASCADE;
-=======
->>>>>>> refs/remotes/origin/master
