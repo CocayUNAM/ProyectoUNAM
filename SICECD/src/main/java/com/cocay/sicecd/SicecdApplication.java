@@ -15,7 +15,19 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @SpringBootApplication //same as @Configuration @EnableAutoConfiguration @ComponentScan
 @EnableWebMvc
+<<<<<<< HEAD
 @ComponentScan
+=======
+@ComponentScan(basePackages= {
+		"com.cocay.sicecd.controller"
+})
+@ComponentScan(basePackages= {
+		"com.cocay.sicecd.repo"
+})
+@ComponentScan(basePackages= {
+		"com.cocay.sicecd.servide"
+})
+>>>>>>> 425ced035122cf746cdd9679bee2569b13ebcbad
 @EntityScan(basePackages= {
 		"com.cocay.sicecd.model"
 })

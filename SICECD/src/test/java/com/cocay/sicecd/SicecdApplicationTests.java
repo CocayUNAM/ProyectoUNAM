@@ -17,6 +17,7 @@ public class SicecdApplicationTests {
 	TestRepository _test;
 	@Test
 	public void contextLoads() {
+<<<<<<< HEAD
 		TestClass usuario=new TestClass();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         //usuario.setPass(passwordEncoder.encode("hola"));       
@@ -28,5 +29,12 @@ public class SicecdApplicationTests {
 	
 	}
 
+=======
+		Genero genero=new Genero();
+		genero.setGenero("masculino");
+		
+		_genero.save(genero);
+	}
+>>>>>>> 425ced035122cf746cdd9679bee2569b13ebcbad
 
 }
