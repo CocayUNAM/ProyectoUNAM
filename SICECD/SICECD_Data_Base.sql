@@ -19,7 +19,7 @@ Fecha: 25/03/2019
 Accion: Creacion de la Base de Datos
 */
 CREATE DATABASE "SICECD"
-    WITH
+    WITH 
     OWNER = "SICECD"
     ENCODING = 'UTF8'
     LC_COLLATE = 'Spanish_Spain.1252'
@@ -196,10 +196,20 @@ ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_profesor) REFERENCES Profesor (pk_
 --DROP TABLE Tipo_curso;
 
 
+
+
 /*
 Autor: Juan Carlos Hernández de Anda
-Fecha: 01/04/2019
-Accion: Corrección de llave foranea
+Fecha: 25/03/2019
+Accion: Creacion de la tabla Tipo_curso
 */
 ALTER TABLE Curso DROP CONSTRAINT curso_fk_id_tipo_curso_fkey;
 ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Tipo_curso (pk_id_tipo_curso) ON DELETE CASCADE;
+
+CREATE TABLE Tipo_curso(
+  pk_id_tipo_curso SERIAL PRIMARY KEY,
+  nombre VARCHAR(70)
+);
+ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Estado (pk_id_estado ) ON DELETE CASCADE;
+
+--DROP TABLE Tipo_curso;
