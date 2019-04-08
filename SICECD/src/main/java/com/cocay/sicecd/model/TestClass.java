@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "test")
-public class Test implements Serializable {
+@Table(name = "TestClass")
+public class TestClass implements Serializable {
 
 	/**
 	 * 
@@ -24,11 +24,17 @@ public class Test implements Serializable {
 
 	@Column(name = "name")
 	private String name;
+
+	@Column(name = "pass")
+	private String pass;
+
+	@Column(name = "rol")
+	private String rol;
 	 
-	protected Test() {
+	public TestClass() {
 	}
 	 
-	public Test(String name) {
+	public TestClass(String name) {
 	  this.name = name;
 	}
 	 
@@ -48,6 +54,24 @@ public class Test implements Serializable {
 		this.name = name;
 	}
 	
+	
+	
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
 	@Override
 	public String toString() {
 	  return String.format("Test[id=%d, name='%s']", id, name);

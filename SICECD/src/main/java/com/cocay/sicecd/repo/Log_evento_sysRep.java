@@ -6,6 +6,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import com.cocay.sicecd.model.Log_evento_sys;
+import com.cocay.sicecd.model.TestClass;
 
 @Repository
 public interface Log_evento_sysRep extends PagingAndSortingRepository<Log_evento_sys, Integer>{
