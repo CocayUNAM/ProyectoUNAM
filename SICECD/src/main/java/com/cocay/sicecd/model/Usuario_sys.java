@@ -27,8 +27,6 @@ public class Usuario_sys {
 	String rfc;
 	@Column(name = "password")
 	String password;
-	@Column(name="rol")
-	String rol;
 	@Column(name = "correo")
 	String correo;
 	@Column(name = "nombre")
@@ -39,11 +37,11 @@ public class Usuario_sys {
 	String apellido_materno;
 	@ManyToOne(targetEntity = Estatus_usuario_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_estatus_usuario_sys")
+	@JoinColumn(name = "pk_id_estatus_usuario_sys")
 	int fk_id_estatus_usuario_sys;
 	@ManyToOne(targetEntity = Perfil_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_perfil_sys")
+	@JoinColumn(name = "pk_id_perfil_sys")
 	int fk_id_perfil_sys;
 
 	@OneToMany(mappedBy = "fk_id_usuario_sys", targetEntity=Log_sys.class)
