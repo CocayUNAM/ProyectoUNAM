@@ -21,7 +21,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 public class Curso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "pk_id_profesor")
+	@Column(name = "pk_id_curso")
 	int pk_id_curso;
 	@Column(name = "clave")
 	String clave;
@@ -30,8 +30,9 @@ public class Curso {
 
 	@ManyToOne(targetEntity=Tipo_curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_tipo_curso")
+	@JoinColumn(name = "fk_id_tipo_curso", referencedColumnName="pk_id_tipo_curso")
 	int fk_id_tipo_curso;
+	
 	@Column(name = "horas")
 
 	int horas;
