@@ -39,7 +39,7 @@ public class Profesor {
 	String telefono;
 	@ManyToOne(targetEntity=Estado.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_estado")
+	@JoinColumn(name = "pk_id_estado")
 	int fk_id_estado;
 	String ciudad_localidad;
 	int id_genero;
