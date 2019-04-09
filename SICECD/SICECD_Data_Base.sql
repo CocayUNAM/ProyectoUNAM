@@ -213,3 +213,62 @@ CREATE TABLE Tipo_curso(
 ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Estado (pk_id_estado ) ON DELETE CASCADE;
 
 --DROP TABLE Tipo_curso;
+
+/*
+Autor: Juan Carlos Hernández de Anda
+Fecha: 08/04/2019
+Accion: Creacion de la tabla Tipo_curso
+*/
+INSERT INTO public.perfil_sys(nombre) VALUES ('Administrador');
+INSERT INTO public.perfil_sys(nombre) VALUES ('Consultas');
+
+INSERT INTO public.estatus_usuario_sys(nombre) VALUES ('Activo');
+INSERT INTO public.estatus_usuario_sys(nombre) VALUES ('Inactivo');
+
+INSERT INTO public.tipo_curso(nombre) VALUES ('Curso');
+INSERT INTO public.tipo_curso(nombre) VALUES ('Diplomado');
+INSERT INTO public.tipo_curso(nombre) VALUES ('Especialidad');
+
+INSERT INTO public.turno(nombre) VALUES ('Matutino');
+INSERT INTO public.turno(nombre) VALUES ('Vepertino');
+INSERT INTO public.turno(nombre) VALUES ('Completo');
+
+INSERT INTO public.grado_profesor(nombre) VALUES ('Lic.');
+INSERT INTO public.grado_profesor(nombre) VALUES ('Esp.');
+INSERT INTO public.grado_profesor(nombre) VALUES ('Mtr.');
+INSERT INTO public.grado_profesor(nombre) VALUES ('Doc.');
+
+INSERT INTO public.genero(genero) VALUES ('Masculino');
+INSERT INTO public.genero(genero) VALUES ('Femenino');
+
+INSERT INTO public.estado(nombre) VALUES ('Aguascalientes');
+INSERT INTO public.estado(nombre) VALUES ('Baja California');
+INSERT INTO public.estado(nombre) VALUES ('Baja California Sur');
+INSERT INTO public.estado(nombre) VALUES ('Campeche');
+INSERT INTO public.estado(nombre) VALUES ('Chihuahua');
+INSERT INTO public.estado(nombre) VALUES ('Chiapas');
+INSERT INTO public.estado(nombre) VALUES ('Coahuila');
+INSERT INTO public.estado(nombre) VALUES ('Colima');
+INSERT INTO public.estado(nombre) VALUES ('Durango');
+INSERT INTO public.estado(nombre) VALUES ('Guanajuato');
+INSERT INTO public.estado(nombre) VALUES ('Guerrero');
+INSERT INTO public.estado(nombre) VALUES ('Hidalgo');
+INSERT INTO public.estado(nombre) VALUES ('Jalisco');
+INSERT INTO public.estado(nombre) VALUES ('México');
+INSERT INTO public.estado(nombre) VALUES ('Michoacán');
+INSERT INTO public.estado(nombre) VALUES ('Morelos');
+INSERT INTO public.estado(nombre) VALUES ('Nayarit');
+INSERT INTO public.estado(nombre) VALUES ('Nuevo León');
+INSERT INTO public.estado(nombre) VALUES ('Oaxaca');
+INSERT INTO public.estado(nombre) VALUES ('Puebla');
+INSERT INTO public.estado(nombre) VALUES ('Querétaro');
+INSERT INTO public.estado(nombre) VALUES ('Quintana Roo');
+INSERT INTO public.estado(nombre) VALUES ('San Luis Potosí');
+INSERT INTO public.estado(nombre) VALUES ('Sinaloa');
+INSERT INTO public.estado(nombre) VALUES ('Sonora');
+INSERT INTO public.estado(nombre) VALUES ('Tabasco');
+INSERT INTO public.estado(nombre) VALUES ('Tamaulipas');
+INSERT INTO public.estado(nombre) VALUES ('Tlaxcala');
+INSERT INTO public.estado(nombre) VALUES ('Veracruz');
+INSERT INTO public.estado(nombre) VALUES ('Yucatán');
+INSERT INTO public.estado(nombre) VALUES ('Zacatecas');
