@@ -217,7 +217,7 @@ ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Estado (pk_id_est
 /*
 Autor: Juan Carlos Hernández de Anda
 Fecha: 08/04/2019
-Accion: Creacion de la tabla Tipo_curso
+Accion: Creacion de datos de los catalogos
 */
 INSERT INTO public.perfil_sys(nombre) VALUES ('Administrador');
 INSERT INTO public.perfil_sys(nombre) VALUES ('Consultas');
@@ -272,3 +272,33 @@ INSERT INTO public.estado(nombre) VALUES ('Tlaxcala');
 INSERT INTO public.estado(nombre) VALUES ('Veracruz');
 INSERT INTO public.estado(nombre) VALUES ('Yucatán');
 INSERT INTO public.estado(nombre) VALUES ('Zacatecas');
+
+/*
+Autor: Juan Carlos Hernández de Anda
+Fecha: 08/04/2019
+Accion: Creacion de datos de prueba
+*/
+INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('AAAA801201SN9', '0000000000', 'armenta@unam.mx', 1, 1);
+INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('BBBB801201SN9', '0000000000', 'benitez@unam.mx', 1, 2);
+
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (1, 1);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (2, 2);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (3, 3);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (1, 4);
+
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Raul', 'Lopez', 'Diaz', 'raul@unam.mx', 1, 1, 1, 1);
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Maria', 'Martinez', 'Ordaz', 'maria@unam.mx', 1, 1, 1, 1);
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Irma', 'Villa', 'Salinas', 'irma@unam.mx', 1, 1, 1, 1);
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Gerardo', 'Gutierrez', 'Pliego', 'gerardo@unam.mx', 1, 1, 1, 1);
+
+INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (1, '001', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
+INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (1, '002', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
+INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (5, '001', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
+
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A001', 'Biologia 1', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A002', 'Biologia 2', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A003', 'Biologia 3', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A004', 'Biologia 4', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B001', 'Matematicas 1', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B002', 'Matematicas 2', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B003', 'Matematicas 3', 1, 40);
