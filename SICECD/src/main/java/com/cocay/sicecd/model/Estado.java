@@ -24,10 +24,25 @@ public class Estado {
 	int pk_id_estado;
 	@Column(name = "nombre")
 	String nombre;
+/*
+	@OneToMany(mappedBy = "fk_id_estado", targetEntity=Profesor.class, cascade = CascadeType.ALL)
+ 	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Profesor> profesores = new ArrayList<>();*/
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Profesor> profesores = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "fk_id_estado", targetEntity=Profesor.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<TestClass> testclases = new ArrayList<>();
 
+	
+	
+	public List<TestClass> getTestclases() {
+		return testclases;
+	}
+
+	public void setTestclases(List<TestClass> testclases) {
+		this.testclases = testclases;
+	}
 
 	public int getPk_id_estado() {
 		return pk_id_estado;
@@ -44,7 +59,7 @@ public class Estado {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+/*
 	public List<Profesor> getProfesores() {
 		return profesores;
 	}
@@ -52,6 +67,6 @@ public class Estado {
 	public void setProfesores(List<Profesor> profesores) {
 		this.profesores = profesores;
 	}
-	
+	*/
 	
 }

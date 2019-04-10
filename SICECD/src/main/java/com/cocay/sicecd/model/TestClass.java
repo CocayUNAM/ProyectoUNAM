@@ -7,7 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "TestClass")
@@ -30,6 +35,12 @@ public class TestClass implements Serializable {
 
 	@Column(name = "rol")
 	private String rol;
+	
+	
+	@ManyToOne(targetEntity=Estado.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinColumn(name = "fk_id_estado")
+	Estado fk_id_estado;
 	 
 	public TestClass() {
 	}
@@ -70,6 +81,19 @@ public class TestClass implements Serializable {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+	
+	
+	
+
+
+
+	public Estado getFk_id_estado() {
+		return fk_id_estado;
+	}
+
+	public void setFk_id_estado(Estado fk_id_estado) {
+		this.fk_id_estado = fk_id_estado;
 	}
 
 	@Override

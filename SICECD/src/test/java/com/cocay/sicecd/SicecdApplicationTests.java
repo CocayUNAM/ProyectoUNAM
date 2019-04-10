@@ -1,5 +1,10 @@
 package com.cocay.sicecd;
+import com.cocay.sicecd.model.Estado;
+import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.TestClass;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.cocay.sicecd.repo.EstadoRep;
+import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.TestRepository;
 
 @RunWith(SpringRunner.class)
@@ -15,16 +22,31 @@ public class SicecdApplicationTests {
 
 	@Autowired
 	TestRepository _test;
+	@Autowired
+	EstadoRep _estado;
+	@Autowired
+	ProfesorRep _profesor;
+	
 	@Test
 	public void contextLoads() {
+		/*
 		TestClass usuario=new TestClass();
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         //usuario.setPass(passwordEncoder.encode("hola"));       
-        usuario.setName("franki3");
-        usuario.setPass("frank3");
+        usuario.setName("franki4");
+        usuario.setPass("frank4");
         usuario.setRol("ROLE_USUARIO");
-		System.out.println("\ncontraseña----"+usuario.getPass());
+		List<Estado> estados=_estado.findByNombre("guadalajara");
+        usuario.setFk_id_estado(estados.get(0));
 		_test.save(usuario);
+		*/
+
+	
+		List<TestClass> clases=(List<TestClass>) _test.findAll();
+		for (TestClass testClass : clases) {
+			System.out.println(testClass.getName());
+		}
+	
 	
 	}
 
