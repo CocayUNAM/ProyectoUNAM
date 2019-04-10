@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         		.permitAll();
     }
 	
-	/*
+	//*
 	@Autowired
    	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     	      BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 	//*/
 	
-	//*
+	/*
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth

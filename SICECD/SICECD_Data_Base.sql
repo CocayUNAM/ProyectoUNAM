@@ -278,8 +278,8 @@ Autor: Juan Carlos Hernández de Anda
 Fecha: 08/04/2019
 Accion: Creacion de datos de prueba
 */
-INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('AAAA801201SN9', '0000000000', 'armenta@unam.mx', 1, 1);
-INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('BBBB801201SN9', '0000000000', 'benitez@unam.mx', 1, 2);
+INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'armenta@unam.mx', 1, 1);
+INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('BBBB801201SN9', '$2a$10$8n2o/aSS96.kisZBBMzdM.BwOryAWdFwFlsjIWFvIkObYJ8Na/2O2', 'benitez@unam.mx', 1, 2);
 
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (1, 1);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (2, 2);
