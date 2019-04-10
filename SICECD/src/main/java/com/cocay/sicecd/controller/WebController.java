@@ -35,7 +35,7 @@ public class WebController {
         return "example/error";
     }*/
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value= {"/login","/"}, method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null) {
             model.addAttribute("errorMsg", "Your username and password are invalid.");
@@ -52,8 +52,8 @@ public class WebController {
     }
 
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String login(Model model){
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(Model model){
 		return "login";
 	}
     
