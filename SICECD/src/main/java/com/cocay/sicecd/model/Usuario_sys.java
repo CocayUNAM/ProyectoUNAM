@@ -33,16 +33,19 @@ public class Usuario_sys {
 	String nombre;
 	@Column(name = "apellido_paterno")
 	String apellido_paterno;
+	
 	@Column(name = "apellido_materno")
 	String apellido_materno;
+	
 	@ManyToOne(targetEntity = Estatus_usuario_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_estatus_usuario_sys", referencedColumnName="pk_estatus_usuario_sys")
-	int fk_id_estatus_usuario_sys;
+	Estatus_usuario_sys estatus_usuario_sys;
+	
 	@ManyToOne(targetEntity = Perfil_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_perfil_sys", referencedColumnName="pk_id_perfil_sys")
-	int fk_id_perfil_sys;
+	Perfil_sys perfil_sys;
 
 	@OneToMany(mappedBy = "fk_id_usuario_sys", targetEntity=Log_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -104,20 +107,20 @@ public class Usuario_sys {
 		this.apellido_materno = apellido_materno;
 	}
 
-	public int getFk_id_estatus_usuario_sys() {
-		return fk_id_estatus_usuario_sys;
+	public Estatus_usuario_sys getEstatus_usuario_sys() {
+		return estatus_usuario_sys;
 	}
 
-	public void setFk_id_estatus_usuario_sys(int fk_id_estatus_usuario_sys) {
-		this.fk_id_estatus_usuario_sys = fk_id_estatus_usuario_sys;
+	public void setEstatus_usuario_sys(Estatus_usuario_sys estatus_usuario_sys) {
+		this.estatus_usuario_sys = estatus_usuario_sys;
 	}
 
-	public int getFk_id_perfil_sys() {
-		return fk_id_perfil_sys;
+	public Perfil_sys getPerfil_sys() {
+		return perfil_sys;
 	}
 
-	public void setFk_id_perfil_sys(int fk_id_perfil_sys) {
-		this.fk_id_perfil_sys = fk_id_perfil_sys;
+	public void setPerfil_sys(Perfil_sys perfil_sys) {
+		this.perfil_sys = perfil_sys;
 	}
 
 	public List<Log_sys> getLog_sys_s() {
