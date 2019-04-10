@@ -3,6 +3,7 @@ package com.cocay.sicecd.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,9 +25,9 @@ public class Estado {
 	@Column(name = "nombre")
 	String nombre;
 
-	@OneToMany(mappedBy = "fk_id_estado", targetEntity=Profesor.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Profesor> profesores = new ArrayList<>();
+
 
 	public int getPk_id_estado() {
 		return pk_id_estado;

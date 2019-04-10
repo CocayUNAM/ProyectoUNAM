@@ -10,7 +10,6 @@ import com.cocay.sicecd.model.TestClass;
 
 @Repository
 public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Integer>{
-	List<Profesor> findByCurp(String name);
 	List<Profesor> findByRfc(String name);
 
 }

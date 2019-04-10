@@ -1,6 +1,7 @@
 package com.cocay.sicecd.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.TestRepository;
 
 @Controller
@@ -17,6 +20,8 @@ public class WebController {
 
 	@Autowired
 	TestRepository testRepository;
+	@Autowired
+	ProfesorRep test;
 	
 	/*
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -72,6 +77,40 @@ public class WebController {
 	@RequestMapping(value = "/table-export", method = RequestMethod.GET)
 	public String exampleExport(){
 		return "example/table-export";
+	}
+	
+	@RequestMapping(value = "/consultarProfesor", method = RequestMethod.GET)
+	public String consultaProfesor(Model model) {
+		return "example/consultaProfesor";
+	}
+
+	@RequestMapping(value = "/consultarProfesorOK", method = RequestMethod.POST)
+	public String consultarProfesor(Model model, HttpServletRequest request) {
+		String rfcs = request.getParameter("rfc");
+		List<Profesor> rfc = test.findByRfc(rfcs);
+
+		if (rfc.isEmpty()) {
+			return "example/consultaProfesor";
+
+		} else {
+
+			model.addAttribute("test", test.findAll());
+			return "/example/muestraProfesor";
+		}
+
+		/*
+		 * if(rfcs.equals(rfc)) { model.addAttribute("test", test.findAll()); return
+		 * "/example/muestraProfesor";
+		 * 
+		 * 
+		 * }else { return "example/consultaProfesor";
+		 * 
+		 * }
+		 */
+	}
+	@RequestMapping(value = "/consultaCurso", method = RequestMethod.GET)
+	public String consultaCurso(Model model){
+		return "example/consultarCurso";
 	}
 	
 	@RequestMapping(value = "/table-jsgrid", method = RequestMethod.GET)

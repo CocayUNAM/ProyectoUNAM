@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/main.css">
+    <title>SpringImageApp</title>
+</head>
+<body>
+<div>Profesor:<br></div>
+<div>
+<table>
+    <tr th:each="Profesor : ${test}">
+        <td th:text="${Profesor.nombre}">Text ...</td>
+        <td th:text="${Profesor.apellido_paterno}">Text ...</td>
+         <td th:text="${Profesor.apellido_materno}">Text ...</td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

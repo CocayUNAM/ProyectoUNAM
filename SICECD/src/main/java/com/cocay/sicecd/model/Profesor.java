@@ -39,7 +39,8 @@ public class Profesor {
 	String telefono;
 	@ManyToOne(targetEntity=Estado.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_estado", referencedColumnName="pk_id_estado")
+	@JoinColumn(name = "fk_id_estado", referencedColumnName="pk_id_estado",insertable = false, updatable = false)
+	Estado estado;
 	int fk_id_estado;
 	String ciudad_localidad;
 	int id_genero;
@@ -47,11 +48,13 @@ public class Profesor {
 	String clave_plantel;
 	@ManyToOne(targetEntity=Turno.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_turno")
+	@JoinColumn(name = "fk_id_turno",referencedColumnName="pk_id_turno",insertable = false, updatable = false)
+	Turno turno;
 	int fk_id_turno;
 	@ManyToOne(targetEntity=Grado_profesor.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_grado_profesor")
+	@JoinColumn(name = "fk_id_grado_profesor",referencedColumnName="pk_id_grado_profesor",insertable = false, updatable = false)
+	Grado_profesor grado;
 	int fk_id_grado_profesor;
 	String ocupacion;
 	String curriculum;
