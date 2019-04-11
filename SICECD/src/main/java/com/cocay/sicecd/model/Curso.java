@@ -3,6 +3,7 @@ package com.cocay.sicecd.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,15 +31,15 @@ public class Curso {
 
 	@ManyToOne(targetEntity=Tipo_curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_tipo_curso", referencedColumnName="pk_id_tipo_curso")
+	@JoinColumn(name = "fk_id_tipo_curso", referencedColumnName="pk_id_tipo_curso",insertable = false, updatable = false)
+	Tipo_curso tipo;
 	int fk_id_tipo_curso;
 	
 	@Column(name = "horas")
 
 	int horas;
 
-	@OneToMany(mappedBy = "fk_id_curso", targetEntity=Grupo.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Grupo> grupos = new ArrayList<>();
 
 	public int getPk_id_curso() {
