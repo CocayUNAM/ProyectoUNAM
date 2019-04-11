@@ -16,7 +16,7 @@ public class ConsultaController {
 	
 	@RequestMapping(value = "/consultas", method = RequestMethod.GET)
 	public String show(Model model){
-        //model.addAttribute("profesores", profesor.findAll());
+        model.addAttribute("profesores", profesor.findAll());
 		
 		return "consultas/consultas";
 	}
