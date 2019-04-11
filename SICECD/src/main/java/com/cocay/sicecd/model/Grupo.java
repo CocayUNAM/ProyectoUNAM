@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,8 @@ public class Grupo {
 	int pk_id_grupo;
 	@ManyToOne(targetEntity=Curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_curso")
+	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso",insertable = false, updatable = false)
+	Curso curso;
 	int fk_id_curso;
 	@Column(name = "clave")
 	String clave;
@@ -35,8 +37,7 @@ public class Grupo {
 	@Column(name = "fecha_fin")
 	Date fecha_fin;
 
-	@OneToMany(mappedBy = "fk_id_grupo", targetEntity=Inscripcion.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
 
 	public int getPk_id_grupo() {

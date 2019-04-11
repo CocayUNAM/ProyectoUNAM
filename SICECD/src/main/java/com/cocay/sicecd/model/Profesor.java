@@ -62,7 +62,7 @@ public class Profesor {
 	@OneToMany(mappedBy = "fk_id_profesor", targetEntity=Inscripcion.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
-
+	
 	public int getPk_id_profesor() {
 		return pk_id_profesor;
 	}
