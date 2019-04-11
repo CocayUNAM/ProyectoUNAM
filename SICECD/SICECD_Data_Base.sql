@@ -306,3 +306,23 @@ INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (2, 2);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (3, 3);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (1, 4);
 COMMIT;
+
+/*
+Autor: Juan Carlos Hernández de Anda
+Fecha: 11/04/2019
+Accion: Creacion de datos de los catalogos y datos de prueba
+*/
+ALTER TABLE public.curso OWNER to "SICECD";
+ALTER TABLE public.estado OWNER to "SICECD";
+ALTER TABLE public.estatus_usuario_sys OWNER to "SICECD";
+ALTER TABLE public.genero OWNER to "SICECD";
+ALTER TABLE public.grado_profesor OWNER to "SICECD";
+ALTER TABLE public.grupo OWNER to "SICECD";
+ALTER TABLE public.inscripcion OWNER to "SICECD";
+ALTER TABLE public.log_evento_sys OWNER to "SICECD";
+ALTER TABLE public.log_sys OWNER to "SICECD";
+ALTER TABLE public.perfil_sys OWNER to "SICECD";
+ALTER TABLE public.profesor OWNER to "SICECD";
+ALTER TABLE public.tipo_curso OWNER to "SICECD";
+ALTER TABLE public.turno OWNER to "SICECD";
+ALTER TABLE public.usuario_sys OWNER to "SICECD";

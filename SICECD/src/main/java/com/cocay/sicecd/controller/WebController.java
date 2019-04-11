@@ -26,26 +26,12 @@ public class WebController {
 	@Autowired
 	ProfesorRep test;
 	
-	/*
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loggea(HttpServletRequest request, Principal principal) {
-        if (request.isUserInRole("ROLE_USUARIO")) {
-            return "example/user/inicio";
-        }
-        if (request.isUserInRole("ROLE_ADMIN")) {
-            return "example/admin/inicio";
-        }
-        return "example/error";
-    }*/
-	
 	@RequestMapping(value= {"/login","/"}, method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null) {
-            model.addAttribute("errorMsg", "Your username and password are invalid.");
-        	System.out.println("\nusuairio erroneo----");
+            model.addAttribute("errorMsg", "Your username or password are invalid.");
         	System.out.println(error);
-        	System.out.println("\nusuairio erroneo-hjk-");
-
+        	System.out.println("\nUsuario erroneo-");
         }
 
         if (logout != null)
