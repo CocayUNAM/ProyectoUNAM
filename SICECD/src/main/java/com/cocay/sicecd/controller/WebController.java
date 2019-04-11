@@ -120,6 +120,24 @@ public class WebController {
 		 * }
 		 */
 	}
+	
+	@RequestMapping(value = "/consultarProfesornoMBRE", method = RequestMethod.POST)
+	public String consultarProfesornoNombre(Model model, HttpServletRequest request) {
+		String nombre = request.getParameter("nombre");
+		String apellido_paterno = request.getParameter("apellido_paterno");
+		String apellido_materno = request.getParameter("apellido_materno");
+		
+		return "example/consultaProfesor";
+		/*
+		 * if(rfcs.equals(rfc)) { model.addAttribute("test", test.findAll()); return
+		 * "/example/muestraProfesor";
+		 * 
+		 * 
+		 * }else { return "example/consultaProfesor";
+		 * 
+		 * }
+		 */
+	}
 	@RequestMapping(value = "/consultaCurso", method = RequestMethod.GET)
 	public String consultaCurso(Model model){
 		return "example/consultarCurso";

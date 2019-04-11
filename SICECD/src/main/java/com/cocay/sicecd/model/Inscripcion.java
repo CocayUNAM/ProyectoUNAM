@@ -21,11 +21,13 @@ public class Inscripcion {
 	int pk_id_inscripcion;
 	@ManyToOne(targetEntity=Grupo.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_grupo")
+	@JoinColumn(name = "fk_id_grupo",referencedColumnName="pk_id_grupo",insertable = false, updatable = false)
+	Grupo grupo;
 	int fk_id_grupo;
 	@ManyToOne(targetEntity=Profesor.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_profesor")
+	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor",insertable = false, updatable = false)
+	Profesor profesor;
 	int fk_id_profesor;
 	public int getPk_id_inscripcion() {
 		return pk_id_inscripcion;
