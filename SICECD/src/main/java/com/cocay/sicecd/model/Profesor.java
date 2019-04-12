@@ -63,6 +63,15 @@ public class Profesor {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
 	
+	
+	public Profesor(String nombre, String apellido_paterno,String apellido_materno,String correo, String rfc) {
+		this.nombre=nombre;
+		this.apellido_paterno=apellido_paterno;
+		this.apellido_materno=apellido_materno;
+		this.correo=correo;
+		this.rfc=rfc;
+		
+	}
 	public int getPk_id_profesor() {
 		return pk_id_profesor;
 	}
