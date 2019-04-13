@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Sistema de Control Escolar para Cursos y Diplomados</title>
+
+<!-- ================= Favicon ================== -->
+<!-- Standard -->
+<link rel="shortcut icon" href="img/favicon.ico">
+
+<!-- Styles -->
+<link href="css/lib/select2/select2.min.css" rel="stylesheet">
+<link href="css/lib/font-awesome.min.css" rel="stylesheet">
+<link href="css/lib/themify-icons.css" rel="stylesheet">
+<link href="css/lib/menubar/sidebar.css" rel="stylesheet">
+<link href="css/lib/bootstrap.min.css" rel="stylesheet">
+<link href="css/lib/helper.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+	<div th:replace="/includes/head.html :: head_div1" />
+	<div th:replace="/includes/head.html :: head_div2" />
+
+	<!-- START CONTENTS -->
+	<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row">
+					<!-- /# column -->
+
+					<!-- /# column -->
+				</div>
+				<!-- /# row -->
+				<section id="main-content">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-title"></div>
+								<div class="card-body">
+									<div class="basic-form">
+										<form action="resultadosProfesores" method="post">
+											<div class="form-group">
+												<h4>Consultar Profesor por nombre</h4>
+												<label>Nombre</label> <input type="text"
+													class="form-control" placeholder="Juan" name="nombre">
+												<label>Apellido Paterno</label> <input type="text"
+													class="form-control" placeholder="Perez" name="apellido_paterno">
+												<label>Apellido Materno</label> <input type="text"
+													class="form-control" placeholder="Perez" name="apellido_materno">
+											</div>
+											<button type="submit" class="btn btn-default">Consultar</button>
+										</form>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</section>
+			</div>
+		</div>
+	</div>
+
+	<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row">
+					<!-- /# column -->
+
+					<!-- /# column -->
+				</div>
+				<!-- /# row -->
+				<section id="main-content">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-title"></div>
+								<div class="card-body">
+									<div class="basic-form">
+
+										<form action="/consultarProfesorRFC" method="post">
+											<div class="form-group">
+												<h4>Consultar Profesor por RFC</h4>
+												<label>RFC</label> <input type="text" class="form-control" name="rfc"
+													maxlength="13" placeholder="SAMH2509126L6" required>
+											</div>
+											<button type="submit" class="btn btn-default">Consultar</button>
+										</form>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</section>
+			</div>
+		</div>
+	</div>
+	<!-- END CONTENTS -->
+
+	<!-- jquery vendor -->
+	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/jquery.nanoscroller.min.js"></script>
+	<!-- nano scroller -->
+	<script src="js/lib/menubar/sidebar.js"></script>
+	<script src="js/lib/preloader/pace.min.js"></script>
+	<!-- sidebar -->
+	<!-- bootstrap -->
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="js/scripts.js"></script>
+</body>
+</html>
