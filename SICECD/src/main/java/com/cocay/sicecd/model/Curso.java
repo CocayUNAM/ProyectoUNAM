@@ -24,24 +24,26 @@ public class Curso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_curso")
 	int pk_id_curso;
+	
 	@Column(name = "clave")
 	String clave;
+	
 	@Column(name = "nombre")
 	String nombre;
 
 	@ManyToOne(targetEntity=Tipo_curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_tipo_curso", referencedColumnName="pk_id_tipo_curso",insertable = false, updatable = false)
-	Tipo_curso tipo;
-	int fk_id_tipo_curso;
+	Tipo_curso fk_id_tipo_curso;
 	
 	@Column(name = "horas")
-
 	int horas;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Grupo> grupos = new ArrayList<>();
 
+	public Curso(){}
+	
 	public int getPk_id_curso() {
 		return pk_id_curso;
 	}
@@ -66,11 +68,11 @@ public class Curso {
 		this.nombre = nombre;
 	}
 
-	public int getFk_id_tipo_curso() {
+	public Tipo_curso getFk_id_tipo_curso() {
 		return fk_id_tipo_curso;
 	}
 
-	public void setFk_id_tipo_curso(int fk_id_tipo_curso) {
+	public void setFk_id_tipo_curso(Tipo_curso fk_id_tipo_curso) {
 		this.fk_id_tipo_curso = fk_id_tipo_curso;
 	}
 
