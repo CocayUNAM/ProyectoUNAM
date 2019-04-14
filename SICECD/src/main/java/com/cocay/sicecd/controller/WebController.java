@@ -96,5 +96,17 @@ public class WebController {
 	public String consultaCurso(Model model) {
 		return "example/consultarCurso";
 	}
+	
+	//Mapeo del html para registrar cursos
+	@RequestMapping(value = "/registrarCursos", method = RequestMethod.GET)
+	public String RegistrarCursos(Model model){
+		return "CursosController/registrarCursos";
+	}
+	
+	//Mapeo del html para registrar cursos
+	@RequestMapping(value = "/registrarProfesores", method = RequestMethod.GET)
+	public String RegistrarProfesores(Model model){
+		return "ProfesoresController/registrarProfesores";
+	}
 
 }
