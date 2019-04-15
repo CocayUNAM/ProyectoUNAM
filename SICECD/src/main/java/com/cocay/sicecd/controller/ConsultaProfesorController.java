@@ -19,7 +19,7 @@ public class ConsultaProfesorController {
 	@Autowired
 	ProfesorRep profesor;
 
-	@RequestMapping(value = "/consultarProfesor", method = RequestMethod.GET)
+	@RequestMapping(value = "/consultaProfesor", method = RequestMethod.GET)
 	public String consultaProfesor(Model model) {
 		return "ConsultarProfesor/consultaProfesor";
 	}

@@ -27,7 +27,12 @@
 						<li class="label">Cursos</li>
                         <li><a href="blank"><i class="ti-check-box"></i> Profesores </a></li>
                         <li><a href="#"><i class="ti-world"></i> Cursos </a></li>
-						<li><a href="#"><i class="ti-printer"></i> Resportes </a></li>
+						<li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Reportes <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                            <ul>
+                            	<li><a th:href="@{/consultaProfesor}">Profesores</a></li>
+                                <li><a th:href="@{/consultaCurso}">Cursos</a></li>
+                            </ul>
+                        </li>
 						<li class="label">Sistema</li>
                         <li><a href="#"><i class="ti-user"></i> Usuarios </a></li>
                         <li><a href="#"><i class="ti-book"></i> Auditoria</a></li>
