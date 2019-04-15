@@ -8,13 +8,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cocay.sicecd.model.Curso;
+import com.cocay.sicecd.model.Tipo_curso;
+import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.repo.Tipo_cursoRep;
 
 @Controller
 public class ConsultaController {
 	
 	@Autowired
 	ProfesorRep profesor;
+	
+	@Autowired
+	CursoRep cursoRep;
+	
+	@Autowired
+	Tipo_cursoRep tipo_cursoRep;
 	
 	@RequestMapping(value = "/consultas", method = RequestMethod.GET)
 	public String show(Model model){
@@ -25,6 +35,29 @@ public class ConsultaController {
 
 	@RequestMapping(value = "/consultasProfesores", method = RequestMethod.GET)
 	public String consultasProfesores(Model model){
+		
+		//*
+		Tipo_curso tipo_curso = tipo_cursoRep.findByNombre("Curso").get(0);
+		System.out.println("====================");
+		System.out.println(tipo_curso.toString());
+		System.out.println(tipo_curso.getPk_id_tipo_curso());
+		System.out.println(tipo_curso.getNombre());
+		tipo_cursoRep.save(tipo_curso);
+		
+		Curso curso = new Curso();
+		curso.setClave("100");
+		curso.setNombre("TEST");
+		curso.setHoras(20);
+		curso.setFk_id_tipo_curso(tipo_curso);
+		
+		System.out.println(curso.toString());
+		System.out.println(curso.getFk_id_tipo_curso().getPk_id_tipo_curso());
+		System.out.println(curso.getFk_id_tipo_curso().getNombre());
+		
+		cursoRep.save(curso);
+		//*/
+		
+		//cursoRep.insertCurso("001", "TEST", 1, 20);
 		
 		return "consultas/profesores";
 	}

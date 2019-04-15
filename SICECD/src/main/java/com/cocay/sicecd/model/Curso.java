@@ -33,7 +33,7 @@ public class Curso {
 
 	@ManyToOne(targetEntity=Tipo_curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_tipo_curso", referencedColumnName="pk_id_tipo_curso",insertable = false, updatable = false)
+	@JoinColumn(name = "fk_id_tipo_curso", referencedColumnName="pk_id_tipo_curso")
 	Tipo_curso fk_id_tipo_curso;
 	
 	@Column(name = "horas")
