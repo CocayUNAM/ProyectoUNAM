@@ -31,24 +31,30 @@ public class CursosController {
 	public String registrarCursos(Model model, HttpServletRequest request){
 		if(request.getParameterNames().hasMoreElements()) {
 			String clave = request.getParameter("clave");
-			System.out.println(clave);
 			
 			String tipo = request.getParameter("tipo");
-			System.out.println(tipo);
+			
+			if(tipo.equals("curso")) {
+				tipo = "Curso";
+			} else if(tipo.equals("diplomado")) {
+				tipo = "Diplomado";
+			} else {
+				tipo = "Especialidad";
+			}
 			
 			String horas = request.getParameter("horas");
-			System.out.println(horas);
 			
 			String nombre = request.getParameter("nombre");
-			System.out.println(nombre);
 			
 			Curso curso = new Curso();
 			
 			curso.setClave(clave);
-			List<Tipo_curso> cursos = tpRep.findByNombre("Curso");
+			
+			List<Tipo_curso> cursos = tpRep.findByNombre(tipo);
 			if(!cursos.isEmpty()) {
 				curso.setFk_id_tipo_curso(cursos.get(0));
 			}
+			
 			curso.setHoras(Integer.valueOf(horas));
 			curso.setNombre(nombre);
 			
