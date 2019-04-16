@@ -1,5 +1,7 @@
 package com.cocay.sicecd.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,6 @@ public class ConsultaProfesorController {
 	public ModelAndView consultarProfesor(ModelMap model, HttpServletRequest request) {
 		String rfcs = request.getParameter("rfc");
 		Profesor p = profesor.findByRfc(rfcs);
-		System.out.println(rfcs);
 		if (p != null) {
 			System.out.println(p.getCorreo());
 			System.out.println(p.getRfc());
@@ -47,7 +48,7 @@ public class ConsultaProfesorController {
 			return new ModelAndView("/ConsultarProfesor/consultaProfesor");
 		}
 	}
-
+	
 	@RequestMapping(value = "/consultarProfesorNombre", method = RequestMethod.POST)
 	public ModelAndView consultarProfesornoNombre(ModelMap model, HttpServletRequest request) {
 		String nombre = request.getParameter("nombre");
@@ -68,23 +69,14 @@ public class ConsultaProfesorController {
 		} else {
 			apellido_materno = apellido_materno.toUpperCase();
 		}
-		Profesor p = profesor.findByCompleteName(nombre, apellido_paterno, apellido_materno);
-		if (p != null) {
-			model.addAttribute("nombre", p.getNombre());
-			model.addAttribute("apellido_paterno", p.getApellido_paterno());
-			model.addAttribute("apellido_materno", p.getApellido_materno());
-			model.addAttribute("correo", p.getCorreo());
-			model.addAttribute("rfc", p.getRfc());
-			model.addAttribute("estado", p.getFk_id_estado().getNombre());
-			model.addAttribute("grado", p.getFk_id_grado_profesor().getNombre());
-			model.addAttribute("clave-plantel", p.getClave_plantel());
-			model.addAttribute("ocupacion", p.getOcupacion());
-			model.addAttribute("inscripcion", p.getInscripciones());
-			return new ModelAndView("/ConsultarProfesor/muestraProfesor", model);
-
+		
+		List<Profesor> list_p = profesor.findByCompleteNameList(nombre, apellido_paterno, apellido_materno);
+		if(!list_p.isEmpty()) {
+			model.put("profesores", list_p);
+			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
+			
 		} else {
 			return new ModelAndView("/ConsultarProfesor/consultaProfesor");
-
 		}
 	}
 }

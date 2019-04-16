@@ -1,9 +1,5 @@
 package com.cocay.sicecd.repo;
 
-
-
-
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -16,7 +12,6 @@ import com.cocay.sicecd.model.Profesor;
 
 @Repository
 public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Integer>{
-//List<Profesor> findByRfc(String name);
 
 @Query("SELECT p FROM Profesor p  where p.rfc = :rfc ")
 Profesor findByRfc(@Param("rfc")String rfc);
@@ -28,7 +23,6 @@ Profesor findByRfc(@Param("rfc")String rfc);
 Profesor findByCompleteName(@Param("nombre") String nombre,
                              @Param("apellido_paterno") String apellido_paterno,
                              @Param("apellido_materno") String apellido_materno);
-
 
 @Query("SELECT p FROM Profesor p "
 		+ "WHERE upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "

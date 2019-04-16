@@ -54,12 +54,10 @@ public class ConsultaCursoController {
 			//System.out.println(g.getFecha_inicio());
 			//System.out.println(g.getFecha_fin());
 		}
-
 		
-		return new ModelAndView("ConsultarCurso/mostrarCurso",model);
+		return new ModelAndView("ConsultarCurso/muestraListaCurso",model);
 		}else {
 			return  new ModelAndView("ConsultarCurso/mostrarCurso");
 		}
 	}
-
 }
