@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         	.csrf().disable()
             .authorizeRequests()
                 .antMatchers("/", "/login", "/logout", "/css/**", "/fonts/**", "/img/**", "/js/**", "favicon.ico").permitAll()
+                .antMatchers("/AdministracionCursos/**").hasAuthority("Administrador")
                 .antMatchers("/example/table-export").hasAuthority("Administrador")
                 .antMatchers("/example/table-row-select").hasAnyAuthority("Consultas", "Administrador")
                 .anyRequest().authenticated()
