@@ -57,7 +57,7 @@ public class ConsultaCursoController {
 		
 		return new ModelAndView("ConsultarCurso/muestraListaCurso",model);
 		}else {
-			return  new ModelAndView("ConsultarCurso/mostrarCurso");
+			return new ModelAndView("ConsultarCurso/mostrarCurso");
 		}
 	}
 }

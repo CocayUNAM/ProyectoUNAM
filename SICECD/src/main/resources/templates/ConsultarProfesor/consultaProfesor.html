@@ -25,16 +25,90 @@
 	<div th:replace="/includes/head.html :: head_div2" />
 
 	<!-- START CONTENTS -->
-	<!-- START CONSULTAR PROFESOR POR NOMBRE -->
 	<div class="content-wrap">
 		<div class="main">
 			<div class="container-fluid">
-				<div class="row"></div>
 				<section id="main-content">
+					
+					<!-- START ROW -->
 					<div class="row">
+						
+						<!-- START CONSULTAR PROFESOR POR RFC -->
 						<div class="col-lg-6">
 							<div class="card">
-								<div class="card-title"></div>
+								<div class="card-body">
+									<div class="basic-form">
+										<form action="/consultarProfesorRFC" method="post">
+											<div class="form-group">
+												<h4>Consulta por RFC</h4>
+												<label>RFC</label>
+													<input type="text" class="form-control" name="rfc"
+													maxlength="13" placeholder="SAMH2509126L6" required>
+											</div>
+											<button type="submit" class="btn btn-default">Consultar</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END CONSULTAR PROFESOR POR RFC -->
+						
+						<!-- START CONSULTAR PROFESOR POR LOCALIDAD -->
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-body">
+									<div class="basic-form">
+										<form action="/consultarProfesorEstado" method="post">
+											<div class="form-group">
+												<h4>Consulta por Estado</h4>
+												<label>Estado</label>
+													<select name="estados" class="form-control">
+														<option value="0"></option>
+														<option value="1">Aguascalientes</option>
+														<option value="2">Baja California</option>
+														<option value="3">Baja California Sur</option>
+														<option value="4">Campeche</option>
+														<option value="5">Ciudad de México</option>
+														<option value="6">Coahuila</option>
+														<option value="7">Colima</option>
+														<option value="8">Chiapas</option>
+														<option value="9">Chihuahua</option>
+														<option value="10">Durango</option>
+														<option value="11">Estado de México</option>
+														<option value="12">Guanajuato</option>
+														<option value="13">Guerrero</option>
+														<option value="14">Hidalgo</option>
+														<option value="15">Jalisco</option>
+														<option value="16">Michoacán</option>
+														<option value="17">Morelos</option>
+														<option value="18">Nayarit</option>
+														<option value="19">Nuevo León</option>
+														<option value="20">Oaxaca</option>
+														<option value="21">Puebla</option>
+														<option value="22">Querétaro</option>
+														<option value="23">Quintana Roo</option>
+														<option value="24">San Luis Potosí</option>
+														<option value="25">Sinaloa</option>
+														<option value="26">Sonora</option>
+														<option value="27">Tabasco</option>
+														<option value="28">Tamaulipas</option>
+														<option value="29">Tlaxcala</option>
+														<option value="30">Veracruz</option>
+														<option value="31">Yucatán</option>
+														<option value="32">Zacatecas</option>
+													</select>
+											</div>
+											<button type="submit" class="btn btn-default">Consultar</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END CONSULTAR PROFESOR POR LOCALIDAD -->
+						
+						<!-- START CONSULTAR PROFESOR POR NOMBRE -->
+						<div class="col-lg-6">
+							<div class="card">
 								<div class="card-body">
 									<div class="basic-form">
 										<form action="/consultarProfesorNombre" method="post">
@@ -54,150 +128,16 @@
 										</form>
 									</div>
 								</div>
-
 							</div>
 						</div>
-					</div>
-
-				</section>
-			</div>
-		</div>
-	</div>
-	<!-- END CONSULTAR PROFESOR POR NOMBRE -->
-
-	<!-- START CONSULTAR PROFESOR POR RFC -->
-	<div class="content-wrap">
-		<div class="main">
-			<div class="container-fluid">
-				<div class="row">
-					<!-- /# column -->
-
-					<!-- /# column -->
-				</div>
-				<!-- /# row -->
-				<section id="main-content">
-					<div class="row">
+						<!-- END CONSULTAR PROFESOR POR NOMBRE -->
+						
+						<!-- START CONSULTAR PROFESOR PERSONALIZADO -->
 						<div class="col-lg-6">
 							<div class="card">
-								<div class="card-title"></div>
 								<div class="card-body">
 									<div class="basic-form">
-
-										<form action="/consultarProfesorRFC" method="post">
-											<div class="form-group">
-												<h4>Consulta por RFC</h4>
-												<label>RFC</label>
-													<input type="text" class="form-control" name="rfc"
-													maxlength="13" placeholder="SAMH2509126L6" required>
-											</div>
-											<button type="submit" class="btn btn-default">Consultar</button>
-										</form>
-
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-				</section>
-			</div>
-		</div>
-	</div>
-	<!-- END CONSULTAR PROFESOR POR RFC -->
-	
-	<!-- START CONSULTAR PROFESOR POR LOCALIDAD -->
-	<div class="content-wrap">
-		<div class="main">
-			<div class="container-fluid">
-				<div class="row">
-					<!-- /# column -->
-
-					<!-- /# column -->
-				</div>
-				<!-- /# row -->
-				<section id="main-content">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="card">
-								<div class="card-title"></div>
-								<div class="card-body">
-									<div class="basic-form">
-
-										<form action="/consultarProfesorEstado" method="post">
-											<div class="form-group">
-												<h4>Consulta por Estado</h4>
-												<label>Estado</label>
-													<form><select name="" text="">
-													<option value="1">Aguascalientes</option>
-													<option value="2">Baja California</option>
-													<option value="3">Baja California Sur</option>
-													<option value="4">Campeche</option>
-													<option value="5">Ciudad de México</option>
-													<option value="6">Coahuila</option>
-													<option value="7">Colima</option>
-													<option value="8">Chiapas</option>
-													<option value="9">Chihuahua</option>
-													<option value="10">Durango</option>
-													<option value="11">Estado de México</option>
-													<option value="12">Guanajuato</option>
-													<option value="13">Guerrero</option>
-													<option value="14">Hidalgo</option>
-													<option value="15">Jalisco</option>
-													<option value="16">Michoacán</option>
-													<option value="17">Morelos</option>
-													<option value="18">Nayarit</option>
-													<option value="19">Nuevo León</option>
-													<option value="20">Oaxaca</option>
-													<option value="21">Puebla</option>
-													<option value="22">Querétaro</option>
-													<option value="23">Quintana Roo</option>
-													<option value="24">San Luis Potosí</option>
-													<option value="25">Sinaloa</option>
-													<option value="26">Sonora</option>
-													<option value="27">Tabasco</option>
-													<option value="28">Tamaulipas</option>
-													<option value="29">Tlaxcala</option>
-													<option value="30">Veracruz</option>
-													<option value="31">Yucatán</option>
-													<option value="32">Zacatecas</option>
-													</select></form>
-											</div>
-											
-											<button type="submit" class="btn btn-default">Consultar</button>
-										</form>
-
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-				</section>
-			</div>
-		</div>
-	</div>
-	<!-- END CONSULTAR PROFESOR POR LOCALIDAD -->
-	
-	<!-- START CONSULTAR PROFESOR PERSONALIZADO -->
-	<div class="content-wrap">
-		<div class="main">
-			<div class="container-fluid">
-				<div class="row">
-					<!-- /# column -->
-
-					<!-- /# column -->
-				</div>
-				<!-- /# row -->
-				<section id="main-content">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="card">
-								<div class="card-title"></div>
-								<div class="card-body">
-									<div class="basic-form">
-										<form action="/consultarProfesorNombre" method="post">
+										<form action="/consultarProfesorPersonalizado" method="post">
 											<div class="form-group">
 												<h4>Consulta personalizada</h4>
 												<label>Nombre</label>
@@ -210,46 +150,47 @@
 													<input type="text" class="form-control" placeholder="Perez" name="apellido_materno"
 													pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]" required>
 												<label>Estado</label>
-													<form><select name="" text="">
-													<option value="1">Aguascalientes</option>
-													<option value="2">Baja California</option>
-													<option value="3">Baja California Sur</option>
-													<option value="4">Campeche</option>
-													<option value="5">Ciudad de México</option>
-													<option value="6">Coahuila</option>
-													<option value="7">Colima</option>
-													<option value="8">Chiapas</option>
-													<option value="9">Chihuahua</option>
-													<option value="10">Durango</option>
-													<option value="11">Estado de México</option>
-													<option value="12">Guanajuato</option>
-													<option value="13">Guerrero</option>
-													<option value="14">Hidalgo</option>
-													<option value="15">Jalisco</option>
-													<option value="16">Michoacán</option>
-													<option value="17">Morelos</option>
-													<option value="18">Nayarit</option>
-													<option value="19">Nuevo León</option>
-													<option value="20">Oaxaca</option>
-													<option value="21">Puebla</option>
-													<option value="22">Querétaro</option>
-													<option value="23">Quintana Roo</option>
-													<option value="24">San Luis Potosí</option>
-													<option value="25">Sinaloa</option>
-													<option value="26">Sonora</option>
-													<option value="27">Tabasco</option>
-													<option value="28">Tamaulipas</option>
-													<option value="29">Tlaxcala</option>
-													<option value="30">Veracruz</option>
-													<option value="31">Yucatán</option>
-													<option value="32">Zacatecas</option>
-													</select></form>
+													<select name="estados" class="form-control">
+														<option value="0"></option>
+														<option value="1">Aguascalientes</option>
+														<option value="2">Baja California</option>
+														<option value="3">Baja California Sur</option>
+														<option value="4">Campeche</option>
+														<option value="5">Ciudad de México</option>
+														<option value="6">Coahuila</option>
+														<option value="7">Colima</option>
+														<option value="8">Chiapas</option>
+														<option value="9">Chihuahua</option>
+														<option value="10">Durango</option>
+														<option value="11">Estado de México</option>
+														<option value="12">Guanajuato</option>
+														<option value="13">Guerrero</option>
+														<option value="14">Hidalgo</option>
+														<option value="15">Jalisco</option>
+														<option value="16">Michoacán</option>
+														<option value="17">Morelos</option>
+														<option value="18">Nayarit</option>
+														<option value="19">Nuevo León</option>
+														<option value="20">Oaxaca</option>
+														<option value="21">Puebla</option>
+														<option value="22">Querétaro</option>
+														<option value="23">Quintana Roo</option>
+														<option value="24">San Luis Potosí</option>
+														<option value="25">Sinaloa</option>
+														<option value="26">Sonora</option>
+														<option value="27">Tabasco</option>
+														<option value="28">Tamaulipas</option>
+														<option value="29">Tlaxcala</option>
+														<option value="30">Veracruz</option>
+														<option value="31">Yucatán</option>
+														<option value="32">Zacatecas</option>
+													</select>
 												<label>Género</label>
-													<form><select name="" text="">
-														<option value="m1">Hombre</option>
-														<option value="f1">Mujer</option>
-														<option value="o1">Otro</option>
-													</select></form>
+													<select name="genero" class="form-control">
+														<option value="0"></option>
+														<option value="1">Masculino</option>
+														<option value="2">Femenino</option>
+													</select>
 											</div>
 											<button type="submit" class="btn btn-default">Consultar</button>
 										</form>
@@ -257,12 +198,14 @@
 								</div>
 							</div>
 						</div>
+						<!-- END CONSULTAR PROFESOR PERSONALIZADO -->
+						
 					</div>
+					<!-- END ROW -->
 				</section>
-			</div>
-		</div>
-	</div>
-	<!-- END CONSULTAR PROFESOR PERSONALIZADO -->	
+            </div>
+        </div>
+    </div>
 	<!-- END CONTENTS -->
 
 	<!-- jquery vendor -->

@@ -50,7 +50,7 @@ public class ConsultaProfesorController {
 	}
 	
 	@RequestMapping(value = "/consultarProfesorNombre", method = RequestMethod.POST)
-	public ModelAndView consultarProfesornoNombre(ModelMap model, HttpServletRequest request) {
+	public ModelAndView consultarProfesorNombre(ModelMap model, HttpServletRequest request) {
 		String nombre = request.getParameter("nombre");
 		String apellido_paterno = request.getParameter("apellido_paterno");
 		String apellido_materno = request.getParameter("apellido_materno");
@@ -71,6 +71,52 @@ public class ConsultaProfesorController {
 		}
 		
 		List<Profesor> list_p = profesor.findByCompleteNameList(nombre, apellido_paterno, apellido_materno);
+		if(!list_p.isEmpty()) {
+			model.put("profesores", list_p);
+			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
+			
+		} else {
+			return new ModelAndView("/ConsultarProfesor/consultaProfesor");
+		}
+	}
+	
+	@RequestMapping(value = "/consultarProfesorEstado", method = RequestMethod.POST)
+	public ModelAndView consultarProfesorEstado(ModelMap model, HttpServletRequest request) {
+		/*String estado = request.getParameter("estados");
+		System.out.println(estado);*/
+		
+		List<Profesor> list_p = profesor.findByStateList(1);
+		if(!list_p.isEmpty()) {
+			model.put("profesores", list_p);
+			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
+		} else {
+			return new ModelAndView("/ConsultarProfesor/consultas");
+		}
+	}
+	
+	@RequestMapping(value = "/consultarProfesorPersonalizado", method = RequestMethod.POST)
+	public ModelAndView consultarProfesorPersonalizado(ModelMap model, HttpServletRequest request) {
+		String nombre = request.getParameter("nombre");
+		String apellido_paterno = request.getParameter("apellido_paterno");
+		String apellido_materno = request.getParameter("apellido_materno");
+		String genero = request.getParameter("genero");
+		if (nombre == null) {
+			nombre = "";
+		} else {
+			nombre = nombre.toUpperCase();
+		}
+		if (apellido_paterno == null) {
+			apellido_paterno = "";
+		} else {
+			apellido_paterno = apellido_paterno.toUpperCase();
+		}
+		if (apellido_materno == null) {
+			apellido_materno = "";
+		} else {
+			apellido_materno = apellido_materno.toUpperCase();
+		}
+		
+		List<Profesor> list_p = profesor.findByAllList(nombre, apellido_paterno, apellido_materno, genero);
 		if(!list_p.isEmpty()) {
 			model.put("profesores", list_p);
 			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
