@@ -3,6 +3,7 @@ package com.cocay.sicecd.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,7 @@ public class ConsultaProfesorController {
 			model.addAttribute("ocupacion", p.getOcupacion());
 			model.addAttribute("inscripcion", p.getInscripciones());
 			return new ModelAndView("/ConsultarProfesor/muestraProfesor", model);
+			
 		} else {
 			return new ModelAndView("/ConsultarProfesor/consultaProfesor");
 		}
