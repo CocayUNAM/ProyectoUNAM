@@ -29,7 +29,7 @@ public class Log_sys {
 	@ManyToOne(targetEntity=Usuario_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_usuario_sys")
-	int fk_id_usuario_sys;
+	Usuario_sys fk_id_usuario_sys;
 	@ManyToOne(targetEntity=Log_evento_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_log_evento_sys")
@@ -52,10 +52,11 @@ public class Log_sys {
 	public void setHora(Date hora) {
 		this.hora = hora;
 	}
-	public int getFk_id_usuario_sys() {
+
+	public Usuario_sys getFk_id_usuario_sys() {
 		return fk_id_usuario_sys;
 	}
-	public void setFk_id_usuario_sys(int fk_id_usuario_sys) {
+	public void setFk_id_usuario_sys(Usuario_sys fk_id_usuario_sys) {
 		this.fk_id_usuario_sys = fk_id_usuario_sys;
 	}
 	public int getFk_id_log_evento_sys() {
