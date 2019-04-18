@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Sistema de Control Escolar para Cursos y Diplomados</title>
+
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    
+    <!-- Styles -->
+    <link href="css/lib/select2/select2.min.css" rel="stylesheet">
+    <link href="css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="css/lib/themify-icons.css" rel="stylesheet">
+    <link href="css/lib/menubar/sidebar.css" rel="stylesheet">
+    <link href="css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="css/lib/helper.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="/includes/head.html :: head_div1" />
+<div th:replace="/includes/head.html :: head_div2" />
+
+<!-- START CONTENTS -->
+	<div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <h1>Registrar profesor</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-4 p-l-0 title-margin-left">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Registro profesor</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-validation">
+                                        <form class="form-valide" action="#" method="post">
+                                        
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-apaterno">Apellido paterno<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-apaterno" name="apaterno" placeholder="Introduce apellido paterno">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-amaterno">Apellido materno<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-amaterno" name="amaterno" placeholder="Introduce apellido materno">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-nombres">Nombre(s)<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val_nombres" name="nombres" placeholder="Introduce nombre(s)">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-curp">CURP<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-curp" name="curp" placeholder="Introduce CURP">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-rfc">RFC <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-rfc" name="rfc" placeholder="Introduce el RFC">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-correo">Correo electronico<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-correo" name="correo" placeholder="Introduce correo.">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-tel">Telefono<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-tel" name="tel" placeholder="Introduce telefono.">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-estado">Estado<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-estado" name="estado" placeholder="Introduce estado.">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-cilo">Ciudad o localidad<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-cilo" name="cilo" placeholder="Introduce Ciudad o localidad.">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-genero">Selecciona género <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <select class="js-select2 form-control" id="val-genero" name="genero" style="width: 100%;" data-placeholder="H para hombre, M para mujer">
+                                                        <option></option>
+                                                        <option value="hombre">H</option>
+                                                        <option value="mujer">M</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-plantel">Plantel<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-plantel" name="plantel" placeholder="Introduce tu plantel.">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-turno">Selecciona turno <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <select class="js-select2 form-control" id="val-turno" name="turno" style="width: 100%;">
+                                                        <option></option>
+                                                        <option value="matutino">Matutino</option>
+                                                        <option value="vespertino">Vespertino</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-cplantel">Clave plantel<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-cplantel" name="cplantel" placeholder="Introduce la clave del plantel.">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-grado">Ultimo grado de estudios <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <select class="js-select2 form-control" id="val-grado" name="grado" style="width: 100%;">
+                                                        <option></option>
+                                                        <option value="matutino">Licenciatura</option>
+                                                        <option value="vespertino">Maestria</option>
+                                                        <option value="vespertino">Doctorado</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-ocupacion">Ocupacion<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <select class="js-select2 form-control" id="val-ocupacion" name="ocupacion" style="width: 100%;">
+                                                        <option></option>
+                                                        <option value="matutino">Estudiante</option>
+                                                        <option value="vespertino">Profesor</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-ncurso">Nombre del curso<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <select class="js-select2 form-control" id="val-ncurso" name="ncurso" style="width: 100%;">
+                                                        <option></option>
+                                                        <option value="matutino">Opcion A</option>
+                                                        <option value="vespertino">Opcion B</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-finicio">Fecha de inicio<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-finicio" name="finicio" placeholder="dd/mm/aaaa">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-ffin">Fecha de terminación<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-ffin" name="ffin" placeholder="dd/mm/aaaa">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-psesion">Fecha de primera sesión<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-psesion" name="psesion" placeholder="dd/mm/aaaa">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-usesion">Fecha de ultima sesión<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-usesion" name="usesion" placeholder="dd/mm/aaaa">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-horas">Horas de duracion del curso<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-horas" name="horas" placeholder="Ingrese en horas la duración del curso.">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-calif">Calificacion obtenida<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-calif" name="calif" placeholder="Ingrese la calificacion del curso.">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-calif">Agregue constancia QR<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-calif" name="calif" placeholder="La constancia es un archivo">
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <button type="submit" class="btn btn-default"> Capturar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="footer">
+                                <p>2018 © Admin Board. - <a href="#">example.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+<!-- END CONTENTS -->
+
+    <!-- jquery vendor -->
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/jquery.nanoscroller.min.js"></script>
+    <!-- nano scroller -->
+    <script src="js/lib/menubar/sidebar.js"></script>
+    <script src="js/lib/preloader/pace.min.js"></script>
+    <!-- sidebar -->
+    <!-- bootstrap -->
+    <!-- Select2 -->
+    <script src="js/lib/select2/select2.full.min.js"></script>
+    <script src="js/lib/form-validation/jquery.validate.min.js"></script>
+    <script src="js/lib/form-validation/jquery.validate-init.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

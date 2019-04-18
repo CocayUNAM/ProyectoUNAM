@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Sistema de Control Escolar para Cursos y Diplomados</title>
+
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="favicon.ico">
+    
+    <!-- Styles -->
+    <link href="/css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="/css/lib/menubar/sidebar.css" rel="stylesheet">
+    <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/lib/helper.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="/includes/head.html :: head_div1" />
+<div th:replace="/includes/head.html :: head_div2" />
+
+<!-- START CONTENTS -->
+<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+			<br><br>TABLA DE EJEMPLO<br>
+<table border=1>
+	<th>NOMBRE</th>
+	<th>APELLIDO PATERNO</th>
+	<th>APELLIDO MATERNO</th>
+	<th>GRADO</th>
+    <tr th:each="Profesor : ${profesores}">
+        <td th:text="${Profesor.nombre}">Text ...</td>
+        <td th:text="${Profesor.apellido_paterno}">Text ...</td>
+         <td th:text="${Profesor.apellido_materno}">Text ...</td>
+         <td th:text="${Profesor.fk_id_grado_profesor.nombre}">Text ...</td>
+    </tr>
+</table>
+
+		</div>
+	</div>
+</div>
+<!-- END CONTENTS -->
+
+<div th:replace="/includes/foot.html :: foot" />
+</body>
+</html>

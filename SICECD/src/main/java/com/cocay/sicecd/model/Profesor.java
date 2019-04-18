@@ -23,46 +23,77 @@ public class Profesor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_profesor")
 	int pk_id_profesor;
+	
 	@Column(name = "nombre")
 	String nombre;
+	
 	@Column(name = "apellido_paterno")
 	String apellido_paterno;
+	
 	@Column(name = "apellido_materno")
 	String apellido_materno;
+	
 	@Column(name = "rfc")
 	String rfc;
+	
 	@Column(name = "curp")
 	String curp;
+	
 	@Column(name = "correo")
 	String correo;
+	
 	@Column(name = "telefono")
 	String telefono;
+	
 	@ManyToOne(targetEntity=Estado.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_estado", referencedColumnName="pk_id_estado",insertable = false, updatable = false)
-	Estado estado;
-	int fk_id_estado;
+	Estado fk_id_estado;
+	
+	@Column(name = "ciudad_localidad")
 	String ciudad_localidad;
-	int id_genero;
+	
+	@ManyToOne(targetEntity=Genero.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinColumn(name = "id_genero", referencedColumnName="pk_id_genero",insertable = false, updatable = false)
+	Genero id_genero;
+	
+	@Column(name = "plantel")
 	String plantel;
+	
+	@Column(name = "clave_plantel")
 	String clave_plantel;
+	
 	@ManyToOne(targetEntity=Turno.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_turno",referencedColumnName="pk_id_turno",insertable = false, updatable = false)
-	Turno turno;
-	int fk_id_turno;
+	Turno fk_id_turno;
+	
 	@ManyToOne(targetEntity=Grado_profesor.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_grado_profesor",referencedColumnName="pk_id_grado_profesor",insertable = false, updatable = false)
-	Grado_profesor grado;
-	int fk_id_grado_profesor;
+	Grado_profesor fk_id_grado_profesor;
+	
+	@Column(name = "ocupacion")
 	String ocupacion;
+	
+	@Column(name = "curriculum")
 	String curriculum;
 
 	@OneToMany(mappedBy = "fk_id_profesor", targetEntity=Inscripcion.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
-
+	
+	public Profesor(){}
+	
+	public Profesor(String nombre, String apellido_paterno,String apellido_materno,String correo, String rfc) {
+		this.nombre=nombre;
+		this.apellido_paterno=apellido_paterno;
+		this.apellido_materno=apellido_materno;
+		this.correo=correo;
+		this.rfc=rfc;
+		
+	}
 	public int getPk_id_profesor() {
 		return pk_id_profesor;
 	}
@@ -127,11 +158,11 @@ public class Profesor {
 		this.telefono = telefono;
 	}
 
-	public int getFk_id_estado() {
+	public Estado getFk_id_estado() {
 		return fk_id_estado;
 	}
 
-	public void setFk_id_estado(int fk_id_estado) {
+	public void setFk_id_estado(Estado fk_id_estado) {
 		this.fk_id_estado = fk_id_estado;
 	}
 
@@ -143,11 +174,11 @@ public class Profesor {
 		this.ciudad_localidad = ciudad_localidad;
 	}
 
-	public int getId_genero() {
+	public Genero getId_genero() {
 		return id_genero;
 	}
 
-	public void setId_genero(int id_genero) {
+	public void setId_genero(Genero id_genero) {
 		this.id_genero = id_genero;
 	}
 
@@ -167,19 +198,19 @@ public class Profesor {
 		this.clave_plantel = clave_plantel;
 	}
 
-	public int getFk_id_turno() {
+	public Turno getFk_id_turno() {
 		return fk_id_turno;
 	}
 
-	public void setFk_id_turno(int fk_id_turno) {
+	public void setFk_id_turno(Turno fk_id_turno) {
 		this.fk_id_turno = fk_id_turno;
 	}
 
-	public int getFk_id_grado_profesor() {
+	public Grado_profesor getFk_id_grado_profesor() {
 		return fk_id_grado_profesor;
 	}
 
-	public void setFk_id_grado_profesor(int fk_id_grado_profesor) {
+	public void setFk_id_grado_profesor(Grado_profesor fk_id_grado_profesor) {
 		this.fk_id_grado_profesor = fk_id_grado_profesor;
 	}
 

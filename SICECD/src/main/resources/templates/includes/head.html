@@ -27,24 +27,37 @@
 						<li class="label">Cursos</li>
                         <li><a href="blank"><i class="ti-check-box"></i> Profesores </a></li>
                         <li><a href="#"><i class="ti-world"></i> Cursos </a></li>
-						<li><a href="#"><i class="ti-printer"></i> Resportes </a></li>
+						<li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Reportes <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                            <ul>
+                            	<li><a th:href="@{/consultaProfesor}">Profesores</a></li>
+                                <li><a th:href="@{/consultaCurso}">Cursos</a></li>
+                            </ul>
+                        </li>
 						<li class="label">Sistema</li>
                         <li><a href="#"><i class="ti-user"></i> Usuarios </a></li>
                         <li><a href="#"><i class="ti-book"></i> Auditoria</a></li>
 						<li><a href="#"><i class="ti-file"></i> Documentacion </a></li>
+						
+						<li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Registro manual <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                            <ul>
+                                <li><a th:href="@{/AdministracionCursos/registrarCursos}">Registrar curso</a></li>
+                                <li><a th:href="@{/registrarProfesores}">Registrar profesor</a></li>
+                            </ul>
+                        </li>
+                        
                         <li><a th:href="@{/logout}"><i class="ti-close"></i> Logout</a></li>
 						
                         <li class="label">Examples</li>
                         <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                             <ul>
-                                <li><a href="table-basic">Basic</a></li>
-                                <li><a href="table-export">Datatable Export</a></li>
-                                <li><a href="table-row-select">Datatable Row Select</a></li>
-                                <li><a href="table-jsgrid">Editable </a></li>
+                                <li><a href="/example/table-basic">Basic</a></li>
+                                <li><a href="/example/table-export">Datatable Export</a></li>
+                                <li><a href="/example/table-row-select">Datatable Row Select</a></li>
+                                <li><a href="/example/table-jsgrid">Editable </a></li>
                             </ul>
                         </li>
-                        <li><a href="form-basic"><i class="ti-view-list-alt"></i> Basic Form </a></li>
-                        <li><a href="form-validation"><i class="ti-view-list-alt"></i> Basic Validation </a></li>
+                        <li><a href="/example/form-basic"><i class="ti-view-list-alt"></i> Basic Form </a></li>
+                        <li><a href="/example/form-validation"><i class="ti-view-list-alt"></i> Basic Validation </a></li>
                     </ul>
                 </div>
             </div>
