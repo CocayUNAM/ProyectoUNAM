@@ -38,6 +38,14 @@
                         <li><a href="#"><i class="ti-book"></i> Auditoria</a></li>
 						<li><a href="#"><i class="ti-file"></i> Documentacion </a></li>
 						
+						<li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i>Dar de alta Usuario  <span class="sidebar-collapse-icon ti-angle-down"></span></a>
+                            <ul>
+                                <li><a th:href="@{/AdministracionCursos/formAltaUsuario}">Usuario Consulta</a></li>
+                                <li><a th:href="@{/AdministracionCursos/formAltaAdminstrador}">Usuario Administrador</a></li>
+                            </ul>
+                        </li>
+                        
+						
 						<li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Registro manual <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                             <ul>
                                 <li><a th:href="@{/AdministracionCursos/registrarCursos}">Registrar curso</a></li>
