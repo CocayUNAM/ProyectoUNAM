@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/main.css">
+    <title>SpringImageApp</title>
+</head>
+<body>
+<div>Facultades:<br></div>
+<div>
+<table>
+    <tr th:each="Test : ${testCollection}">
+        <td th:text="${Test.name}">Text ...</td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

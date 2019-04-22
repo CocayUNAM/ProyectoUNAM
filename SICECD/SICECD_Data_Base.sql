@@ -19,7 +19,7 @@ Fecha: 25/03/2019
 Accion: Creacion de la Base de Datos
 */
 CREATE DATABASE "SICECD"
-    WITH
+    WITH 
     OWNER = "SICECD"
     ENCODING = 'UTF8'
     LC_COLLATE = 'Spanish_Spain.1252'
@@ -193,19 +193,136 @@ ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_profesor) REFERENCES Profesor (pk_
 --DROP TABLE Grupo;
 --DROP TABLE Curso;
 --DROP TABLE Profesor;
-
-
-
-
 --DROP TABLE Tipo_curso;
-<<<<<<< HEAD
+
+
+
 
 /*
 Autor: Juan Carlos Hernández de Anda
-Fecha: 01/04/2019
-Accion: Corrección de llave foranea
+Fecha: 25/03/2019
+Accion: Creacion de la tabla Tipo_curso
 */
 ALTER TABLE Curso DROP CONSTRAINT curso_fk_id_tipo_curso_fkey;
 ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Tipo_curso (pk_id_tipo_curso) ON DELETE CASCADE;
-=======
->>>>>>> refs/remotes/origin/master
+
+CREATE TABLE Tipo_curso(
+  pk_id_tipo_curso SERIAL PRIMARY KEY,
+  nombre VARCHAR(70)
+);
+ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Estado (pk_id_estado ) ON DELETE CASCADE;
+
+--DROP TABLE Tipo_curso;
+
+/*
+Autor: Juan Carlos Hernández de Anda
+Fecha: 10/04/2019
+Accion: Creacion de datos de los catalogos y datos de prueba
+*/
+TRUNCATE TABLE public.inscripcion, public.grupo, public.curso, public.profesor, public.estado, 
+public.genero, public.grado_profesor, public.turno, public.tipo_curso, public.estado_profesores,
+public.estatus_usuario_sys_usuarios, public.test_class, public.log_sys, public.usuario_sys, public.estatus_usuario_sys, public.perfil_sys
+RESTART IDENTITY;
+COMMIT;
+
+INSERT INTO public.perfil_sys(nombre) VALUES ('Administrador');
+INSERT INTO public.perfil_sys(nombre) VALUES ('Consultas');
+
+INSERT INTO public.estatus_usuario_sys(nombre) VALUES ('Activo');
+INSERT INTO public.estatus_usuario_sys(nombre) VALUES ('Inactivo');
+
+INSERT INTO public.tipo_curso(nombre) VALUES ('Curso');
+INSERT INTO public.tipo_curso(nombre) VALUES ('Diplomado');
+INSERT INTO public.tipo_curso(nombre) VALUES ('Especialidad');
+
+INSERT INTO public.turno(nombre) VALUES ('Matutino');
+INSERT INTO public.turno(nombre) VALUES ('Vepertino');
+INSERT INTO public.turno(nombre) VALUES ('Completo');
+
+INSERT INTO public.grado_profesor(nombre) VALUES ('Lic.');
+INSERT INTO public.grado_profesor(nombre) VALUES ('Esp.');
+INSERT INTO public.grado_profesor(nombre) VALUES ('Mtr.');
+INSERT INTO public.grado_profesor(nombre) VALUES ('Doc.');
+
+INSERT INTO public.genero(genero) VALUES ('Masculino');
+INSERT INTO public.genero(genero) VALUES ('Femenino');
+
+INSERT INTO public.estado(nombre) VALUES ('Aguascalientes');
+INSERT INTO public.estado(nombre) VALUES ('Baja California');
+INSERT INTO public.estado(nombre) VALUES ('Baja California Sur');
+INSERT INTO public.estado(nombre) VALUES ('Campeche');
+INSERT INTO public.estado(nombre) VALUES ('Chihuahua');
+INSERT INTO public.estado(nombre) VALUES ('Chiapas');
+INSERT INTO public.estado(nombre) VALUES ('Coahuila');
+INSERT INTO public.estado(nombre) VALUES ('Colima');
+INSERT INTO public.estado(nombre) VALUES ('Durango');
+INSERT INTO public.estado(nombre) VALUES ('Guanajuato');
+INSERT INTO public.estado(nombre) VALUES ('Guerrero');
+INSERT INTO public.estado(nombre) VALUES ('Hidalgo');
+INSERT INTO public.estado(nombre) VALUES ('Jalisco');
+INSERT INTO public.estado(nombre) VALUES ('México');
+INSERT INTO public.estado(nombre) VALUES ('Michoacán');
+INSERT INTO public.estado(nombre) VALUES ('Morelos');
+INSERT INTO public.estado(nombre) VALUES ('Nayarit');
+INSERT INTO public.estado(nombre) VALUES ('Nuevo León');
+INSERT INTO public.estado(nombre) VALUES ('Oaxaca');
+INSERT INTO public.estado(nombre) VALUES ('Puebla');
+INSERT INTO public.estado(nombre) VALUES ('Querétaro');
+INSERT INTO public.estado(nombre) VALUES ('Quintana Roo');
+INSERT INTO public.estado(nombre) VALUES ('San Luis Potosí');
+INSERT INTO public.estado(nombre) VALUES ('Sinaloa');
+INSERT INTO public.estado(nombre) VALUES ('Sonora');
+INSERT INTO public.estado(nombre) VALUES ('Tabasco');
+INSERT INTO public.estado(nombre) VALUES ('Tamaulipas');
+INSERT INTO public.estado(nombre) VALUES ('Tlaxcala');
+INSERT INTO public.estado(nombre) VALUES ('Veracruz');
+INSERT INTO public.estado(nombre) VALUES ('Yucatán');
+INSERT INTO public.estado(nombre) VALUES ('Zacatecas');
+COMMIT;
+
+INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'armenta@unam.mx', 1, 1);--123456789
+INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('BBBB801201SN9', '$2a$10$8n2o/aSS96.kisZBBMzdM.BwOryAWdFwFlsjIWFvIkObYJ8Na/2O2', 'benitez@unam.mx', 1, 2);--1234567890
+
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Raul', 'Lopez', 'Diaz', 'LODR800505MMM', 'raul@unam.mx', 1, 1, 1, 1);
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Maria', 'Martinez', 'Ordaz', 'MAOM800505MMM', 'maria@unam.mx', 1, 1, 1, 1);
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Irma', 'Villa', 'Salinas', 'VISI800505MMM', 'irma@unam.mx', 1, 1, 1, 1);
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Gerardo', 'Gutierrez', 'Pliego', 'GUPG800505MMM', 'gerardo@unam.mx', 1, 1, 1, 1);
+
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A001', 'Biologia 1', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A002', 'Biologia 2', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A003', 'Biologia 3', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A004', 'Biologia 4', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B001', 'Matematicas 1', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B002', 'Matematicas 2', 1, 40);
+INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B003', 'Matematicas 3', 1, 40);
+
+INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (1, '001', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
+INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (1, '002', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
+INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (5, '001', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
+COMMIT;
+
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (1, 1);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (2, 2);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (3, 3);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (1, 4);
+COMMIT;
+
+/*
+Autor: Juan Carlos Hernández de Anda
+Fecha: 11/04/2019
+Accion: Creacion de datos de los catalogos y datos de prueba
+*/
+ALTER TABLE public.curso OWNER to "SICECD";
+ALTER TABLE public.estado OWNER to "SICECD";
+ALTER TABLE public.estatus_usuario_sys OWNER to "SICECD";
+ALTER TABLE public.genero OWNER to "SICECD";
+ALTER TABLE public.grado_profesor OWNER to "SICECD";
+ALTER TABLE public.grupo OWNER to "SICECD";
+ALTER TABLE public.inscripcion OWNER to "SICECD";
+ALTER TABLE public.log_evento_sys OWNER to "SICECD";
+ALTER TABLE public.log_sys OWNER to "SICECD";
+ALTER TABLE public.perfil_sys OWNER to "SICECD";
+ALTER TABLE public.profesor OWNER to "SICECD";
+ALTER TABLE public.tipo_curso OWNER to "SICECD";
+ALTER TABLE public.turno OWNER to "SICECD";
+ALTER TABLE public.usuario_sys OWNER to "SICECD";

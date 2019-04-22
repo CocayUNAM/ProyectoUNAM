@@ -10,7 +10,7 @@
         <div class="body"></div>
 		<div class="grad"></div>
 		<div class="header">
-			<div>Site<span>Random</span></div>
+			<div>Site<span>SICECD</span></div>
 		</div>
 		<br>
 			<div class="login">
@@ -19,6 +19,17 @@
 					<input type="button" value="Login">
 			</div>  
 		  
+		<form method="POST" th:action="@{/login}" class="login">
+				<input type="text" placeholder="username" name="username"><br>
+				<input type="password" placeholder="password" name="password"><br>
+				<input type="submit" value="Login">
+				<div th:if="${param.error}">
+            		Invalid username or password.
+        		</div>
+        		<div th:if="${param.logout}">
+            		You have been logged out.
+        		</div>
+		</form>    
     
 </body>
 </html>
