@@ -19,6 +19,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "Usuario_sys")
 public class Usuario_sys {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_usuario_sys")
@@ -135,6 +136,20 @@ public class Usuario_sys {
 		Log_sys_s = log_sys_s;
 	}
 	
+	public Usuario_sys(int pk_id_usuario_sys, String rfc, String password, String correo, String nombre,
+			String apellido_paterno, String apellido_materno) {
+		super();
+		this.pk_id_usuario_sys = pk_id_usuario_sys;
+		this.rfc = rfc;
+		this.password = password;
+		this.correo = correo;
+		this.nombre = nombre;
+		this.apellido_paterno = apellido_paterno;
+		this.apellido_materno = apellido_materno;
+	}
 	
+	public Usuario_sys() {
+		
+	}
 	
 }

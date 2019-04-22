@@ -13,5 +13,4 @@ public interface Usuario_sysRep extends PagingAndSortingRepository<Usuario_sys, 
 	List<Usuario_sys> findByRfc(String name);
 	List<Usuario_sys> findByCorreo(String name);
 
-
 }
