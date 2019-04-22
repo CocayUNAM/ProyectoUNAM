@@ -15,7 +15,8 @@ import org.springframework.batch.core.JobParametersBuilder;
 
 import com.cocay.sicecd.repo.TestRepository;
 
-@RestController
+//@RestController
+@Controller
 public class WebController {
 
 	@Autowired
@@ -26,7 +27,7 @@ public class WebController {
 
 	@Autowired
 	Job job;
-
+	/*
 	@RequestMapping("/runjob")
 	public String handle() throws Exception {
 		Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -38,7 +39,7 @@ public class WebController {
 			logger.info(e.getMessage());
 		}
 		return "Done! Check Console Window for more details";
-	}
+	}*/
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String login(Model model) {

@@ -10,13 +10,14 @@ import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 
 import com.cocay.sicecd.dao.CustomerDao;
 import com.cocay.sicecd.model.Customer;
+import com.cocay.sicecd.model.Usuario_sys;
  
  
 public class Listener extends JobExecutionListenerSupport {
   private static final Logger log = LoggerFactory.getLogger(Listener.class);
  
   private final CustomerDao customerDao;
- 
+  
   public Listener(CustomerDao customerDao) {
     this.customerDao = customerDao;
   }

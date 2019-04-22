@@ -10,24 +10,24 @@ import com.cocay.sicecd.model.Customer;
 
  
 public class Reader {
-  public static FlatFileItemReader<Customer> reader(String path) {
-    FlatFileItemReader<Customer> reader = new FlatFileItemReader<Customer>();
- 
-    reader.setResource(new ClassPathResource(path));
-    reader.setLineMapper(new DefaultLineMapper<Customer>() {
-      {
-        setLineTokenizer(new DelimitedLineTokenizer() {
-          {
-            setNames(new String[] { "id", "firstName", "lastName" });
-          }
-        });
-        setFieldSetMapper(new BeanWrapperFieldSetMapper<Customer>() {
-          {
-            setTargetType(Customer.class);
-          }
-        });
-      }
-    });
-    return reader;
-  }
+	public static FlatFileItemReader<Customer> reader(String path) {
+	    FlatFileItemReader<Customer> reader = new FlatFileItemReader<Customer>();
+	 
+	    reader.setResource(new ClassPathResource(path));
+	    reader.setLineMapper(new DefaultLineMapper<Customer>() {
+	      {
+	        setLineTokenizer(new DelimitedLineTokenizer() {
+	          {
+	            setNames(new String[] { "id", "firstName", "lastName" });
+	          }
+	        });
+	        setFieldSetMapper(new BeanWrapperFieldSetMapper<Customer>() {
+	          {
+	            setTargetType(Customer.class);
+	          }
+	        });
+	      }
+	    });
+	    return reader;
+	  }
 }

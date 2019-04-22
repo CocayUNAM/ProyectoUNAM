@@ -27,6 +27,18 @@ import org.thymeleaf.templatemode.TemplateMode;
 @EntityScan(basePackages= {
 		"com.cocay.sicecd.model"
 })
+@ComponentScan(basePackages= {
+		"com.cocay.sicecd.config"
+})
+@ComponentScan(basePackages= {
+		"com.cocay.sicecd.dao"
+})
+@ComponentScan(basePackages= {
+		"com.cocay.sicecd.dao.impl"
+})
+@ComponentScan(basePackages= {
+		"com.cocay.sicecd.step"
+})
 public class SicecdApplication implements WebMvcConfigurer  {
     
 	@Autowired
