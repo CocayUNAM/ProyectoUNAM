@@ -51,6 +51,20 @@ public class ConsultaProfesorController {
 		}
 	}
 	
+	@RequestMapping(value = "/consultarProfesorEstado", method = RequestMethod.POST)
+	public ModelAndView consultarProfesorEstado(ModelMap model, HttpServletRequest request) {
+		String estado = request.getParameter("es_estados");
+		Integer num_estado = Integer.parseInt(estado);
+		
+		List<Profesor> list_p = profesor.findByStateList(num_estado);
+		if(!list_p.isEmpty()) {
+			model.put("profesores", list_p);
+			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
+		} else {
+			return new ModelAndView("/ConsultarProfesor/consultas");
+		}
+	}
+	
 	@RequestMapping(value = "/consultarProfesorNombre", method = RequestMethod.POST)
 	public ModelAndView consultarProfesorNombre(ModelMap model, HttpServletRequest request) {
 		String nombre = request.getParameter("nombre");
@@ -82,26 +96,20 @@ public class ConsultaProfesorController {
 		}
 	}
 	
-	@RequestMapping(value = "/consultarProfesorEstado", method = RequestMethod.POST)
-	public ModelAndView consultarProfesorEstado(ModelMap model, HttpServletRequest request) {
-		/*String estado = request.getParameter("estados");
-		System.out.println(estado);*/
-		
-		List<Profesor> list_p = profesor.findByStateList(1);
-		if(!list_p.isEmpty()) {
-			model.put("profesores", list_p);
-			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
-		} else {
-			return new ModelAndView("/ConsultarProfesor/consultas");
-		}
-	}
-	
 	@RequestMapping(value = "/consultarProfesorPersonalizado", method = RequestMethod.POST)
 	public ModelAndView consultarProfesorPersonalizado(ModelMap model, HttpServletRequest request) {
 		String nombre = request.getParameter("nombre");
 		String apellido_paterno = request.getParameter("apellido_paterno");
 		String apellido_materno = request.getParameter("apellido_materno");
 		String genero = request.getParameter("genero");
+		Integer id_genero = 0;
+		
+		if(genero.equals("masculino")) {
+			id_genero = 1;
+		} else if(genero.equals("femenino")) {
+			id_genero = 2;
+		}
+		
 		if (nombre == null) {
 			nombre = "";
 		} else {
@@ -118,7 +126,7 @@ public class ConsultaProfesorController {
 			apellido_materno = apellido_materno.toUpperCase();
 		}
 		
-		List<Profesor> list_p = profesor.findByAllList(nombre, apellido_paterno, apellido_materno, genero);
+		List<Profesor> list_p = profesor.findByAllList(nombre, apellido_paterno, apellido_materno, id_genero);
 		if(!list_p.isEmpty()) {
 			model.put("profesores", list_p);
 			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
