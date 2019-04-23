@@ -32,7 +32,7 @@
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <h1>Registrar profesor</h1>
+                                <h1>Registrar participante</h1>
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Registro profesor</li>
+                                    <li class="breadcrumb-item active">Registro Participante</li>
                                 </ol>
                             </div>
                         </div>
@@ -56,26 +56,26 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="form-validation">
-                                        <form class="form-valide" action="#" method="post">
+                                        <form class="form-valide" action="#" method=GET>
                                         
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="val-apaterno">Apellido paterno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-apaterno" name="apaterno" placeholder="Introduce apellido paterno">
+                                                    <input type="text" class="form-control" id="val-apaterno" name="apaterno" placeholder="Introduce apellido paterno" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="val-amaterno">Apellido materno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-amaterno" name="amaterno" placeholder="Introduce apellido materno">
+                                                    <input type="text" class="form-control" id="val-amaterno" name="amaterno" placeholder="Introduce apellido materno" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="val-nombres">Nombre(s)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val_nombres" name="nombres" placeholder="Introduce nombre(s)">
+                                                    <input type="text" class="form-control" id="val_nombres" name="nombres" placeholder="Introduce nombre(s)" required>
                                                 </div>
                                             </div>
                                             
@@ -96,7 +96,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="val-correo">Correo electronico<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-correo" name="correo" placeholder="Introduce correo.">
+                                                    <input type="text" class="form-control" id="val-correo" name="correo" placeholder="Introduce correo." required>
                                                 </div>
                                             </div>
                                             
@@ -108,9 +108,43 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-estado">Estado<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="val-estado">Estado <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-estado" name="estado" placeholder="Introduce estado.">
+                                                    <select class="js-select2 form-control" id="val-estado" name="estado" style="width: 100%;">
+                                                        <option></option>
+                                                        <option value="1">Aguascalientes</option>
+														<option value="2">Baja California</option>
+														<option value="3">Baja California Sur</option>
+														<option value="4">Campeche</option>
+														<option value="5">Ciudad de México</option>
+														<option value="6">Coahuila</option>
+														<option value="7">Colima</option>
+														<option value="8">Chiapas</option>
+														<option value="9">Chihuahua</option>
+														<option value="10">Durango</option>
+														<option value="11">Estado de México</option>
+														<option value="12">Guanajuato</option>
+														<option value="13">Guerrero</option>
+														<option value="14">Hidalgo</option>
+														<option value="15">Jalisco</option>
+														<option value="16">Michoacán</option>
+														<option value="17">Morelos</option>
+														<option value="18">Nayarit</option>
+														<option value="19">Nuevo León</option>
+														<option value="20">Oaxaca</option>
+														<option value="21">Puebla</option>
+														<option value="22">Querétaro</option>
+														<option value="23">Quintana Roo</option>
+														<option value="24">San Luis Potosí</option>
+														<option value="25">Sinaloa</option>
+														<option value="26">Sonora</option>
+														<option value="27">Tabasco</option>
+														<option value="28">Tamaulipas</option>
+														<option value="29">Tlaxcala</option>
+														<option value="30">Veracruz</option>
+														<option value="31">Yucatán</option>
+														<option value="32">Zacatecas</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             
@@ -239,8 +273,10 @@
                                                     <input type="text" class="form-control" id="val-calif" name="calif" placeholder="La constancia es un archivo">
                                                 </div>
                                             </div>
+                                            
+                                            <button type="submit" class="btn btn-default"> Capturar</button>
+                                            
                                         </form>
-                                        <button type="submit" class="btn btn-default"> Capturar</button>
                                     </div>
                                 </div>
                             </div>

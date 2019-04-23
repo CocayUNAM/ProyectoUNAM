@@ -176,6 +176,9 @@ ALTER TABLE Log_sys ADD FOREIGN KEY(fk_id_log_evento_sys) REFERENCES Log_evento_
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_estado) REFERENCES Estado (pk_id_estado ) ON DELETE CASCADE;
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_turno) REFERENCES Turno (pk_id_turno ) ON DELETE CASCADE;
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_grado_profesor) REFERENCES Grado_profesor (pk_id_grado_profesor) ON DELETE CASCADE;
+ALTER TABLE Profesor ADD fecha_nacimiento TIMESTAMP;
+ALTER TABLE Profesor ADD calificacion VARCHAR(5);
+ALTER TABLE Profesor ADD constancia_qr VARCHAR(50);
 ALTER TABLE Grupo ADD FOREIGN KEY(fk_id_curso) REFERENCES Curso (pk_id_curso ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_grupo) REFERENCES Grupo (pk_id_grupo ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_profesor) REFERENCES Profesor (pk_id_profesor ) ON DELETE CASCADE;
