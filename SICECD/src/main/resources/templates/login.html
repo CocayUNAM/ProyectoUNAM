@@ -23,7 +23,20 @@
         		<div th:if="${param.logout}">
             		You have been logged out.
         		</div>
-		</form>    
+        		
+
+		</form>   
+		
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+
+				var message = [[${mensaje}]];
+				if(message!="nohay"){					
+					alert(message);
+				}
+
+					/*]]>*/
+		</script> 
     
 </body>
 </html>

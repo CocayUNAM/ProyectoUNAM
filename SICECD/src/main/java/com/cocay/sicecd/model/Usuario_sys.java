@@ -33,9 +33,12 @@ public class Usuario_sys {
 	String nombre;
 	@Column(name = "apellido_paterno")
 	String apellido_paterno;
-	
 	@Column(name = "apellido_materno")
 	String apellido_materno;
+	@Column(name = "confirmacion")
+	String confirmacion;
+	@Column (name = "codigoCorreo")
+	String codigoCorreo;
 	
 	@ManyToOne(targetEntity = Estatus_usuario_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -134,6 +137,26 @@ public class Usuario_sys {
 	public void setLog_sys_s(List<Log_sys> log_sys_s) {
 		Log_sys_s = log_sys_s;
 	}
+
+	public String getConfirmacion() {
+		return confirmacion;
+	}
+
+	public void setConfirmacion(String confirmacion) {
+		this.confirmacion = confirmacion;
+	}
+
+	public String getCodigoCorreo() {
+		return codigoCorreo;
+	}
+
+	public void setCodigoCorreo(String codigoCorreo) {
+		this.codigoCorreo = codigoCorreo;
+	}
+
+
+
+	
 	
 	
 	

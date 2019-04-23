@@ -13,22 +13,32 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
 public class WebController {
 
 	@RequestMapping(value = { "/login", "/" }, method = RequestMethod.GET)
-	public String login(Model model, String error, String logout) {
+	public String login(Model model, String error, String logout, HttpServletRequest request) {
 		if (error != null) {
 			model.addAttribute("errorMsg", "Your username or password are invalid.");
 			System.out.println(error);
 			System.out.println("\nUsuario erroneo-");
 		}
 
-		if (logout != null)
+		if (logout != null) {
 			model.addAttribute("msg", "You have been logged out successfully.");
-
+		}
+		
+		String mensaje=request.getParameter("mensaje") ;
+		if (mensaje!=null) {
+			model.addAttribute("mensaje", mensaje);
+			
+		}else {
+			model.addAttribute("mensaje", "nohay");
+		}
+		
 		return "login";
 	}
 

@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.cocay.sicecd.repo.EstadoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.TestRepository;
+import com.cocay.sicecd.service.SendMailService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,6 +27,8 @@ public class SicecdApplicationTests {
 	EstadoRep _estado;
 	@Autowired
 	ProfesorRep _profesor;
+	@Autowired
+	SendMailService _email;
 	
 	@Test
 	public void contextLoads() {
@@ -39,13 +42,20 @@ public class SicecdApplicationTests {
 		List<Estado> estados=_estado.findByNombre("guadalajara");
         usuario.setFk_id_estado(estados.get(0));
 		_test.save(usuario);
-		*/
+		
 
 	
 		List<TestClass> clases=(List<TestClass>) _test.findAll();
 		for (TestClass testClass : clases) {
 			System.out.println(testClass.getName());
-		}
+		}*/
+		
+		
+	String from="cocayprueba@gmail.com";
+	String to="puchicher@gmail.com";
+	String subject="PruebaCorreo";
+	String body="holas\nfrank";
+	_email.sendMail(from, to, subject, body);
 	
 	
 	}
