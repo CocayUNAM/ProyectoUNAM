@@ -41,7 +41,7 @@ public class ConsultaCursoController {
 			
 			return new ModelAndView("ConsultarCurso/muestraCurso",model);
 		}else {
-			return new ModelAndView("ConsultarCurso/muestraCurso");
+			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 	
@@ -76,7 +76,7 @@ public class ConsultaCursoController {
 			model.put("cursos", cursos);
 			return new ModelAndView("ConsultarCurso/muestraListaCurso",model);
 		}else {
-			return new ModelAndView("ConsultarCurso/muestraCurso");
+			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 	
@@ -97,7 +97,7 @@ public class ConsultaCursoController {
 			model.put("cursos", cursos2);
 			return new ModelAndView("ConsultarCurso/muestraListaCurso",model);
 		} else {
-			return new ModelAndView("ConsultarCurso/muestraCurso");
+			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 }

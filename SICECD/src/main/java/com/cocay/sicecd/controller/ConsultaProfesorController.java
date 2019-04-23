@@ -46,7 +46,7 @@ public class ConsultaProfesorController {
 			return new ModelAndView("/ConsultarProfesor/muestraProfesor", model);
 			
 		} else {
-			return new ModelAndView("/ConsultarProfesor/consultaProfesor");
+			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class ConsultaProfesorController {
 			model.put("profesores", list_p2);
 			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
 		} else {
-			return new ModelAndView("/ConsultarProfesor/consultas");
+			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class ConsultaProfesorController {
 			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
 			
 		} else {
-			return new ModelAndView("/ConsultarProfesor/consultaProfesor");
+			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 	
@@ -157,7 +157,7 @@ public class ConsultaProfesorController {
 			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
 			
 		} else {
-			return new ModelAndView("/ConsultarProfesor/consultaProfesor");
+			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 }
