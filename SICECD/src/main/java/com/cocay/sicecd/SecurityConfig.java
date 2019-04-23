@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
         	.csrf().disable()
             .authorizeRequests()
-                .antMatchers("/", "/login", "/logout", "/css/**", "/fonts/**", "/img/**", "/js/**", "/favicon.ico", "/activacionConsulta", "/activacionAdmin", "/prueba").permitAll()
+                .antMatchers("/", "/login", "/logout", "/css/**", "/fonts/**", "/img/**", "/js/**", "/favicon.ico", "/activacionConsulta", "/activacionAdmin","/configuracionPass", "/prueba").permitAll()
                 .antMatchers("/AdministracionCursos/**").hasAuthority("Administrador")
                 .antMatchers("/example/table-export").hasAuthority("Administrador")
                 .antMatchers("/example/table-row-select").hasAnyAuthority("Consultas", "Administrador")

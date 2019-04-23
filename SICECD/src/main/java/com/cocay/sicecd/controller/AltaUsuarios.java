@@ -39,6 +39,8 @@ public class AltaUsuarios {
 	@Autowired
 	SendMailService _email;
 	
+	
+	//Alta usuario
 	@RequestMapping(value = "/AdministracionCursos/formAltaUsuario", method = RequestMethod.GET)
 	public String formularioAltaUsuario() {
 		return "altaUsuario/agregaUsuario";
@@ -68,6 +70,26 @@ public class AltaUsuarios {
 		return ResponseEntity.ok("Usuario Agregado con exito");
 	}
 	
+	@GetMapping("/activacionConsulta")
+	public String ActivacionConsulta(
+			@RequestParam(name = "usuario") int id,
+			@RequestParam(name = "codigo") String codigo ) 
+	{
+		if (_usuarioSys.existsById(id)) {
+			Usuario_sys candidato= (_usuarioSys.findById(id)).get();
+			if (codigo.equals(candidato.getCodigoCorreo())) {
+				candidato.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Activo").get(0));
+				candidato.setConfirmacion("false");
+				_usuarioSys.save(candidato);
+			}
+			
+		}
+		
+		return "redirect:/login?mensaje=usuarioActivado";
+	}
+	
+	//Alta administrador
+	
 	@RequestMapping(value = "/AdministracionCursos/formAltaAdminstrador", method = RequestMethod.GET)
 	public String formularioAltaAdminstrador() {
 		return "altaUsuario/agregaAdminstrador";
@@ -77,37 +99,45 @@ public class AltaUsuarios {
 	@PostMapping("/AdministracionCursos/altaAdministrador")
 	public ResponseEntity<String> darAltaAdministrador(@RequestBody Usuario_sys consulta) 
 	{
+
 		consulta.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Inactivo").get(0));
 		consulta.setFk_id_perfil_sys(perfilSys.findByNombre("Administrador").get(0));
-		int codigo=(int) (Math.random() * 1000) + 1;
-		String link="http://localhost:8080/activacionAdmin?codigo="+String.valueOf(codigo)+"&usuario="+consulta.getPk_id_usuario_sys();
+		consulta.setConfirmacion("true");
+		String codigo=String.valueOf((int) (Math.random() * 1000) + 1);
+		consulta.setCodigoCorreo(codigo);
+
+		_usuarioSys.save(consulta);
+		Usuario_sys guardado= _usuarioSys.findByCorreo(consulta.getCorreo()).get(0);
+		String link="http://localhost:8080/configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
 		String from="cocayprueba@gmail.com";
 		String to=consulta.getCorreo();
 		String subject="Activación de cuenta";
-		String body="“Hola da clic al " + 
-				"siguiente  link \n"+link+ "\npara activar tu cuenta y configurar una contraseña.";
+		String body="Hola da clic al siguiente  link \n" + 
+				link+ "\npara activar tu cuenta y configurar una nueva contraseña.";
 		_email.sendMail(from, to, subject, body);
-		_usuarioSys.save(consulta);
 		return ResponseEntity.ok("Usuario Agregado con exito");
 	}
 	
-	@GetMapping("/AdministracionCursos/correo")
-	public String envia() {
-
-		return "altaUsuario/agregaUsuario";
-
-		
-	}
 	
-	@GetMapping("/activacionConsulta")
-	public String ActivacionConsulta(
+	@GetMapping("/configuracionPass")
+	public String configuracionPass(@RequestParam(name = "usuario") int id,
+									@RequestParam(name = "codigo") String codigo,
+									Model model) 
+	{
+		model.addAttribute("id", id);
+		model.addAttribute("codigo", codigo);
+		return "altaUsuario/configuracionpass";
+	}
+
+	@GetMapping("/activacionAdmin")
+	public String ActivacionAdministrador(
 			@RequestParam(name = "usuario") int id,
 			@RequestParam(name = "codigo") String codigo ) 
 	{
 		if (_usuarioSys.existsById(id)) {
 			Usuario_sys candidato= (_usuarioSys.findById(id)).get();
 			if (codigo.equals(candidato.getCodigoCorreo())) {
-				candidato.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Activo").get(0));;
+				candidato.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Activo").get(0));
 				candidato.setConfirmacion("false");
 				_usuarioSys.save(candidato);
 			}
@@ -116,6 +146,7 @@ public class AltaUsuarios {
 		
 		return "redirect:/login?mensaje=usuarioActivado";
 	}
+
 	
 	
 	
