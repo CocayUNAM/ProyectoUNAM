@@ -42,17 +42,13 @@
                                                 	<th>Clave</th>
                                                     <th>Curso</th>
                                                     <th>Tipo de Curso</th>
-                                                    <th>Fecha de Inicio</th>
-                                                    <th>Fecha de Término</th>
                                                 </tr>
                                             </thead>
                                             <tbody >
-                                                <tr>
-                                                	<td th:text="${clave}">Text ...</td>
-                                                	<td th:text="${nombre}">Text ...</td>
-                                                	<td th:text="${tipo_curso}">Text ...</td>
-													<td th:text="${fecha_inicio}">Text ...</td>
-													<td th:text="${fecha_fin}">Text ...</td>
+                                                <tr data-th-each="curso : ${cursos}">
+                                                	<td th:text="${curso.clave}">Text ...</td>
+                                                	<td th:text="${curso.nombre}">Text ...</td>
+                                                	<td th:text="${curso.fk_id_tipo_curso.nombre}">Text ...</td>
                                                 </tr>
                                             </tbody>
                                         </table>
