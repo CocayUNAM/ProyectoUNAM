@@ -3,7 +3,6 @@ package com.cocay.sicecd.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,21 +46,29 @@ public class ConsultaProfesorController {
 			return new ModelAndView("/ConsultarProfesor/muestraProfesor", model);
 			
 		} else {
-			return new ModelAndView("/ConsultarProfesor/consultaProfesor");
+			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 	
 	@RequestMapping(value = "/consultarProfesorEstado", method = RequestMethod.POST)
 	public ModelAndView consultarProfesorEstado(ModelMap model, HttpServletRequest request) {
-		String estado = request.getParameter("es_estados");
-		Integer num_estado = Integer.parseInt(estado);
+		Integer id_estado = Integer.parseInt(request.getParameter("estados"));
 		
-		List<Profesor> list_p = profesor.findByStateList(num_estado);
-		if(!list_p.isEmpty()) {
-			model.put("profesores", list_p);
+		List<Profesor> list_p1 = profesor.findAll();
+		List<Profesor> list_p2 = profesor.findAll();
+		
+		if(!list_p1.isEmpty()) {
+			
+			for(Profesor p : list_p1) {
+				if(p.getFk_id_estado().getPk_id_estado() != id_estado) {
+					list_p2.remove(p);
+				}
+			}
+			
+			model.put("profesores", list_p2);
 			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
 		} else {
-			return new ModelAndView("/ConsultarProfesor/consultas");
+			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 	
@@ -70,6 +77,7 @@ public class ConsultaProfesorController {
 		String nombre = request.getParameter("nombre");
 		String apellido_paterno = request.getParameter("apellido_paterno");
 		String apellido_materno = request.getParameter("apellido_materno");
+		
 		if (nombre == null) {
 			nombre = "";
 		} else {
@@ -92,7 +100,7 @@ public class ConsultaProfesorController {
 			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
 			
 		} else {
-			return new ModelAndView("/ConsultarProfesor/consultaProfesor");
+			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 	
@@ -101,14 +109,10 @@ public class ConsultaProfesorController {
 		String nombre = request.getParameter("nombre");
 		String apellido_paterno = request.getParameter("apellido_paterno");
 		String apellido_materno = request.getParameter("apellido_materno");
-		String genero = request.getParameter("genero");
-		Integer id_genero = 0;
 		
-		if(genero.equals("masculino")) {
-			id_genero = 1;
-		} else if(genero.equals("femenino")) {
-			id_genero = 2;
-		}
+		Integer id_grado = Integer.parseInt(request.getParameter("grado_estudios"));
+		Integer id_genero = Integer.parseInt(request.getParameter("genero"));
+		Integer id_estado = Integer.parseInt(request.getParameter("estados"));
 		
 		if (nombre == null) {
 			nombre = "";
@@ -126,13 +130,34 @@ public class ConsultaProfesorController {
 			apellido_materno = apellido_materno.toUpperCase();
 		}
 		
-		List<Profesor> list_p = profesor.findByAllList(nombre, apellido_paterno, apellido_materno, id_genero);
-		if(!list_p.isEmpty()) {
-			model.put("profesores", list_p);
+		List<Profesor> list_p1 = profesor.findByCompleteNameList(nombre, apellido_paterno, apellido_materno);
+		List<Profesor> list_p2 = profesor.findByCompleteNameList(nombre, apellido_paterno, apellido_materno);
+		
+		if(!list_p1.isEmpty()) {
+			
+			for(Profesor p : list_p1) {
+				if(p.getFk_id_grado_profesor().getPk_id_grado_profesor() != id_grado) {
+					list_p2.remove(p);
+				}
+			}
+			
+			for(Profesor p : list_p1) {
+				if(p.getId_genero().getPk_id_genero() != id_genero) {
+					list_p2.remove(p);
+				}
+			}
+			
+			for(Profesor p : list_p1) {
+				if(p.getFk_id_estado().getPk_id_estado() != id_estado) {
+					list_p2.remove(p);
+				}
+			}
+			
+			model.put("profesores", list_p2);
 			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
 			
 		} else {
-			return new ModelAndView("/ConsultarProfesor/consultaProfesor");
+			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 }

@@ -81,6 +81,34 @@
 						</div>
 						<!-- END CONSULTAR CURSO POR CLAVE -->
 						
+						<!-- START CONSULTAR CURSO POR TIPO -->
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-title"></div>
+								<div class="card-body">
+									<div class="basic-form">
+										<form action="/consultaCursoTipo" method="post" target="_blank">
+											<div class="form-group">
+												<h4>Consultar por Tipo de Curso</h4>
+												<label>Tipo de Curso</label>
+                                                    <select name="tipos" class="form-control" data-placeholder=" ">
+                                                        <option value="1">Curso</option>
+														<option value="2">Diplomado</option>
+														<option value="3">Especialidad</option>
+                                                    </select>
+												<label>Fecha de Inicio</label>
+													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_curso">
+												<label>Fecha de Término</label>
+													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_curso">
+											</div>
+											<button type="submit" class="btn btn-default">Consultar</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END CONSULTAR CURSO POR TIPO -->
+						
 						<!-- START CONSULTAR CURSO POR FECHA -->
 						<div class="col-lg-6">
 							<div class="card">
