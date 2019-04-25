@@ -1,5 +1,6 @@
 package com.cocay.sicecd.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +22,8 @@ import com.cocay.sicecd.repo.Grado_profesorRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.TurnoRep;
 
-import java.util.List;
-
 @Controller
+@RequestMapping("AdministracionProfesores")
 public class ProfesoresController {
 	
 	@Autowired
