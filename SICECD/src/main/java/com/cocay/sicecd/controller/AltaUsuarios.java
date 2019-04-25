@@ -129,14 +129,17 @@ public class AltaUsuarios {
 		return "altaUsuario/configuracionpass";
 	}
 
-	@GetMapping("/activacionAdmin")
+	@PostMapping("/activacionAdmin")
 	public String ActivacionAdministrador(
-			@RequestParam(name = "usuario") int id,
-			@RequestParam(name = "codigo") String codigo ) 
+			@RequestParam(name = "id") int id,
+			@RequestParam(name = "codigo") String codigo,
+			@RequestParam(name = "contrasena") String contrasena) 
 	{
 		if (_usuarioSys.existsById(id)) {
 			Usuario_sys candidato= (_usuarioSys.findById(id)).get();
 			if (codigo.equals(candidato.getCodigoCorreo())) {
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				candidato.setPassword(passwordEncoder.encode(contrasena));
 				candidato.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Activo").get(0));
 				candidato.setConfirmacion("false");
 				_usuarioSys.save(candidato);
