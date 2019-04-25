@@ -47,7 +47,7 @@ public class Profesor {
 	
 	@ManyToOne(targetEntity=Estado.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_estado", referencedColumnName="pk_id_estado",insertable = false, updatable = false)
+	@JoinColumn(name = "fk_id_estado", referencedColumnName="pk_id_estado",insertable = true, updatable = true)
 	Estado fk_id_estado;
 	
 	@Column(name = "ciudad_localidad")
@@ -55,7 +55,7 @@ public class Profesor {
 	
 	@ManyToOne(targetEntity=Genero.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "id_genero", referencedColumnName="pk_id_genero",insertable = false, updatable = false)
+	@JoinColumn(name = "id_genero", referencedColumnName="pk_id_genero",insertable = true, updatable = true)
 	Genero id_genero;
 	
 	@Column(name = "plantel")
@@ -66,12 +66,12 @@ public class Profesor {
 	
 	@ManyToOne(targetEntity=Turno.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_turno",referencedColumnName="pk_id_turno",insertable = false, updatable = false)
+	@JoinColumn(name = "fk_id_turno",referencedColumnName="pk_id_turno",insertable = true, updatable = true)
 	Turno fk_id_turno;
 	
 	@ManyToOne(targetEntity=Grado_profesor.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_grado_profesor",referencedColumnName="pk_id_grado_profesor",insertable = false, updatable = false)
+	@JoinColumn(name = "fk_id_grado_profesor",referencedColumnName="pk_id_grado_profesor",insertable = true, updatable = true)
 	Grado_profesor fk_id_grado_profesor;
 	
 	@Column(name = "ocupacion")
@@ -145,6 +145,14 @@ public class Profesor {
 	public String getCorreo() {
 		return correo;
 	}
+	
+	public Genero getGenero() {
+		return id_genero;
+	}
+	
+	public void setGenero(Genero id_genero) {
+		this.id_genero = id_genero;
+	}
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
@@ -162,6 +170,7 @@ public class Profesor {
 		return fk_id_estado;
 	}
 
+	/*Llave foranea del estado*/
 	public void setFk_id_estado(Estado fk_id_estado) {
 		this.fk_id_estado = fk_id_estado;
 	}
