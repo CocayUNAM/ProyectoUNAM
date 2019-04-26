@@ -329,3 +329,17 @@ ALTER TABLE public.profesor OWNER to "SICECD";
 ALTER TABLE public.tipo_curso OWNER to "SICECD";
 ALTER TABLE public.turno OWNER to "SICECD";
 ALTER TABLE public.usuario_sys OWNER to "SICECD";
+
+/*
+Autor: Jorge Erick Rivera Lopez
+Fecha: 24/04/2019
+Accion Creacion de tabla para certificados
+*/
+CREATE TABLE Certificado(
+  pk_id_certificado SERIAL PRIMARY KEY,
+  fk_id_profesor INTEGER NOT NULL,
+  ruta VARCHAR(200) NOT NULL,
+  fk_id_curso INTEGER NOT NULL
+);
+ALTER TABLE Certificado ADD FOREIGN KEY (fk_id_curso) REFERENCES Curso(pk_id_curso);
+ALTER TABLE Certificado ADD FOREIGN KEY (fk_id_profesor) REFERENCES Profesor(pk_id_profesor);

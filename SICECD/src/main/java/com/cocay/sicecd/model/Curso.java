@@ -42,6 +42,10 @@ public class Curso {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Grupo> grupos = new ArrayList<>();
 
+	@OneToMany(mappedBy = "fk_id_curso",targetEntity=Certificado.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Certificado> certificados = new ArrayList<>();
+
 	public Curso(){}
 	
 	public int getPk_id_curso() {
@@ -92,6 +96,12 @@ public class Curso {
 		this.grupos = grupos;
 	}
 
+	public List<Certificado> getCertificados() {
+		return certificados;
+	}
 
+	public void setCertificados(List<Certificado> certificados) {
+		this.certificados = certificados;
+	}
 
 }
