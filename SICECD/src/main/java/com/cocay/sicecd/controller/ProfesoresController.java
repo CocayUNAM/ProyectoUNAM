@@ -1,5 +1,8 @@
 package com.cocay.sicecd.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,9 +46,12 @@ public class ProfesoresController {
 		
 	//Mapeo del html para registrar cursos
 	@RequestMapping(value = "/registrarAsesor", method = RequestMethod.GET)
-	public String RegistrarProfesores(Model model, HttpServletRequest request){
+	public String RegistrarProfesores(Model model, HttpServletRequest request) throws ParseException{
 		
 		if(request.getParameterNames().hasMoreElements()) {
+			
+			/*------------------------------------------------------------------------------*/
+			/*Datos necesarios para el asesor*/
 			String apaterno = request.getParameter("apaterno");
 			
 			String amaterno = request.getParameter("amaterno");
@@ -57,6 +63,9 @@ public class ProfesoresController {
 			String telefono = request.getParameter("telefono");
 			
 			String correo = request.getParameter("correo");
+			
+			String fechaSt = request.getParameter("nacimiento");
+			Date fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaSt);
 			
 			Profesor profe = new Profesor();
 			
@@ -72,10 +81,30 @@ public class ProfesoresController {
 			
 			profe.setCorreo(correo);
 			
-			Optional<Estado> estado = stRep.findById((Integer)10);
-			if(!estado.isEmpty()) {
-				profe.setFk_id_estado(estado.get());
+			profe.setFechaNac(fecha);
+			
+			/*------------------------------------------------------------------------------*/
+			
+			/*------------------------------------------------------------------------------*/
+			/*Datos por default para la tabla*/
+			
+			List<Estado> est = stRep.findByNombre("Sin definir");
+			
+			Optional<Turno> trn = tRep.findById(4);
+			
+			Optional<Genero> gen = gRep.findById(3);
+			
+			Optional<Grado_profesor> gr = gpRep.findById(5);
+			
+			if(!est.isEmpty()) {
+				profe.setFk_id_estado(est.get(0));
 			}
+			
+			profe.setFk_id_turno(trn.get());
+			profe.setGenero(gen.get());
+			profe.setFk_id_grado_profesor(gr.get());
+			
+			/*------------------------------------------------------------------------------*/
 			
 			profRep.save(profe);
 		}
@@ -127,10 +156,6 @@ public class ProfesoresController {
 				
 				String ocupacion = request.getParameter("ocupacion");
 				
-				String calif = request.getParameter("calif");
-				
-				String consta = request.getParameter("const");
-				
 				/*Se crea el nuevo profesor a agregar a la base de datos*/
 				Profesor profe = new Profesor();
 				
@@ -162,7 +187,7 @@ public class ProfesoresController {
 				
 				profe.setFk_id_turno(trn.get());
 				
-				profe.setPlantel(cplantel);
+				profe.setClave_plantel(cplantel);
 				
 				profe.setFk_id_grado_profesor(gr.get());
 				

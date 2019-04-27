@@ -176,8 +176,6 @@ ALTER TABLE Log_sys ADD FOREIGN KEY(fk_id_log_evento_sys) REFERENCES Log_evento_
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_estado) REFERENCES Estado (pk_id_estado ) ON DELETE CASCADE;
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_turno) REFERENCES Turno (pk_id_turno ) ON DELETE CASCADE;
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_grado_profesor) REFERENCES Grado_profesor (pk_id_grado_profesor) ON DELETE CASCADE;
-ALTER TABLE Profesor ADD fecha_nacimiento TIMESTAMP;
-ALTER TABLE Profesor ADD constancia_qr VARCHAR(50);
 ALTER TABLE Grupo ADD FOREIGN KEY(fk_id_curso) REFERENCES Curso (pk_id_curso ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_grupo) REFERENCES Grupo (pk_id_grupo ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_profesor) REFERENCES Profesor (pk_id_profesor ) ON DELETE CASCADE;
@@ -241,6 +239,7 @@ INSERT INTO public.tipo_curso(nombre) VALUES ('Especialidad');
 INSERT INTO public.turno(nombre) VALUES ('Matutino');
 INSERT INTO public.turno(nombre) VALUES ('Vepertino');
 INSERT INTO public.turno(nombre) VALUES ('Completo');
+INSERT INTO public.turno(nombre) VALUES('Sin definir');
 
 INSERT INTO public.grado_profesor(nombre) VALUES ('Lic.');
 INSERT INTO public.grado_profesor(nombre) VALUES ('Esp.');
@@ -249,6 +248,7 @@ INSERT INTO public.grado_profesor(nombre) VALUES ('Doc.');
 
 INSERT INTO public.genero(genero) VALUES ('Masculino');
 INSERT INTO public.genero(genero) VALUES ('Femenino');
+INSERT INTO public.genero(genero) VALUES('Sin definir');
 
 INSERT INTO public.estado(nombre) VALUES ('Aguascalientes');
 INSERT INTO public.estado(nombre) VALUES ('Baja California');
@@ -281,6 +281,7 @@ INSERT INTO public.estado(nombre) VALUES ('Tlaxcala');
 INSERT INTO public.estado(nombre) VALUES ('Veracruz');
 INSERT INTO public.estado(nombre) VALUES ('Yucatán');
 INSERT INTO public.estado(nombre) VALUES ('Zacatecas');
+INSERT INTO public.estado(nombre) VALUES ('Sin definir');
 COMMIT;
 
 INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'armenta@unam.mx', 1, 1);--123456789

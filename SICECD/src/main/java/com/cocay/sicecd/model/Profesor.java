@@ -1,6 +1,7 @@
 package com.cocay.sicecd.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -44,6 +45,9 @@ public class Profesor {
 	
 	@Column(name = "telefono")
 	String telefono;
+	
+	@Column(name = "fecha_nac")
+	Date fechaNac;
 	
 	@ManyToOne(targetEntity=Estado.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -245,6 +249,14 @@ public class Profesor {
 
 	public void setInscripciones(List<Inscripcion> inscripciones) {
 		this.inscripciones = inscripciones;
+	}
+	
+	public Date getFechaNac() {
+		return fechaNac;
+	}
+	
+	public void setFechaNac(Date fechaNac) {
+		this.fechaNac = fechaNac;
 	}
 	
 	
