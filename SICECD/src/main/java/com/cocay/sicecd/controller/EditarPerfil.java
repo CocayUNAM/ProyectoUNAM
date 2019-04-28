@@ -26,6 +26,22 @@ public class EditarPerfil {
 	SendMailService _email;
 	
 	
+	
+	private void editarCorreo(Usuario_sys guardado, Usuario_sys consulta) {
+		String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
+		String link = "http://localhost:8080/confirmacorreo?codigo=" + codigo + "&usuario="
+				+ guardado.getPk_id_usuario_sys();
+		String from = "cocayprueba@gmail.com";
+		String to = consulta.getCorreo();
+		String subject = "Cambio de correo";
+		String body = "Hola da clic al siguiente  link \n" + link + "\npara confirmar tu correo.";
+		_email.sendMail(from, to, subject, body);
+		guardado.setCodigoCorreo(codigo);
+		guardado.setConfirmacion("true");
+		guardado.setCorreocambio(consulta.getCorreo());
+		_usuarioSys.save(guardado);
+	}
+	
 	@GetMapping("/AdministracionCursos/listaUsuarios")
 	private ModelAndView listaUsuarios() {
 		ModelAndView model=new ModelAndView("editarPerfil/listausuarios");
@@ -78,18 +94,7 @@ public class EditarPerfil {
 		}
 
 		if (!consulta.getCorreo().equals(guardado.getCorreo())) {
-			String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
-			String link = "http://localhost:8080/confirmacorreo?codigo=" + codigo + "&usuario="
-					+ guardado.getPk_id_usuario_sys();
-			String from = "cocayprueba@gmail.com";
-			String to = consulta.getCorreo();
-			String subject = "Cambio de correo";
-			String body = "Hola da clic al siguiente  link \n" + link + "\npara confirmar tu correo.";
-			_email.sendMail(from, to, subject, body);
-			guardado.setCodigoCorreo(codigo);
-			guardado.setConfirmacion("true");
-			guardado.setCorreocambio(consulta.getCorreo());
-			_usuarioSys.save(guardado);
+			editarCorreo(guardado, consulta);
 		}
 		String frome = "cocayprueba@gmail.com";
 		String toe = guardado.getCorreo();
@@ -103,6 +108,15 @@ public class EditarPerfil {
 
 		return ResponseEntity.ok("Usuario Editado con exito");
 
+	}
+	
+	
+	@PostMapping("/AdministracionCursos/renviarcambiocorreo")
+	private ResponseEntity<String> renviarCambioCorreo(@RequestBody Usuario_sys consulta) {
+		Usuario_sys guardado = _usuarioSys.findByRfc(consulta.getRfc()).get(0);
+
+		editarCorreo(guardado, consulta);
+		return ResponseEntity.ok("Correo renviado");
 	}
 
 	@GetMapping(value = "/confirmacorreo")

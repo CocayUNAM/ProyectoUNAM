@@ -13,10 +13,81 @@
 <link href="/css/lib/helper.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
 <style>
-tr {cursor: pointer;}
+.renglon {
+	cursor: pointer;
+}
+
+.oculto {
+	cursor: default;
+}
+
+#spin{
+	visibility: hidden;}
 </style>
 </head>
 <body>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="d-flex align-items-center" id="proceso">
+						<div id="spin">
+							<strong>Editando Perfil... &nbsp;</strong>
+							<div class="spinner-grow text-info" role="status"
+								aria-hidden="true"></div>
+						</div>
+						<h4 id="opc">Elige una opcion</h4>
+					</div>
+				</div>
+				<div class="modal-body">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item"><a class="nav-link active" id="home-tab"
+							data-toggle="tab" href="#home" role="tab" aria-controls="home"
+							aria-selected="true">Cambio de correo</a></li>
+						<li class="nav-item"><a class="nav-link" id="profile-tab"
+							data-toggle="tab" href="#profile" role="tab"
+							aria-controls="profile" aria-selected="false">Activacion de
+								cuenta</a></li>
+
+					</ul>
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="home" role="tabpanel"
+							aria-labelledby="home-tab">
+							<div class="modal-body">
+								<form id="cambio">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Correo:</label>
+										<input type="text" class="form-control" id="correo"><br>
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Renviar
+											correo</button>
+									</div>
+								</form>
+							</div>
+
+						</div>
+						<div class="tab-pane fade" id="profile" role="tabpanel"
+							aria-labelledby="profile-tab">
+							<br>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Renviar
+								correo</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- FIN DE MODAL -->
+
+	<!-- INICIO DE LA PAGINA -->
 	<div th:replace="/includes/head.html :: head_div1" />
 	<div th:replace="/includes/head.html :: head_div2" />
 
@@ -29,7 +100,7 @@ tr {cursor: pointer;}
 					<div class="col-lg-8 p-r-0 title-margin-right">
 						<div class="page-header">
 							<div class="page-title">
-								<h1>Perfil Usuario</h1>
+								<h1>Lista de Usuarios del Sistema</h1>
 							</div>
 						</div>
 					</div>
@@ -44,19 +115,26 @@ tr {cursor: pointer;}
 								<th class="th-sm">Apellido Materno</th>
 								<th class="th-sm">Estatus</th>
 								<th class="th-sm">Perfil</th>
+								<th class="th-sm">Renviar Confirmacion</th>
 							</tr>
 						</thead>
 						<tbody>
 							<th:block th:each="user : ${usuarios}">
 
-								<tr class="renglon" >
-									<td td th:text="${user.rfc}" class="rfc"></td>
-									<td td th:text="${user.correo}" class="correo"></td>
-									<td td th:text="${user.nombre}" class="nombre"></td>
-									<td td th:text="${user.apellido_paterno}" class="ap"></td>
-									<td td th:text="${user.apellido_materno}" class="am"></td>
-									<td td th:text="${user.fk_id_estatus_usuario_sys.nombre}" class="esatus"></td>
-									<td td th:text="${user.fk_id_perfil_sys.nombre}" class="perfil"></td>
+								<tr>
+									<td class="renglon rfc" th:value="${user.rfc}"
+										th:text="${user.rfc}"></td>
+									<td class="renglon" th:text="${user.correo}"></td>
+									<td class="renglon" th:text="${user.nombre}"></td>
+									<td class="renglon" th:text="${user.apellido_paterno}"></td>
+									<td class="renglon" th:text="${user.apellido_materno}"></td>
+									<td class="renglon"
+										th:text="${user.fk_id_estatus_usuario_sys.nombre}"></td>
+									<td class="renglon" th:text="${user.fk_id_perfil_sys.nombre}"></td>
+									<td class="oculto" th:value="${user.correocambio}"><button
+											th:if="${user.correocambio !=''}" type="button"
+											class="wola btn btn-primary" data-toggle="modal"
+											data-target="#exampleModal">Renviar</button></td>
 								</tr>
 							</th:block>
 						</tbody>
@@ -82,20 +160,90 @@ tr {cursor: pointer;}
 	<script src="/js/scripts.js"></script>
 
 	<script>
-		$(document).ready(function() {
-			$('#grid').DataTable();
-$("tr.renglon").on("click", function(){
-	console.log(this);
-	var rfc=$(this).find(".rfc").text();
-	window.location.href = "/AdministracionCursos/formEditarPerfilUsuario?rfc="+rfc;
-	
-});
+		$(document)
+				.ready(
+						function() {
+							$('#grid').DataTable();
+							//redireccionar a la edicion del perfil
+							$(".renglon")
+									.on(
+											"click",
+											function() {
+												var rfc = $(this).parent()
+														.find(".rfc").attr(
+																"value");
+												console.log(rfc)
 
+												window.location.href = "/AdministracionCursos/formEditarPerfilUsuario?rfc="
+														+ rfc;
+											});
 
-		});
+							//renviar correo
+							//modificar modal
+
+							$(".oculto").on("click", function(e) {
+								e.preventDefault();
+							});
+
+							let mail = "";
+							let rfccapturado = "";
+							$(".wola").on(
+									"click",
+									function() {
+										mail = $(this).parent().attr("value");
+										//console.log(mail);
+
+										$("#correo").attr("value", mail);
+
+										rfccapturado = $(this).parent()
+												.parent().find(".rfc").attr(
+														"value");
+
+									});
+
+							$("#cambio")
+									.submit(
+											function(eve) {
+												eve.preventDefault();
+												let datos = {
+													correo : $("#correo").attr(
+															"value"),
+													rfc : rfccapturado
+
+												}
+												$
+														.ajax({
+															type : "POST",
+															contentType : "application/json",
+															url : '/AdministracionCursos/renviarcambiocorreo',
+															data : JSON
+																	.stringify(datos),
+															beforeSend : function() {
+																// setting a timeout
+																$("#opc").css("visibility","hidden")
+																$('#spin').css("visibility","visible")
+																		
+															},
+															//dataType:'json',
+															error : function(e) {
+																alert("Error");
+															},
+															success : function(
+																	respuesta) {
+																$('#proceso')
+																		.replaceWith(
+																				"<h4>"
+																						+ respuesta
+																						+ "</h4>");
+																
+															}
+														});
+											});
+						});
 	</script>
-<script type="text/javascript">
-</script>
+	<script type="text/javascript">
+		
+	</script>
 
 </body>
 </html>
