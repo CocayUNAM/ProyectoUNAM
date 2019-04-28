@@ -39,7 +39,7 @@ public class Grupo {
 	
 	@ManyToOne(targetEntity=Profesor.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "pk_id__profesor",referencedColumnName="pk_id_profesor",insertable = true, updatable = true)
+	@JoinColumn(name = "fk_id__profesor",referencedColumnName="pk_id_profesor",insertable = true, updatable = true)
 	Profesor fk_id_profesor;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
