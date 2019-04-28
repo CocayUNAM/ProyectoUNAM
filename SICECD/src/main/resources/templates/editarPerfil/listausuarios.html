@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Lista de usuarios</title>
+<link href="/css/lib/select2/select2.min.css" rel="stylesheet">
+<link href="/css/lib/font-awesome.min.css" rel="stylesheet">
+<link href="/css/lib/themify-icons.css" rel="stylesheet">
+<link href="/css/lib/menubar/sidebar.css" rel="stylesheet">
+<link href="/css/lib/bootstrap.min.css" rel="stylesheet">
+<link href="/css/lib/datatables.min.css" rel="stylesheet">
+<link href="/css/lib/helper.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+<style>
+tr {cursor: pointer;}
+</style>
+</head>
+<body>
+	<div th:replace="/includes/head.html :: head_div1" />
+	<div th:replace="/includes/head.html :: head_div2" />
+
+	<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row">
+
+					<!-- titulo -->
+					<div class="col-lg-8 p-r-0 title-margin-right">
+						<div class="page-header">
+							<div class="page-title">
+								<h1>Perfil Usuario</h1>
+							</div>
+						</div>
+					</div>
+
+					<table id="grid" class="table table-hover" cellspacing="0">
+						<thead>
+							<tr>
+								<th class="th-sm">Rfc</th>
+								<th class="th-sm">correo</th>
+								<th class="th-sm">nombre</th>
+								<th class="th-sm">Apellido Paterno</th>
+								<th class="th-sm">Apellido Materno</th>
+								<th class="th-sm">Estatus</th>
+								<th class="th-sm">Perfil</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="user : ${usuarios}">
+
+								<tr class="renglon" >
+									<td td th:text="${user.rfc}" class="rfc"></td>
+									<td td th:text="${user.correo}" class="correo"></td>
+									<td td th:text="${user.nombre}" class="nombre"></td>
+									<td td th:text="${user.apellido_paterno}" class="ap"></td>
+									<td td th:text="${user.apellido_materno}" class="am"></td>
+									<td td th:text="${user.fk_id_estatus_usuario_sys.nombre}" class="esatus"></td>
+									<td td th:text="${user.fk_id_perfil_sys.nombre}" class="perfil"></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+
+				</div>
+				<!-- /# row -->
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
+	<script src="/js/lib/jquery.nanoscroller.min.js"></script>
+	<!-- nano scroller -->
+	<script src="/js/lib/menubar/sidebar.js"></script>
+	<script src="/js/lib/preloader/pace.min.js"></script>
+	<!-- sidebar -->
+	<!-- bootstrap -->
+	<!-- Select2 -->
+	<script src="/js/lib/select2/select2.full.min.js"></script>
+	<!-- 	<script src="/js/lib/form-validation/jquery.validate-init.js"></script> -->
+	<script src="/js/lib/bootstrap.min.js"></script>
+	<script src="/js/lib/datatables.min.js"></script>
+	<script src="/js/scripts.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			$('#grid').DataTable();
+$("tr.renglon").on("click", function(){
+	console.log(this);
+	var rfc=$(this).find(".rfc").text();
+	window.location.href = "/AdministracionCursos/formEditarPerfilUsuario?rfc="+rfc;
+	
+});
+
+
+		});
+	</script>
+<script type="text/javascript">
+</script>
+
+</body>
+</html>

@@ -39,6 +39,11 @@ public class Usuario_sys {
 	String confirmacion;
 	@Column (name = "codigoCorreo")
 	String codigoCorreo;
+	@Column (name = "correocambio")
+	String correocambio;
+
+	
+	
 	
 	@ManyToOne(targetEntity = Estatus_usuario_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -153,6 +158,16 @@ public class Usuario_sys {
 	public void setCodigoCorreo(String codigoCorreo) {
 		this.codigoCorreo = codigoCorreo;
 	}
+
+	public String getCorreocambio() {
+		return correocambio;
+	}
+
+	public void setCorreocambio(String correocambio) {
+		this.correocambio = correocambio;
+	}
+
+
 
 
 
