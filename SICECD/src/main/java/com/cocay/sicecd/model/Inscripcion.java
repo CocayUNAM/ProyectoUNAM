@@ -1,5 +1,7 @@
 package com.cocay.sicecd.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,6 +32,9 @@ public class Inscripcion {
 	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor",insertable = false, updatable = false)
 	Profesor fk_id_profesor;
 	
+	@Column(name = "calif")
+	Integer calif;
+	
 	public Inscripcion(){}
 	
 	public int getPk_id_inscripcion() {
@@ -49,6 +54,14 @@ public class Inscripcion {
 	}
 	public void setFk_id_profesor(Profesor fk_id_profesor) {
 		this.fk_id_profesor = fk_id_profesor;
+	}
+	
+	public Integer getCalificacion() {
+		return this.calif;
+	}
+	
+	public void setCalificacion(Integer calif) {
+		this.calif = calif;
 	}
 
 
