@@ -35,7 +35,6 @@ public class RecuperaContrasena {
 			_email.sendMail(from, to, subject, body);
 			guardado.setCodigorecupera(codigo);
 			guardado.setConfirmarecupera("true");
-			guardado.setCorreocambio(consulta.getCorreo());
 			_usuarioSys.save(guardado);
 			String correoo=guardado.getCorreo();
 			mensaje="Se ha enviado un link a "+correoo.substring(0,3)+"*****"+correoo.substring(correoo.length()-3,correoo.length());

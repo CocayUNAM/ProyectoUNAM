@@ -53,6 +53,8 @@ public class AltaUsuarios {
 
 		consulta.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Inactivo").get(0));
 		consulta.setConfirmacion("true");
+		consulta.setConfirmacioncorreo("false");
+		consulta.setConfirmarecupera("false");
 		String codigo=String.valueOf((int) (Math.random() * 1000) + 1);
 		consulta.setCodigo(codigo);
 		_usuarioSys.save(consulta);

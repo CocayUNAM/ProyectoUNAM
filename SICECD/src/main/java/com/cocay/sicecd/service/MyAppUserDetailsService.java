@@ -22,6 +22,11 @@ public class MyAppUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String userName)
 			throws UsernameNotFoundException {
 		Usuario_sys activeUserInfo = usuarioSys.findByRfc(userName).get(0);
+		if (activeUserInfo!=null) {
+			if (activeUserInfo.getFk_id_estatus_usuario_sys().getNombre().equals("Inactivo")) {
+				activeUserInfo=null;
+			}
+		}
 		GrantedAuthority authority = new SimpleGrantedAuthority(activeUserInfo.getFk_id_perfil_sys().getNombre());
 		UserDetails userDetails = (UserDetails)new User(activeUserInfo.getRfc(),
 				activeUserInfo.getPassword(), Arrays.asList(authority));

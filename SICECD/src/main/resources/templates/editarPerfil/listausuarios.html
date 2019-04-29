@@ -51,14 +51,14 @@
 				</div>
 				<div class="modal-body">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item"><a class="nav-link active" id="home-tab"
+						<li class="nav-item" id="cambiomail"><a class="nav-link active" id="home-tab"
 							data-toggle="tab" href="#home" role="tab" aria-controls="home"
 							aria-selected="true">Cambio de correo</a></li>
-						<li class="nav-item"><a class="nav-link" id="profile-tab"
+						<li class="nav-item" id="reactivapass"><a class="nav-link" id="profile-tab"
 							data-toggle="tab" href="#profile" role="tab"
 							aria-controls="profile" aria-selected="false">Reactivacion de
 								contrasena</a></li>
-						<li class="nav-item"><a class="nav-link" id="contact-tab"
+						<li class="nav-item" id="activacuenta"><a class="nav-link" id="contact-tab"
 							data-toggle="tab" href="#contact" role="tab"
 							aria-controls="contact" aria-selected="false">Activacion de
 								cuenta</a></li>
@@ -157,7 +157,7 @@
 									<td class="renglon"
 										th:text="${user.fk_id_estatus_usuario_sys.nombre}"></td>
 									<td class="renglon" th:text="${user.fk_id_perfil_sys.nombre}"></td>
-									<td class="oculto" th:value="${user.correocambio}"><button
+									<td class="oculto" th:value="${user.correocambio}" ><button th:confcorreo="${user.confirmacioncorreo}" th:confactivo="${user.confirmacion}" th:confrecupera="${user.confirmarecupera}"
 											th:if="${user.confirmacion =='true' or user.confirmarecupera =='true' or user.confirmacioncorreo =='true'}"
 											type="button" class="wola btn btn-primary"
 											data-toggle="modal" data-target="#exampleModal">Renviar</button></td>
@@ -206,24 +206,44 @@
 
 							//renviar correo
 							//modificar modal
-
+							//Obtine datos
 							$(".oculto").on("click", function(e) {
 								e.preventDefault();
 							});
 
 							let mail = "";
 							let rfccapturado = "";
+							let conficorreo="";
+							let confiactivo="";
+							let confirecupera="";
 							$(".wola").on(
 									"click",
 									function() {
 										mail = $(this).parent().attr("value");
-										//console.log(mail);
 
 										$("#correo").attr("value", mail);
 
 										rfccapturado = $(this).parent()
 												.parent().find(".rfc").attr(
 														"value");
+										conficorreo= $(this).attr("confcorreo");
+										confiactivo= $(this).attr("confactivo");
+										confirecupera= $(this).attr("confrecupera");
+										//console.log(rfccapturado+" activo "+ confiactivo+" correo "+ conficorreo+ " recupera "+ confirecupera)
+										if(conficorreo!='true'){
+											$('#cambiomail')
+											.css("display","none");
+											$('#cambio')
+											.css("display","none");
+										}
+										if(confiactivo!='true'){
+											$('#activacuenta')
+											.css("display","none");
+										}
+										if(confirecupera!='true'){
+											$('#reactivapass')
+											.css("display","none");
+										}
 
 									});
 
