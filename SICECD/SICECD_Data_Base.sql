@@ -179,6 +179,7 @@ ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_grado_profesor) REFERENCES Grado_prof
 ALTER TABLE Grupo ADD FOREIGN KEY(fk_id_curso) REFERENCES Curso (pk_id_curso ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_grupo) REFERENCES Grupo (pk_id_grupo ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_profesor) REFERENCES Profesor (pk_id_profesor ) ON DELETE CASCADE;
+ALTER TABLE Inscripcion ADD calificacion VARCHAR(5);
 
 --DROP TABLE Log_sys;
 --DROP TABLE Log_evento_sys;
@@ -243,6 +244,7 @@ INSERT INTO public.tipo_curso(nombre) VALUES ('Especialidad');
 INSERT INTO public.turno(nombre) VALUES ('Matutino');
 INSERT INTO public.turno(nombre) VALUES ('Vepertino');
 INSERT INTO public.turno(nombre) VALUES ('Completo');
+INSERT INTO public.turno(nombre) VALUES('Sin definir');
 
 INSERT INTO public.grado_profesor(nombre) VALUES ('Lic.');
 INSERT INTO public.grado_profesor(nombre) VALUES ('Esp.');
@@ -251,6 +253,7 @@ INSERT INTO public.grado_profesor(nombre) VALUES ('Doc.');
 
 INSERT INTO public.genero(genero) VALUES ('Masculino');
 INSERT INTO public.genero(genero) VALUES ('Femenino');
+INSERT INTO public.genero(genero) VALUES('Sin definir');
 
 INSERT INTO public.estado(nombre) VALUES ('Aguascalientes');
 INSERT INTO public.estado(nombre) VALUES ('Baja California');
@@ -283,6 +286,7 @@ INSERT INTO public.estado(nombre) VALUES ('Tlaxcala');
 INSERT INTO public.estado(nombre) VALUES ('Veracruz');
 INSERT INTO public.estado(nombre) VALUES ('Yucatán');
 INSERT INTO public.estado(nombre) VALUES ('Zacatecas');
+INSERT INTO public.estado(nombre) VALUES ('Sin definir');
 COMMIT;
 
 INSERT INTO public.usuario_sys(rfc, password, correo, nombre,  apellido_paterno, apellido_materno, confirmacion, codigo, confirmacioncorreo,codigo_correo,correocambio,codigorecupera, confirmarecupera, fk_id_estatus_usuario_sys, fk_id_perfil_sys) 
@@ -336,3 +340,20 @@ ALTER TABLE public.profesor OWNER to "SICECD";
 ALTER TABLE public.tipo_curso OWNER to "SICECD";
 ALTER TABLE public.turno OWNER to "SICECD";
 ALTER TABLE public.usuario_sys OWNER to "SICECD";
+
+/*
+Autor: Jorge Erick Rivera Lopez
+Fecha: 24/04/2019
+Accion Creacion de tabla para certificados
+*/
+CREATE TABLE Certificado(
+  pk_id_certificado SERIAL PRIMARY KEY,
+  fk_id_profesor INTEGER NOT NULL,
+  ruta VARCHAR(200) NOT NULL,
+  fk_id_curso INTEGER NOT NULL
+);
+ALTER TABLE Certificado ADD FOREIGN KEY (fk_id_curso) REFERENCES Curso(pk_id_curso);
+ALTER TABLE Certificado ADD FOREIGN KEY (fk_id_profesor) REFERENCES Profesor(pk_id_profesor);
+INSERT INTO curso (clave,nombre,fk_id_tipo_curso,horas) VALUES ('A005','COSDAC 2018',1,40);
+INSERT INTO profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Abraham', 'Diaz', 'Diaz', 'ABDI800505MMM', 'asmaharba@gmail.com', 1, 1, 1, 1);
+ALTER TABLE public.certificado OWNER to "SICECD";

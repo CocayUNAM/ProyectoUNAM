@@ -33,21 +33,21 @@
 					<!-- START ROW -->
 					<div class="row">
 						
-						<!-- START CONSULTAR CURSO POR NOMBRE -->
+						<!-- START CONSULTAR GRUPO POR CURSO -->
 						<div class="col-lg-6">
 							<div class="card">
 								<div class="card-title"></div>
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/consultaCursoNombre" method="post" target="_blank">
+										<form action="/consultaGrupoCurso" method="post" target="_blank">
 											<div class="form-group">
-												<h4>Consultar por Nombre</h4>
-												<label>Nombre</label>
-													<input type="text" name="nombre_curso" class="form-control">
+												<h4>Consultar por Curso</h4>
+												<label>Clave</label>
+													<input type="text" name="curso_grupo" class="form-control">
 												<label>Fecha de Inicio</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_curso">
+													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_grupo">
 												<label>Fecha de Término</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_curso">
+													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_grupo">
 											</div>
 											<button type="submit" class="btn btn-default">Consultar</button>
 										</form>
@@ -55,23 +55,23 @@
 								</div>
 							</div>
 						</div>
-						<!-- END CONSULTAR CURSO POR NOMBRE -->
+						<!-- END CONSULTAR GRUPO POR CURSO -->
 						
-						<!-- START CONSULTAR CURSO POR CLAVE -->
+						<!-- START CONSULTAR GRUPO POR CLAVE -->
 						<div class="col-lg-6">
 							<div class="card">
 								<div class="card-title"></div>
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/consultaCursoClave" method="post" target="_blank">
+										<form action="/consultaGrupoClave" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consultar por Clave</h4>
 												<label>Clave</label>
-													<input type="text" name="clave_curso" class="form-control" text="0000">
+													<input type="text" name="clave_grupo" class="form-control" text="0000">
 												<label>Fecha de Inicio</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_curso">
+													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_grupo">
 												<label>Fecha de Término</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_curso">
+													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_grupo">
 											</div>
 											<button type="submit" class="btn btn-default">Consultar</button>
 										</form>
@@ -79,49 +79,21 @@
 								</div>
 							</div>
 						</div>
-						<!-- END CONSULTAR CURSO POR CLAVE -->
+						<!-- END CONSULTAR GRUPO POR CLAVE -->
 						
-						<!-- START CONSULTAR CURSO POR TIPO -->
+						<!-- START CONSULTAR GRUPO POR FECHA -->
 						<div class="col-lg-6">
 							<div class="card">
 								<div class="card-title"></div>
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/consultaCursoTipo" method="post" target="_blank">
-											<div class="form-group">
-												<h4>Consultar por Tipo de Curso</h4>
-												<label>Tipo de Curso</label>
-                                                    <select name="tipos" class="form-control" data-placeholder=" ">
-                                                        <option value="1">Curso</option>
-														<option value="2">Diplomado</option>
-														<option value="3">Especialidad</option>
-                                                    </select>
-												<label>Fecha de Inicio</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_curso">
-												<label>Fecha de Término</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_curso">
-											</div>
-											<button type="submit" class="btn btn-default">Consultar</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- END CONSULTAR CURSO POR TIPO -->
-						
-						<!-- START CONSULTAR CURSO POR FECHA -->
-						<div class="col-lg-6">
-							<div class="card">
-								<div class="card-title"></div>
-								<div class="card-body">
-									<div class="basic-form">
-										<form action="/consultaCursoFecha" method="post" target="_blank">
+										<form action="/consultaGrupoFecha" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consultar por Fecha</h4>
 												<label>Fecha de Inicio</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_curso">
+													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_grupo">
 												<label>Fecha de Término</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_curso">
+													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_grupo">
 											</div>
 											<button type="submit" class="btn btn-default">Consultar</button>
 										</form>
@@ -129,7 +101,7 @@
 								</div>
 							</div>
 						</div>
-						<!-- END CONSULTAR CURSO POR FECHA -->
+						<!-- END CONSULTAR GRUPO POR FECHA -->
 						
 					</div>
 					<!-- END ROW -->

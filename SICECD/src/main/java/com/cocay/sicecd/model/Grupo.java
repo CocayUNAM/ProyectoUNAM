@@ -36,6 +36,11 @@ public class Grupo {
 	Date fecha_inicio;
 	@Column(name = "fecha_fin")
 	Date fecha_fin;
+	
+	@ManyToOne(targetEntity=Profesor.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinColumn(name = "fk_id__profesor",referencedColumnName="pk_id_profesor",insertable = true, updatable = true)
+	Profesor fk_id_profesor;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Inscripcion> inscripciones = new ArrayList<>();

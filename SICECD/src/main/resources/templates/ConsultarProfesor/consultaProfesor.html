@@ -41,7 +41,7 @@
 										<form action="/consultarProfesorRFC" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consulta por RFC</h4>
-												<label>RFC</label>
+												<label>RFC<span class="text-danger">*</span></label>
 													<input type="text" class="form-control" name="rfc"
 													maxlength="13" placeholder="SAMH2509126L6" required>
 											</div>
@@ -61,9 +61,8 @@
 										<form action="/consultarProfesorEstado" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consulta por Estado</h4>
-												<label>Estado</label>
-													<select name="estados" class="form-control">
-														<option value="0"></option>
+												<label>Estado<span class="text-danger">*</span></label>
+													<select name="estados" class="form-control" data-placeholder="Selecciona un Estado">
 														<option value="1">Aguascalientes</option>
 														<option value="2">Baja California</option>
 														<option value="3">Baja California Sur</option>
@@ -142,16 +141,21 @@
 												<h4>Consulta personalizada</h4>
 												<label>Nombre</label>
 													<input type="text" name="nombre" class="form-control" placeholder="Juan"
-													pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]" required>
+													pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
 												<label>Apellido Paterno</label>
 													<input type="text" class="form-control" placeholder="Perez" name="apellido_paterno"
-													pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]" required>
+													pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
 												<label>Apellido Materno</label>
 													<input type="text" class="form-control" placeholder="Perez" name="apellido_materno"
-													pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]" required>
+													pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
+												<label>Grado de estudios</label>
+													<select name="grado_estudios" class="form-control" data-placeholder=" ">
+														<option value="1">Licenciatura</option>
+														<option value="3">Maestría</option>
+														<option value="4">Doctorado</option>
+													</select>
 												<label>Estado</label>
-													<select name="estados" class="form-control">
-														<option value="0"></option>
+													<select name="estados" class="form-control" data-placeholder="Selecciona un Estado">
 														<option value="1">Aguascalientes</option>
 														<option value="2">Baja California</option>
 														<option value="3">Baja California Sur</option>
@@ -185,12 +189,12 @@
 														<option value="31">Yucatán</option>
 														<option value="32">Zacatecas</option>
 													</select>
+													
 												<label>Género</label>
-													<select name="genero" class="form-control">
-														<option value="0"></option>
-														<option value="1">Masculino</option>
+                                                    <select name="genero" class="form-control" data-placeholder=" ">
+                                                        <option value="1">Masculino</option>
 														<option value="2">Femenino</option>
-													</select>
+                                                    </select>
 											</div>
 											<button type="submit" class="btn btn-default">Consultar</button>
 										</form>
