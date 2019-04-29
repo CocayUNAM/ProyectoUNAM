@@ -43,8 +43,7 @@ public class ConsultaProfesorController {
 			model.addAttribute("clave-plantel", p.getClave_plantel());
 			model.addAttribute("ocupacion", p.getOcupacion());
 			model.addAttribute("inscripcion", p.getInscripciones());
-			return new ModelAndView("/ConsultarProfesor/muestraProfesor", model);
-			
+			return new ModelAndView("/ConsultarProfesor/muestraProfesor", model);			
 		} else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}

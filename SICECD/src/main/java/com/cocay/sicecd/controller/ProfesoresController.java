@@ -1,5 +1,8 @@
 package com.cocay.sicecd.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cocay.sicecd.model.Estado;
+import com.cocay.sicecd.model.Genero;
+import com.cocay.sicecd.model.Grado_profesor;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.model.Turno;
 import com.cocay.sicecd.repo.EstadoRep;
 import com.cocay.sicecd.repo.GeneroRep;
 import com.cocay.sicecd.repo.Grado_profesorRep;
@@ -20,6 +26,7 @@ import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.TurnoRep;
 
 @Controller
+@RequestMapping("AdministracionProfesores")
 public class ProfesoresController {
 	
 	@Autowired
@@ -39,9 +46,12 @@ public class ProfesoresController {
 		
 	//Mapeo del html para registrar cursos
 	@RequestMapping(value = "/registrarAsesor", method = RequestMethod.GET)
-	public String RegistrarProfesores(Model model, HttpServletRequest request){
+	public String RegistrarProfesores(Model model, HttpServletRequest request) throws ParseException{
 		
 		if(request.getParameterNames().hasMoreElements()) {
+			
+			/*------------------------------------------------------------------------------*/
+			/*Datos necesarios para el asesor*/
 			String apaterno = request.getParameter("apaterno");
 			
 			String amaterno = request.getParameter("amaterno");
@@ -53,6 +63,9 @@ public class ProfesoresController {
 			String telefono = request.getParameter("telefono");
 			
 			String correo = request.getParameter("correo");
+			
+			String fechaSt = request.getParameter("nacimiento");
+			Date fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaSt);
 			
 			Profesor profe = new Profesor();
 			
@@ -68,15 +81,124 @@ public class ProfesoresController {
 			
 			profe.setCorreo(correo);
 			
-			Optional<Estado> estado = stRep.findById(10);
-			if(!estado.isEmpty()) {
-				profe.setFk_id_estado(estado.get());
+			profe.setFechaNac(fecha);
+			
+			/*------------------------------------------------------------------------------*/
+			
+			/*------------------------------------------------------------------------------*/
+			/*Datos por default para la tabla*/
+			
+			List<Estado> est = stRep.findByNombre("Sin definir");
+			
+			Optional<Turno> trn = tRep.findById(4);
+			
+			Optional<Genero> gen = gRep.findById(3);
+			
+			Optional<Grado_profesor> gr = gpRep.findById(5);
+			
+			if(!est.isEmpty()) {
+				profe.setFk_id_estado(est.get(0));
 			}
+			
+			profe.setFk_id_turno(trn.get());
+			profe.setGenero(gen.get());
+			profe.setFk_id_grado_profesor(gr.get());
+			
+			/*------------------------------------------------------------------------------*/
 			
 			profRep.save(profe);
 		}
 		
 		return "ProfesoresController/registrarAsesor";
 	}
+	
+	//Mapeo del html para registrar cursos
+		@RequestMapping(value = "/registrarParticipante", method = RequestMethod.GET)
+		public String RegistrarParticipantes(Model model, HttpServletRequest request){
+			
+			if(request.getParameterNames().hasMoreElements()) {
+				
+				String apaterno = request.getParameter("apaterno");
+				
+				String amaterno = request.getParameter("amaterno");
+				
+				String nombres = request.getParameter("nombres");
+				
+				String curp = request.getParameter("curp");
+				
+				String rfc = request.getParameter("rfc");
+				
+				String correo = request.getParameter("correo");
+				
+				String telefono = request.getParameter("tel");
+				
+//				/*base*/
+				String estado = request.getParameter("estado");
+				List<Estado> est = stRep.findByNombre(estado);
+				
+				String cilo = request.getParameter("cilo");
+				
+				/*base*/
+				Integer genero = Integer.parseInt(request.getParameter("genero"));
+				Optional<Genero> gen = gRep.findById(genero);
+				
+				String plantel = request.getParameter("plantel");
+				
+				/*base*/
+				Integer turno = Integer.parseInt(request.getParameter("turno"));
+				Optional<Turno> trn = tRep.findById(turno);
+				
+				String cplantel = request.getParameter("cplantel");
+				
+				/*base*/
+				Integer grado = Integer.parseInt(request.getParameter("grado"));
+				Optional<Grado_profesor> gr = gpRep.findById(grado);
+				
+				String ocupacion = request.getParameter("ocupacion");
+				
+				/*Se crea el nuevo profesor a agregar a la base de datos*/
+				Profesor profe = new Profesor();
+				
+				profe.setApellido_paterno(apaterno);
+				
+				profe.setApellido_materno(amaterno);
+				
+				profe.setNombre(nombres);
+				
+				profe.setCurp(curp);
+				
+				profe.setRfc(rfc);
+				
+				profe.setCorreo(correo);
+				
+				profe.setTelefono(telefono);
+				
+				Estado prueba = est.get(0);
+				
+				if(!est.isEmpty()) {
+					profe.setFk_id_estado(prueba);
+				}
+				
+				profe.setCiudad_localidad(cilo);
+				
+				profe.setGenero(gen.get());
+				
+				profe.setPlantel(plantel);
+				
+				profe.setFk_id_turno(trn.get());
+				
+				profe.setClave_plantel(cplantel);
+				
+				profe.setFk_id_grado_profesor(gr.get());
+				
+				profe.setOcupacion(ocupacion);
+				
+				profRep.save(profe);
+			}
+			
+			return "ProfesoresController/registrarParticipante";
+		}
+	
+	
 
 }

@@ -2,6 +2,7 @@ package com.cocay.sicecd.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +47,35 @@ public class ConsultaGrupoController {
 		
 		if(!grupos.isEmpty()) {
 			model.put("grupos", grupos);
+			return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
+		}else {
+			return new ModelAndView("/Avisos/ErrorBusqueda");
+		}
+	}
+	
+	@RequestMapping(value = "/consultaGrupoCurso", method = RequestMethod.POST)
+	public ModelAndView consultarGrupoCurso(ModelMap model,HttpServletRequest request) throws ParseException {
+		String fecha_inicio_grupo = request.getParameter("fecha_inicio_grupo");
+		String fecha_fin_grupo = request.getParameter("fecha_fin_grupo");
+		String curso_grupo = request.getParameter("curso_grupo");
+		
+		List<Curso> cursos = curso.findByClave(curso_grupo);
+		List<Grupo> grupos = grupo.findAll();
+		List<Grupo> grupos_lista = grupo.findAll();
+		
+		
+		if(!cursos.isEmpty()) {
+			for(Curso c : cursos) {
+				for(Grupo g : grupos) {
+					if(g.getFk_id_curso() != c.getPk_id_curso()) {
+						grupos_lista.remove(g);
+					}
+				}
+			}
+		}
+		
+		if(!grupos_lista.isEmpty()) {
+			model.put("grupos", grupos_lista);
 			return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
 		}else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");

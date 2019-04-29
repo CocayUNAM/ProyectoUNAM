@@ -45,11 +45,4 @@ public class WebController {
 		}
 		return "login";
 	}
-	
-	//Mapeo del html para registrar cursos
-	@RequestMapping(value = "/registrarParticipante", method = RequestMethod.GET)
-	public String RegistrarParticpante(Model model){
-		return "ProfesoresController/registrarParticipante";
-	}
-
 }
