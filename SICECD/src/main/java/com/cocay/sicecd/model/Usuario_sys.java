@@ -37,6 +37,10 @@ public class Usuario_sys {
 	String apellido_materno;
 	@Column(name = "confirmacion")
 	String confirmacion;
+	@Column (name = "codigo")
+	String codigo;
+	@Column(name = "confirmacioncorreo")
+	String confirmacioncorreo;
 	@Column (name = "codigoCorreo")
 	String codigoCorreo;
 	@Column (name = "correocambio")
@@ -148,13 +152,7 @@ public class Usuario_sys {
 		Log_sys_s = log_sys_s;
 	}
 
-	public String getConfirmacion() {
-		return confirmacion;
-	}
 
-	public void setConfirmacion(String confirmacion) {
-		this.confirmacion = confirmacion;
-	}
 
 	public String getCodigoCorreo() {
 		return codigoCorreo;
@@ -187,6 +185,31 @@ public class Usuario_sys {
 	public void setConfirmarecupera(String confirmarecupera) {
 		this.confirmarecupera = confirmarecupera;
 	}
+
+	public String getConfirmacioncorreo() {
+		return confirmacioncorreo;
+	}
+
+	public void setConfirmacioncorreo(String confirmacioncorreo) {
+		this.confirmacioncorreo = confirmacioncorreo;
+	}
+
+	public String getConfirmacion() {
+		return confirmacion;
+	}
+
+	public void setConfirmacion(String confirmacion) {
+		this.confirmacion = confirmacion;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+	
 
 
 

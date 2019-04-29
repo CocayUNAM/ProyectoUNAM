@@ -54,8 +54,7 @@ public class AltaUsuarios {
 		consulta.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Inactivo").get(0));
 		consulta.setConfirmacion("true");
 		String codigo=String.valueOf((int) (Math.random() * 1000) + 1);
-		consulta.setCodigoCorreo(codigo);
-
+		consulta.setCodigo(codigo);
 		_usuarioSys.save(consulta);
 		Usuario_sys guardado= _usuarioSys.findByRfc(consulta.getRfc()).get(0);
 		String link="http://localhost:8080/configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
@@ -87,7 +86,7 @@ public class AltaUsuarios {
 	{
 		if (_usuarioSys.existsById(id)) {
 			Usuario_sys candidato= (_usuarioSys.findById(id)).get();
-			if (codigo.equals(candidato.getCodigoCorreo()) ) {
+			if (codigo.equals(candidato.getCodigo()) ) {
 				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 				candidato.setPassword(passwordEncoder.encode(contrasena));
 				candidato.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Activo").get(0));
@@ -97,7 +96,6 @@ public class AltaUsuarios {
 			if ( codigo.equals(candidato.getCodigorecupera()) ) {
 				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 				candidato.setPassword(passwordEncoder.encode(contrasena));
-				candidato.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Activo").get(0));
 				candidato.setConfirmarecupera("false");
 				_usuarioSys.save(candidato);
 			}
@@ -115,7 +113,7 @@ public class AltaUsuarios {
 	public  List<String> prueba() {
 		
 		Usuario_sys candidato= (_usuarioSys.findById(5)).get();
-		candidato.setConfirmacion("false");
+		candidato.setConfirmacioncorreo("false");
 		_usuarioSys.save(candidato);
 		List<String> lista =new ArrayList<>();
 		lista.add("hola1");

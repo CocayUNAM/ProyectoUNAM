@@ -21,9 +21,10 @@
 	cursor: default;
 }
 
-#spin{
-	visibility: hidden;}
-	
+#spin {
+	visibility: hidden;
+}
+
 #mensaje {
 	visibility: hidden;
 }
@@ -40,7 +41,7 @@
 				<div class="modal-header">
 					<div class="d-flex align-items-center" id="proceso">
 						<h4 id="opc">Selecciona una opcion</h4>
-							<h4 id="mensaje"></h4>
+						<h4 id="mensaje"></h4>
 						<div id="spin">
 							<strong>Reenviando... &nbsp;</strong>
 							<div class="spinner-grow text-info" role="status"
@@ -55,10 +56,17 @@
 							aria-selected="true">Cambio de correo</a></li>
 						<li class="nav-item"><a class="nav-link" id="profile-tab"
 							data-toggle="tab" href="#profile" role="tab"
-							aria-controls="profile" aria-selected="false">Activacion de
+							aria-controls="profile" aria-selected="false">Reactivacion de
+								contrasena</a></li>
+						<li class="nav-item"><a class="nav-link" id="contact-tab"
+							data-toggle="tab" href="#contact" role="tab"
+							aria-controls="contact" aria-selected="false">Activacion de
 								cuenta</a></li>
 
 					</ul>
+					
+					
+					
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="home" role="tabpanel"
 							aria-labelledby="home-tab">
@@ -74,14 +82,27 @@
 									</div>
 								</form>
 							</div>
-
 						</div>
+						
+						
+						
 						<div class="tab-pane fade" id="profile" role="tabpanel"
 							aria-labelledby="profile-tab">
 							<br>
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Renviar
+							<button type="button" class="btn btn-primary" id="recupera">Renviar
+								correo</button>
+						</div>
+						
+						
+						
+						<div class="tab-pane fade" id="contact" role="tabpanel"
+							aria-labelledby="contact-tab">
+							<br>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" id="activa">Renviar
 								correo</button>
 						</div>
 					</div>
@@ -137,9 +158,9 @@
 										th:text="${user.fk_id_estatus_usuario_sys.nombre}"></td>
 									<td class="renglon" th:text="${user.fk_id_perfil_sys.nombre}"></td>
 									<td class="oculto" th:value="${user.correocambio}"><button
-											th:if="${user.confirmacion !='false' and user.confirmarecupera !='false' }" type="button"
-											class="wola btn btn-primary" data-toggle="modal"
-											data-target="#exampleModal">Renviar</button></td>
+											th:if="${user.confirmacion =='true' or user.confirmarecupera =='true' or user.confirmacioncorreo =='true'}"
+											type="button" class="wola btn btn-primary"
+											data-toggle="modal" data-target="#exampleModal">Renviar</button></td>
 								</tr>
 							</th:block>
 						</tbody>
@@ -223,28 +244,173 @@
 															url : '/AdministracionCursos/renviarcambiocorreo',
 															data : JSON
 																	.stringify(datos),
-																	beforeSend : function() {
-																		// setting a timeout
-																		$("#mensaje").css("visibility","hidden")
-																		$("#opc").css("visibility","hidden")
-																		$('#spin').css("visibility","visible")
-																				
-																	},
+															beforeSend : function() {
+																// setting a timeout
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$("#opc")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"visible")
+
+															},
 															//dataType:'json',
 															error : function(e) {
 																alert("Error");
 															},
 															success : function(
 																	respuesta) {
-																$('#spin').css("visibility","hidden")
-																var elem = $(document.createElement('h4'))
-																               .attr('id','mensaje').html(respuesta);
-																$('#mensaje').replaceWith(elem);
-																$("#mensaje").css("visibility","visible");
-																
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"hidden")
+																var elem = $(
+																		document
+																				.createElement('h4'))
+																		.attr(
+																				'id',
+																				'mensaje')
+																		.html(
+																				respuesta);
+																$('#mensaje')
+																		.replaceWith(
+																				elem);
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"visible");
+
 															}
 														});
 											});
+
+							$("#recupera")
+									.click(
+											function(eve) {
+												eve.preventDefault();
+												let datos = {
+													rfc : rfccapturado
+
+												}
+												$
+														.ajax({
+															type : "POST",
+															contentType : "application/json",
+															url : '/AdministracionCursos/renviarrecupera',
+															data : JSON
+																	.stringify(datos),
+															beforeSend : function() {
+																// setting a timeout
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$("#opc")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"visible")
+
+															},
+															//dataType:'json',
+															error : function(e) {
+																alert("Error");
+															},
+															success : function(
+																	respuesta) {
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"hidden")
+																var elem = $(
+																		document
+																				.createElement('h4'))
+																		.attr(
+																				'id',
+																				'mensaje')
+																		.html(
+																				respuesta);
+																$('#mensaje')
+																		.replaceWith(
+																				elem);
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"visible");
+
+															}
+														});
+											});
+							$("#activa")
+									.click(
+											function(eve) {
+												eve.preventDefault();
+												let datos = {
+													rfc : rfccapturado
+
+												}
+												$
+														.ajax({
+															type : "POST",
+															contentType : "application/json",
+															url : '/AdministracionCursos/renviaactiva',
+															data : JSON
+																	.stringify(datos),
+															beforeSend : function() {
+																// setting a timeout
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$("#opc")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"visible")
+
+															},
+															//dataType:'json',
+															error : function(e) {
+																alert("Error");
+															},
+															success : function(
+																	respuesta) {
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"hidden")
+																var elem = $(
+																		document
+																				.createElement('h4'))
+																		.attr(
+																				'id',
+																				'mensaje')
+																		.html(
+																				respuesta);
+																$('#mensaje')
+																		.replaceWith(
+																				elem);
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"visible");
+
+															}
+														});
+											});
+
 						});
 	</script>
 	<script type="text/javascript">

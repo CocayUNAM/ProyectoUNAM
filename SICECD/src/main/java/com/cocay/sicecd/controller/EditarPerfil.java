@@ -37,7 +37,7 @@ public class EditarPerfil {
 		String body = "Hola da clic al siguiente  link \n" + link + "\npara confirmar tu correo.";
 		_email.sendMail(from, to, subject, body);
 		guardado.setCodigoCorreo(codigo);
-		guardado.setConfirmacion("true");
+		guardado.setConfirmacioncorreo("true");
 		guardado.setCorreocambio(consulta.getCorreo());
 		_usuarioSys.save(guardado);
 	}
@@ -116,7 +116,48 @@ public class EditarPerfil {
 		Usuario_sys guardado = _usuarioSys.findByRfc(consulta.getRfc()).get(0);
 
 		editarCorreo(guardado, consulta);
-		return ResponseEntity.ok("Correo renviado");
+		return ResponseEntity.ok("Correo reenviado");
+	}
+
+	@PostMapping("/AdministracionCursos/renviarrecupera")
+	private ResponseEntity<String> renviarRecupera(@RequestBody Usuario_sys consulta) {
+		Usuario_sys guardado = _usuarioSys.findByRfc(consulta.getRfc()).get(0);
+		
+		String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
+		String link = "http://localhost:8080/configuracionPass?codigo=" + codigo + "&usuario="
+				+ guardado.getPk_id_usuario_sys();
+		String from = "cocayprueba@gmail.com";
+		String to = guardado.getCorreo();
+		String subject = "Recupera Contraseña";
+		String body = "Hola da clic al siguiente  link \n" + link + "\nrecuperar tu contraseña.";
+		_email.sendMail(from, to, subject, body);
+		guardado.setCodigorecupera(codigo);
+		guardado.setConfirmarecupera("true");
+		_usuarioSys.save(guardado);
+		return ResponseEntity.ok("Correo reenviado");
+	}
+	
+	
+	
+	
+	@PostMapping("/AdministracionCursos/renviaactiva")
+	public ResponseEntity<String> renviarActivacion(@RequestBody Usuario_sys consulta) 
+	{
+		System.out.println("[ENTRA------]");
+		String codigo=String.valueOf((int) (Math.random() * 1000) + 1);
+		Usuario_sys guardado= _usuarioSys.findByRfc(consulta.getRfc()).get(0);
+		System.out.println("[ENTRA------]"+guardado.getNombre());
+		String link="http://localhost:8080/configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
+		String from="cocayprueba@gmail.com";
+		String to=guardado.getCorreo();
+		String subject="Activación de cuenta";
+		String body="Hola da clic al siguiente  link \n" + 
+				link+ "\npara activar tu cuenta y configurar una nueva contraseña.";
+		_email.sendMail(from, to, subject, body);
+		guardado.setConfirmacion("true");
+		guardado.setCodigo(codigo);
+		_usuarioSys.save(guardado);
+		return ResponseEntity.ok("Correo reenviado");
 	}
 
 	@GetMapping(value = "/confirmacorreo")
@@ -129,7 +170,7 @@ public class EditarPerfil {
 			if (u.getCodigoCorreo().equals(codigo)) {
 				u.setCorreo(u.getCorreocambio());
 				u.setCorreocambio("");
-				u.setConfirmacion("false");
+				u.setConfirmacioncorreo("false");
 				_usuarioSys.save(u);
 			}
 		}
