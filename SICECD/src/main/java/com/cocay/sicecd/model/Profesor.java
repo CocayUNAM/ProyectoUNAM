@@ -87,6 +87,10 @@ public class Profesor {
 	@OneToMany(mappedBy = "fk_id_profesor", targetEntity=Inscripcion.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
+
+	@OneToMany(mappedBy = "fk_id_profesor",targetEntity=Certificado.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Certificado> certificados = new ArrayList<>();
 	
 	public Profesor(){}
 	
@@ -259,5 +263,12 @@ public class Profesor {
 		this.fechaNac = fechaNac;
 	}
 	
+	public List<Certificado> getCertificados() {
+		return certificados;
+	}
+
+	public void setCertificados(List<Certificado> certificados) {
+		this.certificados = certificados;
+	}
 	
 }

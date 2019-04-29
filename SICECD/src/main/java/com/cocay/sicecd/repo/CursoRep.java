@@ -11,7 +11,7 @@ import com.cocay.sicecd.model.Curso;
 
 @Repository
 public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
-	Curso findByNombre(String name);
+	//Curso findByNombre(String name);
 	
 	@Query("SELECT c FROM Curso c")
 	List<Curso> findAll();
@@ -21,5 +21,8 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	
 	@Query("SELECT c FROM Curso c where c.pk_id_curso = :fk_id_curso ")
 	Curso findByID(@Param("fk_id_curso") int fk_id_curso);
+	
+	@Query("SELECT c FROM Curso c where c.nombre = :nombre")
+	Curso findByNombre(@Param("nombre") String nombre);
 
 }

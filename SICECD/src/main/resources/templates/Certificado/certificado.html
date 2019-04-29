@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Obten certificado particular</title>
+    <link rel="stylesheet" href="css/style_login.css">
+    <!-- Standard -->
+<link rel="shortcut icon" href="img/favicon.ico">
+
+<!-- Styles -->
+<link href="css/lib/select2/select2.min.css" rel="stylesheet">
+<link href="css/lib/font-awesome.min.css" rel="stylesheet">
+<link href="css/lib/themify-icons.css" rel="stylesheet">
+<link href="css/lib/menubar/sidebar.css" rel="stylesheet">
+<link href="css/lib/bootstrap.min.css" rel="stylesheet">
+<link href="css/lib/helper.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+	<div th:replace="/includes/head.html :: head_div1" />
+	<div th:replace="/includes/head.html :: head_div2" />
+
+	<!-- START CONTENTS -->
+	<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+				<section id="main-content">
+		<form method="GET" th:action="@{/certificadoRes}">
+				<input type="email" placeholder="email" name="correo"><br>
+				<input type="text" placeholder="curso" name="nc"><br>
+				<button type = "submit"> Enviar</button>
+		</form>
+		</section>
+		</div>
+		</div>
+		</div>
+		<!-- jquery vendor -->
+	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/jquery.nanoscroller.min.js"></script>
+	<!-- nano scroller -->
+	<script src="js/lib/menubar/sidebar.js"></script>
+	<script src="js/lib/preloader/pace.min.js"></script>
+	<!-- sidebar -->
+	<!-- bootstrap -->
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="js/scripts.js"></script>
+</body>
+</html>
