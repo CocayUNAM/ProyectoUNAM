@@ -41,6 +41,11 @@ public class Usuario_sys {
 	String codigoCorreo;
 	@Column (name = "correocambio")
 	String correocambio;
+	@Column (name = "codigorecupera")
+	String codigorecupera;
+	@Column (name = "confirmarecupera")
+	String confirmarecupera;
+	
 
 	
 	
@@ -165,6 +170,22 @@ public class Usuario_sys {
 
 	public void setCorreocambio(String correocambio) {
 		this.correocambio = correocambio;
+	}
+
+	public String getCodigorecupera() {
+		return codigorecupera;
+	}
+
+	public void setCodigorecupera(String codigorecupera) {
+		this.codigorecupera = codigorecupera;
+	}
+
+	public String getConfirmarecupera() {
+		return confirmarecupera;
+	}
+
+	public void setConfirmarecupera(String confirmarecupera) {
+		this.confirmarecupera = confirmarecupera;
 	}
 
 

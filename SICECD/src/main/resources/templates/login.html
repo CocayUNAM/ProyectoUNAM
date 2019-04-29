@@ -1,33 +1,110 @@
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sistema de Control Escolar para Cursos y Diplomados</title>
-    <link rel="stylesheet" href="css/style_login.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Sistema de Control Escolar para Cursos y Diplomados</title>
+<link rel="stylesheet" href="css/style_login.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<style type="text/css">
+a {
+	color: rgb(164, 144, 112);
+	font-size: 1.2em;
+}
+
+#error {
+	color: #DC143C;
+}
+
+.btn-primary {
+	background-color: rgb(164, 144, 112);
+}
+
+#spin {
+	visibility: hidden;
+}
+#mensaje {
+	visibility: hidden;
+}
+
+
+
+</style>
 </head>
 <body>
-        <div class="body"></div>
-		<div class="grad"></div>
-		<div class="header">
-			<div>Site<span>SICECD</span></div>
-		</div>
-		<br>
-		<form method="POST" th:action="@{/login}" class="login">
-				<input type="text" placeholder="username" name="username"><br>
-				<input type="password" placeholder="password" name="password"><br>
-				<input type="submit" value="Login">
-				<div th:if="${param.error}">
-            		Invalid username or password.
-        		</div>
-        		<div th:if="${param.logout}">
-            		You have been logged out.
-        		</div>
-        		
 
-		</form>   
-		
-		<script th:inline="javascript">
+
+
+
+
+
+	<div class="body"></div>
+	<div class="grad"></div>
+	<div class="header">
+		<div>
+			Site<span>SICECD</span>
+		</div>
+	</div>
+	<br>
+	<form method="POST" th:action="@{/login}" class="login">
+		<input type="text" placeholder="username" name="username"><br>
+		<input type="password" placeholder="password" name="password"><br>
+		<input type="submit" value="Login">
+		<div id="error" th:if="${param.error}">Invalid username or
+			password.</div>
+		<div th:if="${param.logout}">You have been logged out.</div>
+
+		<a href="#" data-toggle="modal" data-target="#exampleModal"
+			data-whatever="@mdo">Recupera tu contraseña</a>
+
+
+	</form>
+
+	<br>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="d-flex align-items-center" id="proceso">
+						<h4 id="opc">Ingresa tu rfc</h4>
+							<h4 id="mensaje">algo</h4>
+						<div id="spin">
+							<strong>Consultando... &nbsp;</strong>
+							<div class="spinner-grow text-warning" role="status"
+								aria-hidden="true"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+
+					<form id="cambio">
+						<div class="form-group">
+							<label for="recipient-name" class="col-form-label">Rfc:</label> <input
+								type="text" class="form-control" id="rfc"><br>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Enviar</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<script type="text/javascript" src="css/jquery.min.js"></script>
+
+	<script src="css/bootstrap.min.js"></script>
+
+
+
+	<script th:inline="javascript">
 			/*<![CDATA[*/
 
 				var message = [[${mensaje}]];
@@ -36,7 +113,44 @@
 				}
 
 					/*]]>*/
-		</script> 
-    
+		</script>
+
+	<script type="text/javascript">
+	$("#cambio").submit(
+			function(eve) {
+				eve.preventDefault();
+				let datos = {
+					rfc :  $("#rfc").val()
+
+				};
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : '/enviarecupera',
+			data : JSON.stringify(datos),
+			beforeSend : function() {
+				// setting a timeout
+				$("#mensaje").css("visibility","hidden")
+				$("#opc").css("visibility","hidden")
+				$('#spin').css("visibility","visible")
+						
+			},
+			//dataType:'json',
+			error : function(e) {
+				alert("Error");
+			},
+			success : function(
+					respuesta) {
+				$('#spin').css("visibility","hidden")
+				var elem = $(document.createElement('h4'))
+				               .attr('id','mensaje').html(respuesta);
+				$('#mensaje').replaceWith(elem);
+				$("#mensaje").css("visibility","visible")
+				
+			}
+		});
+	});
+		</script>
+
 </body>
 </html>
