@@ -20,7 +20,14 @@
 <link href="/css/lib/helper.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
 <link href="/css/lib/toggle.css" rel="stylesheet">
-
+<style type="text/css">
+#spin {
+	visibility: hidden;
+}
+#mensaje {
+	visibility: hidden;
+}
+</style>
 
 </head>
 <body>
@@ -34,9 +41,12 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<div class="d-flex align-items-center" id="proceso">
-						<strong>Editando Perfil... &nbsp;</strong>
-						<div class="spinner-grow text-info" role="status"
-							aria-hidden="true"></div>
+							<h4 id="mensaje">algo</h4>
+						<div id="spin">
+							<strong>Editando perfil... &nbsp;</strong>
+							<div class="spinner-grow text-info" role="status"
+								aria-hidden="true"></div>
+						</div>
 					</div>
 				</div>
 				<div class="modal-body">Selecciona una accion</div>
@@ -318,13 +328,22 @@ $(document).ready(function() {
 					contentType : "application/json",
 					url : '/AdministracionCursos/editarperfilusuario',
 					data : JSON.stringify(datos),
+					beforeSend : function() {
+						// setting a timeout
+						$("#mensaje").css("visibility","hidden")
+						$('#spin').css("visibility","visible")
+								
+					},
 					//dataType:'json',
 					error : function(e) {
 						alert("Error");
 					},
 					success : function(respuesta) {
-						$('#proceso').replaceWith( "<h4>"+respuesta+"</h4>" );
-						;
+						$('#spin').css("visibility","hidden")
+						var elem = $(document.createElement('h4'))
+						               .attr('id','mensaje').html(respuesta);
+						$('#mensaje').replaceWith(elem);
+						$("#mensaje").css("visibility","visible")
 					}
 				});
 			});

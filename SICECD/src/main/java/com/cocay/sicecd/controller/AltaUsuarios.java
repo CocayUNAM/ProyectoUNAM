@@ -57,7 +57,7 @@ public class AltaUsuarios {
 		consulta.setCodigoCorreo(codigo);
 
 		_usuarioSys.save(consulta);
-		Usuario_sys guardado= _usuarioSys.findByCorreo(consulta.getCorreo()).get(0);
+		Usuario_sys guardado= _usuarioSys.findByRfc(consulta.getRfc()).get(0);
 		String link="http://localhost:8080/configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
 		String from="cocayprueba@gmail.com";
 		String to=consulta.getCorreo();
@@ -87,17 +87,24 @@ public class AltaUsuarios {
 	{
 		if (_usuarioSys.existsById(id)) {
 			Usuario_sys candidato= (_usuarioSys.findById(id)).get();
-			if (codigo.equals(candidato.getCodigoCorreo())) {
+			if (codigo.equals(candidato.getCodigoCorreo()) ) {
 				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 				candidato.setPassword(passwordEncoder.encode(contrasena));
 				candidato.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Activo").get(0));
 				candidato.setConfirmacion("false");
 				_usuarioSys.save(candidato);
 			}
+			if ( codigo.equals(candidato.getCodigorecupera()) ) {
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				candidato.setPassword(passwordEncoder.encode(contrasena));
+				candidato.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Activo").get(0));
+				candidato.setConfirmarecupera("false");
+				_usuarioSys.save(candidato);
+			}
 			
 		}
 		
-		return "redirect:/login?mensaje=usuarioActivado";
+		return "redirect:/login?mensaje=Ya puedes realizar login";
 	}
 
 	
