@@ -24,12 +24,12 @@ public class Inscripcion {
 	
 	@ManyToOne(targetEntity=Grupo.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_grupo",referencedColumnName="pk_id_grupo",insertable = false, updatable = false)
+	@JoinColumn(name = "fk_id_grupo",referencedColumnName="pk_id_grupo",insertable = true, updatable = true)
 	Grupo fk_id_grupo;
 	
 	@ManyToOne(targetEntity=Profesor.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor",insertable = false, updatable = false)
+	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor",insertable = true, updatable = true)
 	Profesor fk_id_profesor;
 	
 	@Column(name = "calif")
