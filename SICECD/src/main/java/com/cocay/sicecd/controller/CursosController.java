@@ -49,6 +49,7 @@ public class CursosController {
 			
 			String nombre = request.getParameter("nombre");
 			
+			/* Curso como tal, no requiere fechas de inicio o fin
 			String fInicio = request.getParameter("f_inicio");
 			Date fechaI = null;
 			try {
@@ -65,7 +66,7 @@ public class CursosController {
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 			
 			Curso curso = new Curso();
 			
@@ -78,9 +79,6 @@ public class CursosController {
 			
 			curso.setHoras(Integer.valueOf(horas));
 			curso.setNombre(nombre);
-			curso.setfInicio(fechaI);
-			curso.setfTermino(fechaT);
-			
 			cursoRep.save(curso);
 		}
 		
