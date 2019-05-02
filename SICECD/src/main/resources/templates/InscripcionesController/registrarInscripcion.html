@@ -24,6 +24,33 @@
 <div th:replace="/includes/head.html :: head_div1" />
 <div th:replace="/includes/head.html :: head_div2" />
 
+		<!-- Modal -->
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="d-flex align-items-center" id="proceso">
+						<div id="spin">
+							<strong>Agregando... &nbsp;</strong>
+							<div class="spinner-grow text-info" role="status"
+								aria-hidden="true"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">Selecciona una accion</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" id="limpiar">Agregar otra inscripcion</button>
+					<button type="button" class="btn btn-primary"
+						onclick="window.location.href ='/example/table-basic'">Volver
+						a inicio</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <!-- START CONTENTS -->
 	<div class="content-wrap">
         <div class="main">
@@ -62,18 +89,20 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="val-grupo">Grupo <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-grupo" name="grupo" placeholder="Inserte clave o nombre" required>
+                                                    <input type="text" class="form-control" id="val-grupo" name="grupo" placeholder="Inserte clave" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="val-par">participante<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-par" name="par" placeholder="Ingrese el nombre o clave" required>
+                                                    <input type="text" class="form-control" id="val-par" name="par" placeholder="Ingrese clave" required>
                                                 </div>
                                             </div>
                                             
-                                            <button type="submit" class="btn btn-default"> Capturar</button>
+                                            <button type="submit" class="btn btn-default"
+                                            data-toggle="modal" data-target="#exampleModal"
+                                            > Capturar</button>
                                     </form>
                                     
                                     </div>
@@ -101,5 +130,54 @@
     <script src="/js/lib/form-validation/jquery.validate-init.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/scripts.js"></script>
+    <script>
+		$(document).ready(function() {
+			
+			//cambio de perfil
+			let rol='Consultas';
+			$("#uno").prop('checked', true);
+			id=2;
+            $("input[name='perfil']").change(function () {
+                rol=this.value;
+                id=(id%2)+1;
+            });
+
+			$("#registrarInscripcion").submit(function(eve) {
+				eve.preventDefault();
+				let datos = {
+					grupo : $("#grupo").val(),
+					participante : $("#par").val(),
+				}
+				$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url : '/registrarInscripcion',
+					data : JSON.stringify(datos),
+					beforeSend : function() {
+						// setting a timeout
+						$("#mensaje").css("visibility","hidden")
+						$('#spin').css("visibility","visible")
+								
+					},
+					error : function(e) {
+						alert("Error");
+					},
+					success : function(respuesta) {
+						$('#spin').css("visibility","hidden")
+						var elem = $(document.createElement('h4'))
+						               .attr('id','mensaje').html(respuesta);
+						$('#mensaje').replaceWith(elem);
+						$("#mensaje").css("visibility","visible")
+					}
+				});
+			});
+
+			$("#limpiar").click(function(event) {
+				$("#registrarInscripcion")[0].reset();
+				$("#uno").prop('checked', true);
+			});
+
+		});
+	</script>
 </body>
 </html>
