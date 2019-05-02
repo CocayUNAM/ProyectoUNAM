@@ -19,6 +19,13 @@
     <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="/css/lib/helper.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    
+    <style type="text/css">
+		#mensaje {
+			visibility: hidden;
+		}
+	</style>
+    
 </head>
 <body>
 <div th:replace="/includes/head.html :: head_div1" />
@@ -84,19 +91,20 @@
                                 <div class="card-body">
                                     <div class="form-validation">
                                     
-                                        <form class="form-valide" th:action="@{/registrarInscripcion}" method="GET">
+                                        <form class="form-valide" th:action="@{/registrarInscripcion}" method="POST"
+                                        id="registrarInscripcion">
                                         
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-grupo">Grupo <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="grupo">Grupo <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-grupo" name="grupo" placeholder="Inserte clave" required>
+                                                    <input type="text" class="form-control" id="grupo" name="grupo" placeholder="Inserte clave" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-par">participante<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="par">participante<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-par" name="par" placeholder="Ingrese clave" required>
+                                                    <input type="text" class="form-control" id="par" name="par" placeholder="Ingrese clave" required>
                                                 </div>
                                             </div>
                                             
@@ -135,22 +143,17 @@
 			
 			//cambio de perfil
 			let rol='Consultas';
-			$("#uno").prop('checked', true);
-			id=2;
-            $("input[name='perfil']").change(function () {
-                rol=this.value;
-                id=(id%2)+1;
-            });
 
 			$("#registrarInscripcion").submit(function(eve) {
 				eve.preventDefault();
 				let datos = {
-					grupo : $("#grupo").val(),
-					participante : $("#par").val(),
+					idGrupo : $("#grupo").val(),
+					idProfesor : $("#par").val(),
 				}
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",
+					dataType: "xml/html/script/json",
 					url : '/registrarInscripcion',
 					data : JSON.stringify(datos),
 					beforeSend : function() {
@@ -160,7 +163,7 @@
 								
 					},
 					error : function(e) {
-						alert("Error");
+						alert("Inscripcion agregada con exito");
 					},
 					success : function(respuesta) {
 						$('#spin').css("visibility","hidden")
@@ -174,7 +177,6 @@
 
 			$("#limpiar").click(function(event) {
 				$("#registrarInscripcion")[0].reset();
-				$("#uno").prop('checked', true);
 			});
 
 		});
