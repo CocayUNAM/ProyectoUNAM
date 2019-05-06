@@ -18,6 +18,9 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
 	
 	@Query("SELECT p FROM Profesor p where p.rfc = :rfc ")
 	Profesor findByRfc(@Param("rfc")String rfc);
+	
+	@Query("SELECT p FROM Profesor p where p.rfc = :rfc ")
+	List<Profesor> findByRfcList(@Param("rfc")String rfc);
 
 	@Query("SELECT p FROM Profesor p "
 			+ "WHERE upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
@@ -28,6 +31,9 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
 					@Param("apellido_materno") String apellido_materno);
 	@Query("SELECT p FROM Profesor p where p.correo = :correo")
 	Profesor findByCorreo(@Param("correo")String correo);
+	
+	@Query(value="SELECT * FROM Profesor", nativeQuery = true)
+	List<Profesor> loadAllProfesor();
 }
 	
 	

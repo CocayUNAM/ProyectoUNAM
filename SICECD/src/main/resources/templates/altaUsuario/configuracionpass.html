@@ -1,0 +1,136 @@
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Configuracion de contraseña</title>
+<link href="/css/lib/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+body, html {
+	margin: 0%;
+	padding: 0%;
+}
+
+#contenedor {
+	display: grid;
+	margin: 0 auto;
+	grid-template-rows: 20% 80%;
+	grid-template-areas: "header" "cuadro";
+	width: 50%;
+	height: 50%;
+	box-sizing: content-box;
+}
+
+#header {
+	text-align: center;
+	grid-row-start: header;
+	grid-row-end: header;
+}
+
+#cuadro {
+	width: 50%;
+	padding: 5%;
+	margin: 0 auto;
+	grid-row-start: cuadro;
+	grid-row-end: cuadro;
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr;
+	grid-template-areas: "col1" "col2" "col3";
+	box-shadow: 0px 0px 5px #888888;
+	box-sizing: content-box;
+}
+
+#col1 {
+	grid-row-start: col1;
+	grid-row-end: col1;
+}
+
+#col2 {
+	grid-row-start: col2;
+	grid-row-end: col2;
+}
+
+#col3 {
+	grid-row-start: col3;
+	grid-row-end: col3;
+	display: flex;
+	justify-content: right;
+}
+</style>
+</head>
+
+<body>
+
+	<div id="contenedor">
+		<div id="header">
+
+			<h1>Configuracion de contraseña</h1>
+		</div>
+		<form id="cuadro" method="post" th:action="@{/activacion}">
+
+			<div class="form-group" id="col1">
+				<label for="contrasena">Contraseña</label> <input type="password"
+					class="form-control" id="contrasena" name="contrasena" required>
+			</div>
+			<div class="form-group" id="col2">
+				<label for="confirma">Confirma contraseña</label> <input
+					type="password" class="form-control" id="confirma" name="confirma"
+					required>
+			</div>
+			<div class="form-group" id="col3">
+				<button type="submit" class="btn btn-primary">Enviar</button>
+			</div>
+		</form>
+	</div>
+
+	<script th:inline="javascript">
+
+		/*<![CDATA[*/
+
+		var ida = [[${id}]];
+		var codigo = [[${codigo}]];
+			/*]]>*/
+		let form = document.getElementById("cuadro");
+		let idi = document.createElement("input"); // Crea un elemento input
+		with (idi) {
+			setAttribute("id", "id"); 
+			setAttribute("name", "id"); 
+			setAttribute("type", "hidden"); 
+			setAttribute("value", ida); 
+		}
+		form.appendChild(idi);
+
+		let codigoi = document.createElement("input"); 
+		with (codigoi) {
+			setAttribute("id", "codigo"); 
+			setAttribute("name", "codigo"); 
+			setAttribute("type", "hidden");
+			setAttribute("value", codigo);
+		}
+		form.appendChild(codigoi);
+	</script>
+
+
+
+	<!-- jquery vendor -->
+	<!-- 	<script src="/js/lib/jquery.min.js"></script>  -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/js/lib/jquery.nanoscroller.min.js"></script>
+	<!-- nano scroller -->
+	<script src="/js/lib/menubar/sidebar.js"></script>
+	<script src="/js/lib/preloader/pace.min.js"></script>
+	<!-- sidebar -->
+	<!-- bootstrap -->
+	<!-- Select2 -->
+	<script src="/js/lib/select2/select2.full.min.js"></script>
+	<script src="/js/lib/form-validation/jquery.validate.min.js"></script>
+	<script src="/js/lib/form-validation/jquery.validate-init.js"></script>
+	<script src="/js/lib/bootstrap.min.js"></script>
+	<script src="/js/scripts.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,441 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Lista de usuarios</title>
+<link href="/css/lib/select2/select2.min.css" rel="stylesheet">
+<link href="/css/lib/font-awesome.min.css" rel="stylesheet">
+<link href="/css/lib/themify-icons.css" rel="stylesheet">
+<link href="/css/lib/menubar/sidebar.css" rel="stylesheet">
+<link href="/css/lib/bootstrap.min.css" rel="stylesheet">
+<link href="/css/lib/datatables.min.css" rel="stylesheet">
+<link href="/css/lib/helper.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+<style>
+.renglon {
+	cursor: pointer;
+}
+
+.oculto {
+	cursor: default;
+}
+
+#spin {
+	visibility: hidden;
+}
+
+#mensaje {
+	visibility: hidden;
+}
+</style>
+</head>
+<body>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="d-flex align-items-center" id="proceso">
+						<h4 id="opc">Selecciona una opcion</h4>
+						<h4 id="mensaje"></h4>
+						<div id="spin">
+							<strong>Reenviando... &nbsp;</strong>
+							<div class="spinner-grow text-info" role="status"
+								aria-hidden="true"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item" id="cambiomail"><a class="nav-link active" id="home-tab"
+							data-toggle="tab" href="#home" role="tab" aria-controls="home"
+							aria-selected="true">Cambio de correo</a></li>
+						<li class="nav-item" id="reactivapass"><a class="nav-link" id="profile-tab"
+							data-toggle="tab" href="#profile" role="tab"
+							aria-controls="profile" aria-selected="false">Reactivacion de
+								contrasena</a></li>
+						<li class="nav-item" id="activacuenta"><a class="nav-link" id="contact-tab"
+							data-toggle="tab" href="#contact" role="tab"
+							aria-controls="contact" aria-selected="false">Activacion de
+								cuenta</a></li>
+
+					</ul>
+					
+					
+					
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="home" role="tabpanel"
+							aria-labelledby="home-tab">
+							<div class="modal-body">
+								<form id="cambio">
+									<div class="form-group">
+										<label for="recipient-name" class="col-form-label">Correo:</label>
+										<input type="text" class="form-control" id="correo"><br>
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Renviar
+											correo</button>
+									</div>
+								</form>
+							</div>
+						</div>
+						
+						
+						
+						<div class="tab-pane fade" id="profile" role="tabpanel"
+							aria-labelledby="profile-tab">
+							<br>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" id="recupera">Renviar
+								correo</button>
+						</div>
+						
+						
+						
+						<div class="tab-pane fade" id="contact" role="tabpanel"
+							aria-labelledby="contact-tab">
+							<br>
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" id="activa">Renviar
+								correo</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- FIN DE MODAL -->
+
+	<!-- INICIO DE LA PAGINA -->
+	<div th:replace="/includes/head.html :: head_div1" />
+	<div th:replace="/includes/head.html :: head_div2" />
+
+	<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row">
+
+					<!-- titulo -->
+					<div class="col-lg-8 p-r-0 title-margin-right">
+						<div class="page-header">
+							<div class="page-title">
+								<h1>Lista de Usuarios del Sistema</h1>
+							</div>
+						</div>
+					</div>
+
+					<table id="grid" class="table table-hover" cellspacing="0">
+						<thead>
+							<tr>
+								<th class="th-sm">Rfc</th>
+								<th class="th-sm">correo</th>
+								<th class="th-sm">nombre</th>
+								<th class="th-sm">Apellido Paterno</th>
+								<th class="th-sm">Apellido Materno</th>
+								<th class="th-sm">Estatus</th>
+								<th class="th-sm">Perfil</th>
+								<th class="th-sm">Renviar Confirmacion</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="user : ${usuarios}">
+
+								<tr>
+									<td class="renglon rfc" th:value="${user.rfc}"
+										th:text="${user.rfc}"></td>
+									<td class="renglon" th:text="${user.correo}"></td>
+									<td class="renglon" th:text="${user.nombre}"></td>
+									<td class="renglon" th:text="${user.apellido_paterno}"></td>
+									<td class="renglon" th:text="${user.apellido_materno}"></td>
+									<td class="renglon"
+										th:text="${user.fk_id_estatus_usuario_sys.nombre}"></td>
+									<td class="renglon" th:text="${user.fk_id_perfil_sys.nombre}"></td>
+									<td class="oculto" th:value="${user.correocambio}" ><button th:confcorreo="${user.confirmacioncorreo}" th:confactivo="${user.confirmacion}" th:confrecupera="${user.confirmarecupera}"
+											th:if="${user.confirmacion =='true' or user.confirmarecupera =='true' or user.confirmacioncorreo =='true'}"
+											type="button" class="wola btn btn-primary"
+											data-toggle="modal" data-target="#exampleModal">Renviar</button></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+
+				</div>
+				<!-- /# row -->
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
+	<script src="/js/lib/jquery.nanoscroller.min.js"></script>
+	<!-- nano scroller -->
+	<script src="/js/lib/menubar/sidebar.js"></script>
+	<script src="/js/lib/preloader/pace.min.js"></script>
+	<!-- sidebar -->
+	<!-- bootstrap -->
+	<!-- Select2 -->
+	<script src="/js/lib/select2/select2.full.min.js"></script>
+	<!-- 	<script src="/js/lib/form-validation/jquery.validate-init.js"></script> -->
+	<script src="/js/lib/bootstrap.min.js"></script>
+	<script src="/js/lib/datatables.min.js"></script>
+	<script src="/js/scripts.js"></script>
+
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$('#grid').DataTable();
+							//redireccionar a la edicion del perfil
+							$(".renglon")
+									.on(
+											"click",
+											function() {
+												var rfc = $(this).parent()
+														.find(".rfc").attr(
+																"value");
+												console.log(rfc)
+
+												window.location.href = "/AdministracionCursos/formEditarPerfilUsuario?rfc="
+														+ rfc;
+											});
+
+							//renviar correo
+							//modificar modal
+							//Obtine datos
+							$(".oculto").on("click", function(e) {
+								e.preventDefault();
+							});
+
+							let mail = "";
+							let rfccapturado = "";
+							let conficorreo="";
+							let confiactivo="";
+							let confirecupera="";
+							$(".wola").on(
+									"click",
+									function() {
+										mail = $(this).parent().attr("value");
+
+										$("#correo").attr("value", mail);
+
+										rfccapturado = $(this).parent()
+												.parent().find(".rfc").attr(
+														"value");
+										conficorreo= $(this).attr("confcorreo");
+										confiactivo= $(this).attr("confactivo");
+										confirecupera= $(this).attr("confrecupera");
+										//console.log(rfccapturado+" activo "+ confiactivo+" correo "+ conficorreo+ " recupera "+ confirecupera)
+										if(conficorreo!='true'){
+											$('#cambiomail')
+											.css("display","none");
+											$('#cambio')
+											.css("display","none");
+										}
+										if(confiactivo!='true'){
+											$('#activacuenta')
+											.css("display","none");
+										}
+										if(confirecupera!='true'){
+											$('#reactivapass')
+											.css("display","none");
+										}
+
+									});
+
+							$("#cambio")
+									.submit(
+											function(eve) {
+												eve.preventDefault();
+												let datos = {
+													correo : $("#correo").attr(
+															"value"),
+													rfc : rfccapturado
+
+												}
+												$
+														.ajax({
+															type : "POST",
+															contentType : "application/json",
+															url : '/AdministracionCursos/renviarcambiocorreo',
+															data : JSON
+																	.stringify(datos),
+															beforeSend : function() {
+																// setting a timeout
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$("#opc")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"visible")
+
+															},
+															//dataType:'json',
+															error : function(e) {
+																alert("Error");
+															},
+															success : function(
+																	respuesta) {
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"hidden")
+																var elem = $(
+																		document
+																				.createElement('h4'))
+																		.attr(
+																				'id',
+																				'mensaje')
+																		.html(
+																				respuesta);
+																$('#mensaje')
+																		.replaceWith(
+																				elem);
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"visible");
+
+															}
+														});
+											});
+
+							$("#recupera")
+									.click(
+											function(eve) {
+												eve.preventDefault();
+												let datos = {
+													rfc : rfccapturado
+
+												}
+												$
+														.ajax({
+															type : "POST",
+															contentType : "application/json",
+															url : '/AdministracionCursos/renviarrecupera',
+															data : JSON
+																	.stringify(datos),
+															beforeSend : function() {
+																// setting a timeout
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$("#opc")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"visible")
+
+															},
+															//dataType:'json',
+															error : function(e) {
+																alert("Error");
+															},
+															success : function(
+																	respuesta) {
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"hidden")
+																var elem = $(
+																		document
+																				.createElement('h4'))
+																		.attr(
+																				'id',
+																				'mensaje')
+																		.html(
+																				respuesta);
+																$('#mensaje')
+																		.replaceWith(
+																				elem);
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"visible");
+
+															}
+														});
+											});
+							$("#activa")
+									.click(
+											function(eve) {
+												eve.preventDefault();
+												let datos = {
+													rfc : rfccapturado
+
+												}
+												$
+														.ajax({
+															type : "POST",
+															contentType : "application/json",
+															url : '/AdministracionCursos/renviaactiva',
+															data : JSON
+																	.stringify(datos),
+															beforeSend : function() {
+																// setting a timeout
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$("#opc")
+																		.css(
+																				"visibility",
+																				"hidden")
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"visible")
+
+															},
+															//dataType:'json',
+															error : function(e) {
+																alert("Error");
+															},
+															success : function(
+																	respuesta) {
+																$('#spin')
+																		.css(
+																				"visibility",
+																				"hidden")
+																var elem = $(
+																		document
+																				.createElement('h4'))
+																		.attr(
+																				'id',
+																				'mensaje')
+																		.html(
+																				respuesta);
+																$('#mensaje')
+																		.replaceWith(
+																				elem);
+																$("#mensaje")
+																		.css(
+																				"visibility",
+																				"visible");
+
+															}
+														});
+											});
+
+						});
+	</script>
+	<script type="text/javascript">
+		
+	</script>
+
+</body>
+</html>

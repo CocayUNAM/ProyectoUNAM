@@ -33,9 +33,26 @@ public class Usuario_sys {
 	String nombre;
 	@Column(name = "apellido_paterno")
 	String apellido_paterno;
-	
 	@Column(name = "apellido_materno")
 	String apellido_materno;
+	@Column(name = "confirmacion")
+	String confirmacion;
+	@Column (name = "codigo")
+	String codigo;
+	@Column(name = "confirmacioncorreo")
+	String confirmacioncorreo;
+	@Column (name = "codigoCorreo")
+	String codigoCorreo;
+	@Column (name = "correocambio")
+	String correocambio;
+	@Column (name = "codigorecupera")
+	String codigorecupera;
+	@Column (name = "confirmarecupera")
+	String confirmarecupera;
+	
+
+	
+	
 	
 	@ManyToOne(targetEntity = Estatus_usuario_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -134,6 +151,71 @@ public class Usuario_sys {
 	public void setLog_sys_s(List<Log_sys> log_sys_s) {
 		Log_sys_s = log_sys_s;
 	}
+
+
+
+	public String getCodigoCorreo() {
+		return codigoCorreo;
+	}
+
+	public void setCodigoCorreo(String codigoCorreo) {
+		this.codigoCorreo = codigoCorreo;
+	}
+
+	public String getCorreocambio() {
+		return correocambio;
+	}
+
+	public void setCorreocambio(String correocambio) {
+		this.correocambio = correocambio;
+	}
+
+	public String getCodigorecupera() {
+		return codigorecupera;
+	}
+
+	public void setCodigorecupera(String codigorecupera) {
+		this.codigorecupera = codigorecupera;
+	}
+
+	public String getConfirmarecupera() {
+		return confirmarecupera;
+	}
+
+	public void setConfirmarecupera(String confirmarecupera) {
+		this.confirmarecupera = confirmarecupera;
+	}
+
+	public String getConfirmacioncorreo() {
+		return confirmacioncorreo;
+	}
+
+	public void setConfirmacioncorreo(String confirmacioncorreo) {
+		this.confirmacioncorreo = confirmacioncorreo;
+	}
+
+	public String getConfirmacion() {
+		return confirmacion;
+	}
+
+	public void setConfirmacion(String confirmacion) {
+		this.confirmacion = confirmacion;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+	
+
+
+
+
+
+	
 	
 	
 	

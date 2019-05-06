@@ -19,4 +19,7 @@ public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
 	
 	@Query("SELECT g FROM Grupo g where g.clave = :clave ")
 	List<Grupo> findByClave(@Param("clave") String clave);
+	
+	@Query(value="SELECT * FROM Grupo", nativeQuery = true)
+	List<Grupo> loadAllGrupo();
 }

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Sistema de Control Escolar para Cursos y Diplomados</title>
+
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    
+    <!-- Styles -->
+    <link href="/css/lib/select2/select2.min.css" rel="stylesheet">
+    <link href="/css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="/css/lib/menubar/sidebar.css" rel="stylesheet">
+    <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/lib/helper.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    
+    <style type="text/css">
+		#mensaje {
+			visibility: hidden;
+		}
+	</style>
+    
+</head>
+<body>
+<div th:replace="/includes/head.html :: head_div1" />
+<div th:replace="/includes/head.html :: head_div2" />
+
+		<!-- Modal -->
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="d-flex align-items-center" id="proceso">
+						<div id="spin">
+							<strong>Agregando... &nbsp;</strong>
+							<div class="spinner-grow text-info" role="status"
+								aria-hidden="true"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">Selecciona una accion</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" id="limpiar">Agregar otra inscripcion</button>
+					<button type="button" class="btn btn-primary"
+						onclick="window.location.href ='/example/table-basic'">Volver
+						a inicio</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- START CONTENTS -->
+	<div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+	                                <h1>Registrar una inscripcion</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                    <div class="col-lg-4 p-l-0 title-margin-left">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Registrar una inscripcion</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /# column -->
+                </div>
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-validation">
+                                    
+                                        <form class="form-valide" th:action="@{/registrarInscripcion}" method="POST"
+                                        id="registrarInscripcion">
+                                        
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="grupo">Grupo <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="grupo" name="grupo" placeholder="Inserte clave" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="par">participante<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="par" name="par" placeholder="Ingrese clave" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <button type="submit" class="btn btn-default"
+                                            data-toggle="modal" data-target="#exampleModal"
+                                            > Capturar</button>
+                                    </form>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+<!-- END CONTENTS -->
+
+    <!-- jquery vendor -->
+    <script src="/js/lib/jquery.min.js"></script>
+    <script src="/js/lib/jquery.nanoscroller.min.js"></script>
+    <!-- nano scroller -->
+    <script src="/js/lib/menubar/sidebar.js"></script>
+    <script src="/js/lib/preloader/pace.min.js"></script>
+    <!-- sidebar -->
+    <!-- bootstrap -->
+    <!-- Select2 -->
+    <script src="/js/lib/select2/select2.full.min.js"></script>
+    <script src="/js/lib/form-validation/jquery.validate.min.js"></script>
+    <script src="/js/lib/form-validation/jquery.validate-init.js"></script>
+    <script src="/js/lib/bootstrap.min.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script>
+		$(document).ready(function() {
+			
+			//cambio de perfil
+			let rol='Consultas';
+
+			$("#registrarInscripcion").submit(function(eve) {
+				eve.preventDefault();
+				let datos = {
+					idGrupo : $("#grupo").val(),
+					idProfesor : $("#par").val(),
+				}
+				$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					dataType: "xml/html/script/json",
+					url : '/registrarInscripcion',
+					data : JSON.stringify(datos),
+					beforeSend : function() {
+						// setting a timeout
+						$("#mensaje").css("visibility","hidden")
+						$('#spin').css("visibility","visible")
+								
+					},
+					error : function(e) {
+						alert("Inscripcion agregada con exito");
+					},
+					success : function(respuesta) {
+						$('#spin').css("visibility","hidden")
+						var elem = $(document.createElement('h4'))
+						               .attr('id','mensaje').html(respuesta);
+						$('#mensaje').replaceWith(elem);
+						$("#mensaje").css("visibility","visible")
+					}
+				});
+			});
+
+			$("#limpiar").click(function(event) {
+				$("#registrarInscripcion")[0].reset();
+			});
+
+		});
+	</script>
+</body>
+</html>

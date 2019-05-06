@@ -232,6 +232,11 @@ INSERT INTO public.perfil_sys(nombre) VALUES ('Consultas');
 INSERT INTO public.estatus_usuario_sys(nombre) VALUES ('Activo');
 INSERT INTO public.estatus_usuario_sys(nombre) VALUES ('Inactivo');
 
+INSERT INTO public.usuario_sys(rfc, password, correo, nombre,  apellido_paterno, apellido_materno, confirmacion, codigo, confirmacioncorreo,codigo_correo,correocambio,codigorecupera, confirmarecupera, fk_id_estatus_usuario_sys, fk_id_perfil_sys) 
+VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'francisco3122151@gmail.com','franki', 'mcs', 'panki', 'false',123,'false',789,'',101,'false',1, 1);--123456789
+
+
+
 INSERT INTO public.tipo_curso(nombre) VALUES ('Curso');
 INSERT INTO public.tipo_curso(nombre) VALUES ('Diplomado');
 INSERT INTO public.tipo_curso(nombre) VALUES ('Especialidad');
@@ -284,7 +289,12 @@ INSERT INTO public.estado(nombre) VALUES ('Zacatecas');
 INSERT INTO public.estado(nombre) VALUES ('Sin definir');
 COMMIT;
 
-INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'armenta@unam.mx', 1, 1);--123456789
+INSERT INTO public.usuario_sys(rfc, password, correo, nombre,  apellido_paterno, apellido_materno, confirmacion, codigo, confirmacioncorreo,codigo_correo,correocambio,codigorecupera, confirmarecupera, fk_id_estatus_usuario_sys, fk_id_perfil_sys) 
+VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'francisco3122151@gmail.com','franki', 'mcs', 'panki', 'false',123,'false',789,'',101,'false',1, 1);--123456789
+
+
+
+
 INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('BBBB801201SN9', '$2a$10$8n2o/aSS96.kisZBBMzdM.BwOryAWdFwFlsjIWFvIkObYJ8Na/2O2', 'benitez@unam.mx', 1, 2);--1234567890
 
 INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Raul', 'Lopez', 'Diaz', 'LODR800505MMM', 'raul@unam.mx', 1, 1, 1, 1);

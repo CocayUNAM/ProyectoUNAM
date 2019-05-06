@@ -1,6 +1,7 @@
 package com.cocay.sicecd.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -38,6 +39,13 @@ public class Curso {
 	
 	@Column(name = "horas")
 	int horas;
+	
+	/*
+	@Column(name = "f_inicio")
+	Date fInicio;
+	
+	@Column(name = "f_termino")
+	Date fTermino;*/
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Grupo> grupos = new ArrayList<>();
@@ -47,6 +55,13 @@ public class Curso {
 	private List<Certificado> certificados = new ArrayList<>();
 
 	public Curso(){}
+	
+	public Curso(String clave, String nombre, int horas) {
+		super();
+		this.clave = clave;
+		this.nombre = nombre;
+		this.horas = horas;
+	}
 	
 	public int getPk_id_curso() {
 		return pk_id_curso;
@@ -104,4 +119,22 @@ public class Curso {
 		this.certificados = certificados;
 	}
 
+	/*
+	public Date getfInicio() {
+		return fInicio;
+	}
+
+	public void setfInicio(Date fInicio) {
+		this.fInicio = fInicio;
+	}
+
+	public Date getfTermino() {
+		return fTermino;
+	}
+
+	public void setfTermino(Date fTermino) {
+		this.fTermino = fTermino;
+	}
+	*/
+	
 }

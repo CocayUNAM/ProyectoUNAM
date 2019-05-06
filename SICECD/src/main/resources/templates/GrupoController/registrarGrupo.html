@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>Registra Usuario Administrador</title>
+    <title>Sistema de Control Escolar para Cursos y Diplomados</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -25,7 +25,6 @@
 <div th:replace="/includes/head.html :: head_div2" />
 
 <!-- START CONTENTS -->
-
 	<div class="content-wrap">
         <div class="main">
             <div class="container-fluid">
@@ -33,7 +32,7 @@
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-	                                <h1>Dar de Alta Usuario Administrador</h1>
+	                                <h1>Registrar un grupo</h1>
                             </div>
                         </div>
                     </div>
@@ -43,32 +42,12 @@
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Registrar un curso</li>
+                                    <li class="breadcrumb-item active">Registrar un grupo</li>
                                 </ol>
                             </div>
                         </div>
                     </div>
                     <!-- /# column -->
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"></h5>
-      </div>
-      <div class="modal-body">
-        Selecciona una accion
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="limpiar" >Agrega otro usuario </button>
-        <button type="button" class="btn btn-primary" onclick= "window.location.href ='/example/table-basic'">Volver a inicio</button>
-      </div>
-    </div>
-  </div>
-</div>
-                    
                 </div>
                 <!-- /# row -->
                 <section id="main-content">
@@ -78,40 +57,45 @@
                                 <div class="card-body">
                                     <div class="form-validation">
                                     
-                                        <form class="form-valide" th:action="@{/AdministracionCursos/altaAdministrador}" method="GET" id="altausuario">
+                                        <form class="form-valide" th:action="@{/registrarGrupo}" method="GET">
                                         
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="rfc">Rfc <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="val-clave">Clave <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="rfc" name="rfc" required>
-                                                </div>   
-                                             </div>                                        
-                                            <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="correo">Correo <span class="text-danger">*</span></label>
-                                                <div class="col-lg-8">
-                                                    <input type="email" class="form-control" id="correo" name="correo"  required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="nombre">Nombre <span class="text-danger">*</span></label>
-                                                <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nombre" name="nombre"  required>
-                                                </div>
-                                            </div>                                            
-                                            <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="apellidopaterno">Apellido paterno <span class="text-danger">*</span></label>
-                                                <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="apellidopaterno" name="apellidopaterno" required>
+                                                    <input type="text" class="form-control" id="val-clave" name="clave" placeholder="Ejemplo: A001" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="apellidomaterno">Apellido Materno <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="val-inicio">Fecha de inicio <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno"required>
-                                                </div> 
-                                            </div>                                           
-                                            <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#exampleModal"> Agregar usuario</button>
+                                                    <input type="text" class="form-control" id="val-inicio" name="f_inicio" placeholder="Agregue fecha de inicio" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-termino">Fecha de termino <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-termino" name="f_termino" placeholder="Agregue fecha de termino" required>
+                                                </div>
+                                            </div> 
+                                            
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-curso">Clave del curso<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-curso" name="curso" placeholder="Agregue clave" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="val-asesor">RFC del asesor <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="val-asesor" name="asesor" placeholder="Ingrese el RFC" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <button type="submit" class="btn btn-default"> Capturar</button>
                                     </form>
                                     
                                     </div>
@@ -126,8 +110,7 @@
 <!-- END CONTENTS -->
 
     <!-- jquery vendor -->
-<!-- 	<script src="/js/lib/jquery.min.js"></script>  -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/lib/jquery.min.js"></script>
     <script src="/js/lib/jquery.nanoscroller.min.js"></script>
     <!-- nano scroller -->
     <script src="/js/lib/menubar/sidebar.js"></script>
@@ -140,41 +123,5 @@
     <script src="/js/lib/form-validation/jquery.validate-init.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/scripts.js"></script>
-    
-   <script>
- $(document).ready(function(){
-
-	 
-    $("#altausuario").submit(function(eve){
-        eve.preventDefault();
-        let datos={
-            rfc : $("#rfc").val(),
-            correo : $("#correo").val(),
-            nombre : $("#nombre").val(),
-            apellido_paterno : $("#apellidopaterno").val(),
-            apellido_materno : $("#apellidomaterno").val()        
-        }
-        $.ajax({
-            type : "POST",
-            contentType: "application/json",
-            url: '/AdministracionCursos/altaAdministrador',
-            data:JSON.stringify(datos),
-            //dataType:'json',
-            error:function(e){
-            	alert("Error");},
-            success:function(respuesta){
-            	$('#exampleModalLabel').text(respuesta);
-            ;}
-        });
-    });
-
-   $("#limpiar").click(function(event){
-	   $("#altausuario")[0].reset();
-   });
-   
- });
-
-
-    </script>
 </body>
 </html>

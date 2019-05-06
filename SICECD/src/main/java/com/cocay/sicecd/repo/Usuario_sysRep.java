@@ -11,7 +11,7 @@ import com.cocay.sicecd.model.Usuario_sys;
 @Repository
 public interface Usuario_sysRep extends PagingAndSortingRepository<Usuario_sys, Integer>{
 	List<Usuario_sys> findByRfc(String name);
-	List<Usuario_sys> findByCorreo(String name);
+
 
 
 }

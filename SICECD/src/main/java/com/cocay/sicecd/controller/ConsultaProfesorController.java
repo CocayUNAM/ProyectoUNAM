@@ -49,6 +49,19 @@ public class ConsultaProfesorController {
 		}
 	}
 	
+	@RequestMapping(value = "/consultarProfesorRFCList", method = RequestMethod.POST)
+	public ModelAndView consultarProfesorRFCList(ModelMap model, HttpServletRequest request) {
+		String rfcs = request.getParameter("rfc");
+		List<Profesor> list_p = profesor.findByRfcList(rfcs);
+		
+		if(!list_p.isEmpty()) {
+			model.put("profesores", list_p);
+			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
+		} else {
+			return new ModelAndView("/Avisos/ErrorBusqueda");
+		}
+	}
+	
 	@RequestMapping(value = "/consultarProfesorEstado", method = RequestMethod.POST)
 	public ModelAndView consultarProfesorEstado(ModelMap model, HttpServletRequest request) {
 		Integer id_estado = Integer.parseInt(request.getParameter("estados"));

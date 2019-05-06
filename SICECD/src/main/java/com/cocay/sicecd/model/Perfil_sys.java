@@ -24,7 +24,7 @@ public class Perfil_sys {
 	@Column(name = "nombre")
 	String nombre;
 
-	@OneToMany(mappedBy = "fk_id_estatus_usuario_sys", targetEntity=Usuario_sys.class)
+	@OneToMany(mappedBy = "fk_id_perfil_sys", targetEntity=Usuario_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Usuario_sys> usuarios = new ArrayList<>();
 
