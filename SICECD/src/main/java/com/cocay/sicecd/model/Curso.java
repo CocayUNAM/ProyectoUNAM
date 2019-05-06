@@ -56,6 +56,13 @@ public class Curso {
 
 	public Curso(){}
 	
+	public Curso(String clave, String nombre, int horas) {
+		super();
+		this.clave = clave;
+		this.nombre = nombre;
+		this.horas = horas;
+	}
+	
 	public int getPk_id_curso() {
 		return pk_id_curso;
 	}

@@ -31,6 +31,9 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
 					@Param("apellido_materno") String apellido_materno);
 	@Query("SELECT p FROM Profesor p where p.correo = :correo")
 	Profesor findByCorreo(@Param("correo")String correo);
+	
+	@Query(value="SELECT * FROM Profesor", nativeQuery = true)
+	List<Profesor> loadAllProfesor();
 }
 	
 	
