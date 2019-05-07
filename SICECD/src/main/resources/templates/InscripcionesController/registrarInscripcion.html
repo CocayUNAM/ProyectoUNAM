@@ -162,10 +162,10 @@
 						$('#spin').css("visibility","visible")
 								
 					},
-					error : function(e) {
-						alert("Inscripcion agregada con exito");
+					error : function() {
+						alert("Error");
 					},
-					success : function(respuesta) {
+					success : function(respuesta, status) {
 						$('#spin').css("visibility","hidden")
 						var elem = $(document.createElement('h4'))
 						               .attr('id','mensaje').html(respuesta);

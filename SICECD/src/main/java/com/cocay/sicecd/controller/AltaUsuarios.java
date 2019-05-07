@@ -106,9 +106,6 @@ public class AltaUsuarios {
 		
 		return "redirect:/login?mensaje=Ya puedes realizar login";
 	}
-
-	
-	
 	
 	@GetMapping("/prueba")
 	@ResponseBody

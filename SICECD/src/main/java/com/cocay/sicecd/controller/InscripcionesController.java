@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +16,6 @@ import com.cocay.sicecd.dto.InscripcionDto;
 import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.model.Profesor;
-import com.cocay.sicecd.model.Usuario_sys;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.ProfesorRep;
@@ -57,10 +55,8 @@ public class InscripcionesController {
 		if (profe != null) {
 			inst.setFk_id_profesor(profe);
 		}
-
 		insRep.save(inst);
-
-		return ResponseEntity.ok("Inscripcion agregada con exito");
+		return ResponseEntity.ok("Agregada con exito la inscripcion");
 	}
 
 }
