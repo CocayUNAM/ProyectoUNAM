@@ -19,6 +19,11 @@
     <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="/css/lib/helper.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <style type="text/css">
+		#mensaje {
+			visibility: hidden;
+		}
+	</style>
 </head>
 <body>
 <div th:replace="/includes/head.html :: head_div1" />
@@ -33,6 +38,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<div class="d-flex align-items-center" id="proceso">
+					<h4 id="mensaje">algo</h4>
 						<div id="spin">
 							<strong>Agregando... &nbsp;</strong>
 							<div class="spinner-grow text-info" role="status"
@@ -115,7 +121,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="nac">Fecha de nacimiento<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nac" name="nacimiento" placeholder="dd/mm/aaaa">
+                                                    <input type="text" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa">
                                                 </div>
                                             </div>
                                             
@@ -130,7 +136,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="correo">Correo electronico<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="correo" name="correo" placeholder="Introduce correo." required>
+                                                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Introduce correo." required>
                                                 </div>
                                             </div>
                                             
@@ -182,10 +188,10 @@
 					aPaterno : $("#apaterno").val(),
 					aMaterno : $("#amaterno").val(),
 					nombres: $("#nombres").val(),
-					fNacimiento: $("nac").val(),
-					telefono: $("tel").val(),
-					correo: $("correo").val(),
-					rfc: $("rfc").val(),
+					fNacimiento: $("#nac").val(),
+					telefono: $("#tel").val(),
+					correo: $("#correo").val(),
+					rfc: $("#rfc").val(),
 				}
 				$.ajax({
 					type : "POST",
@@ -200,7 +206,7 @@
 								
 					},
 					error : function(e) {
-						alert("Profesor agregado con exito");
+						alert("¡Asesor agregado correctamente!");
 					},
 					success : function(respuesta) {
 						$('#spin').css("visibility","hidden")

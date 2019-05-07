@@ -20,8 +20,6 @@ import com.cocay.sicecd.dto.ProfesorDto;
 import com.cocay.sicecd.model.Estado;
 import com.cocay.sicecd.model.Genero;
 import com.cocay.sicecd.model.Grado_profesor;
-import com.cocay.sicecd.model.Grupo;
-import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Turno;
 import com.cocay.sicecd.repo.EstadoRep;
@@ -72,6 +70,12 @@ public class ProfesoresController {
 		String correo = prof.getCorreo();
 		
 		String fechaSt = prof.getfNacimiento();
+		Date fecha = null;
+		try {
+			fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaSt);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}  
 		
 		pro.setApellido_paterno(apaterno);
 		
@@ -84,6 +88,8 @@ public class ProfesoresController {
 		pro.setTelefono(telefono);
 		
 		pro.setCorreo(correo);
+		
+		pro.setFechaNac(fecha);
 		
 		/*------------------------------------------------------------------------------*/
 		
@@ -109,56 +115,59 @@ public class ProfesoresController {
 		/*------------------------------------------------------------------------------*/
 		
 		profRep.save(pro);
-		return ResponseEntity.ok("Profesor agregado con exito");
+		return ResponseEntity.ok("¡Profesor agregado con exito!");
 	}
+	
+	//Mapeo del html para registrar cursos
+		@RequestMapping(value = "/registrarParticipantes", method = RequestMethod.GET)
+		public String RegistrarParti(Model model, HttpServletRequest request) throws ParseException{
+			return "ProfesoresController/registrarParticipante";
+		}
 
 	
 	//Mapeo del html para registrar cursos
-		@RequestMapping(value = "/registrarParticipante", method = RequestMethod.GET)
-		public String RegistrarParticipantes(Model model, HttpServletRequest request){
+		@RequestMapping(value = "/registrarParticipante", method = RequestMethod.POST)
+		public ResponseEntity<String> RegistrarParticipantes(@RequestBody ProfesorDto prof){
 			
-			if(request.getParameterNames().hasMoreElements()) {
+				Profesor profe = new Profesor();
 				
-				String apaterno = request.getParameter("apaterno");
+				String apaterno = prof.getaPaterno();
 				
-				String amaterno = request.getParameter("amaterno");
+				String amaterno = prof.getaMaterno();
 				
-				String nombres = request.getParameter("nombres");
+				String nombres = prof.getNombres();
 				
-				String curp = request.getParameter("curp");
+				String curp = prof.getCurp();
 				
-				String rfc = request.getParameter("rfc");
+				String rfc = prof.getRfc();
 				
-				String correo = request.getParameter("correo");
+				String correo = prof.getCorreo();
 				
-				String telefono = request.getParameter("tel");
+				String telefono = prof.getTelefono();
 				
 //				/*base*/
-				String estado = request.getParameter("estado");
+				String estado = prof.getEstado();
 				List<Estado> est = stRep.findByNombre(estado);
 				
-				String cilo = request.getParameter("cilo");
+				String cilo = prof.getCilo();
 				
 				/*base*/
-				Integer genero = Integer.parseInt(request.getParameter("genero"));
+				Integer genero = Integer.parseInt(prof.getGenero());
 				Optional<Genero> gen = gRep.findById(genero);
 				
-				String plantel = request.getParameter("plantel");
+				String plantel = prof.getPlantel();
 				
 				/*base*/
-				Integer turno = Integer.parseInt(request.getParameter("turno"));
+				Integer turno = Integer.parseInt(prof.getTurno());
 				Optional<Turno> trn = tRep.findById(turno);
 				
-				String cplantel = request.getParameter("cplantel");
+				String cplantel = prof.getcPlantel();
 				
 				/*base*/
-				Integer grado = Integer.parseInt(request.getParameter("grado"));
+				Integer grado = Integer.parseInt(prof.getGrado());
 				Optional<Grado_profesor> gr = gpRep.findById(grado);
 				
-				String ocupacion = request.getParameter("ocupacion");
-				
-				/*Se crea el nuevo profesor a agregar a la base de datos*/
-				Profesor profe = new Profesor();
+				String ocupacion = prof.getOcupacion();
 				
 				profe.setApellido_paterno(apaterno);
 				
@@ -174,10 +183,8 @@ public class ProfesoresController {
 				
 				profe.setTelefono(telefono);
 				
-				Estado prueba = est.get(0);
-				
 				if(!est.isEmpty()) {
-					profe.setFk_id_estado(prueba);
+					profe.setFk_id_estado(est.get(0));
 				}
 				
 				profe.setCiudad_localidad(cilo);
@@ -195,8 +202,7 @@ public class ProfesoresController {
 				profe.setOcupacion(ocupacion);
 				
 				profRep.save(profe);
-			}
 			
-			return "ProfesoresController/registrarParticipante";
+			return ResponseEntity.ok("¡Participante agregado con exito!");
 		}
 }
