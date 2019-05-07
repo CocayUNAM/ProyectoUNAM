@@ -24,5 +24,8 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	
 	@Query("SELECT c FROM Curso c where c.nombre = :nombre")
 	Curso findByNombre(@Param("nombre") String nombre);
+	
+	@Query(value="SELECT * FROM Curso", nativeQuery = true)
+	List<Curso> loadAllCursos();
 
 }
