@@ -52,6 +52,15 @@ public class Grupo {
 	public void setPk_id_grupo(int pk_id_grupo) {
 		this.pk_id_grupo = pk_id_grupo;
 	}
+	
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
 
 	public int getFk_id_curso() {
 		return fk_id_curso;
