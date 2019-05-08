@@ -39,11 +39,14 @@ public class ConsultaGrupoController {
 		String fecha_fin_grupo = request.getParameter("fecha_fin_grupo");
 		String clave_grupo = request.getParameter("clave_grupo");
 		
-		List<Grupo> grupos = grupo.findByClave(clave_grupo);
+		List<Grupo> grupos = obtenerGruposFecha(fecha_inicio_grupo, fecha_fin_grupo);
+		List<Grupo> grupos_lista = obtenerGruposFecha(fecha_inicio_grupo, fecha_fin_grupo);
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date date_ini = format.parse(fecha_inicio_grupo);
-		Date date_fin = format.parse(fecha_fin_grupo);
+		for(Grupo g : grupos) {
+			if(g.getClave() != clave_grupo) {
+				grupos_lista.remove(g);
+			}
+		}
 		
 		if(!grupos.isEmpty()) {
 			model.put("grupos", grupos);
@@ -53,6 +56,13 @@ public class ConsultaGrupoController {
 		}
 	}
 	
+	/**
+	 * @author Derian Estrada
+	 * @param model
+	 * @param request
+	 * @return
+	 * @throws ParseException
+	 */
 	@RequestMapping(value = "/consultaGrupoCurso", method = RequestMethod.POST)
 	public ModelAndView consultarGrupoCurso(ModelMap model,HttpServletRequest request) throws ParseException {
 		String fecha_inicio_grupo = request.getParameter("fecha_inicio_grupo");
@@ -60,9 +70,8 @@ public class ConsultaGrupoController {
 		String curso_grupo = request.getParameter("curso_grupo");
 		
 		List<Curso> cursos = curso.findByClave(curso_grupo);
-		List<Grupo> grupos = grupo.findAll();
-		List<Grupo> grupos_lista = grupo.findAll();
-		
+		List<Grupo> grupos = obtenerGruposFecha(fecha_inicio_grupo, fecha_fin_grupo);
+		List<Grupo> grupos_lista = obtenerGruposFecha(fecha_inicio_grupo, fecha_fin_grupo);
 		
 		if(!cursos.isEmpty()) {
 			for(Curso c : cursos) {
@@ -80,5 +89,56 @@ public class ConsultaGrupoController {
 		}else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
+	}
+	
+	/**
+	 * @author Derian Estrada
+	 * @param model
+	 * @param request
+	 * @return
+	 * @throws ParseException
+	 */
+	@RequestMapping(value = "/consultaGrupoFecha", method = RequestMethod.POST)
+	public ModelAndView consultarGrupoFecha(ModelMap model,HttpServletRequest request) throws ParseException {
+		String fecha_inicio_grupo = request.getParameter("fecha_inicio_grupo");
+		String fecha_fin_grupo = request.getParameter("fecha_fin_grupo");
+		List<Grupo> grupos = obtenerGruposFecha(fecha_inicio_grupo, fecha_fin_grupo);
+		
+		if(!grupos.isEmpty()) {
+			model.put("grupos", grupos);
+			return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
+		}else {
+			return new ModelAndView("/Avisos/ErrorBusqueda");
+		}
+	}
+	
+	/**
+	 * @author Derian Estrada
+	 * @param fecha_inicio_grupo
+	 * @param fecha_fin_grupo
+	 * @return
+	 * @throws ParseException
+	 */
+	private List<Grupo> obtenerGruposFecha(String fecha_inicio_grupo, String fecha_fin_grupo) throws ParseException{
+		List<Grupo> grupos;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date fecha_ini;
+		Date fecha_fin;
+		
+		if(fecha_inicio_grupo == "" && fecha_fin_grupo == "") {
+			grupos = grupo.findAll();
+		}else if(fecha_fin_grupo == ""){
+			fecha_ini = format.parse(fecha_inicio_grupo);
+			grupos = grupo.findByFechaInicio(fecha_ini);
+		}else if(fecha_inicio_grupo == ""){
+			fecha_fin = format.parse(fecha_fin_grupo);
+			grupos = grupo.findByFechaFin(fecha_fin);
+		}else{
+			fecha_ini = format.parse(fecha_inicio_grupo);
+			fecha_fin = format.parse(fecha_fin_grupo);
+			grupos = grupo.findByFecha(fecha_ini, fecha_fin);
+		}
+		
+		return grupos;
 	}
 }
