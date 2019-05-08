@@ -31,21 +31,21 @@ public class ConsultaInscripcionController {
 	}
 	
 	@RequestMapping(value = "/consultaInsGrupo", method = RequestMethod.POST)
-	public ModelAndView consultarInsGrupo(ModelMap model,HttpServletRequest request) throws ParseException {
-		String clave_grupo = request.getParameter("ins_grupo");
+	public ModelAndView consultarInsGrupo(ModelMap model,HttpServletRequest request) {
+		String grupo = request.getParameter("ins_grupo");
 		
-		List<Inscripcion> ins_lista1 = ins.findAll();
-		List<Inscripcion> ins_lista2 = ins.findAll();
+		//List<Inscripcion> ins_1 = ins.findAll();
+		List<Inscripcion> ins_2 = ins.findAll();
 		
-		for(Inscripcion i : ins_lista1) {
-			if(i.getFk_id_grupo().getClave() != clave_grupo) {
-				ins_lista2.remove(i);
+		/*for(Inscripcion in : ins_1) {
+			if( in.getFk_id_grupo().getClave() != grupo ) {
+				boolean b = ins_2.remove(in);
 			}
-		}
+		}*/
 		
-		if(!ins_lista2.isEmpty()) {
-			model.put("ins", ins_lista2);
-			return new ModelAndView("ConsultarGrupo/muestraListaIns",model);
+		if(!ins_2.isEmpty()) {
+			model.put("ins", ins_2);
+			return new ModelAndView("ConsultarInscripcion/muestraListaIns",model);
 		}else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
