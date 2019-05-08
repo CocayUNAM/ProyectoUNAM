@@ -40,12 +40,11 @@ public class Curso {
 	@Column(name = "horas")
 	int horas;
 	
-	/*
 	@Column(name = "f_inicio")
 	Date fInicio;
 	
 	@Column(name = "f_termino")
-	Date fTermino;*/
+	Date fTermino;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Grupo> grupos = new ArrayList<>();
