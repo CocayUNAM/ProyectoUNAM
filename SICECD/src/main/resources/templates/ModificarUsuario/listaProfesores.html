@@ -1,451 +1,114 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Lista de profesores</title>
-<link href="/css/lib/select2/select2.min.css" rel="stylesheet">
-<link href="/css/lib/font-awesome.min.css" rel="stylesheet">
-<link href="/css/lib/themify-icons.css" rel="stylesheet">
-<link href="/css/lib/menubar/sidebar.css" rel="stylesheet">
-<link href="/css/lib/bootstrap.min.css" rel="stylesheet">
-<link href="/css/lib/datatables.min.css" rel="stylesheet">
-<link href="/css/lib/helper.css" rel="stylesheet">
-<link href="/css/style.css" rel="stylesheet">
-<style>
-.renglon {
-	cursor: pointer;
-}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Sistema de Control Escolar para Cursos y Diplomados</title>
 
-.oculto {
-	cursor: default;
-}
-
-#spin {
-	visibility: hidden;
-}
-
-#mensaje {
-	visibility: hidden;
-}
-</style>
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    
+    <!-- Styles -->
+    <link href="/css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="/css/lib/data-table/buttons.bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/lib/menubar/sidebar.css" rel="stylesheet">
+    <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/lib/helper.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
+<div th:replace="/includes/head.html :: head_div1" />
+<div th:replace="/includes/head.html :: head_div2" />
 
-
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="d-flex align-items-center" id="proceso">
-						<h4 id="opc">Selecciona una opcion</h4>
-						<h4 id="mensaje"></h4>
-						<div id="spin">
-							<strong>Reenviando... &nbsp;</strong>
-							<div class="spinner-grow text-info" role="status"
-								aria-hidden="true"></div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-body">
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item" id="cambiomail"><a class="nav-link active" id="home-tab"
-							data-toggle="tab" href="#home" role="tab" aria-controls="home"
-							aria-selected="true">Cambio de correo</a></li>
-						<li class="nav-item" id="reactivapass"><a class="nav-link" id="profile-tab"
-							data-toggle="tab" href="#profile" role="tab"
-							aria-controls="profile" aria-selected="false">Reactivacion de
-								contrasena</a></li>
-						<li class="nav-item" id="activacuenta"><a class="nav-link" id="contact-tab"
-							data-toggle="tab" href="#contact" role="tab"
-							aria-controls="contact" aria-selected="false">Activacion de
-								cuenta</a></li>
-
-					</ul>
-					
-					
-					
-					<div class="tab-content" id="myTabContent">
-						<div class="tab-pane fade show active" id="home" role="tabpanel"
-							aria-labelledby="home-tab">
-							<div class="modal-body">
-								<form id="cambio">
-									<div class="form-group">
-										<label for="recipient-name" class="col-form-label">Correo:</label>
-										<input type="text" class="form-control" id="correo"><br>
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-primary">Renviar
-											correo</button>
-									</div>
-								</form>
-							</div>
-						</div>
-						
-						
-						
-						<div class="tab-pane fade" id="profile" role="tabpanel"
-							aria-labelledby="profile-tab">
-							<br>
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary" id="recupera">Renviar
-								correo</button>
-						</div>
-						
-						
-						
-						<div class="tab-pane fade" id="contact" role="tabpanel"
-							aria-labelledby="contact-tab">
-							<br>
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary" id="activa">Renviar
-								correo</button>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-	<!-- FIN DE MODAL -->
-
-	<!-- INICIO DE LA PAGINA -->
-	<div th:replace="/includes/head.html :: head_div1" />
-	<div th:replace="/includes/head.html :: head_div2" />
-
-	<div class="content-wrap">
-		<div class="main">
-			<div class="container-fluid">
+<!-- START CONTENTS -->
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row"></div>
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="bootstrap-data-table-panel">
+                                    <div class="table-responsive">
+                                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Apellido Paterno</th>
+                                                    <th>Apellido Materno</th>
+                                                    <th>Correo</th>
+                                                    <th>Grado de Estudios</th>
+                                                    <th>Ocupación</th>
+                                                    <th>RFC</th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-th-each="profesor : ${profesores}">
+                                                	<td data-th-text="${profesor.nombre}">Text ...</td>
+                                                	<td data-th-text="${profesor.apellido_paterno}">Text ...</td>
+													<td data-th-text="${profesor.apellido_materno}">Text ...</td>
+													<td data-th-text="${profesor.correo}">Text ...</td>
+													<td data-th-text="${profesor.fk_id_grado_profesor.nombre}">Text ...</td>
+                                                	<td data-th-text="${profesor.ocupacion}">Text ...</td>
+                                                	<td data-th-text="${profesor.rfc}">Text ...</td>
+                                                    <td data-th-text="${profesor.fk_id_estado.nombre}">Text ...</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /# card -->
+                        </div>
+                        <!-- /# column -->
+                    </div>
+                    <!-- /# row -->
+                </section>
+                
+                <!-- START DERECHOS -->
 				<div class="row">
-
-					<!-- titulo -->
-					<div class="col-lg-8 p-r-0 title-margin-right">
-						<div class="page-header">
-							<div class="page-title">
-								<h1>Lista de registros de la tabla profesor</h1>
-							</div>
+					<div class="col-lg-12">
+						<div class="footer">
+							<p>2018 © SICCED</p>
 						</div>
 					</div>
-
-					<table id="grid" class="table table-hover" cellspacing="0">
-						<thead>
-							<tr>
-								<th>pk_id_profesor</th>
-								<th>nombre</th>
-								<th>apellido_paterno</th>
-								<th>apellido_materno</th>
-								<th>rfc</th>
-								<th>curp</th>
-								<th>correo</th>
-								<th>telefono</th>
-								<th>fk_id_estado</th>
-								<th>ciudad_localidad</th>
-								<th>id_genero</th>
-								<th>plantel</th>
-								<th>clave_plantel</th>
-								<th>fk_id_turno</th>
-								<th>fk_id_grado_profesor</th>
-								<th>ocupacion</th>
-								<th>curriculum</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr data-th-each="profesor : ${profesores}">
-								<td data-th-text="${profesor.pk_id_profesor}">Text ...</td>
-								<td data-th-text="${profesor.nombre}">Text ...</td>
-								<td data-th-text="${profesor.apellido_paterno}">Text ...</td>
-								<td data-th-text="${profesor.apellido_materno}">Text ...</td>
-								<td data-th-text="${profesor.rfc}">Text ...</td>
-								<td data-th-text="${profesor.curp}">Text ...</td>
-								<td data-th-text="${profesor.correo}">Text ...</td>
-								<td data-th-text="${profesor.telefono}">Text ...</td>
-								<td data-th-text="${profesor.fk_id_estado}">Text ...</td>
-								<td data-th-text="${profesor.ciudad_localidad}">Text ...</td>
-								<td data-th-text="${profesor.id_genero}">Text ...</td>
-								<td data-th-text="${profesor.plantel}">Text ...</td>
-								<td data-th-text="${profesor.clave_plantel}">Text ...</td>
-								<td data-th-text="${profesor.fk_id_turno}">Text ...</td>
-								<td data-th-text="${profesor.fk_id_grado_profesor}">Text ...</td>
-								<td data-th-text="${profesor.ocupacion}">Text ...</td>
-								<td data-th-text="${profesor.curriculum}">Text ...</td>
-							</tr>
-						</tbody>
-					</table>
-
 				</div>
-				<!-- /# row -->
-			</div>
-		</div>
-	</div>
-	<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
-	<script src="/js/lib/jquery.nanoscroller.min.js"></script>
-	<!-- nano scroller -->
-	<script src="/js/lib/menubar/sidebar.js"></script>
-	<script src="/js/lib/preloader/pace.min.js"></script>
-	<!-- sidebar -->
-	<!-- bootstrap -->
-	<!-- Select2 -->
-	<script src="/js/lib/select2/select2.full.min.js"></script>
-	<!-- 	<script src="/js/lib/form-validation/jquery.validate-init.js"></script> -->
-	<script src="/js/lib/bootstrap.min.js"></script>
-	<script src="/js/lib/datatables.min.js"></script>
-	<script src="/js/scripts.js"></script>
+				<!-- END DERECHOS -->
+				
+            </div>
+        </div>
+    </div>
+<!-- END CONTENTS -->
 
-	<script>
-		$(document)
-				.ready(
-						function() {
-							$('#grid').DataTable();
-							//redireccionar a la edicion del perfil
-							$(".renglon")
-									.on(
-											"click",
-											function() {
-												var rfc = $(this).parent()
-														.find(".rfc").attr(
-																"value");
-												console.log(rfc)
+    <!-- jquery vendor -->
+    <script src="/js/lib/jquery.min.js"></script>
+    <script src="/js/lib/jquery.nanoscroller.min.js"></script>
+    <!-- nano scroller -->
+    <script src="/js/lib/menubar/sidebar.js"></script>
+    <script src="/js/lib/preloader/pace.min.js"></script>
+    <!-- sidebar -->
+    
+    <!-- bootstrap -->
 
-												window.location.href = "/AdministracionCursos/formEditarPerfilUsuario?rfc="
-														+ rfc;
-											});
-
-							//renviar correo
-							//modificar modal
-							//Obtine datos
-							$(".oculto").on("click", function(e) {
-								e.preventDefault();
-							});
-
-							let mail = "";
-							let rfccapturado = "";
-							let conficorreo="";
-							let confiactivo="";
-							let confirecupera="";
-							$(".wola").on(
-									"click",
-									function() {
-										mail = $(this).parent().attr("value");
-
-										$("#correo").attr("value", mail);
-
-										rfccapturado = $(this).parent()
-												.parent().find(".rfc").attr(
-														"value");
-										conficorreo= $(this).attr("confcorreo");
-										confiactivo= $(this).attr("confactivo");
-										confirecupera= $(this).attr("confrecupera");
-										//console.log(rfccapturado+" activo "+ confiactivo+" correo "+ conficorreo+ " recupera "+ confirecupera)
-										if(conficorreo!='true'){
-											$('#cambiomail')
-											.css("display","none");
-											$('#cambio')
-											.css("display","none");
-										}
-										if(confiactivo!='true'){
-											$('#activacuenta')
-											.css("display","none");
-										}
-										if(confirecupera!='true'){
-											$('#reactivapass')
-											.css("display","none");
-										}
-
-									});
-
-							$("#cambio")
-									.submit(
-											function(eve) {
-												eve.preventDefault();
-												let datos = {
-													correo : $("#correo").attr(
-															"value"),
-													rfc : rfccapturado
-
-												}
-												$
-														.ajax({
-															type : "POST",
-															contentType : "application/json",
-															url : '/AdministracionCursos/renviarcambiocorreo',
-															data : JSON
-																	.stringify(datos),
-															beforeSend : function() {
-																// setting a timeout
-																$("#mensaje")
-																		.css(
-																				"visibility",
-																				"hidden")
-																$("#opc")
-																		.css(
-																				"visibility",
-																				"hidden")
-																$('#spin')
-																		.css(
-																				"visibility",
-																				"visible")
-
-															},
-															//dataType:'json',
-															error : function(e) {
-																alert("Error");
-															},
-															success : function(
-																	respuesta) {
-																$('#spin')
-																		.css(
-																				"visibility",
-																				"hidden")
-																var elem = $(
-																		document
-																				.createElement('h4'))
-																		.attr(
-																				'id',
-																				'mensaje')
-																		.html(
-																				respuesta);
-																$('#mensaje')
-																		.replaceWith(
-																				elem);
-																$("#mensaje")
-																		.css(
-																				"visibility",
-																				"visible");
-
-															}
-														});
-											});
-
-							$("#recupera")
-									.click(
-											function(eve) {
-												eve.preventDefault();
-												let datos = {
-													rfc : rfccapturado
-
-												}
-												$
-														.ajax({
-															type : "POST",
-															contentType : "application/json",
-															url : '/AdministracionCursos/renviarrecupera',
-															data : JSON
-																	.stringify(datos),
-															beforeSend : function() {
-																// setting a timeout
-																$("#mensaje")
-																		.css(
-																				"visibility",
-																				"hidden")
-																$("#opc")
-																		.css(
-																				"visibility",
-																				"hidden")
-																$('#spin')
-																		.css(
-																				"visibility",
-																				"visible")
-
-															},
-															//dataType:'json',
-															error : function(e) {
-																alert("Error");
-															},
-															success : function(
-																	respuesta) {
-																$('#spin')
-																		.css(
-																				"visibility",
-																				"hidden")
-																var elem = $(
-																		document
-																				.createElement('h4'))
-																		.attr(
-																				'id',
-																				'mensaje')
-																		.html(
-																				respuesta);
-																$('#mensaje')
-																		.replaceWith(
-																				elem);
-																$("#mensaje")
-																		.css(
-																				"visibility",
-																				"visible");
-
-															}
-														});
-											});
-							$("#activa")
-									.click(
-											function(eve) {
-												eve.preventDefault();
-												let datos = {
-													rfc : rfccapturado
-
-												}
-												$
-														.ajax({
-															type : "POST",
-															contentType : "application/json",
-															url : '/AdministracionCursos/renviaactiva',
-															data : JSON
-																	.stringify(datos),
-															beforeSend : function() {
-																// setting a timeout
-																$("#mensaje")
-																		.css(
-																				"visibility",
-																				"hidden")
-																$("#opc")
-																		.css(
-																				"visibility",
-																				"hidden")
-																$('#spin')
-																		.css(
-																				"visibility",
-																				"visible")
-
-															},
-															//dataType:'json',
-															error : function(e) {
-																alert("Error");
-															},
-															success : function(
-																	respuesta) {
-																$('#spin')
-																		.css(
-																				"visibility",
-																				"hidden")
-																var elem = $(
-																		document
-																				.createElement('h4'))
-																		.attr(
-																				'id',
-																				'mensaje')
-																		.html(
-																				respuesta);
-																$('#mensaje')
-																		.replaceWith(
-																				elem);
-																$("#mensaje")
-																		.css(
-																				"visibility",
-																				"visible");
-
-															}
-														});
-											});
-
-						});
-	</script>
-	<script type="text/javascript">
-		
-	</script>
-
+    <script src="/js/lib/bootstrap.min.js"></script>
+    <script src="/js/scripts.js"></script>
+    <!-- scripit init-->
+    <script src="/js/lib/data-table/datatables.min.js"></script>
+    <script src="/js/lib/data-table/buttons.dataTables.min.js"></script>
+    <script src="/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="/js/lib/data-table/buttons.flash.min.js"></script>
+    <script src="/js/lib/data-table/jszip.min.js"></script>
+    <script src="/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="/js/lib/reports/export-buttons.js"></script>
+    <script src="/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="/js/lib/data-table/datatables-init.js"></script>
 </body>
 </html>
