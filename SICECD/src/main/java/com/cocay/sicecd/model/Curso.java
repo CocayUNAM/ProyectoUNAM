@@ -118,7 +118,6 @@ public class Curso {
 		this.certificados = certificados;
 	}
 
-	/*
 	public Date getfInicio() {
 		return fInicio;
 	}
@@ -134,6 +133,4 @@ public class Curso {
 	public void setfTermino(Date fTermino) {
 		this.fTermino = fTermino;
 	}
-	*/
-	
 }
