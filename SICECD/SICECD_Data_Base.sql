@@ -359,3 +359,11 @@ ALTER TABLE Certificado ADD FOREIGN KEY (fk_id_profesor) REFERENCES Profesor(pk_
 INSERT INTO curso (clave,nombre,fk_id_tipo_curso,horas) VALUES ('A005','COSDAC 2018',1,40);
 INSERT INTO profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Abraham', 'Diaz', 'Diaz', 'ABDI800505MMM', 'asmaharba@gmail.com', 1, 1, 1, 1);
 ALTER TABLE public.certificado OWNER to "SICECD";
+
+/*
+Autor: Jorge Erick Rivera Lopez
+Fecha: 04/05/2019
+Accion: Agrega campo sobre tiempo de creacion de certificado
+*/
+ALTER TABLE Certificado ADD tiempo_creado bigint default 0;
+

@@ -33,6 +33,9 @@ public class Certificado {
 	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso")
 	private Curso fk_id_curso;
 
+        @Column(name = "tiempo_creado")
+	private long tiempo_creado;
+    
 	public int getPk_id_certificado() {
 		return pk_id_certificado;
 	}
@@ -63,6 +66,14 @@ public class Certificado {
 
 	public void setFk_id_curso(Curso fk_id_curso) {
 		this.fk_id_curso = fk_id_curso;
+	}
+
+        public long getTiempo_creado() {
+		return this.tiempo_creado;
+	}
+	
+	public void setTiempo_creado(long tiempo_creado) {
+		this.tiempo_creado = tiempo_creado;
 	}
 
 }
