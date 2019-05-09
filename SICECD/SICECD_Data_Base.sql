@@ -366,3 +366,4 @@ Fecha: 04/05/2019
 Accion: Agrega campo sobre tiempo de creacion de certificado
 */
 ALTER TABLE Certificado ADD tiempo_creado bigint default 0;
+

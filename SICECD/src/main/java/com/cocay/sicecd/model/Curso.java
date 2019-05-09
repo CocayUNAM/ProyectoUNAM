@@ -40,12 +40,11 @@ public class Curso {
 	@Column(name = "horas")
 	int horas;
 	
-	/*
 	@Column(name = "f_inicio")
 	Date fInicio;
 	
 	@Column(name = "f_termino")
-	Date fTermino;*/
+	Date fTermino;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Grupo> grupos = new ArrayList<>();
@@ -119,7 +118,6 @@ public class Curso {
 		this.certificados = certificados;
 	}
 
-	/*
 	public Date getfInicio() {
 		return fInicio;
 	}
@@ -135,6 +133,4 @@ public class Curso {
 	public void setfTermino(Date fTermino) {
 		this.fTermino = fTermino;
 	}
-	*/
-	
 }

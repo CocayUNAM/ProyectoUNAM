@@ -125,6 +125,7 @@ public class ConsultaProfesorController {
 		Integer id_grado = Integer.parseInt(request.getParameter("grado_estudios"));
 		Integer id_genero = Integer.parseInt(request.getParameter("genero"));
 		Integer id_estado = Integer.parseInt(request.getParameter("estados"));
+		Integer id_turno = Integer.parseInt(request.getParameter("turno"));
 		
 		if (nombre == null) {
 			nombre = "";
@@ -147,21 +148,39 @@ public class ConsultaProfesorController {
 		
 		if(!list_p1.isEmpty()) {
 			
-			for(Profesor p : list_p1) {
-				if(p.getFk_id_grado_profesor().getPk_id_grado_profesor() != id_grado) {
-					list_p2.remove(p);
+			//Filtrando por grado de estudios
+			if (id_grado != 5) {
+				for(Profesor p : list_p1) {
+					if(p.getFk_id_grado_profesor().getPk_id_grado_profesor() != id_grado) {
+						list_p2.remove(p);
+					}
 				}
 			}
 			
-			for(Profesor p : list_p1) {
-				if(p.getId_genero().getPk_id_genero() != id_genero) {
-					list_p2.remove(p);
+			//Filtrando por género
+			if ( id_genero != 3) {
+				for(Profesor p : list_p1) {
+					if(p.getId_genero().getPk_id_genero() != id_genero) {
+						list_p2.remove(p);
+					}
 				}
 			}
 			
-			for(Profesor p : list_p1) {
-				if(p.getFk_id_estado().getPk_id_estado() != id_estado) {
-					list_p2.remove(p);
+			//Filtrando por estado
+			if(id_estado != 33 ) {
+				for(Profesor p : list_p1) {
+					if(p.getFk_id_estado().getPk_id_estado() != id_estado) {
+						list_p2.remove(p);
+					}
+				}
+			}
+			
+			//Filtrando por turno
+			if( id_turno != 4) {
+				for(Profesor p : list_p1) {
+					if(p.getFk_id_turno().getPk_id_turno() != id_turno) {
+						list_p2.remove(p);
+					}
 				}
 			}
 			

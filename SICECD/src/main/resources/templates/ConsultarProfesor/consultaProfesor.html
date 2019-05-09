@@ -63,6 +63,7 @@
 												<h4>Consulta por Estado</h4>
 												<label>Estado<span class="text-danger">*</span></label>
 													<select name="estados" class="form-control" data-placeholder="Selecciona un Estado">
+														<option value="33">Sin definir</option>
 														<option value="1">Aguascalientes</option>
 														<option value="2">Baja California</option>
 														<option value="3">Baja California Sur</option>
@@ -150,12 +151,14 @@
 													pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
 												<label>Grado de estudios</label>
 													<select name="grado_estudios" class="form-control" data-placeholder=" ">
+														<option value="5">Sin definir</option>
 														<option value="1">Licenciatura</option>
 														<option value="3">Maestría</option>
 														<option value="4">Doctorado</option>
 													</select>
 												<label>Estado</label>
 													<select name="estados" class="form-control" data-placeholder="Selecciona un Estado">
+														<option value="33">Sin definir</option>
 														<option value="1">Aguascalientes</option>
 														<option value="2">Baja California</option>
 														<option value="3">Baja California Sur</option>
@@ -192,8 +195,16 @@
 													
 												<label>Género</label>
                                                     <select name="genero" class="form-control" data-placeholder=" ">
+                                                    	<option value="3">Sin definir</option>
                                                         <option value="1">Masculino</option>
 														<option value="2">Femenino</option>
+                                                    </select>
+                                                <label>Turno</label>
+                                                    <select name="turno" class="form-control" data-placeholder=" ">
+                                                    	<option value="4">Sin definir</option>
+                                                        <option value="1">Matutino</option>
+														<option value="2">Vespertino</option>
+														<option value="3">Completo</option>
                                                     </select>
 											</div>
 											<button type="submit" class="btn btn-default">Consultar</button>

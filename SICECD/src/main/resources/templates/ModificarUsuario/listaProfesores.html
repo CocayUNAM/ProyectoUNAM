@@ -39,22 +39,26 @@
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
-                                                	<th>Tipo de Curso</th>
-                                                	<th>Curso</th>
-                                                	<th>Grupo</th>
-                                                	<th>Clave</th>
-                                                    <th>Fecha de Inicio</th>
-                                                    <th>Fecha de Término</th>
+                                                    <th>Nombre</th>
+                                                    <th>Apellido Paterno</th>
+                                                    <th>Apellido Materno</th>
+                                                    <th>Correo</th>
+                                                    <th>Grado de Estudios</th>
+                                                    <th>Ocupación</th>
+                                                    <th>RFC</th>
+                                                    <th>Estado</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr data-th-each="grupo : ${grupos}">
-                                                	<td data-th-text="${grupo.curso.fk_id_tipo_curso.nombre}">Text ...</td>
-                                                	<td data-th-text="${grupo.curso.nombre}">Text ...</td>
-                                                	<td data-th-text="${grupo.pk_id_grupo}">Text ...</td>
-                                                	<td data-th-text="${grupo.clave}">Text ...</td>
-                                                	<td data-th-text="${grupo.fecha_inicio}">Text ...</td>
-                                                	<td data-th-text="${grupo.fecha_fin}">Text ...</td>
+                                                <tr data-th-each="profesor : ${profesores}">
+                                                	<td data-th-text="${profesor.nombre}">Text ...</td>
+                                                	<td data-th-text="${profesor.apellido_paterno}">Text ...</td>
+													<td data-th-text="${profesor.apellido_materno}">Text ...</td>
+													<td data-th-text="${profesor.correo}">Text ...</td>
+													<td data-th-text="${profesor.fk_id_grado_profesor.nombre}">Text ...</td>
+                                                	<td data-th-text="${profesor.ocupacion}">Text ...</td>
+                                                	<td data-th-text="${profesor.rfc}">Text ...</td>
+                                                    <td data-th-text="${profesor.fk_id_estado.nombre}">Text ...</td>
                                                 </tr>
                                             </tbody>
                                         </table>
