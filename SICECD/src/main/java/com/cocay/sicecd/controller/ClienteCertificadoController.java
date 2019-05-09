@@ -8,13 +8,17 @@ import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.*;
@@ -29,7 +33,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +45,10 @@ import org.json.*;
 @Controller
 public class ClienteCertificadoController {
 
-	private final String RUTA_LOCAL = "/home/jrivera/";
+	private final String RUTA_LOCAL = "/your/path/";
 	private final String URL_RS = "http://localhost/moodle3.5/mod/simplecertificate/wscertificado.php?";
 	private final String URL_RSM = "http://localhost/moodle3.5/mod/simplecertificate/wscertificados.php";
-	private final String TEMP_ZIP = "/home/jrivera/tmp/";
+	private final String TEMP_ZIP = "/your/path/to_tmp/";
 	@Autowired
 	CertificadoRep bd_certificado;
 	@Autowired
@@ -175,26 +178,28 @@ public class ClienteCertificadoController {
 				json.put("tiempo" + k, c.getTiempo_creado());
 			}
 			json.put("cuenta", k);
-			System.out.println("Se insertaron elementos en el JSON (certificados presentes)");
+			//System.out.println("Se insertaron elementos en el JSON (certificados presentes)");
 		}
-		//StringEntity se = new StringEntity(json.toString());
+
 		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 		params.add(new BasicNameValuePair("json", json.toString()));
-		System.out.println(json.toString());
-		System.out.println(params);
 		post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 		// esperar respuesta
 		HttpResponse response = client.execute(post);
-		
-		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "ISO_8859_1"));
 		String jsonText = "";
 		String linea = null;
 		while ((linea = rd.readLine()) != null) {
-			System.out.println(linea);
+			// System.out.println(linea);
 			jsonText += linea;
 		}
+
 		JSONObject json_r = new JSONObject(jsonText);
+
 		String mns = (String) json_r.get("zip");
+		// System.out.println(mns);
+
 		byte[] bytearray = java.util.Base64.getDecoder().decode(mns);
 		String path = RUTA_LOCAL + "certificados.zip";
 		File tempdir = new File(RUTA_LOCAL);
@@ -204,37 +209,44 @@ public class ClienteCertificadoController {
 		File out = new File(path);
 		try (FileOutputStream os = new FileOutputStream(out)) {
 			os.write(bytearray);
-			// System.out.println("Archivo escrito!");
+			System.out.println("Archivo escrito!");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		FileInputStream fis;
 		byte[] buffer = new byte[1024];
-		try {
-			fis = new FileInputStream(TEMP_ZIP);
-			ZipInputStream zis = new ZipInputStream(fis);
-			ZipEntry ze = zis.getNextEntry();
-			while (ze != null) {
+		File tmp = new File(TEMP_ZIP);
+		if (!tmp.exists()) {
+			tmp.mkdirs();
+		}
+		try {	
+			ZipFile zpf = new ZipFile(out, Charset.forName("Cp437"));
+			Enumeration e = zpf.entries();
+			ZipEntry ze;
+			//System.out.println("PASE");
+			while (e.hasMoreElements()) {
+				ze = (ZipEntry) e.nextElement();
 				String fileName = ze.getName();
 				File newFile = new File(TEMP_ZIP + fileName);
 				new File(newFile.getParent()).mkdirs();
+				
+				BufferedInputStream bis = new BufferedInputStream(zpf.getInputStream(ze));
 				FileOutputStream fos = new FileOutputStream(newFile);
+				BufferedOutputStream bos =  new BufferedOutputStream(fos);
 				int len;
-				while ((len = zis.read(buffer)) > 0) {
+				while ((len = bis.read(buffer, 0, 1024)) != -1) {
 					fos.write(buffer, 0, len);
+					//System.out.println("Escribiendo");
 				}
-				fos.close();
-				zis.closeEntry();
-				ze = zis.getNextEntry();
+				bos.flush();
+				bos.close();
+				bis.close();
 			}
-			zis.closeEntry();
-			zis.close();
-			fis.close();
 		} catch (Exception e) {
 			System.out.println(e);
+			e.printStackTrace();
 		}
 		//comienza a mover los pdfs a la ruta elegida
-		for (File f : tempdir.listFiles()) {
+		for (File f : tmp.listFiles()) {
 			Curso c = bd_curso.findByNombre(f.getName());
 			for (File f2 : f.listFiles()) {
 				Profesor p = bd_profesor.findByCorreo(f2.getName());
