@@ -175,7 +175,7 @@ public class CertificadoMasivoController {
 		// comienza a mover los pdfs a la ruta elegida
 		for (File f : tmp.listFiles()) {
 			Curso c = bd_curso.findByNombre(f.getName());
-			JSONObject ar = new JSONObject(json_r.get(f.getName()));
+			JSONObject ar = new JSONObject(json_r.get(f.getName()).toString());
 			for (File f2 : f.listFiles()) {
 				Profesor p = bd_profesor.findByCorreo(f2.getName());
 				for (File f3 : f2.listFiles()) {
