@@ -2,6 +2,7 @@ package com.cocay.sicecd.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +15,10 @@ import com.cocay.sicecd.repo.ProfesorRep;
 @Controller
 public class ModificarUsuarios {
 	
+	@Autowired
 	ProfesorRep proRep;
 		
-	@RequestMapping(value = "/listaProfesores", method = RequestMethod.POST)
+	@RequestMapping(value = "/listaProfesores", method = RequestMethod.GET)
 	public ModelAndView consultarProfesorEstado(ModelMap model) {
 		List<Profesor> list_p1 = proRep.findAll();
 		
