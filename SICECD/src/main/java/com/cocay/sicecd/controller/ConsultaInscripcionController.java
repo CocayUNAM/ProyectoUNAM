@@ -1,8 +1,5 @@
 package com.cocay.sicecd.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,18 +30,10 @@ public class ConsultaInscripcionController {
 	@RequestMapping(value = "/consultaInsGrupo", method = RequestMethod.POST)
 	public ModelAndView consultarInsGrupo(ModelMap model,HttpServletRequest request) {
 		String grupo = request.getParameter("ins_grupo");
+		Inscripcion ins_1 = ins.findByClaveGrupo(Integer.parseInt(grupo)); 
 		
-		//List<Inscripcion> ins_1 = ins.findAll();
-		List<Inscripcion> ins_2 = ins.findAll();
-		
-		/*for(Inscripcion in : ins_1) {
-			if( in.getFk_id_grupo().getClave() != grupo ) {
-				boolean b = ins_2.remove(in);
-			}
-		}*/
-		
-		if(!ins_2.isEmpty()) {
-			model.put("ins", ins_2);
+		if(ins_1 != null) {
+			model.put("ins", ins_1);
 			return new ModelAndView("ConsultarInscripcion/muestraListaIns",model);
 		}else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");

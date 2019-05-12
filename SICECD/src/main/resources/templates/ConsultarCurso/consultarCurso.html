@@ -42,8 +42,8 @@
 										<form action="/consultaCursoNombre" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consultar por Nombre</h4>
-												<label>Nombre</label>
-													<input type="text" name="nombre_curso" class="form-control">
+												<label>Nombre<span class="text-danger">*</span></label>
+													<input type="text" name="nombre_curso" class="form-control" required>
 												<label>Fecha de Inicio</label>
 													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_curso">
 												<label>Fecha de Término</label>
@@ -66,8 +66,8 @@
 										<form action="/consultaCursoClave" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consultar por Clave</h4>
-												<label>Clave</label>
-													<input type="text" name="clave_curso" class="form-control" text="0000">
+												<label>Clave<span class="text-danger">*</span></label>
+													<input type="text" name="clave_curso" class="form-control" text="0000" required>
 												<label>Fecha de Inicio</label>
 													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_curso">
 												<label>Fecha de Término</label>
