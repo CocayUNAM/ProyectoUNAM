@@ -104,7 +104,7 @@ public class CertificadoMasivoController {
 					k++;
 				}
 				continue;
-			}
+			}/*
 			for (Certificado c : cert) {
 				System.out.println("**\n" + p.getCorreo()+ "\n" + c.getFk_id_curso().getNombre() + "\n**");
 				json.put("correo" + k, p.getCorreo());
@@ -112,7 +112,7 @@ public class CertificadoMasivoController {
 				json.put("tiempo" + k, c.getTiempo_creado());
 				System.out.println("Se insertaron elementos en el JSON (certificadospresentes)");
 				k++;
-			}
+			}*/
 			
 			
 		}
