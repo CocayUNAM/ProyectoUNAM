@@ -48,7 +48,7 @@ public class CertificadoMasivoController {
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	private final String RUTA_LOCAL = "/your/path/";
 	private final String URL_RSM = "http://localhost/moodle3.5/mod/simplecertificate/wscertificados.php";
-	private final String TEMP_ZIP = "/your/path/to_tmp/";
+	private final String TEMP_ZIP = "/your/path/tmp/";
 	@Autowired
 	CertificadoRep bd_certificado;
 	@Autowired
@@ -69,13 +69,17 @@ public class CertificadoMasivoController {
 	 * 
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "* 0/120 * * * ?")
+	@Scheduled(cron = "0 5 21 * * ?")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost(URL_RSM);
 		JSONObject json = new JSONObject();
 		LinkedList<Profesor> profesores = new LinkedList<>(bd_profesor.findAll());
+		if(profesores.size() == 0){
+			return;
+		}
 		System.out.println("A punto de buscar profesores.");
+		int k = 0;
 		for (Profesor p : profesores) {
 			LinkedList<Certificado> cert = new LinkedList<>(p.getCertificados());
 			if (cert.size() == 0) {
@@ -84,29 +88,36 @@ public class CertificadoMasivoController {
 					System.out.println("No hay inscripciones asociadas!");
 					continue;
 				}
-				int k = 0;
+				
 				for (Inscripcion i : ins) {
-					int fkc = i.getFk_id_grupo().getFk_id_curso();
-					Curso caux = bd_curso.findByID(fkc);
+					//int fkc = i.getFk_id_grupo().getFk_id_curso();
+					//Curso caux = bd_curso.findByID(fkc);
+					Curso caux = i.getFk_id_grupo().getFk_id_curso();
+					//if(!caux.getNombre().equals("COSDAC 2018")) {
+						//continue;
+					//}
+					System.out.println("**\n" + p.getCorreo()+ "\n" + caux.getNombre() + "\n**");
 					json.put("correo" + k, p.getCorreo());
 					json.put("curso" + k, caux.getNombre());
 					json.put("tiempo" + k, 0);
+					System.out.println("Se insertaron elementos en el JSON (certificados no presentes)");
 					k++;
 				}
-				json.put("cuenta", k);
-				System.out.println("Se insertaron elementos en el JSON (certificados no presentes)");
 				continue;
 			}
-			int k = 0;
 			for (Certificado c : cert) {
+				System.out.println("**\n" + p.getCorreo()+ "\n" + c.getFk_id_curso().getNombre() + "\n**");
 				json.put("correo" + k, p.getCorreo());
 				json.put("curso" + k, c.getFk_id_curso().getNombre());
 				json.put("tiempo" + k, c.getTiempo_creado());
+				System.out.println("Se insertaron elementos en el JSON (certificadospresentes)");
+				k++;
 			}
-			json.put("cuenta", k);
-			// System.out.println("Se insertaron elementos en el JSON (certificados
-			// presentes)");
+			
+			
 		}
+		json.put("cuenta", k);
+		//System.out.println(json.toString());
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 		params.add(new BasicNameValuePair("json", json.toString()));
@@ -121,8 +132,21 @@ public class CertificadoMasivoController {
 			// System.out.println(linea);
 			jsonText += linea;
 		}
-
-		JSONObject json_r = new JSONObject(jsonText);
+		JSONObject json_r = null;
+		try {
+			json_r = new JSONObject(jsonText);
+		} catch(Exception e) {
+			System.out.println(jsonText);
+			return;
+		}
+		//JSONObject json_r = new JSONObject(jsonText);
+		String msg = (String) json_r.get("mensaje");
+		System.out.println(msg);
+		//msg = new String(java.util.Base64.getDecoder().decode(msg),Charset.forName("UTF-8"));
+		if(!msg.equals("NULL")) {
+			System.out.println("No hay certificados nuevos!");
+			return;
+		}
 
 		String mns = (String) json_r.get("zip");
 		// System.out.println(mns);
