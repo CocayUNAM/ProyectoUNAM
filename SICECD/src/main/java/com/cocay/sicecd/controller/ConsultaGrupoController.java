@@ -106,9 +106,12 @@ public class ConsultaGrupoController {
 		if(!cursos.isEmpty()) {
 			for(Curso c : cursos) {
 				for(Grupo g : grupos_2) {
+					if(g.getFk_id_curso().getPk_id_curso() != c.getPk_id_curso()) {
+						grupos_1.remove(g);
+					}/*
 					if(g.getFk_id_curso() != c.getPk_id_curso()) {
 						grupos_1.remove(g);
-					}
+					}*/
 				}
 			}
 		}

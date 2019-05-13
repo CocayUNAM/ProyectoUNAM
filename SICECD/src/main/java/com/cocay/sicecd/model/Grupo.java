@@ -28,8 +28,8 @@ public class Grupo {
 	@ManyToOne(targetEntity=Curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso",insertable = false, updatable = false)
-	Curso curso;
-	int fk_id_curso;
+	Curso fk_id_curso;
+	//int fk_id_curso;
 	@Column(name = "clave")
 	String clave;
 	@Column(name = "fecha_inicio")
@@ -53,22 +53,22 @@ public class Grupo {
 		this.pk_id_grupo = pk_id_grupo;
 	}
 	
-	public Curso getCurso() {
-		return curso;
+	public Curso getFk_id_curso() {
+		return fk_id_curso;
 	}
 
-	public void setCurso(Curso curso) {
-		this.curso = curso;
+	public void setFk_id_curso(Curso curso) {
+		this.fk_id_curso = curso;
 	}
 
-
+	/*
 	public int getFk_id_curso() {
 		return fk_id_curso;
 	}
 
 	public void setFk_id_curso(int fk_id_curso) {
 		this.fk_id_curso = fk_id_curso;
-	}
+	}*/
 
 	public String getClave() {
 		return clave;

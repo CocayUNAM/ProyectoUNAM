@@ -94,16 +94,17 @@ public class ClienteCertificadoController {
 		String string_pdf = (String) json.get("bytespdf");
 		byte[] bytearray = java.util.Base64.getDecoder().decode(string_pdf);
 		String aux = (String) json.get("nombre_archivo");
-		String na = String.valueOf(java.util.Base64.getDecoder().decode(aux));
+		String na = new String(java.util.Base64.getDecoder().decode(aux),Charset.forName("UTF-8"));
 		String path = RUTA_LOCAL + profesor.getPk_id_profesor() + "_" + na + ".pdf";
 		File out = new File(path);
+		//new File(out.getParent()).mkdirs();
 		try (FileOutputStream os = new FileOutputStream(out)) {
 			os.write(bytearray);
 			// System.out.println("Archivo escrito!");
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		cert.setTiempo_creado((long) json.get("tiempo"));
+		cert.setTiempo_creado(Long.parseLong((String) json.get("tiempo")));
 		cert.setRuta(path);
 		bd_certificado.save(cert);
 		return path;
