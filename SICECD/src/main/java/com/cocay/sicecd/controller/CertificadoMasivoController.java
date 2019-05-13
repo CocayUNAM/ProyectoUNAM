@@ -37,39 +37,37 @@ import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.config.ScheduledTask;
 import org.json.*;
 
 @Component
+@PropertySource(ignoreResourceNotFound = true, value = "classpath:application-cert.properties")
 public class CertificadoMasivoController {
 	private static final Logger logger = LoggerFactory.getLogger(ScheduledTask.class);
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	private final String RUTA_LOCAL = "/your/path/";
-	private final String URL_RSM = "http://localhost/moodle3.5/mod/simplecertificate/wscertificados.php";
-	private final String TEMP_ZIP = "/your/path/tmp/";
+	@Value("${ws.ruta_local}")
+	private String RUTA_LOCAL;
+	@Value("${ws.url_rsm}")
+	private String URL_RSM;
+	@Value("${ws.temp_zip}")
+	private String TEMP_ZIP;
 	@Autowired
 	CertificadoRep bd_certificado;
 	@Autowired
 	ProfesorRep bd_profesor;
 	@Autowired
 	CursoRep bd_curso;
-
-	/*
-	 * public void scheduleTaskWithFixedRate() {}
-	 * 
-	 * public void scheduleTaskWithFixedDelay() {}
-	 * 
-	 * public void scheduleTaskWithInitialDelay() {}
-	 */
 	/**
-	 * Metodo que obtiene certificados masivamente para actualizarlos o traer nuevos
+	 * Metodo que obtiene certificados masivamente para traer nuevos
 	 * archivos. (Cada 2 horas realiza la tarea)
 	 * 
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 5 21 * * ?")
+	@Scheduled(cron = "0 6 17 * * ?")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost(URL_RSM);
@@ -203,7 +201,7 @@ public class CertificadoMasivoController {
 			for (File f2 : f.listFiles()) {
 				Profesor p = bd_profesor.findByCorreo(f2.getName());
 				for (File f3 : f2.listFiles()) {
-					String pt = RUTA_LOCAL + p.getPk_id_profesor() + "_" + f3.getName() + ".pdf";
+					String pt = RUTA_LOCAL + p.getPk_id_profesor() + "_" + f3.getName();
 					FileInputStream fs = new FileInputStream(f3);
 					File aux = new File(pt);
 					if (aux.exists()) {

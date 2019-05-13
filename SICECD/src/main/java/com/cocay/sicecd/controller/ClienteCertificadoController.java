@@ -36,6 +36,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,10 +45,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.json.*;
 
 @Controller
+@PropertySource(ignoreResourceNotFound = true, value = "classpath:application-cert.properties")
 public class ClienteCertificadoController {
-
-	private final String RUTA_LOCAL = "/your/path/";
-	private final String URL_RS = "http://localhost/moodle3.5/mod/simplecertificate/wscertificado.php?";
+	@Value("${ws.ruta_local}")
+	private String RUTA_LOCAL;
+	@Value("${ws.url_rs}")
+	private String URL_RS;
 	
 	@Autowired
 	CertificadoRep bd_certificado;
