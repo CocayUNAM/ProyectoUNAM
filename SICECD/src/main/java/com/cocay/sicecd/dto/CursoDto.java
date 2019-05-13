@@ -9,6 +9,10 @@ public class CursoDto {
 	String horas;
 	
 	String nombre;
+	
+	String fInicio;
+	
+	String fTermino;
 
 	public String getClave() {
 		return clave;
@@ -40,5 +44,21 @@ public class CursoDto {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getfInicio() {
+		return fInicio;
+	}
+
+	public void setfInicio(String fInicio) {
+		this.fInicio = fInicio;
+	}
+
+	public String getfTermino() {
+		return fTermino;
+	}
+
+	public void setfTermino(String fTermino) {
+		this.fTermino = fTermino;
 	}
 }

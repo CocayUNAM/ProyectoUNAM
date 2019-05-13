@@ -72,7 +72,7 @@ public class ProfesoresController {
 		String fechaSt = prof.getfNacimiento();
 		Date fecha = null;
 		try {
-			fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaSt);
+			fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}  
