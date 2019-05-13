@@ -64,12 +64,12 @@ public class CertificadoMasivoController {
 	 * public void scheduleTaskWithInitialDelay() {}
 	 */
 	/**
-	 * Metodo que obtiene certificados masivamente para actualizarlos o traer nuevos
+	 * Metodo que obtiene certificados masivamente para traer nuevos
 	 * archivos. (Cada 2 horas realiza la tarea)
 	 * 
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 5 21 * * ?")
+	@Scheduled(cron = "0 24 16 * * ?")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost(URL_RSM);
@@ -104,7 +104,7 @@ public class CertificadoMasivoController {
 					k++;
 				}
 				continue;
-			}
+			}/*
 			for (Certificado c : cert) {
 				System.out.println("**\n" + p.getCorreo()+ "\n" + c.getFk_id_curso().getNombre() + "\n**");
 				json.put("correo" + k, p.getCorreo());
@@ -112,7 +112,7 @@ public class CertificadoMasivoController {
 				json.put("tiempo" + k, c.getTiempo_creado());
 				System.out.println("Se insertaron elementos en el JSON (certificadospresentes)");
 				k++;
-			}
+			}*/
 			
 			
 		}
@@ -203,7 +203,7 @@ public class CertificadoMasivoController {
 			for (File f2 : f.listFiles()) {
 				Profesor p = bd_profesor.findByCorreo(f2.getName());
 				for (File f3 : f2.listFiles()) {
-					String pt = RUTA_LOCAL + p.getPk_id_profesor() + "_" + f3.getName() + ".pdf";
+					String pt = RUTA_LOCAL + p.getPk_id_profesor() + "_" + f3.getName();
 					FileInputStream fs = new FileInputStream(f3);
 					File aux = new File(pt);
 					if (aux.exists()) {
