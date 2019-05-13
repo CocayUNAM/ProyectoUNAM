@@ -42,8 +42,8 @@
 										<form action="/consultaGrupoCurso" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consultar por Curso</h4>
-												<label>Clave del curso</label>
-													<input type="text" name="curso_grupo" class="form-control">
+												<label>Clave del curso<span class="text-danger">*</span></label>
+													<input type="text" name="curso_grupo" class="form-control" required>
 												<label>Fecha de Inicio del Grupo</label>
 													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_grupo">
 												<label>Fecha de Término del Grupo</label>
@@ -66,8 +66,8 @@
 										<form action="/consultaGrupoClave" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consultar por Clave</h4>
-												<label>Clave del grupo</label>
-													<input type="text" name="clave_grupo" class="form-control" text="0000">
+												<label>Clave del grupo<span class="text-danger">*</span></label>
+													<input type="text" name="clave_grupo" class="form-control" text="0000" required>
 												<label>Fecha de Inicio</label>
 													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_grupo">
 												<label>Fecha de Término</label>
