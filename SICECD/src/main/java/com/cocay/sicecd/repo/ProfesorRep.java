@@ -29,6 +29,13 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
 	List<Profesor> findByCompleteNameList(@Param("nombre") String nombre,
 					@Param("apellido_paterno") String apellido_paterno,
 					@Param("apellido_materno") String apellido_materno);
+	
+	@Query("SELECT p FROM Profesor p "
+			+ "WHERE upper(p.apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "
+			+ "AND upper(p.apellido_materno) LIKE CONCAT('%',:apellido_materno,'%')")
+	List<Profesor> findByLastName(@Param("apellido_paterno") String apellido_paterno,
+								  @Param("apellido_materno") String apellido_materno);
+	
 	@Query("SELECT p FROM Profesor p where p.correo = :correo")
 	Profesor findByCorreo(@Param("correo")String correo);
 	
