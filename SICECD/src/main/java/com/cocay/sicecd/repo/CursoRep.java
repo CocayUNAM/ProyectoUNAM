@@ -75,14 +75,15 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	 * @author Derian Estrada
 	 * Consultas por Fecha
 	 */
-	@Query(value = "SELECT * FROM Curso WHERE f_inicio = :fecha_ini", nativeQuery = true)
-	List<Curso> findByFechaInicio(@Param("fecha_ini") Date fecha_ini);
+	@Query(value = "SELECT * FROM Curso WHERE f_inicio >= :fecha_ini_1 AND f_inicio <= :fecha_ini_2", nativeQuery = true)
+	List<Curso> findByFechaInicio(@Param("fecha_ini_1") Date fecha_ini_1, @Param("fecha_ini_2") Date fecha_ini_2);
 	
-	@Query(value = "SELECT * FROM Curso WHERE f_termino = :fecha_fin", nativeQuery = true)
-	List<Curso> findByFechaFin(@Param("fecha_fin") Date fecha_fin);
+	@Query(value = "SELECT * FROM Curso WHERE f_termino >= :fecha_fin_1 AND f_termino <= :fecha_fin_2", nativeQuery = true)
+	List<Curso> findByFechaFin(@Param("fecha_fin_1") Date fecha_fin_1, @Param("fecha_fin_2") Date fecha_fin_2);
 	
-	@Query(value = "SELECT * FROM Curso WHERE f_inicio = :fecha_ini AND f_termino = :fecha_fin", nativeQuery = true)
-	List<Curso> findByFecha(@Param("fecha_ini") Date fecha_ini, @Param("fecha_fin") Date fecha_fin);
+	@Query(value = "SELECT * FROM Curso WHERE f_inicio >= :fecha_ini_1 AND f_inicio <= :fecha_ini_2 AND f_termino >= :fecha_fin_1 AND f_termino <= :fecha_fin_2", nativeQuery = true)
+	List<Curso> findByFecha(@Param("fecha_ini_1") Date fecha_ini_1, @Param("fecha_ini_2") Date fecha_ini_2,
+							@Param("fecha_fin_1") Date fecha_fin_1, @Param("fecha_fin_2") Date fecha_fin_2);
 	
 	@Query(value="SELECT * FROM Curso", nativeQuery = true)
 	List<Curso> loadAllCursos();

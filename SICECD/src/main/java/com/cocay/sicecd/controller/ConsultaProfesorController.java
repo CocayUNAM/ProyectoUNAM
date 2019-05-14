@@ -118,6 +118,7 @@ public class ConsultaProfesorController {
 	
 	@RequestMapping(value = "/consultarProfesorPersonalizado", method = RequestMethod.POST)
 	public ModelAndView consultarProfesorPersonalizado(ModelMap model, HttpServletRequest request) {
+		String rfcs = request.getParameter("rfc");
 		String nombre = request.getParameter("nombre");
 		String apellido_paterno = request.getParameter("apellido_paterno");
 		String apellido_materno = request.getParameter("apellido_materno");
@@ -148,6 +149,15 @@ public class ConsultaProfesorController {
 		
 		if(!list_p1.isEmpty()) {
 			
+			//Filtrando por RFC
+			if (rfcs != null) {
+				for(Profesor p : list_p1) {
+					if( !p.getRfc().contains(rfcs) ) {
+						list_p2.remove(p);
+					}
+				}
+			}
+						
 			//Filtrando por grado de estudios
 			if (id_grado != 5) {
 				for(Profesor p : list_p1) {
@@ -157,7 +167,7 @@ public class ConsultaProfesorController {
 				}
 			}
 			
-			//Filtrando por género
+			//Filtrando por gÃ©nero
 			if ( id_genero != 3) {
 				for(Profesor p : list_p1) {
 					if(p.getId_genero().getPk_id_genero() != id_genero) {
