@@ -80,7 +80,8 @@ public class GrupoController {
 		
 		List<Curso> cursop = cursoRep.findByClave(curso);
 		if(!cursop.isEmpty()) {
-			grupo.setFk_id_curso(cursop.get(0).getPk_id_curso());
+			//grupo.setFk_id_curso(cursop.get(0).getPk_id_curso());
+			grupo.setFk_id_curso(cursop.get(0));
 		}
 		
 		Profesor profe = profRep.findByRfc(asesor);
