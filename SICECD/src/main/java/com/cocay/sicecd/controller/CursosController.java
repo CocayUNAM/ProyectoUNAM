@@ -1,5 +1,8 @@
 package com.cocay.sicecd.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +50,22 @@ public class CursosController {
 		
 		String nombre = cr.getNombre();
 		
+		String fInicio = cr.getfInicio();
+		Date fecha = null;
+		try {
+			fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fInicio);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}  
+		
+		String fTermino = cr.getfTermino();
+		Date fecha2 = null;
+		try {
+			fecha2 = new SimpleDateFormat("yyyy-MM-dd").parse(fTermino);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}  
+		
 		curso.setClave(clave);
 		
 		List<Tipo_curso> cursos = tpRep.findByNombre(tipo);
@@ -56,6 +75,8 @@ public class CursosController {
 		
 		curso.setHoras(Integer.valueOf(horas));
 		curso.setNombre(nombre);
+		curso.setfInicio(fecha);
+		curso.setfTermino(fecha2);
 		cursoRep.save(curso);
 		
 		return ResponseEntity.ok("Curso agregado con exito");

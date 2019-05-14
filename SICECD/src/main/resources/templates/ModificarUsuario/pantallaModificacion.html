@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Editar Perfil</title>
+<title>Modificar asesor/profesor</title>
 
 <!-- ================= Favicon ================== -->
 <!-- Standard -->
@@ -42,7 +42,7 @@
 					<div class="d-flex align-items-center" id="proceso">
 							<h4 id="mensaje">algo</h4>
 						<div id="spin">
-							<strong>Editando perfil... &nbsp;</strong>
+							<strong>Haciendo los cambios respectivos... &nbsp;</strong>
 							<div class="spinner-grow text-info" role="status"
 								aria-hidden="true"></div>
 						</div>
@@ -76,7 +76,7 @@
 					<div class="col-lg-8 p-r-0 title-margin-right">
 						<div class="page-header">
 							<div class="page-title">
-								<h1> Edita Perfil Usuario</h1>
+								<h1> Edita Profesor/ asesor</h1>
 							</div>
 						</div>
 					</div>
@@ -98,8 +98,8 @@
 											<div class="form-validation">
 
 												<form class="form-valide"
-													th:action="@{/AdministracionCursos/altaAdministrador}"
-													method="GET" id="altausuario">
+													th:action="@{/AdministracionProfesores/registrarAsesor}"
+													method="GET" id="registrarasesor">
 
 													<div class="form-group row">
 														<label class="col-lg-4 col-form-label" for="rfc">Rfc
@@ -107,7 +107,7 @@
 														</label>
 														<div class="col-lg-8">
 															<input type="text" class="form-control" id="rfc"
-																name="rfc" th:value="${usuario.rfc}" required>
+																name="rfc" th:value="${profesor.rfc}" required>
 														</div>
 													</div>
 
@@ -117,7 +117,7 @@
 														</label>
 														<div class="col-lg-8">
 															<input type="text" class="form-control" id="nombre"
-																name="nombre" th:value="${usuario.nombre}" required>
+																name="nombre" th:value="${profesor.nombre}" required>
 														</div>
 													</div>
 													<div class="form-group row">
@@ -128,7 +128,7 @@
 														<div class="col-lg-8">
 															<input type="text" class="form-control"
 																id="apellidopaterno" name="apellidopaterno"
-																th:value="${usuario.apellido_paterno}" required>
+																th:value="${profesor.apellido_paterno}" required>
 														</div>
 													</div>
 
@@ -140,57 +140,38 @@
 														<div class="col-lg-8">
 															<input type="text" class="form-control"
 																id="apellidomaterno" name="apellidomaterno"
-																th:value="${usuario.apellido_materno}" required>
+																th:value="${profesor.apellido_materno}" required>
 														</div>
 													</div>
-
+													
 													<div class="form-group row">
-														<label class="col-lg-4 col-form-label"> Tipo de
-															usuario </label> <label class="radio-inline"> <input
-															class="form-check-input" type="radio" name="perfil"
-															id="uno" value="Consultas"> Consulta &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-														</label> <label class="radio-inline"> <input
-															class="form-check-input" type="radio" name="perfil"
-															id="dos" value="Administrador"> Administrador
-														</label>
-													</div>
-
-													<div class="form-group row">
-														<label class="col-lg-4 col-form-label"
-															for="apellidomaterno">Estatus<span
-															class="text-danger">*</span>
-														</label>
-														<div class="col-lg-8">
-															<label class="switch"> <input type="checkbox"
-																name="estado" id="estado" checked> <span
-																class="slider round"></span>
-															</label>
-														</div>
-													</div>
-
-													<p>
-
-														<button class="btn btn-primary" type="button"
-															data-toggle="collapse" data-target="#collapseExample"
-															aria-expanded="false" aria-controls="collapseExample">
-															Editar Correo</button>
-														<span class="text-danger">*</span> Se enviara una
-														confirmacion antes de que se vean los cambios realizados
-														en la edicion del correo, para verificar que el correo se
-														valido.
-													</p>
-													<div class="collapse" id="collapseExample">
 														<div class="form-group row">
-															<label class="col-lg-4 col-form-label" for="correo">Correo
+															<label class="col-lg-4 col-form-label"
+																for="correo">correo <span
+																class="text-danger">*</span>
 															</label>
 															<div class="col-lg-8">
-																<input type="email" class="form-control" id="correo"
-																	name="correo" th:value="${usuario.correo}">
+																<input type="email" class="form-control" 
+																id="correo" name="correo" 
+																th:value="${profesor.correo}">
 															</div>
 														</div>
-
-
 													</div>
+													
+													<div class="form-group row">
+														<div class="form-group row">
+															<label class="col-lg-4 col-form-label"
+																for="tel">telefono <span
+																class="text-danger">*</span>
+															</label>
+															<div class="col-lg-8">
+																<input type="tel" class="form-control" 
+																id="tel" name="tel" 
+																th:value="${profesor.telefono}">
+															</div>
+														</div>
+													</div>
+													
 													<button type="submit" class="btn btn-default"
 														data-toggle="modal" data-target="#exampleModal">
 														Realizar Cambios</button>
@@ -235,28 +216,6 @@
 	<script th:inline="javascript">
 $(document).ready(function() {
 
-			let idu = [[${usuario.pk_id_usuario_sys}]];
-			let rol = [[${usuario.fk_id_perfil_sys.nombre}]];
-			let idEstado= [[${usuario.fk_id_estatus_usuario_sys.pk_estatus_usuario_sys}]];
-			let estado = [[${usuario.fk_id_estatus_usuario_sys.nombre}]];
-			console.log(rol);
-			let id=0;
-			if(rol=='Consultas'){					
-				$("#uno").prop('checked', true);
-				id=2;
-			}else{
-				$("#dos").prop('checked', true);
-				id=1;
-			}
-			
-			if(estado=='Activo'){
-				$('#estado').prop('checked', true);
-			}else{
-				$('#estado').prop('checked', false);
-			}
-
-
-	
 
 			//cambio de correo
 			let cor=$("#correo").val();
@@ -265,40 +224,14 @@ $(document).ready(function() {
 			    
 			});
 			
-			//cambio de perfil
-            $("input[name='perfil']").change(function () {
-                rol=this.value;
-                id=(id%2)+1;
-            });
-			
-			
-
-			//cambio de estado
-
-            $("#estado").change(function () {
-                if (this.checked) {
-                	estado="Activo";
-                	idEstado=(idEstado%2)+1;
-                	console.log(idEstado);
-                	
-                }else{
-                	estado="Inactivo";
-                	idEstado=(idEstado%2)+1;
-                	console.log(idEstado);
-                }
-            });
-			
 			//envio de datos
 			
 			$("#altausuario").submit(function(eve) {
 				eve.preventDefault();
 				let datos = {
-					pk_id_usuario_sys : idu,
 					correo : cor,
 					rfc : $("#rfc").val(),
 					nombre : $("#nombre").val(),
-					fk_id_perfil_sys: {nombre: rol, pk_id_perfil_sys: id},
-					fk_id_estatus_usuario_sys:{nombre : estado, pk_estatus_usuario_sys : idEstado },
 					apellido_paterno : $("#apellidopaterno").val(),
 					apellido_materno : $("#apellidomaterno").val()
 				}
