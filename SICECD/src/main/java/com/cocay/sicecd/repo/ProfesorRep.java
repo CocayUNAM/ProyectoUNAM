@@ -2,10 +2,12 @@ package com.cocay.sicecd.repo;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cocay.sicecd.model.Profesor;
 
@@ -41,6 +43,11 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
 	
 	@Query(value="SELECT * FROM Profesor", nativeQuery = true)
 	List<Profesor> loadAllProfesor();
+	
+	@Modifying
+    @Query(value = "insert into Profesor (nombre,apellido_paterno,curp,correo,plantel,ciudad_localidad,fk_id_estado,fk_id_grado_profesor,fk_id_turno,id_genero) VALUES (:firstname,:lastname,:username,:email,:institution,:city,:id_estado,:id_grado_profesor,:id_turno,:genero)", nativeQuery = true)
+    @Transactional
+    void saveT(@Param("firstname") String firstname, @Param("lastname") String lastname,@Param("username") String username,@Param("email") String email,@Param("institution") String institution,@Param("city") String city,@Param("id_estado") int id_estado,@Param("id_grado_profesor") int id_grado_profesor,@Param("id_turno") int id_turno,@Param("genero") int genero);
 }
 	
 	
