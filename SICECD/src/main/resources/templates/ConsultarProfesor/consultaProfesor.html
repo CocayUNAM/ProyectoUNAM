@@ -34,7 +34,7 @@
 					<div class="row">
 						
 						<!-- START CONSULTAR PROFESOR POR RFC -->
-						<div class="col-lg-6">
+						<!--<div class="col-lg-6">
 							<div class="card">
 								<div class="card-body">
 									<div class="basic-form">
@@ -50,11 +50,11 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<!-- END CONSULTAR PROFESOR POR RFC -->
 						
 						<!-- START CONSULTAR PROFESOR POR LOCALIDAD -->
-						<div class="col-lg-6">
+						<!--<div class="col-lg-6">
 							<div class="card">
 								<div class="card-body">
 									<div class="basic-form">
@@ -103,11 +103,11 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<!-- END CONSULTAR PROFESOR POR LOCALIDAD -->
 						
 						<!-- START CONSULTAR PROFESOR POR NOMBRE -->
-						<div class="col-lg-6">
+						<!--<div class="col-lg-6">
 							<div class="card">
 								<div class="card-body">
 									<div class="basic-form">
@@ -129,7 +129,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<!-- END CONSULTAR PROFESOR POR NOMBRE -->
 						
 						<!-- START CONSULTAR PROFESOR PERSONALIZADO -->
@@ -139,7 +139,9 @@
 									<div class="basic-form">
 										<form action="/consultarProfesorPersonalizado" method="post" target="_blank">
 											<div class="form-group">
-												<h4>Consulta personalizada</h4>
+												<h4>Consulta Personalizada</h4>
+												<label>RFC</label>
+													<input type="text" class="form-control" name="rfc" maxlength="13" placeholder="SAMH2509126L6">
 												<label>Nombre</label>
 													<input type="text" name="nombre" class="form-control" placeholder="Juan"
 													pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
