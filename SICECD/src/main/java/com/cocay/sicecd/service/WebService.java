@@ -20,22 +20,22 @@ import com.cocay.sicecd.repo.ProfesorRep;
 public class WebService {
 	@Autowired
 	ProfesorRep profesor;
-	
+
 	@RequestMapping(value = "/webservice", method = RequestMethod.GET)
 	public String call_me() {
-		
+
 		String json = jsonGetRequest("http://localhost:8888/WB/api/users/read.php");
 		System.out.println(json);
 		resultJson(json);
 		return "consultas/consultaWebService";
 	}
-	
 
-
-	public  void resultJson(String jSonResultString) {
+	public void resultJson(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
 		// para cada objeto del json
-		for (int i = 10; i < 15; i++) {
+		
+		//Se indica por el momento solo algunos profesores guardados el el array
+		for (int i = 15; i < 20; i++) {
 
 			JSONObject jsonProductObject = arr.getJSONObject(i);
 			String nombre = jsonProductObject.getString("firstname");
@@ -44,17 +44,8 @@ public class WebService {
 			String email = jsonProductObject.getString("email");
 			String institucion = jsonProductObject.getString("institution");
 			String ciudad = jsonProductObject.getString("city");
-			if(nombre == null || apellidos == null || curp == null || email == null || institucion == null || ciudad == null) {
-			nombre="";
-			apellidos ="";
-			curp="";
-			email="";
-			institucion="";
-			ciudad="";
-			}
-			
-			profesor.saveT(nombre, apellidos, curp, email, institucion, ciudad,1,1,1,1);
-				
+			//Se guardan profesores
+			profesor.saveT(nombre, apellidos, curp, email, institucion, ciudad, 1, 1, 1, 1);
 
 			System.out.println("Nombre");
 			System.out.println(nombre);
@@ -67,10 +58,10 @@ public class WebService {
 			System.out.println("Ciudad");
 			System.out.println(ciudad);
 			System.out.println("-----------------------");
-			
+
 		}
 	}
-	
+
 	private static String streamToString(InputStream inputStream) {
 		String text = new Scanner(inputStream, "UTF-8").useDelimiter("\\Z").next();
 		return text;
@@ -88,8 +79,8 @@ public class WebService {
 			connection.setRequestProperty("charset", "utf-8");
 			connection.connect();
 			InputStream inStream = connection.getInputStream();
-			json = streamToString(inStream); 
-			} catch (IOException ex) {
+			json = streamToString(inStream);
+		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 		return json;
