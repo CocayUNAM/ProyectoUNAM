@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class InscripcionesController {
 		return "InscripcionesController/registrarInscripcion";
 	}
 
-	@RequestMapping(value = "/registrarInscripcion", method = RequestMethod.POST)
+	@RequestMapping(value = "/registrarInscripcion", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> agregarIns(@RequestBody InscripcionDto ins) {
 		Inscripcion inst = new Inscripcion();
 
@@ -56,7 +57,7 @@ public class InscripcionesController {
 			inst.setFk_id_profesor(profe);
 		}
 		insRep.save(inst);
-		return ResponseEntity.ok("Agregada con exito la inscripcion");
+		return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Inscripcion agregada con exito!\",\"path\":\"/registrarInscripcion\"}");
 	}
 
 }

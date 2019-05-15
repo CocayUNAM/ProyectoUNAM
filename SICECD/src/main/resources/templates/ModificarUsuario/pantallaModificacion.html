@@ -226,7 +226,7 @@ $(document).ready(function() {
 			
 			//envio de datos
 			
-			$("#altausuario").submit(function(eve) {
+			$("#registrarasesor").submit(function(eve) {
 				eve.preventDefault();
 				let datos = {
 					correo : cor,
@@ -238,7 +238,7 @@ $(document).ready(function() {
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",
-					url : '/AdministracionCursos/editarperfilusuario',
+					url : '/editarprofesor',
 					data : JSON.stringify(datos),
 					beforeSend : function() {
 						// setting a timeout

@@ -306,7 +306,6 @@
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",
-					dataType: "xml/html/script/json",
 					url : '/AdministracionProfesores/registrarParticipante',
 					data : JSON.stringify(datos),
 					beforeSend : function() {
@@ -321,7 +320,7 @@
 					success : function(respuesta) {
 						$('#spin').css("visibility","hidden")
 						var elem = $(document.createElement('h4'))
-						               .attr('id','mensaje').html(respuesta);
+						               .attr('id','mensaje').html(respuesta.message);
 						$('#mensaje').replaceWith(elem);
 						$("#mensaje").css("visibility","visible")
 					}

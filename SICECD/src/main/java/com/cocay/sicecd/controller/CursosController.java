@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class CursosController {
 	}
 		
 	
-	@RequestMapping(value = "/registrarCursos", method = RequestMethod.POST)
+	@RequestMapping(value = "/registrarCursos", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> agregarCurso(@RequestBody CursoDto cr) {
 		Curso curso = new Curso();
 		
@@ -79,7 +80,7 @@ public class CursosController {
 		curso.setfTermino(fecha2);
 		cursoRep.save(curso);
 		
-		return ResponseEntity.ok("Curso agregado con exito");
+		return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Curso agregada con exito!\",\"path\":\"/AdministracionCursos/registrarCursos\"}");
 	}
 
 }

@@ -9,6 +9,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,7 +54,7 @@ public class ProfesoresController {
 		return "ProfesoresController/registrarAsesor";
 	}
 	
-	@RequestMapping(value = "/registrarAsesor", method = RequestMethod.POST)
+	@RequestMapping(value = "/registrarAsesor", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> agregarAs(@RequestBody ProfesorDto prof) {
 		Profesor pro = new Profesor();
 		
@@ -115,7 +116,7 @@ public class ProfesoresController {
 		/*------------------------------------------------------------------------------*/
 		
 		profRep.save(pro);
-		return ResponseEntity.ok("¡Profesor agregado con exito!");
+		return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Asesor agregado con exito!\",\"path\":\"/AdministracionProfesores/registrarAsesor\"}");
 	}
 	
 	//Mapeo del html para registrar cursos
@@ -126,7 +127,7 @@ public class ProfesoresController {
 
 	
 	//Mapeo del html para registrar cursos
-		@RequestMapping(value = "/registrarParticipante", method = RequestMethod.POST)
+		@RequestMapping(value = "/registrarParticipante", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<String> RegistrarParticipantes(@RequestBody ProfesorDto prof){
 			
 				Profesor profe = new Profesor();
@@ -203,6 +204,6 @@ public class ProfesoresController {
 				
 				profRep.save(profe);
 			
-			return ResponseEntity.ok("¡Participante agregado con exito!");
+				return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Participante agregado con exito!\",\"path\":\"/AdministracionProfesores/registrarParticipante\"}");
 		}
 }
