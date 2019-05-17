@@ -27,7 +27,7 @@ public class Grupo {
 	int pk_id_grupo;
 	@ManyToOne(targetEntity=Curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso",insertable = false, updatable = false)
+	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso",insertable = true, updatable = true)
 	Curso fk_id_curso;
 	//int fk_id_curso;
 	@Column(name = "clave")

@@ -63,7 +63,7 @@
 	                                                <th class="th-sm">Grado de Estudios</th>
 	                                                <th class="th-sm">Clave del plantel</th>
 	                                                <th class="th-sm">RFC</th>
-	                                                <th class="th-sm">Estado</th>
+	                                                
 												</tr>
 											</thead>
 											<tbody>
@@ -76,7 +76,7 @@
 														<td class="renglon" th:text="${profesor.fk_id_grado_profesor.nombre}"></td>
 														<td class="renglon" th:text="${profesor.clave_plantel}"></td>
 														<td class="renglon rfc" th:value="${profesor.rfc}" th:text="${profesor.rfc}"></td>
-														<td class="renglon" th:text="${profesor.fk_id_estado.nombre}"></td>
+														
 													</tr>
 												</th:block>
 	                                        </tbody>

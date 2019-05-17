@@ -57,7 +57,7 @@ public class InscripcionesController {
 			inst.setFk_id_profesor(profe);
 		}
 		insRep.save(inst);
-		return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Inscripcion agregada con exito!\",\"path\":\"/registrarInscripcion\"}");
+		return ResponseEntity.ok("{\"message\":\"¡Inscripcion agregada con exito!\"}");
 	}
 
 }

@@ -80,7 +80,7 @@ public class CursosController {
 		curso.setfTermino(fecha2);
 		cursoRep.save(curso);
 		
-		return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Curso agregada con exito!\",\"path\":\"/AdministracionCursos/registrarCursos\"}");
+		return ResponseEntity.ok("{\"message\":\"¡Curso agregado con exito!\"}");
 	}
 
 }

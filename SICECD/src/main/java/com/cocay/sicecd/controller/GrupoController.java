@@ -59,7 +59,7 @@ public class GrupoController {
 		
 		Date fechaI = null;
 		try {
-			fechaI = new SimpleDateFormat("dd/MM/yyyy").parse(fInicio);
+			fechaI = new SimpleDateFormat("yyyy-MM-dd").parse(fInicio);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -67,7 +67,7 @@ public class GrupoController {
 		
 		Date fechaT = null;
 		try {
-			fechaT = new SimpleDateFormat("dd/MM/yyyy").parse(fTermino);
+			fechaT = new SimpleDateFormat("yyyy-MM-dd").parse(fTermino);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,7 +91,7 @@ public class GrupoController {
 		}
 		
 		grupoRep.save(grupo);
-		return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Grupo agregado con exito!\",\"path\":\"/registrarGrupo\"}");
+		return ResponseEntity.ok("{\"message\":\"¡Grupo agregado con exito!\"}");
 	}
 	
 }
