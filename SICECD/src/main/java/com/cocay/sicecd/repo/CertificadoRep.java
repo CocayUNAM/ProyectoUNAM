@@ -11,5 +11,6 @@ import com.cocay.sicecd.model.Certificado;
 import com.cocay.sicecd.model.Curso;
 
 public interface CertificadoRep extends PagingAndSortingRepository<Certificado, Integer>{
-
+	@Query("SELECT c FROM Certificado c where c.ruta = :ruta")
+	Certificado findByRuta(@Param("ruta") String ruta);
 }
