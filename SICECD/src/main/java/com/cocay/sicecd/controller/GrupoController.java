@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +42,7 @@ public class GrupoController {
 		return "GrupoController/registrarGrupo";
 	}
 	
-	@RequestMapping(value = "/registrarGrupo", method = RequestMethod.POST)
+	@RequestMapping(value = "/registrarGrupo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> agregarGrupo(@RequestBody GrupoDto gr) {
 		
 		Grupo grupo = new Grupo();
@@ -58,7 +59,7 @@ public class GrupoController {
 		
 		Date fechaI = null;
 		try {
-			fechaI = new SimpleDateFormat("dd/MM/yyyy").parse(fInicio);
+			fechaI = new SimpleDateFormat("yyyy-MM-dd").parse(fInicio);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -66,7 +67,7 @@ public class GrupoController {
 		
 		Date fechaT = null;
 		try {
-			fechaT = new SimpleDateFormat("dd/MM/yyyy").parse(fTermino);
+			fechaT = new SimpleDateFormat("yyyy-MM-dd").parse(fTermino);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,7 +91,7 @@ public class GrupoController {
 		}
 		
 		grupoRep.save(grupo);
-		return ResponseEntity.ok("Grupo agregado con exito");
+		return ResponseEntity.ok("{\"message\":\"¡Grupo agregado con exito!\"}");
 	}
 	
 }

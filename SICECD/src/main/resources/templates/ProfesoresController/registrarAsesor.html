@@ -121,14 +121,14 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="nac">Fecha de nacimiento<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa">
+                                                    <input type="date" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="tel">Telefono<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="tel" name="tel" placeholder="Introduce telefono.">
+                                                    <input type="tel" class="form-control" id="tel" name="tel" placeholder="Introduce telefono.">
                                                 </div>
                                             </div>
                                             
@@ -196,7 +196,6 @@
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",
-					dataType: "xml/html/script/json",
 					url : '/AdministracionProfesores/registrarAsesor',
 					data : JSON.stringify(datos),
 					beforeSend : function() {
@@ -206,12 +205,12 @@
 								
 					},
 					error : function(e) {
-						alert("¡Asesor agregado correctamente!");	
+						alert("Error");	
 					},
 					success : function(respuesta) {
 						$('#spin').css("visibility","hidden")
 						var elem = $(document.createElement('h4'))
-						               .attr('id','mensaje').html(respuesta);
+						               .attr('id','mensaje').html(respuesta.message);
 						$('#mensaje').replaceWith(elem);
 						$("#mensaje").css("visibility","visible")
 					}

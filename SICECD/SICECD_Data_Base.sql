@@ -117,7 +117,7 @@ CREATE TABLE Curso(
   pk_id_curso SERIAL PRIMARY KEY,
   clave CHAR(7) UNIQUE NOT NULL,
   nombre VARCHAR(250) NOT NULL,
-  fk_id_tipo_curso INTEGER NOT NULL,
+  fk_id_tipo_curso INTEGER,
   horas INTEGER
 );
 CREATE TABLE Grupo(
