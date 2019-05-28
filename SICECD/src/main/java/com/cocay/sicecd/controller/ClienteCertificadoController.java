@@ -99,9 +99,9 @@ public class ClienteCertificadoController {
 		byte[] bytearray = java.util.Base64.getDecoder().decode(string_pdf);
 		String aux = (String) json.get("nombre_archivo");
 		String na = new String(java.util.Base64.getDecoder().decode(aux),Charset.forName("UTF-8"));
-		String path = RUTA_LOCAL + profesor.getPk_id_profesor() + "_" + na + ".pdf";
+		String path = RUTA_LOCAL + curso.getNombre() + "/" + profesor.getPk_id_profesor() + "_" + na + ".pdf";
 		File out = new File(path);
-		//new File(out.getParent()).mkdirs();
+		new File(out.getParent()).mkdirs();
 		try (FileOutputStream os = new FileOutputStream(out)) {
 			os.write(bytearray);
 			// System.out.println("Archivo escrito!");

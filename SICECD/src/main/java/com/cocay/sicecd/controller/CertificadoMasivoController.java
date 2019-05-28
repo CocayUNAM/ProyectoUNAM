@@ -67,7 +67,7 @@ public class CertificadoMasivoController {
 	 * 
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 43 20 * * ?")
+	@Scheduled(cron = "0 41 13 * * ?")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost(URL_RSM);
@@ -206,9 +206,10 @@ public class CertificadoMasivoController {
 			for (File f2 : f.listFiles()) {
 				Profesor p = bd_profesor.findByCorreo(f2.getName());
 				for (File f3 : f2.listFiles()) {
-					String pt = RUTA_LOCAL + p.getPk_id_profesor() + "_" + f3.getName();
+					String pt = RUTA_LOCAL + c.getNombre() + "/" + p.getPk_id_profesor() + "_" + f3.getName();
 					FileInputStream fs = new FileInputStream(f3);
 					File aux = new File(pt);
+					new File(aux.getParent()).mkdirs();
 					if (aux.exists()) {
 						aux.delete();
 					}
