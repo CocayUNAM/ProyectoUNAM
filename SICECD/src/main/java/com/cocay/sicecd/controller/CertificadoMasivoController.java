@@ -67,7 +67,7 @@ public class CertificadoMasivoController {
 	 * 
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 6 17 * * ?")
+	@Scheduled(cron = "0 41 13 * * ?")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost(URL_RSM);
@@ -102,7 +102,7 @@ public class CertificadoMasivoController {
 					k++;
 				}
 				continue;
-			}/*
+			}
 			for (Certificado c : cert) {
 				System.out.println("**\n" + p.getCorreo()+ "\n" + c.getFk_id_curso().getNombre() + "\n**");
 				json.put("correo" + k, p.getCorreo());
@@ -110,7 +110,7 @@ public class CertificadoMasivoController {
 				json.put("tiempo" + k, c.getTiempo_creado());
 				System.out.println("Se insertaron elementos en el JSON (certificadospresentes)");
 				k++;
-			}*/
+			}
 			
 			
 		}
@@ -123,7 +123,8 @@ public class CertificadoMasivoController {
 		// esperar respuesta
 		HttpResponse response = client.execute(post);
 
-		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "ISO_8859_1"));
+		//BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "ISO_8859_1"));
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 		String jsonText = "";
 		String linea = null;
 		while ((linea = rd.readLine()) != null) {
@@ -168,7 +169,8 @@ public class CertificadoMasivoController {
 			tmp.mkdirs();
 		}
 		try {
-			ZipFile zpf = new ZipFile(out, Charset.forName("Cp437"));
+			ZipFile zpf = zpf = new ZipFile(out, Charset.forName("Cp437"));
+			
 			Enumeration e = zpf.entries();
 			ZipEntry ze;
 			// System.out.println("PASE");
@@ -190,6 +192,9 @@ public class CertificadoMasivoController {
 				bos.close();
 				bis.close();
 			}
+		} catch(java.util.zip.ZipException zx) {
+			System.out.println("Zip file is empty!");
+			return;
 		} catch (Exception e) {
 			System.out.println(e);
 			e.printStackTrace();
@@ -201,9 +206,10 @@ public class CertificadoMasivoController {
 			for (File f2 : f.listFiles()) {
 				Profesor p = bd_profesor.findByCorreo(f2.getName());
 				for (File f3 : f2.listFiles()) {
-					String pt = RUTA_LOCAL + p.getPk_id_profesor() + "_" + f3.getName();
+					String pt = RUTA_LOCAL + c.getNombre() + "/" + p.getPk_id_profesor() + "_" + f3.getName();
 					FileInputStream fs = new FileInputStream(f3);
 					File aux = new File(pt);
+					new File(aux.getParent()).mkdirs();
 					if (aux.exists()) {
 						aux.delete();
 					}
@@ -213,7 +219,12 @@ public class CertificadoMasivoController {
 						System.out.println(e);
 					}
 					f3.delete();// elimina archivo
-					Certificado cert = new Certificado();
+					Certificado cert = bd_certificado.findByRuta(pt);
+					if(cert == null) {
+						System.out.println("insertando nuevo certificado!");
+						cert = new Certificado();
+					}
+					//Certificado cert = new Certificado();
 					cert.setRuta(pt);
 					long tt = Long.parseLong((String)ar.get(p.getCorreo()));
 					cert.setTiempo_creado(tt);
