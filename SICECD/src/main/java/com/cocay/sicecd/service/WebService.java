@@ -9,6 +9,8 @@ import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,14 +19,18 @@ import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.ProfesorRep;
 
 @Controller
+
+@PropertySource(ignoreResourceNotFound = true, value = "classpath:application.properties")
 public class WebService {
 	@Autowired
 	ProfesorRep profesor;
+	@Value("${ws.url_profesor}")
+	private String url;
 
 	@RequestMapping(value = "/webservice", method = RequestMethod.GET)
 	public String call_me() {
 
-		String json = jsonGetRequest("http://localhost:8888/WB/api/users/read.php");
+		String json = jsonGetRequest(url);
 		System.out.println(json);
 		resultJson(json);
 		return "consultas/consultaWebService";
@@ -35,7 +41,7 @@ public class WebService {
 		// para cada objeto del json
 		
 		//Se indica por el momento solo algunos profesores guardados el el array
-		for (int i = 15; i < 20; i++) {
+		for (int i = 0; i < arr.length(); i++) {
 
 			JSONObject jsonProductObject = arr.getJSONObject(i);
 			String nombre = jsonProductObject.getString("firstname");
@@ -45,7 +51,7 @@ public class WebService {
 			String institucion = jsonProductObject.getString("institution");
 			String ciudad = jsonProductObject.getString("city");
 			//Se guardan profesores
-			profesor.saveT(nombre, apellidos, curp, email, institucion, ciudad, 1, 1, 1, 1);
+			//profesor.saveT(nombre, apellidos, curp, email, institucion, ciudad, 1, 1, 1, 1);
 
 			System.out.println("Nombre");
 			System.out.println(nombre);
