@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.json.JSONArray;
@@ -38,9 +39,11 @@ public class WebService {
 
 	public void resultJson(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
+		String apellido_paterno = "";
+		String apellido_materno = "";
 		// para cada objeto del json
-		
-		//Se indica por el momento solo algunos profesores guardados el el array
+
+		// Se indica por el momento solo algunos profesores guardados el el array
 		for (int i = 0; i < arr.length(); i++) {
 
 			JSONObject jsonProductObject = arr.getJSONObject(i);
@@ -50,8 +53,15 @@ public class WebService {
 			String email = jsonProductObject.getString("email");
 			String institucion = jsonProductObject.getString("institution");
 			String ciudad = jsonProductObject.getString("city");
-			//Se guardan profesores
-			//profesor.saveT(nombre, apellidos, curp, email, institucion, ciudad, 1, 1, 1, 1);
+			ArrayList<String> completos = separaApellidos(apellidos);
+			if (!completos.isEmpty()) {
+				apellido_paterno = completos.get(0);
+				apellido_materno = completos.get(1);
+			}
+
+			// Se guardan profesores
+			// profesor.saveT(nombre, apellidos, curp, email, institucion, ciudad, 1, 1, 1,
+			// 1);
 
 			System.out.println("Nombre");
 			System.out.println(nombre);
@@ -63,6 +73,10 @@ public class WebService {
 			System.out.println(institucion);
 			System.out.println("Ciudad");
 			System.out.println(ciudad);
+			System.out.println("Apellidos paterno");
+			System.out.println(apellido_paterno);
+			System.out.println("Apellidos materno");
+			System.out.println(apellido_materno);
 			System.out.println("-----------------------");
 
 		}
@@ -92,4 +106,31 @@ public class WebService {
 		return json;
 	}
 
+	private static ArrayList<String> separaApellidos(String s) {
+		ArrayList<String> apellidos = new ArrayList();
+		String espacio = " ";
+		String apellido_paterno = "";
+		String apellido_materno = "";
+		int count = contarEspacios(s);
+		if (count == 0) {
+			apellido_paterno = s;
+			apellido_materno = null;
+			apellidos.add(apellido_paterno);
+			apellidos.add(apellido_materno);
+		}
+
+		if (count >= 1) {
+			apellido_paterno = s.substring(0, s.indexOf(espacio));
+			apellido_materno = s.substring(s.indexOf(espacio) + 1, s.length());
+			apellidos.add(apellido_paterno);
+			apellidos.add(apellido_materno);
+
+		}
+		return apellidos;
+	}
+
+	private static int contarEspacios(String s) {
+		int n = s.length() - s.replaceAll(" ", "").length();
+		return n;
+	}
 }

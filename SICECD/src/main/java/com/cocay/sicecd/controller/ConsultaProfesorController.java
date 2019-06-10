@@ -1,5 +1,6 @@
 package com.cocay.sicecd.controller;
 
+import java.text.Normalizer;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -119,34 +120,43 @@ public class ConsultaProfesorController {
 	@RequestMapping(value = "/consultarProfesorPersonalizado", method = RequestMethod.POST)
 	public ModelAndView consultarProfesorPersonalizado(ModelMap model, HttpServletRequest request) {
 		String rfcs = request.getParameter("rfc");
-		String nombre = request.getParameter("nombre");
-		String apellido_paterno = request.getParameter("apellido_paterno");
-		String apellido_materno = request.getParameter("apellido_materno");
+		String nombre = normalizar(request.getParameter("nombre")).toUpperCase();
+		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase();
+		String apellido_materno = normalizar(request.getParameter("apellido_materno")).toUpperCase();
 		
 		Integer id_grado = Integer.parseInt(request.getParameter("grado_estudios"));
 		Integer id_genero = Integer.parseInt(request.getParameter("genero"));
 		Integer id_estado = Integer.parseInt(request.getParameter("estados"));
 		Integer id_turno = Integer.parseInt(request.getParameter("turno"));
 		
-		if (apellido_paterno == null) {
-			apellido_paterno = "";
-		} else {
-			apellido_paterno = apellido_paterno.toUpperCase();
+		List<Profesor>	list_p1 = profesor.findAll();
+		List<Profesor>	list_p2 = profesor.findAll();
+		
+		//Filtrando por Apellido Paterno
+		if (nombre != null) {
+			for (Profesor p : list_p1) {
+				String ap = normalizar(p.getApellido_paterno().toUpperCase()); 
+				if( !ap.contains(apellido_paterno) ) {
+					list_p2.remove(p);
+				}
+			}
 		}
 		
-		if (apellido_materno == null) {
-			apellido_materno = "";
-		} else {
-			apellido_materno = apellido_materno.toUpperCase();
+		//Filtrando por Apellido Materno
+		if (nombre != null) {
+			for (Profesor p : list_p1) {
+				String am = normalizar(p.getApellido_materno().toUpperCase()); 
+				if( !am.contains(apellido_materno) ) {
+					list_p2.remove(p);
+				}
+			}
 		}
-		
-		List<Profesor> list_p1 = profesor.findByLastName(apellido_paterno, apellido_materno);
-		List<Profesor> list_p2 = profesor.findByLastName(apellido_paterno, apellido_materno);
 		
 		//Filtrando por Nombre
 		if (nombre != null) {
 			for (Profesor p : list_p1) {
-				if( !p.getNombre().contains(nombre) ) {
+				String nom = normalizar(p.getNombre().toUpperCase());
+				if( !nom.contains(nombre) ) {
 					list_p2.remove(p);
 				}
 			}
@@ -204,4 +214,10 @@ public class ConsultaProfesorController {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
+	
+	public String normalizar(String src) {
+        return Normalizer
+                .normalize(src , Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]" , "");
+    }
 }
