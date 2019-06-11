@@ -1,5 +1,7 @@
 package com.cocay.sicecd;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public final class LogTypes {
 	
 	private LogTypes() {
@@ -34,7 +36,7 @@ public final class LogTypes {
 	
 	/***
 	//Example
-	@Service
+	@Autowired
 	Logging log;
 	
 	public void login(){
