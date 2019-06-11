@@ -119,7 +119,8 @@ public class ConsultaProfesorController {
 	
 	@RequestMapping(value = "/consultarProfesorPersonalizado", method = RequestMethod.POST)
 	public ModelAndView consultarProfesorPersonalizado(ModelMap model, HttpServletRequest request) {
-		String rfcs = request.getParameter("rfc");
+		String curps = request.getParameter("curp").toUpperCase();
+		String rfcs = request.getParameter("rfc").toUpperCase();
 		String nombre = normalizar(request.getParameter("nombre")).toUpperCase();
 		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase();
 		String apellido_materno = normalizar(request.getParameter("apellido_materno")).toUpperCase();
@@ -132,10 +133,30 @@ public class ConsultaProfesorController {
 		List<Profesor>	list_p1 = profesor.findAll();
 		List<Profesor>	list_p2 = profesor.findAll();
 		
-		//Filtrando por Apellido Paterno
-		if (nombre != null) {
+		//Filtrando por CURP
+		if (curps != "") {
 			for (Profesor p : list_p1) {
-				String ap = normalizar(p.getApellido_paterno().toUpperCase()); 
+				String pcurp = p.getCurp().toUpperCase(); 
+				if( !pcurp.contains(curps) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+		
+		//Filtrando por RFC
+		if (rfcs != "") {
+			for (Profesor p : list_p1) {
+				String prfc = p.getRfc().toUpperCase(); 
+				if( !prfc.contains(rfcs) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+		
+		//Filtrando por Apellido Paterno
+		if (nombre != "") {
+			for (Profesor p : list_p1) {
+				String ap = normalizar(p.getApellido_paterno()).toUpperCase(); 
 				if( !ap.contains(apellido_paterno) ) {
 					list_p2.remove(p);
 				}
@@ -143,9 +164,9 @@ public class ConsultaProfesorController {
 		}
 		
 		//Filtrando por Apellido Materno
-		if (nombre != null) {
+		if (nombre != "") {
 			for (Profesor p : list_p1) {
-				String am = normalizar(p.getApellido_materno().toUpperCase()); 
+				String am = normalizar(p.getApellido_materno()).toUpperCase(); 
 				if( !am.contains(apellido_materno) ) {
 					list_p2.remove(p);
 				}
@@ -153,19 +174,10 @@ public class ConsultaProfesorController {
 		}
 		
 		//Filtrando por Nombre
-		if (nombre != null) {
+		if (nombre != "") {
 			for (Profesor p : list_p1) {
-				String nom = normalizar(p.getNombre().toUpperCase());
+				String nom = normalizar(p.getNombre()).toUpperCase();
 				if( !nom.contains(nombre) ) {
-					list_p2.remove(p);
-				}
-			}
-		}
-		
-		//Filtrando por RFC
-		if (rfcs != null) {
-			for(Profesor p : list_p1) {
-				if( !p.getRfc().contains(rfcs) ) {
 					list_p2.remove(p);
 				}
 			}
