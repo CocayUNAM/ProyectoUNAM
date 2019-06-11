@@ -34,7 +34,7 @@
 					<div class="row">
 						
 						<!-- START CONSULTAR GRUPO POR CURSO -->
-						<div class="col-lg-6">
+						<!--<div class="col-lg-6">
 							<div class="card">
 								<div class="card-title"></div>
 								<div class="card-body">
@@ -42,11 +42,11 @@
 										<form action="/consultaGrupoCurso" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consultar por Curso</h4>
-												<label>Clave</label>
-													<input type="text" name="curso_grupo" class="form-control">
-												<label>Fecha de Inicio</label>
+												<label>Clave del curso<span class="text-danger">*</span></label>
+													<input type="text" name="curso_grupo" class="form-control" required>
+												<label>Fecha de Inicio del Grupo</label>
 													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_grupo">
-												<label>Fecha de Término</label>
+												<label>Fecha de Término del Grupo</label>
 													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_grupo">
 											</div>
 											<button type="submit" class="btn btn-default">Consultar</button>
@@ -54,11 +54,11 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<!-- END CONSULTAR GRUPO POR CURSO -->
 						
 						<!-- START CONSULTAR GRUPO POR CLAVE -->
-						<div class="col-lg-6">
+						<!--<div class="col-lg-6">
 							<div class="card">
 								<div class="card-title"></div>
 								<div class="card-body">
@@ -66,8 +66,8 @@
 										<form action="/consultaGrupoClave" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consultar por Clave</h4>
-												<label>Clave</label>
-													<input type="text" name="clave_grupo" class="form-control" text="0000">
+												<label>Clave del grupo<span class="text-danger">*</span></label>
+													<input type="text" name="clave_grupo" class="form-control" text="0000" required>
 												<label>Fecha de Inicio</label>
 													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_grupo">
 												<label>Fecha de Término</label>
@@ -78,11 +78,11 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<!-- END CONSULTAR GRUPO POR CLAVE -->
 						
 						<!-- START CONSULTAR GRUPO POR FECHA -->
-						<div class="col-lg-6">
+						<!--<div class="col-lg-6">
 							<div class="card">
 								<div class="card-title"></div>
 								<div class="card-body">
@@ -100,8 +100,36 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<!-- END CONSULTAR GRUPO POR FECHA -->
+						
+						<!-- START CONSULTAR GRUPO PERSONALIZADO -->
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-title"></div>
+								<div class="card-body">
+									<div class="basic-form">
+										<form action="/consultaGrupoPersonalizado" method="post" target="_blank">
+											<div class="form-group">
+												<h4>Consulta Personalizada</h4>
+												<label>Clave del grupo</label>
+													<input type="text" name="clave_grupo" class="form-control" text="0000">
+												<label>Clave del curso</label>
+													<input type="text" name="curso_grupo" class="form-control">
+												<label>Fecha de Inicio</label>
+													<input type="date" class="form-control" name="fecha_inicio_grupo_1">
+													<input type="date" class="form-control" name="fecha_inicio_grupo_2" disabled required>
+												<label>Fecha de Término</label>
+													<input type="date" class="form-control" name="fecha_fin_grupo_1">
+													<input type="date" class="form-control" name="fecha_fin_grupo_2" disabled required>
+											</div>
+											<button type="submit" class="btn btn-default">Consultar</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END CONSULTAR GRUPO PERSONALIZADO -->
 						
 					</div>
 					<!-- END ROW -->
@@ -132,5 +160,7 @@
 	<!-- bootstrap -->
 	<script src="js/lib/bootstrap.min.js"></script>
 	<script src="js/scripts.js"></script>
+	
+	<script src="/js/lib/reports/date-functions.js"></script>
 </body>
 </html>

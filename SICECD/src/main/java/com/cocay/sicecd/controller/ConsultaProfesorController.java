@@ -1,5 +1,6 @@
 package com.cocay.sicecd.controller;
 
+import java.text.Normalizer;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +45,19 @@ public class ConsultaProfesorController {
 			model.addAttribute("ocupacion", p.getOcupacion());
 			model.addAttribute("inscripcion", p.getInscripciones());
 			return new ModelAndView("/ConsultarProfesor/muestraProfesor", model);			
+		} else {
+			return new ModelAndView("/Avisos/ErrorBusqueda");
+		}
+	}
+	
+	@RequestMapping(value = "/consultarProfesorRFCList", method = RequestMethod.POST)
+	public ModelAndView consultarProfesorRFCList(ModelMap model, HttpServletRequest request) {
+		String rfcs = request.getParameter("rfc");
+		List<Profesor> list_p = profesor.findByRfcList(rfcs);
+		
+		if(!list_p.isEmpty()) {
+			model.put("profesores", list_p);
+			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
 		} else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
@@ -105,58 +119,105 @@ public class ConsultaProfesorController {
 	
 	@RequestMapping(value = "/consultarProfesorPersonalizado", method = RequestMethod.POST)
 	public ModelAndView consultarProfesorPersonalizado(ModelMap model, HttpServletRequest request) {
-		String nombre = request.getParameter("nombre");
-		String apellido_paterno = request.getParameter("apellido_paterno");
-		String apellido_materno = request.getParameter("apellido_materno");
+		String rfcs = request.getParameter("rfc");
+		String nombre = normalizar(request.getParameter("nombre")).toUpperCase();
+		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase();
+		String apellido_materno = normalizar(request.getParameter("apellido_materno")).toUpperCase();
 		
 		Integer id_grado = Integer.parseInt(request.getParameter("grado_estudios"));
 		Integer id_genero = Integer.parseInt(request.getParameter("genero"));
 		Integer id_estado = Integer.parseInt(request.getParameter("estados"));
+		Integer id_turno = Integer.parseInt(request.getParameter("turno"));
 		
-		if (nombre == null) {
-			nombre = "";
-		} else {
-			nombre = nombre.toUpperCase();
-		}
-		if (apellido_paterno == null) {
-			apellido_paterno = "";
-		} else {
-			apellido_paterno = apellido_paterno.toUpperCase();
-		}
-		if (apellido_materno == null) {
-			apellido_materno = "";
-		} else {
-			apellido_materno = apellido_materno.toUpperCase();
+		List<Profesor>	list_p1 = profesor.findAll();
+		List<Profesor>	list_p2 = profesor.findAll();
+		
+		//Filtrando por Apellido Paterno
+		if (nombre != null) {
+			for (Profesor p : list_p1) {
+				String ap = normalizar(p.getApellido_paterno().toUpperCase()); 
+				if( !ap.contains(apellido_paterno) ) {
+					list_p2.remove(p);
+				}
+			}
 		}
 		
-		List<Profesor> list_p1 = profesor.findByCompleteNameList(nombre, apellido_paterno, apellido_materno);
-		List<Profesor> list_p2 = profesor.findByCompleteNameList(nombre, apellido_paterno, apellido_materno);
+		//Filtrando por Apellido Materno
+		if (nombre != null) {
+			for (Profesor p : list_p1) {
+				String am = normalizar(p.getApellido_materno().toUpperCase()); 
+				if( !am.contains(apellido_materno) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
 		
-		if(!list_p1.isEmpty()) {
-			
+		//Filtrando por Nombre
+		if (nombre != null) {
+			for (Profesor p : list_p1) {
+				String nom = normalizar(p.getNombre().toUpperCase());
+				if( !nom.contains(nombre) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+		
+		//Filtrando por RFC
+		if (rfcs != null) {
+			for(Profesor p : list_p1) {
+				if( !p.getRfc().contains(rfcs) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+						
+		//Filtrando por grado de estudios
+		if (id_grado != 5) {
 			for(Profesor p : list_p1) {
 				if(p.getFk_id_grado_profesor().getPk_id_grado_profesor() != id_grado) {
 					list_p2.remove(p);
 				}
 			}
+		}
 			
+		//Filtrando por gÃ©nero
+		if ( id_genero != 3) {
 			for(Profesor p : list_p1) {
 				if(p.getId_genero().getPk_id_genero() != id_genero) {
 					list_p2.remove(p);
 				}
 			}
+		}
 			
+		//Filtrando por estado
+		if(id_estado != 33 ) {
 			for(Profesor p : list_p1) {
 				if(p.getFk_id_estado().getPk_id_estado() != id_estado) {
 					list_p2.remove(p);
 				}
 			}
+		}
 			
+		//Filtrando por turno
+		if( id_turno != 4) {
+			for(Profesor p : list_p1) {
+				if(p.getFk_id_turno().getPk_id_turno() != id_turno) {
+					list_p2.remove(p);
+				}
+			}
+		}
+		
+		if(!list_p1.isEmpty()) {
 			model.put("profesores", list_p2);
 			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
-			
 		} else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
+	
+	public String normalizar(String src) {
+        return Normalizer
+                .normalize(src , Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]" , "");
+    }
 }

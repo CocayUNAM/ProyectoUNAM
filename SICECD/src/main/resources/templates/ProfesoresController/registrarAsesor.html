@@ -19,10 +19,47 @@
     <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="/css/lib/helper.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <style type="text/css">
+		#mensaje {
+			visibility: hidden;
+		}
+	</style>
 </head>
 <body>
 <div th:replace="/includes/head.html :: head_div1" />
 <div th:replace="/includes/head.html :: head_div2" />
+
+
+<!-- Modal -->
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="d-flex align-items-center" id="proceso">
+					<h4 id="mensaje">algo</h4>
+						<div id="spin">
+							<strong>Agregando... &nbsp;</strong>
+							<div class="spinner-grow text-info" role="status"
+								aria-hidden="true"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">Selecciona una accion</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" id="limpiar">Agregar otro asesor</button>
+					<button type="button" class="btn btn-primary"
+						onclick="window.location.href ='/example/table-basic'">Volver
+						a inicio</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
 
 <!-- START CONTENTS -->
 	<div class="content-wrap">
@@ -57,59 +94,62 @@
                                 <div class="card-body">
                                     <div class="form-validation">
                                     
-                                        <form class="form-valide" th:action="@{/AdministracionProfesores/registrarAsesor}" method="GET">
+                                        <form class="form-valide" th:action="@{/AdministracionProfesores/registrarAsesor}" method="POST"
+                                        id= "registrarAsesor">
                                         
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-apaterno">Apellido paterno<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="apaterno">Apellido paterno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-apaterno" name="apaterno" placeholder="Introduce apellido paterno" required>
+                                                    <input type="text" class="form-control" id="apaterno" name="apaterno" placeholder="Introduce apellido paterno" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-amaterno">Apellido materno<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="amaterno">Apellido materno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-amaterno" name="amaterno" placeholder="Introduce apellido materno" required>
+                                                    <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Introduce apellido materno" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-nombres">Nombre(s)<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="nombres">Nombre(s)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val_nombres" name="nombres" placeholder="Introduce nombre(s)" required>
+                                                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Introduce nombre(s)" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-nac">Fecha de nacimiento<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="nac">Fecha de nacimiento<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-nac" name="nacimiento" placeholder="dd/mm/aaaa">
+                                                    <input type="date" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-tel">Telefono<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="tel">Telefono<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-tel" name="tel" placeholder="Introduce telefono.">
+                                                    <input type="tel" class="form-control" id="tel" name="tel" placeholder="Introduce telefono.">
                                                 </div>
                                             </div>
                                             
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-correo">Correo electronico<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="correo">Correo electronico<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-correo" name="correo" placeholder="Introduce correo." required>
+                                                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Introduce correo." required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-rfc">RFC <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="rfc">RFC <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-rfc" name="rfc" placeholder="Introduce el RFC">
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC">
                                                 </div>
                                             </div>
                                             
-                                            <button type="submit" class="btn btn-default"> Capturar</button>
+                                            <button type="submit" class="btn btn-default"
+                                            data-toggle="modal" data-target="#exampleModal">
+                                             Capturar</button>
                                         </form>
                                     </div>
                                 </div>
@@ -136,5 +176,52 @@
     <script src="/js/lib/form-validation/jquery.validate-init.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/scripts.js"></script>
+    <script>
+		$(document).ready(function() {
+			
+			//cambio de perfil
+			let rol='Consultas';
+
+			$("#registrarAsesor").submit(function(eve) {
+				eve.preventDefault();
+				let datos = {
+					aPaterno : $("#apaterno").val(),
+					aMaterno : $("#amaterno").val(),
+					nombres: $("#nombres").val(),
+					fNacimiento: $("#nac").val(),
+					telefono: $("#tel").val(),
+					correo: $("#correo").val(),
+					rfc: $("#rfc").val(),
+				}
+				$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url : '/AdministracionProfesores/registrarAsesor',
+					data : JSON.stringify(datos),
+					beforeSend : function() {
+						// setting a timeout
+						$("#mensaje").css("visibility","hidden")
+						$('#spin').css("visibility","visible")
+								
+					},
+					error : function(e) {
+						alert("Error");	
+					},
+					success : function(respuesta) {
+						$('#spin').css("visibility","hidden")
+						var elem = $(document.createElement('h4'))
+						               .attr('id','mensaje').html(respuesta.message);
+						$('#mensaje').replaceWith(elem);
+						$("#mensaje").css("visibility","visible")
+					}
+				});
+			});
+
+			$("#limpiar").click(function(event) {
+				$("#registrarAsesor")[0].reset();
+			});
+
+		});
+	</script>
 </body>
 </html>

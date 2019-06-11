@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Modificar asesor/profesor</title>
+
+<!-- ================= Favicon ================== -->
+<!-- Standard -->
+<link rel="shortcut icon" href="js/favicon.ico">
+
+<!-- Styles -->
+<link href="/css/lib/select2/select2.min.css" rel="stylesheet">
+<link href="/css/lib/font-awesome.min.css" rel="stylesheet">
+<link href="/css/lib/themify-icons.css" rel="stylesheet">
+<link href="/css/lib/menubar/sidebar.css" rel="stylesheet">
+<link href="/css/lib/bootstrap.min.css" rel="stylesheet">
+<link href="/css/lib/helper.css" rel="stylesheet">
+<link href="/css/lib/toggle.css" rel="stylesheet">
+<style type="text/css">
+#spin {
+	visibility: hidden;
+}
+#mensaje {
+	visibility: hidden;
+}
+</style>
+
+</head>
+<body>
+	<div th:replace="/includes/head.html :: head_div1" />
+	<div th:replace="/includes/head.html :: head_div2" />
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="d-flex align-items-center" id="proceso">
+							<h4 id="mensaje">algo</h4>
+						<div id="spin">
+							<strong>Haciendo los cambios respectivos... &nbsp;</strong>
+							<div class="spinner-grow text-info" role="status"
+								aria-hidden="true"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">Selecciona una accion</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" id="limpiar">Hacer otro cambio</button>
+					<button type="button" class="btn btn-primary"
+						onclick="window.location.href ='/example/table-basic'">Volver
+						a inicio</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--     Fin de modal                 -->
+
+
+
+
+	<!-- START CONTENTS -->
+
+	<div class="content-wrap">
+		<div class="main">
+			<div class="container-fluid">
+				<div class="row">
+
+					<!-- titulo -->
+					<div class="col-lg-8 p-r-0 title-margin-right">
+						<div class="page-header">
+							<div class="page-title">
+								<h1> Edita Profesor/ asesor</h1>
+							</div>
+						</div>
+					</div>
+
+					<!-- 	bot0nes pestañas -->
+
+
+
+					<!-- 					pestañas -->
+
+
+
+						<!-- 							pestaña editar pefil -->
+
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="card">
+										<div class="card-body">
+											<div class="form-validation">
+
+												<form class="form-valide"
+													th:action="@{/AdministracionProfesores/registrarAsesor}"
+													method="GET" id="registrarasesor">
+
+													<div class="form-group row">
+														<label class="col-lg-4 col-form-label" for="rfc">Rfc
+															<span class="text-danger">*</span>
+														</label>
+														<div class="col-lg-8">
+															<input type="text" class="form-control" id="rfc"
+																name="rfc" th:value="${profesor.rfc}" required>
+														</div>
+													</div>
+
+													<div class="form-group row">
+														<label class="col-lg-4 col-form-label" for="nombre">Nombre
+															<span class="text-danger">*</span>
+														</label>
+														<div class="col-lg-8">
+															<input type="text" class="form-control" id="nombre"
+																name="nombre" th:value="${profesor.nombre}" required>
+														</div>
+													</div>
+													<div class="form-group row">
+														<label class="col-lg-4 col-form-label"
+															for="apellidopaterno">Apellido paterno <span
+															class="text-danger">*</span>
+														</label>
+														<div class="col-lg-8">
+															<input type="text" class="form-control"
+																id="apellidopaterno" name="apellidopaterno"
+																th:value="${profesor.apellido_paterno}" required>
+														</div>
+													</div>
+
+													<div class="form-group row">
+														<label class="col-lg-4 col-form-label"
+															for="apellidomaterno">Apellido Materno <span
+															class="text-danger">*</span>
+														</label>
+														<div class="col-lg-8">
+															<input type="text" class="form-control"
+																id="apellidomaterno" name="apellidomaterno"
+																th:value="${profesor.apellido_materno}" required>
+														</div>
+													</div>
+													
+													<div class="form-group row">
+														<div class="form-group row">
+															<label class="col-lg-4 col-form-label"
+																for="correo">correo <span
+																class="text-danger">*</span>
+															</label>
+															<div class="col-lg-8">
+																<input type="email" class="form-control" 
+																id="correo" name="correo" 
+																th:value="${profesor.correo}">
+															</div>
+														</div>
+													</div>
+													
+													<div class="form-group row">
+														<div class="form-group row">
+															<label class="col-lg-4 col-form-label"
+																for="tel">telefono <span
+																class="text-danger">*</span>
+															</label>
+															<div class="col-lg-8">
+																<input type="tel" class="form-control" 
+																id="tel" name="tel" 
+																th:value="${profesor.telefono}">
+															</div>
+														</div>
+													</div>
+													
+													<button type="submit" class="btn btn-default"
+														data-toggle="modal" data-target="#exampleModal">
+														Realizar Cambios</button>
+												</form>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+
+				</div>
+				<!-- /# row -->
+			</div>
+		</div>
+	</div>
+	<!-- END CONTENTS -->
+
+	<!-- jquery vendor -->
+
+
+	<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
+	<script src="/js/lib/jquery.nanoscroller.min.js"></script>
+	<!-- nano scroller -->
+	<script src="/js/lib/menubar/sidebar.js"></script>
+	<script src="/js/lib/preloader/pace.min.js"></script>
+	<!-- sidebar -->
+	<!-- bootstrap -->
+	<!-- Select2 -->
+	<script src="/js/lib/select2/select2.full.min.js"></script>
+	<!-- 	<script src="/js/lib/form-validation/jquery.validate-init.js"></script> -->
+	<script src="/js/lib/bootstrap.min.js"></script>
+	<script src="/js/scripts.js"></script>
+
+
+	<script th:inline="javascript">
+$(document).ready(function() {
+
+
+			//cambio de correo
+			let cor=$("#correo").val();
+			$("#correo").blur(function(){
+			    cor=$("#correo").val();
+			    
+			});
+			
+			//envio de datos
+			
+			$("#registrarasesor").submit(function(eve) {
+				eve.preventDefault();
+				let datos = {
+					correo : cor,
+					rfc : $("#rfc").val(),
+					nombre : $("#nombre").val(),
+					apellido_paterno : $("#apellidopaterno").val(),
+					apellido_materno : $("#apellidomaterno").val()
+				}
+				$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url : '/editarprofesor',
+					data : JSON.stringify(datos),
+					beforeSend : function() {
+						// setting a timeout
+						$("#mensaje").css("visibility","hidden")
+						$('#spin').css("visibility","visible")
+								
+					},
+					//dataType:'json',
+					error : function(e) {
+						alert("Error");
+					},
+					success : function(respuesta) {
+						$('#spin').css("visibility","hidden")
+						var elem = $(document.createElement('h4'))
+						               .attr('id','mensaje').html(respuesta);
+						$('#mensaje').replaceWith(elem);
+						$("#mensaje").css("visibility","visible")
+					}
+				});
+			});
+
+
+
+		});
+	</script>
+</body>
+</html>

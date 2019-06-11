@@ -117,7 +117,7 @@ CREATE TABLE Curso(
   pk_id_curso SERIAL PRIMARY KEY,
   clave CHAR(7) UNIQUE NOT NULL,
   nombre VARCHAR(250) NOT NULL,
-  fk_id_tipo_curso INTEGER NOT NULL,
+  fk_id_tipo_curso INTEGER,
   horas INTEGER
 );
 CREATE TABLE Grupo(
@@ -250,6 +250,7 @@ INSERT INTO public.grado_profesor(nombre) VALUES ('Lic.');
 INSERT INTO public.grado_profesor(nombre) VALUES ('Esp.');
 INSERT INTO public.grado_profesor(nombre) VALUES ('Mtr.');
 INSERT INTO public.grado_profesor(nombre) VALUES ('Doc.');
+INSERT INTO public.grado_profesor(nombre) VALUES ('Sin definir');
 
 INSERT INTO public.genero(genero) VALUES ('Masculino');
 INSERT INTO public.genero(genero) VALUES ('Femenino');
@@ -259,16 +260,17 @@ INSERT INTO public.estado(nombre) VALUES ('Aguascalientes');
 INSERT INTO public.estado(nombre) VALUES ('Baja California');
 INSERT INTO public.estado(nombre) VALUES ('Baja California Sur');
 INSERT INTO public.estado(nombre) VALUES ('Campeche');
-INSERT INTO public.estado(nombre) VALUES ('Chihuahua');
-INSERT INTO public.estado(nombre) VALUES ('Chiapas');
+INSERT INTO public.estado(nombre) VALUES ('Ciudad de México');
 INSERT INTO public.estado(nombre) VALUES ('Coahuila');
 INSERT INTO public.estado(nombre) VALUES ('Colima');
+INSERT INTO public.estado(nombre) VALUES ('Chiapas');
+INSERT INTO public.estado(nombre) VALUES ('Chihuahua');
 INSERT INTO public.estado(nombre) VALUES ('Durango');
+INSERT INTO public.estado(nombre) VALUES ('Estado de México');
 INSERT INTO public.estado(nombre) VALUES ('Guanajuato');
 INSERT INTO public.estado(nombre) VALUES ('Guerrero');
 INSERT INTO public.estado(nombre) VALUES ('Hidalgo');
 INSERT INTO public.estado(nombre) VALUES ('Jalisco');
-INSERT INTO public.estado(nombre) VALUES ('México');
 INSERT INTO public.estado(nombre) VALUES ('Michoacán');
 INSERT INTO public.estado(nombre) VALUES ('Morelos');
 INSERT INTO public.estado(nombre) VALUES ('Nayarit');
@@ -357,3 +359,23 @@ ALTER TABLE Certificado ADD FOREIGN KEY (fk_id_profesor) REFERENCES Profesor(pk_
 INSERT INTO curso (clave,nombre,fk_id_tipo_curso,horas) VALUES ('A005','COSDAC 2018',1,40);
 INSERT INTO profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Abraham', 'Diaz', 'Diaz', 'ABDI800505MMM', 'asmaharba@gmail.com', 1, 1, 1, 1);
 ALTER TABLE public.certificado OWNER to "SICECD";
+
+/*
+Autor: Jorge Erick Rivera Lopez
+Fecha: 04/05/2019
+Accion: Agrega campo sobre tiempo de creacion de certificado
+*/
+ALTER TABLE Certificado ADD tiempo_creado bigint default 0;
+/*
+Autor: Jorge Erick Rivera Lopez
+Fecha: 12/05/2019
+Accion: Agrega informacion para prueba de extraccion de certificados.
+*/
+
+INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (8, '003', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
+INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Lourdes', 'Diaz', 'Diaz', 'LBDI800505MMM', 'matyap59@hotmail.com', 1, 1, 1, 1);
+INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Maria', 'Diaz', 'Diaz', 'MBDI800505MMM', 'mahalymf@hotmail.com', 1, 1, 1, 1);
+INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Ramiro', 'Diaz', 'Diaz', 'RBDI800505MMM', 'murcielagoblue@yahoo.com.mx', 1, 1, 1, 1);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 6);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 7);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 8);

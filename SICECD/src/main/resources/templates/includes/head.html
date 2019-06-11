@@ -1,106 +1,135 @@
 <head th:fragment="head">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Sistema de Control Escolar para Cursos y Diplomados</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- ================= Favicon ================== -->
-    <!-- Standard -->
-    <link rel="shortcut icon" href="favicon.ico">
-    
-    <!-- Styles -->
-    <link href="css/lib/font-awesome.min.css" rel="stylesheet">
-    <link href="css/lib/themify-icons.css" rel="stylesheet">
-    <link href="css/lib/menubar/sidebar.css" rel="stylesheet">
-    <link href="css/lib/bootstrap.min.css" rel="stylesheet">
-    <link href="css/lib/helper.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+<title>Sistema de Control Escolar para Cursos y Diplomados</title>
+
+<!-- ================= Favicon ================== -->
+<!-- Standard -->
+<link rel="shortcut icon" href="favicon.ico">
+
+<!-- Styles -->
+<link href="css/lib/font-awesome.min.css" rel="stylesheet">
+<link href="css/lib/themify-icons.css" rel="stylesheet">
+<link href="css/lib/menubar/sidebar.css" rel="stylesheet">
+<link href="css/lib/bootstrap.min.css" rel="stylesheet">
+<link href="css/lib/helper.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 </head>
 
-        <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures" th:fragment="head_div1">
-            <div class="nano">
-                <div class="nano-content">
-                    <div class="logo"><a href="index.html"><!-- <img src="images/logo.png" alt="" /> --><span>Focus</span></a></div>
-                    <ul>
-                        
-						<li class="label">Cursos</li>
-                        <li><a href="blank"><i class="ti-check-box"></i> Profesores </a></li>
-                        <li><a href="#"><i class="ti-world"></i> Cursos </a></li>
-						<li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Reportes <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                            <ul>
-                            	<li><a th:href="@{/consultaProfesor}">Profesores</a></li>
-                            	<li><a th:href="@{/consultaInscripcion}">Inscripciones</a></li>
-                                <li><a th:href="@{/consultaCurso}">Cursos</a></li>
-                                <li><a th:href="@{/consultaGrupo}">Grupos</a></li>
-                            </ul>
-                        </li>
-						<li class="label">Sistema</li>
-                        <li><a href="#"><i class="ti-user"></i> Usuarios </a></li>
-                        <li><a href="#"><i class="ti-book"></i> Auditoria</a></li>
-						<li><a href="#"><i class="ti-file"></i> Documentacion </a></li>
-						
-						<li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i>Administracion <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                            <ul>
-                                <li><a th:href="@{/AdministracionCursos/formAltaUsuario}">Dar de alta usuario</a></li>
-                                <li><a th:href="@{/AdministracionCursos/listaUsuarios}">Editar usuario</a></li>
-                            </ul>
-                        </li>
+<div
+	class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures"
+	th:fragment="head_div1">
+	<div class="nano">
+		<div class="nano-content">
+			<div class="logo">
+				<a href="index.html">
+					<!-- <img src="images/logo.png" alt="" /> -->
+					<span>Focus</span>
+				</a>
+			</div>
+			<ul>
 
-						
-						<li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Registro manual <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                            <ul>
-                                <li><a th:href="@{/AdministracionCursos/registrarCursos}">Registrar curso</a></li>
-                                <li><a th:href="@{/AdministracionProfesores/registrarParticipante}">Registrar participante</a></li>
-                                <li><a th:href="@{/AdministracionProfesores/registrarAsesor}">Registrar asesor</a></li>
-                            </ul>
-                        </li>
-                        
-                        <li><a th:href="@{/logout}"><i class="ti-close"></i> Logout</a></li>
-						
-                        <li class="label">Examples</li>
-                        <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid4-alt"></i> Table <span class="sidebar-collapse-icon ti-angle-down"></span></a>
-                            <ul>
-                                <li><a href="/example/table-basic">Basic</a></li>
-                                <li><a href="/example/table-export">Datatable Export</a></li>
-                                <li><a href="/example/table-row-select">Datatable Row Select</a></li>
-                                <li><a href="/example/table-jsgrid">Editable </a></li>
-                            </ul>
-                        </li>
-                        <li><a href="/example/form-basic"><i class="ti-view-list-alt"></i> Basic Form </a></li>
-                        <li><a href="/example/form-validation"><i class="ti-view-list-alt"></i> Basic Validation </a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /# sidebar -->
+				<li class="label">Cursos</li>
+				<li><a th:href="@{/consultaProfesor}"><i
+						class="ti-check-box"></i> Profesores </a></li>
+				<li><a th:href="@{/consultaCurso}"><i class="ti-world"></i>
+						Cursos </a></li>
+				<li><a th:href="@{/consultarProfesor}"><i class="ti-shield"></i>
+						Carga Batch </a></li>
+				<li><a class="sidebar-sub-toggle"><i class="ti-file"></i>
+						Reportes <span class="sidebar-collapse-icon ti-angle-down"></span>
+					</a>
+					<ul>
+						<li><a th:href="@{/consultaProfesor}">Profesores</a></li>
+						<li><a th:href="@{/consultaInscripcion}">Inscripciones</a></li>
+						<li><a th:href="@{/consultaCurso}">Cursos</a></li>
+						<li><a th:href="@{/consultaGrupo}">Grupos</a></li>
+					</ul>
+				</li>
+				<li class="label">Sistema</li>
+				<li><a href="#"><i class="ti-user"></i> Usuarios </a></li>
+				<li><a href="#"><i class="ti-book"></i> Auditoria</a></li>
+				<li><a href="#"><i class="ti-file"></i> Documentacion </a></li>
+				<li><a th:href="@{/listaProfesores}"><i class="ti-user"></i> Modificar registros </a></li>
+
+				<li><a class="sidebar-sub-toggle"><i
+						class="ti-layout-grid4-alt"></i>Administracion <span
+						class="sidebar-collapse-icon ti-angle-down"></span></a>
+					<ul>
+						<li><a th:href="@{/AdministracionCursos/formAltaUsuario}">Dar
+								de alta usuario</a></li>
+						<li><a th:href="@{/AdministracionCursos/listaUsuarios}">Editar
+								usuario</a></li>
+					</ul></li>
 
 
-    <div class="header" th:fragment="head_div2">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="float-left">
-                        <div class="hamburger sidebar-toggle">
-                            <span class="line"></span>
-                            <span class="line"></span>
-                            <span class="line"></span>
-                        </div>
-                    </div>
-                    <div class="float-right">
-                        <div class="dropdown dib">
-                            <div class="header-icon" data-toggle="dropdown">
-                            </div>
-                        </div>
-                        <div class="dropdown dib">
-                            <div class="header-icon" data-toggle="dropdown">
+				<li><a class="sidebar-sub-toggle"><i
+						class="ti-layout-grid4-alt"></i> Registro manual <span
+						class="sidebar-collapse-icon ti-angle-down"></span></a>
+					<ul>
+						<li><a th:href="@{/AdministracionCursos/registrarCursos2}">Registrar
+								curso</a></li>
+						<li><a
+							th:href="@{/AdministracionProfesores/registrarParticipantes}">Registrar
+								participante</a></li>
+						<li><a th:href="@{/AdministracionProfesores/registrarAsesor2}">Registrar
+								asesor</a></li>
+						<li><a th:href="@{/registrarGrupo2}">Registrar
+								grupo</a></li>	
+						<li><a th:href="@{/registrarInscripcion2}">Registrar
+								inscripcion</a></li>
+					</ul></li>
+
+				<li><a th:href="@{/logout}"><i class="ti-close"></i> Logout</a></li>
+				<li><a th:href="@{/webservice}"><i class="ti-world"></i> </i>Web
+						Service</a></li>
+
+				<li class="label">Examples</li>
+				<li><a class="sidebar-sub-toggle"><i
+						class="ti-layout-grid4-alt"></i> Table <span
+						class="sidebar-collapse-icon ti-angle-down"></span></a>
+					<ul>
+						<li><a href="/example/table-basic">Basic</a></li>
+						<li><a href="/example/table-export">Datatable Export</a></li>
+						<li><a href="/example/table-row-select">Datatable Row
+								Select</a></li>
+						<li><a href="/example/table-jsgrid">Editable </a></li>
+					</ul></li>
+				<li><a href="/example/form-basic"><i
+						class="ti-view-list-alt"></i> Basic Form </a></li>
+				<li><a href="/example/form-validation"><i
+						class="ti-view-list-alt"></i> Basic Validation </a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- /# sidebar -->
+
+
+<div class="header" th:fragment="head_div2">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="float-left">
+					<div class="hamburger sidebar-toggle">
+						<span class="line"></span> <span class="line"></span> <span
+							class="line"></span>
+					</div>
+				</div>
+				<div class="float-right">
+					<div class="dropdown dib">
+						<div class="header-icon" data-toggle="dropdown"></div>
+					</div>
+					<div class="dropdown dib">
+						<div class="header-icon" data-toggle="dropdown">
 							<i class="ti-bell"></i>
-                            </div>
-                        </div>
-                        <div class="dropdown dib">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						</div>
+					</div>
+					<div class="dropdown dib"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

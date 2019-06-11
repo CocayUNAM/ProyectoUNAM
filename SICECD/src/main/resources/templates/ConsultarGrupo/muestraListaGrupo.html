@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>Sistema de Control Escolar para Cursos y Diplomados</title>
+    <title>SICCED - Grupos</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -39,15 +39,19 @@
                                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
-                                                	<th>Grupo</th>
-                                                	<th>Clave</th>
+                                                	<th>Tipo de Curso</th>
+                                                	<th>Clave del Curso</th>
+                                                	<th>Curso</th>
+                                                	<th>Clave del Grupo</th>
                                                     <th>Fecha de Inicio</th>
                                                     <th>Fecha de Término</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr data-th-each="grupo : ${grupos}">
-                                                	<td data-th-text="${grupo.pk_id_grupo}">Text ...</td>
+                                                	<td data-th-text="${grupo.fk_id_curso.fk_id_tipo_curso.nombre}">Text ...</td>
+                                                	<td data-th-text="${grupo.fk_id_curso.clave}">Text ...</td>
+                                                	<td data-th-text="${grupo.fk_id_curso.nombre}">Text ...</td>
                                                 	<td data-th-text="${grupo.clave}">Text ...</td>
                                                 	<td data-th-text="${grupo.fecha_inicio}">Text ...</td>
                                                 	<td data-th-text="${grupo.fecha_fin}">Text ...</td>
@@ -99,7 +103,7 @@
     <script src="/js/lib/data-table/jszip.min.js"></script>
     <script src="/js/lib/data-table/pdfmake.min.js"></script>
     <script src="/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="/js/lib/reports/export-buttons.js"></script>
     <script src="/js/lib/data-table/buttons.print.min.js"></script>
     <script src="/js/lib/data-table/datatables-init.js"></script>
 </body>

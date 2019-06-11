@@ -33,21 +33,17 @@
 					<!-- START ROW -->
 					<div class="row">
 						
-						<!-- START CONSULTAR GRUPO POR CURSO -->
+						<!-- START CONSULTAR INSCRIPCION POR GRUPO -->
 						<div class="col-lg-6">
 							<div class="card">
 								<div class="card-title"></div>
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/consultaGrupoCurso" method="post" target="_blank">
+										<form action="/consultaInsGrupo" method="post" target="_blank">
 											<div class="form-group">
-												<h4>Consultar por Curso</h4>
-												<label>Clave</label>
-													<input type="text" name="curso_grupo" class="form-control">
-												<label>Fecha de Inicio</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_grupo">
-												<label>Fecha de Término</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_grupo">
+												<h4>Consultar profesores inscritos en un grupo</h4>
+												<label>ID del grupo<span class="text-danger">*</span></label>
+													<input type="text" name="ins_grupo" class="form-control" required>
 											</div>
 											<button type="submit" class="btn btn-default">Consultar</button>
 										</form>
@@ -55,7 +51,7 @@
 								</div>
 							</div>
 						</div>
-						<!-- END CONSULTAR GRUPO POR CURSO -->
+						<!-- END CONSULTAR INSCRIPCION POR GRUPO -->
 						
 					</div>
 					<!-- END ROW -->

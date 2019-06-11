@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>Sistema de Control Escolar para Cursos y Diplomados</title>
+    <title>SICCED - Cursos</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -40,15 +40,19 @@
                                             <thead>
                                                 <tr>
                                                 	<th>Tipo de Curso</th>
+                                                	<th>Clave del Curso</th>
                                                     <th>Curso</th>
-                                                    <th>Clave</th>
+                                                    <th>Fecha de inicio</th>
+                                                    <th>Fecha de término</th>
                                                 </tr>
                                             </thead>
                                             <tbody >
                                                 <tr data-th-each="curso : ${cursos}">
                                                 	<td data-th-text="${curso.fk_id_tipo_curso.nombre}">Text ...</td>
-                                                	<td data-th-text="${curso.nombre}">Text ...</td>
                                                 	<td data-th-text="${curso.clave}">Text ...</td>
+                                                	<td data-th-text="${curso.nombre}">Text ...</td>
+                                                	<td data-th-text="${curso.fInicio}">Text ...</td>
+                                                	<td data-th-text="${curso.fTermino}">Text ...</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -97,7 +101,7 @@
     <script src="/js/lib/data-table/jszip.min.js"></script>
     <script src="/js/lib/data-table/pdfmake.min.js"></script>
     <script src="/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="/js/lib/reports/export-buttons.js"></script>
     <script src="/js/lib/data-table/buttons.print.min.js"></script>
     <script src="/js/lib/data-table/datatables-init.js"></script>
 </body>

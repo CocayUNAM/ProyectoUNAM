@@ -27,9 +27,9 @@ public class Grupo {
 	int pk_id_grupo;
 	@ManyToOne(targetEntity=Curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso",insertable = false, updatable = false)
-	Curso curso;
-	int fk_id_curso;
+	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso",insertable = true, updatable = true)
+	Curso fk_id_curso;
+	//int fk_id_curso;
 	@Column(name = "clave")
 	String clave;
 	@Column(name = "fecha_inicio")
@@ -39,7 +39,7 @@ public class Grupo {
 	
 	@ManyToOne(targetEntity=Profesor.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id__profesor",referencedColumnName="pk_id_profesor",insertable = true, updatable = true)
+	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor",insertable = true, updatable = true)
 	Profesor fk_id_profesor;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -52,14 +52,23 @@ public class Grupo {
 	public void setPk_id_grupo(int pk_id_grupo) {
 		this.pk_id_grupo = pk_id_grupo;
 	}
+	
+	public Curso getFk_id_curso() {
+		return fk_id_curso;
+	}
 
+	public void setFk_id_curso(Curso curso) {
+		this.fk_id_curso = curso;
+	}
+
+	/*
 	public int getFk_id_curso() {
 		return fk_id_curso;
 	}
 
 	public void setFk_id_curso(int fk_id_curso) {
 		this.fk_id_curso = fk_id_curso;
-	}
+	}*/
 
 	public String getClave() {
 		return clave;
@@ -91,6 +100,14 @@ public class Grupo {
 
 	public void setInscripciones(List<Inscripcion> inscripciones) {
 		this.inscripciones = inscripciones;
+	}
+
+	public Profesor getFk_id_profesor() {
+		return fk_id_profesor;
+	}
+
+	public void setFk_id_profesor(Profesor fk_id_profesor) {
+		this.fk_id_profesor = fk_id_profesor;
 	}
 
 

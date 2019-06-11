@@ -19,10 +19,46 @@
     <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="/css/lib/helper.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <style type="text/css">
+		#mensaje {
+			visibility: hidden;
+		}
+	</style>
 </head>
 <body>
 <div th:replace="/includes/head.html :: head_div1" />
 <div th:replace="/includes/head.html :: head_div2" />
+
+
+<!-- Modal -->
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="d-flex align-items-center" id="proceso">
+					<h4 id="mensaje">algo</h4>
+						<div id="spin">
+							<strong>Agregando... &nbsp;</strong>
+							<div class="spinner-grow text-info" role="status"
+								aria-hidden="true"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">Selecciona una accion</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" id="limpiar">Agregar otro participante</button>
+					<button type="button" class="btn btn-primary"
+						onclick="window.location.href ='/example/table-basic'">Volver
+						a inicio</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 
 <!-- START CONTENTS -->
 	<div class="content-wrap">
@@ -56,109 +92,109 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="form-validation">
-                                        <form class="form-valide" action="#" method=GET>
+                                        <form class="form-valide" action="@{/AdministracionProfesores/registrarParticipante}" method="POST"
+                                        id= "registrarParticipante">
                                         
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-apaterno">Apellido paterno<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="apaterno">Apellido paterno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-apaterno" name="apaterno" placeholder="Introduce apellido paterno" required>
+                                                    <input type="text" class="form-control" id="apaterno" name="apaterno" placeholder="Introduce apellido paterno" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-amaterno">Apellido materno<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="amaterno">Apellido materno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-amaterno" name="amaterno" placeholder="Introduce apellido materno" required>
+                                                    <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Introduce apellido materno" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-nombres">Nombre(s)<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="nombres">Nombre(s)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val_nombres" name="nombres" placeholder="Introduce nombre(s)" required>
+                                                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Introduce nombre(s)" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-curp">CURP<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="curp">CURP<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-curp" name="curp" placeholder="Introduce CURP">
+                                                    <input type="text" class="form-control" id="curp" name="curp" placeholder="Introduce CURP">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-rfc">RFC <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="rfc">RFC <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-rfc" name="rfc" placeholder="Introduce el RFC">
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-correo">Correo electronico<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="correo">Correo electronico<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-correo" name="correo" placeholder="Introduce correo." required>
+                                                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Introduce correo." required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-tel">Telefono<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="tel">Telefono<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-tel" name="tel" placeholder="Introduce telefono.">
+                                                    <input type="tel" class="form-control" id="tel" name="tel" placeholder="Introduce telefono.">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-estado">Estado <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="estado">Estado <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="val-estado" name="estado" style="width: 100%;">
-                                                        <option></option>
-                                                        <option value="Aguascalientes">Aguascalientes</option>
-														<option value="Baja California">Baja California</option>
-														<option value="Baja California Sur">Baja California Sur</option>
-														<option value="Campeche">Campeche</option>
-														<option value="Ciudad de México">Ciudad de México</option>
-														<option value="Coahuila">Coahuila</option>
-														<option value="Colima">Colima</option>
-														<option value="Chiapas">Chiapas</option>
-														<option value="Chihuahua">Chihuahua</option>
-														<option value="Durango">Durango</option>
-														<option value="Estado de México">Estado de México</option>
-														<option value="Guanajuato">Guanajuato</option>
-														<option value="Guerrero">Guerrero</option>
-														<option value="Hidalgo">Hidalgo</option>
-														<option value="Jalisco">Jalisco</option>
-														<option value="Michoacán">Michoacán</option>
-														<option value="Morelos">Morelos</option>
-														<option value="Nayarit">Nayarit</option>
-														<option value="Nuevo León">Nuevo León</option>
-														<option value="Oaxaca">Oaxaca</option>
-														<option value="Puebla">Puebla</option>
-														<option value="Querétaro">Querétaro</option>
-														<option value="Quintana Roo">Quintana Roo</option>
-														<option value="San Luis Potosí">San Luis Potosí</option>
-														<option value="Sinaloa">Sinaloa</option>
-														<option value="Sonora">Sonora</option>
-														<option value="Tabasco">Tabasco</option>
-														<option value="Tamaulipas">Tamaulipas</option>
-														<option value="Tlaxcala">Tlaxcala</option>
-														<option value="Veracruz">Veracruz</option>
-														<option value="Yucatán">Yucatán</option>
-														<option value="Zacatecas">Zacatecas</option>
+                                                    <select class="form-control" id="estado" name="estado" style="width: 100%;">
+                                                        <option value="1">Aguascalientes</option>
+														<option value="2">Baja California</option>
+														<option value="3">Baja California Sur</option>
+														<option value="4">Campeche</option>
+														<option value="5">Ciudad de México</option>
+														<option value="6">Coahuila</option>
+														<option value="7">Colima</option>
+														<option value="8">Chiapas</option>
+														<option value="9">Chihuahua</option>
+														<option value="10">Durango</option>
+														<option value="11">Estado de México</option>
+														<option value="12">Guanajuato</option>
+														<option value="13">Guerrero</option>
+														<option value="14">Hidalgo</option>
+														<option value="15">Jalisco</option>
+														<option value="16">Michoacán</option>
+														<option value="17">Morelos</option>
+														<option value="18">Nayarit</option>
+														<option value="19">Nuevo León</option>
+														<option value="20">Oaxaca</option>
+														<option value="21">Puebla</option>
+														<option value="22">Querétaro</option>
+														<option value="23">Quintana Roo</option>
+														<option value="24">San Luis Potosí</option>
+														<option value="25">Sinaloa</option>
+														<option value="26">Sonora</option>
+														<option value="27">Tabasco</option>
+														<option value="28">Tamaulipas</option>
+														<option value="29">Tlaxcala</option>
+														<option value="30">Veracruz</option>
+														<option value="31">Yucatán</option>
+														<option value="32">Zacatecas</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-cilo">Ciudad o localidad<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="cilo">Ciudad o localidad<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-cilo" name="cilo" placeholder="Introduce Ciudad o localidad.">
+                                                    <input type="text" class="form-control" id="cilo" name="cilo" placeholder="Introduce Ciudad o localidad.">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-genero">Selecciona género <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="genero">Selecciona género <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="val-genero" name="genero" style="width: 100%;">
+                                                    <select class="js-select2 form-control" id="genero" name="genero" style="width: 100%;">
                                                         <option></option>
                                                         <option value="1">Masculino</option>
                                                         <option value="2">Femenino</option>
@@ -167,16 +203,16 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-plantel">Plantel<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="plantel">Plantel<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-plantel" name="plantel" placeholder="Introduce tu plantel.">
+                                                    <input type="text" class="form-control" id="plantel" name="plantel" placeholder="Introduce tu plantel.">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-turno">Selecciona turno <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="turno">Selecciona turno <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="val-turno" name="turno" style="width: 100%;">
+                                                    <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;">
                                                         <option></option>
                                                         <option value="1">Matutino</option>
                                                         <option value="2">Vepertino</option>
@@ -186,16 +222,16 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-cplantel">Clave plantel<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="cplantel">Clave plantel<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="val-cplantel" name="cplantel" placeholder="Introduce la clave del plantel.">
+                                                    <input type="text" class="form-control" id="cplantel" name="cplantel" placeholder="Introduce la clave del plantel.">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-grado">Ultimo grado de estudios <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="grado">Ultimo grado de estudios <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="val-grado" name="grado" style="width: 100%;">
+                                                    <select class="js-select2 form-control" id="grado" name="grado" style="width: 100%;">
                                                         <option></option>
                                                         <option value="1">Lic.</option>
                                                         <option value="2">Esp.</option>
@@ -206,28 +242,19 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="val-ocupacion">Ocupacion<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="ocupacion">Ocupacion<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="val-ocupacion" name="ocupacion" style="width: 100%;">
-                                                        <option></option>
-                                                        <option value="Estudiante">Estudiante</option>
-                                                        <option value="Profesor">Profesor</option>
-                                                    </select>
+                                                    <input type="text" class="form-control" id="ocupacion" name="ocupacion" placeholder="Introduce la ocupacion actual.">
                                                 </div>
                                             </div>
                                             
-                                            <button type="submit" class="btn btn-default"> Capturar</button>
+                                            <button type="submit" class="btn btn-default"
+                                            data-toggle="modal" data-target="#exampleModal"> 
+                                            Capturar</button>
                                             
                                         </form>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="footer">
-                                <p>2018 © Admin Board. - <a href="#">example.com</a></p>
                             </div>
                         </div>
                     </div>
@@ -251,5 +278,60 @@
     <script src="/js/lib/form-validation/jquery.validate-init.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/scripts.js"></script>
+    <script>
+		$(document).ready(function() {
+			
+			//cambio de perfil
+			let rol='Consultas';
+
+			$("#registrarParticipante").submit(function(eve) {
+				eve.preventDefault();
+				let datos = {
+					aPaterno : $("#apaterno").val(),
+					aMaterno : $("#amaterno").val(),
+					nombres: $("#nombres").val(),
+					curp: $("#curp").val(),
+					rfc: $("#rfc").val(),
+					correo: $("#correo").val(),
+					telefono: $("#tel").val(),
+					estado: $("#estado").val(),
+					cilo: $("#cilo").val(),
+					genero: $("#genero").val(),
+					plantel: $("#plantel").val(),
+					turno: $("#turno").val(),
+					cPlantel: $("#cplantel").val(),
+					grado: $("#grado").val(),
+					ocupacion: $("#ocupacion").val(),
+				}
+				$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url : '/AdministracionProfesores/registrarParticipante',
+					data : JSON.stringify(datos),
+					beforeSend : function() {
+						// setting a timeout
+						$("#mensaje").css("visibility","hidden")
+						$('#spin').css("visibility","visible")
+								
+					},
+					error : function(e) {
+						alert("Error");
+					},
+					success : function(respuesta) {
+						$('#spin').css("visibility","hidden")
+						var elem = $(document.createElement('h4'))
+						               .attr('id','mensaje').html(respuesta.message);
+						$('#mensaje').replaceWith(elem);
+						$("#mensaje").css("visibility","visible")
+					}
+				});
+			});
+
+			$("#limpiar").click(function(event) {
+				$("#registrarParticipante")[0].reset();
+			});
+
+		});
+	</script>
 </body>
 </html>
