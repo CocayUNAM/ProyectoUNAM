@@ -15,10 +15,38 @@ public final class LogTypes {
 	 * 						se puede hacer uso de estos consecutivos por ejemplo 00, 01, 02, 03, etc.
 	 */
 	
-	/*Accion de hacer login*/
-	public static final String WEB_LOGIN = "WLIN00";
+	/*Accion de hacer login exitoso*/
+	public static final String WEB_LOGIN_SUCCESS = "WLIN00";
+	/*Accion de hacer login fallido*/
+	public static final String WEB_LOGIN_FAIL = "WLIN01";
 	/*Accion de hacer logout*/
 	public static final String WEB_LOGOUT = "WLOT00";
+	/*Accion de hacer consulta*/
+	public static final String CONSULTA_PROFESOR = "COPR00";
+	/*Accion de hacer consulta*/
+	public static final String CONSULTA_INCRIPCION = "COIN00";
+	/*Accion de hacer carga bath incripcion*/
+	public static final String CARGA_BATCH_INCRIPCION = "CABA00";
+	/*Accion de hacer carga bath profesor*/
+	public static final String CARGA_BATCH_PROFESOR = "CABA01";
+	/*Accion de hacer carga bath grupo*/
+	public static final String CARGA_BATCH_GRUPO = "CABA03";
 	
+	/***
+	//Example
+	@Service
+	Logging log;
 	
+	public void login(){
+		log.setTrace(LogTypes.WEB_LOGIN_SUCCESS);
+	}
+	
+	public void consulta_profesor(){
+		log.setTrace(LogTypes.CONSULTA_PROFESOR);
+	}
+	
+	public void carga_batch(){
+		log.setTrace(LogTypes.CARGA_BATCH_GRUPO, "Se cargaron 50 registros, no se cargaron 2.");
+	}
+	/***/
 }

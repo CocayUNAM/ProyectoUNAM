@@ -21,19 +21,23 @@ public class Log_sys {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_log_sys")
 	int pk_id_log_sys;
+	
 	@Column(name = "ip")
 	String ip;
+	
 	@Column(name = "hora")
-
 	Date hora;
+	
 	@ManyToOne(targetEntity=Usuario_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_usuario_sys")
 	Usuario_sys fk_id_usuario_sys;
+	
 	@ManyToOne(targetEntity=Log_evento_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_log_evento_sys")
 	int fk_id_log_evento_sys;
+	
 	public int getPk_id_log_sys() {
 		return pk_id_log_sys;
 	}
