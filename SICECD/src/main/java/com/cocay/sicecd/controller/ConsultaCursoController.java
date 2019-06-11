@@ -1,5 +1,6 @@
 package com.cocay.sicecd.controller;
 
+import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -185,7 +186,7 @@ public class ConsultaCursoController {
 		String fecha_inicio_curso_2 = request.getParameter("fecha_inicio_curso_2");
 		String fecha_fin_curso_1 = request.getParameter("fecha_fin_curso_1");
 		String fecha_fin_curso_2 = request.getParameter("fecha_fin_curso_2");
-		String nombre_curso = request.getParameter("nombre_curso");
+		String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase();
 		String clave_curso = request.getParameter("clave_curso");
 		Integer id_tipo = Integer.parseInt(request.getParameter("tipos"));
 		
@@ -225,7 +226,7 @@ public class ConsultaCursoController {
 		}
 		
 		//Filtrando por clave de curso
-		if (clave_curso != null) {
+		if (clave_curso != "") {
 			for(Curso c : cursos1) {
 				if(!c.getClave().contains(clave_curso)){
 					cursos2.remove(c);
@@ -234,9 +235,10 @@ public class ConsultaCursoController {
 		}
 		
 		//Filtrando por nombre de curso
-		if (nombre_curso != null) {
+		if (nombre_curso != "") {
 			for(Curso c : cursos1) {
-				if(!c.getNombre().contains(nombre_curso)){
+				String cnom = normalizar(c.getNombre()).toUpperCase();
+				if(!cnom.contains(nombre_curso)){
 					cursos2.remove(c);
 				}
 			}
@@ -249,4 +251,10 @@ public class ConsultaCursoController {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
+	
+	public String normalizar(String src) {
+        return Normalizer
+                .normalize(src , Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]" , "");
+    }
 }
