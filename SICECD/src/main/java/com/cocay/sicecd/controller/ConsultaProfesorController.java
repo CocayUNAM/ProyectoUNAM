@@ -50,73 +50,9 @@ public class ConsultaProfesorController {
 		}
 	}
 	
-	@RequestMapping(value = "/consultarProfesorRFCList", method = RequestMethod.POST)
-	public ModelAndView consultarProfesorRFCList(ModelMap model, HttpServletRequest request) {
-		String rfcs = request.getParameter("rfc");
-		List<Profesor> list_p = profesor.findByRfcList(rfcs);
-		
-		if(!list_p.isEmpty()) {
-			model.put("profesores", list_p);
-			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
-		} else {
-			return new ModelAndView("/Avisos/ErrorBusqueda");
-		}
-	}
-	
-	@RequestMapping(value = "/consultarProfesorEstado", method = RequestMethod.POST)
-	public ModelAndView consultarProfesorEstado(ModelMap model, HttpServletRequest request) {
-		Integer id_estado = Integer.parseInt(request.getParameter("estados"));
-		
-		List<Profesor> list_p1 = profesor.findAll();
-		List<Profesor> list_p2 = profesor.findAll();
-		
-		if(!list_p1.isEmpty()) {
-			
-			for(Profesor p : list_p1) {
-				if(p.getFk_id_estado().getPk_id_estado() != id_estado) {
-					list_p2.remove(p);
-				}
-			}
-			
-			model.put("profesores", list_p2);
-			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
-		} else {
-			return new ModelAndView("/Avisos/ErrorBusqueda");
-		}
-	}
-	
-	@RequestMapping(value = "/consultarProfesorNombre", method = RequestMethod.POST)
-	public ModelAndView consultarProfesorNombre(ModelMap model, HttpServletRequest request) {
-		String nombre = request.getParameter("nombre");
-		String apellido_paterno = request.getParameter("apellido_paterno");
-		String apellido_materno = request.getParameter("apellido_materno");
-		
-		if (nombre == null) {
-			nombre = "";
-		} else {
-			nombre = nombre.toUpperCase();
-		}
-		if (apellido_paterno == null) {
-			apellido_paterno = "";
-		} else {
-			apellido_paterno = apellido_paterno.toUpperCase();
-		}
-		if (apellido_materno == null) {
-			apellido_materno = "";
-		} else {
-			apellido_materno = apellido_materno.toUpperCase();
-		}
-		
-		List<Profesor> list_p = profesor.findByCompleteNameList(nombre, apellido_paterno, apellido_materno);
-		if(!list_p.isEmpty()) {
-			model.put("profesores", list_p);
-			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
-			
-		} else {
-			return new ModelAndView("/Avisos/ErrorBusqueda");
-		}
-	}
-	
+	/*
+	 * @author Derian Estrada
+	 */
 	@RequestMapping(value = "/consultarProfesorPersonalizado", method = RequestMethod.POST)
 	public ModelAndView consultarProfesorPersonalizado(ModelMap model, HttpServletRequest request) {
 		String curps = request.getParameter("curp").toUpperCase();
