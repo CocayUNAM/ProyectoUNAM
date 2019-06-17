@@ -7,6 +7,7 @@ import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.security.pdf.SeguridadPDF;
 
 import java.util.concurrent.TimeUnit;
 import java.io.BufferedInputStream;
@@ -67,7 +68,7 @@ public class CertificadoMasivoController {
 	 * 
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 41 13 * * ?")
+	@Scheduled(cron = "0 17 18 * * ?")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost(URL_RSM);
@@ -97,6 +98,7 @@ public class CertificadoMasivoController {
 					System.out.println("**\n" + p.getCorreo()+ "\n" + caux.getNombre() + "\n**");
 					json.put("correo" + k, p.getCorreo());
 					json.put("curso" + k, caux.getNombre());
+					json.put("id_curso" + k, caux.getPk_id_curso());
 					json.put("tiempo" + k, 0);
 					System.out.println("Se insertaron elementos en el JSON (certificados no presentes)");
 					k++;
@@ -107,6 +109,7 @@ public class CertificadoMasivoController {
 				System.out.println("**\n" + p.getCorreo()+ "\n" + c.getFk_id_curso().getNombre() + "\n**");
 				json.put("correo" + k, p.getCorreo());
 				json.put("curso" + k, c.getFk_id_curso().getNombre());
+				json.put("id_curso" + k, c.getFk_id_curso().getPk_id_curso());
 				json.put("tiempo" + k, c.getTiempo_creado());
 				System.out.println("Se insertaron elementos en el JSON (certificadospresentes)");
 				k++;
@@ -201,12 +204,13 @@ public class CertificadoMasivoController {
 		}
 		// comienza a mover los pdfs a la ruta elegida
 		for (File f : tmp.listFiles()) {
-			Curso c = bd_curso.findByNombre(f.getName());
+			Curso c = bd_curso.findByID(Integer.parseInt(f.getName()));
+			//Curso c = bd_curso.findByNombre(f.getName());
 			JSONObject ar = new JSONObject(json_r.get(f.getName()).toString());
 			for (File f2 : f.listFiles()) {
 				Profesor p = bd_profesor.findByCorreo(f2.getName());
 				for (File f3 : f2.listFiles()) {
-					String pt = RUTA_LOCAL + c.getNombre() + "/" + p.getPk_id_profesor() + "_" + f3.getName();
+					String pt = RUTA_LOCAL + c.getNombre() + "/" + c.getNombre() + "_" + p.getPk_id_profesor() + ".pdf"; //+ f3.getName();
 					FileInputStream fs = new FileInputStream(f3);
 					File aux = new File(pt);
 					new File(aux.getParent()).mkdirs();
@@ -218,6 +222,9 @@ public class CertificadoMasivoController {
 					} catch (Exception e) {
 						System.out.println(e);
 					}
+					SeguridadPDF spdf = new SeguridadPDF();
+					String nombrec = p.getNombre() + " " + p.getApellido_paterno() + " " + p.getApellido_materno();
+					spdf.cifraPdf(pt, nombrec, c.getNombre());
 					f3.delete();// elimina archivo
 					Certificado cert = bd_certificado.findByRuta(pt);
 					if(cert == null) {

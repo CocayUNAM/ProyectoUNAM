@@ -1,40 +1,24 @@
 package com.cocay.sicecd.controller;
 
 import com.cocay.sicecd.model.Curso;
-import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.model.Certificado;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.security.pdf.SeguridadPDF;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.zip.*;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -97,9 +81,9 @@ public class ClienteCertificadoController {
 		}
 		String string_pdf = (String) json.get("bytespdf");
 		byte[] bytearray = java.util.Base64.getDecoder().decode(string_pdf);
-		String aux = (String) json.get("nombre_archivo");
-		String na = new String(java.util.Base64.getDecoder().decode(aux),Charset.forName("UTF-8"));
-		String path = RUTA_LOCAL + curso.getNombre() + "/" + profesor.getPk_id_profesor() + "_" + na + ".pdf";
+		//String aux = (String) json.get("nombre_archivo");
+		//String na = new String(new String(java.util.Base64.getDecoder().decode(aux),"ISO-8859-1").getBytes("UTF-8"),"UTF-8");
+		String path = RUTA_LOCAL + curso.getNombre() + "/" + curso.getNombre() + "_" + profesor.getPk_id_profesor() + ".pdf";
 		File out = new File(path);
 		new File(out.getParent()).mkdirs();
 		try (FileOutputStream os = new FileOutputStream(out)) {
@@ -108,6 +92,9 @@ public class ClienteCertificadoController {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		SeguridadPDF spdf = new SeguridadPDF();
+		String nombrec = profesor.getNombre() + " " + profesor.getApellido_paterno() + " " + profesor.getApellido_materno();
+		spdf.cifraPdf(path, nombrec, curso.getNombre());
 		cert.setTiempo_creado(Long.parseLong((String) json.get("tiempo")));
 		cert.setRuta(path);
 		bd_certificado.save(cert);
