@@ -21,10 +21,13 @@ public class Log_evento_sys {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_log_evento_sys")
 	int pk_id_log_evento_sys;
+	
 	@Column(name = "nombre")
 	String nombre;
+	
 	@OneToMany(mappedBy = "fk_id_log_evento_sys", targetEntity=Log_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
+	
 	private List<Log_sys> Log_sys_s = new ArrayList<>();
 
 	public int getPk_id_log_evento_sys() {

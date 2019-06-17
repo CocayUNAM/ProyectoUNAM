@@ -4,133 +4,96 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="/css/pass.css">
 <title>Configuracion de contraseña</title>
-<link href="/css/lib/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
-body, html {
-	margin: 0%;
-	padding: 0%;
-}
 
-#contenedor {
-	display: grid;
-	margin: 0 auto;
-	grid-template-rows: 20% 80%;
-	grid-template-areas: "header" "cuadro";
-	width: 50%;
-	height: 50%;
-	box-sizing: content-box;
-}
-
-#header {
-	text-align: center;
-	grid-row-start: header;
-	grid-row-end: header;
-}
-
-#cuadro {
-	width: 50%;
-	padding: 5%;
-	margin: 0 auto;
-	grid-row-start: cuadro;
-	grid-row-end: cuadro;
-	display: grid;
-	grid-template-rows: 1fr 1fr 1fr;
-	grid-template-areas: "col1" "col2" "col3";
-	box-shadow: 0px 0px 5px #888888;
-	box-sizing: content-box;
-}
-
-#col1 {
-	grid-row-start: col1;
-	grid-row-end: col1;
-}
-
-#col2 {
-	grid-row-start: col2;
-	grid-row-end: col2;
-}
-
-#col3 {
-	grid-row-start: col3;
-	grid-row-end: col3;
-	display: flex;
-	justify-content: right;
-}
-</style>
+	<style>
+		.button {
+			background-color: #4CAF50; /* Green */
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
+	</style>
 </head>
 
 <body>
 
-	<div id="contenedor">
-		<div id="header">
+<br><br><br><br>
 
-			<h1>Configuracion de contraseña</h1>
-		</div>
-		<form id="cuadro" method="post" th:action="@{/activacion}">
+<h1><span>Configura tu contraseña</span></h1>
+<form id="myform" method="post" th:action="@{/activacion}" accept-charset="utf-8">
 
-			<div class="form-group" id="col1">
-				<label for="contrasena">Contraseña</label> <input type="password"
-					class="form-control" id="contrasena" name="contrasena" required>
-			</div>
-			<div class="form-group" id="col2">
-				<label for="confirma">Confirma contraseña</label> <input
-					type="password" class="form-control" id="confirma" name="confirma"
-					required>
-			</div>
-			<div class="form-group" id="col3">
-				<button type="submit" class="btn btn-primary">Enviar</button>
-			</div>
-		</form>
-	</div>
+	<input id="myPassword" type="password" name="contrasena"  value="" data-toggle="tooltip" data-placement="bottom"
+		   title="Almenos 8 caracteres
+                1 Letra Mayuscula
+                1 Letra Minuscula
+                1 Numero" required>
+	<br><br><br><br>
+	<button type="submit" class="button">Enviar</button>
 
-	<script th:inline="javascript">
-
-		/*<![CDATA[*/
-
-		var ida = [[${id}]];
-		var codigo = [[${codigo}]];
-			/*]]>*/
-		let form = document.getElementById("cuadro");
-		let idi = document.createElement("input"); // Crea un elemento input
-		with (idi) {
-			setAttribute("id", "id"); 
-			setAttribute("name", "id"); 
-			setAttribute("type", "hidden"); 
-			setAttribute("value", ida); 
-		}
-		form.appendChild(idi);
-
-		let codigoi = document.createElement("input"); 
-		with (codigoi) {
-			setAttribute("id", "codigo"); 
-			setAttribute("name", "codigo"); 
-			setAttribute("type", "hidden");
-			setAttribute("value", codigo);
-		}
-		form.appendChild(codigoi);
-	</script>
+</form>
 
 
 
-	<!-- jquery vendor -->
-	<!-- 	<script src="/js/lib/jquery.min.js"></script>  -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="/js/lib/jquery.nanoscroller.min.js"></script>
-	<!-- nano scroller -->
-	<script src="/js/lib/menubar/sidebar.js"></script>
-	<script src="/js/lib/preloader/pace.min.js"></script>
-	<!-- sidebar -->
-	<!-- bootstrap -->
-	<!-- Select2 -->
-	<script src="/js/lib/select2/select2.full.min.js"></script>
-	<script src="/js/lib/form-validation/jquery.validate.min.js"></script>
-	<script src="/js/lib/form-validation/jquery.validate-init.js"></script>
-	<script src="/js/lib/bootstrap.min.js"></script>
-	<script src="/js/scripts.js"></script>
+
+
+
 
 
 </body>
+
+<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="/js/strength.js"></script>
+
+<script th:inline="javascript">
+
+	/*<![CDATA[*/
+
+	var ida = [[${id}]];
+	var codigo = [[${codigo}]];
+	/*]]>*/
+	let form = document.getElementById("myform");
+	let idi = document.createElement("input"); // Crea un elemento input
+	with (idi) {
+		setAttribute("id", "id");
+		setAttribute("name", "id");
+		setAttribute("type", "hidden");
+		setAttribute("value", ida);
+	}
+	form.appendChild(idi);
+
+	let codigoi = document.createElement("input");
+	with (codigoi) {
+		setAttribute("id", "codigo");
+		setAttribute("name", "codigo");
+		setAttribute("type", "hidden");
+		setAttribute("value", codigo);
+	}
+	form.appendChild(codigoi);
+</script>
+
+<script>
+
+	$(document).ready(function ($) {
+
+		$('#myPassword').strength({
+			strengthClass: 'strength',
+			strengthMeterClass: 'strength_meter',
+			strengthButtonClass: 'button_strength',
+			strengthButtonText: 'Show Password',
+			strengthButtonTextToggle: 'Hide Password'
+		});
+
+	});
+
+</script>
+
 
 </html>
