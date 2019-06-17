@@ -19,7 +19,7 @@ Fecha: 25/03/2019
 Accion: Creacion de la Base de Datos
 */
 CREATE DATABASE "SICECD"
-    WITH 
+    WITH
     OWNER = "SICECD"
     ENCODING = 'UTF8'
     LC_COLLATE = 'Spanish_Spain.1252'
@@ -160,15 +160,28 @@ CREATE TABLE Tipo_curso(
   pk_id_tipo_curso SERIAL PRIMARY KEY,
   nombre VARCHAR(70)
 );
-
+CREATE TABLE Tipo_curso(
+  pk_id_tipo_curso SERIAL PRIMARY KEY,
+  nombre VARCHAR(70)
+);
+/*
+Autor: Jorge Erick Rivera Lopez
+Fecha: 24/04/2019
+Accion Creacion de tabla para certificados
+*/
+CREATE TABLE Certificado(
+  pk_id_certificado SERIAL PRIMARY KEY,
+  fk_id_profesor INTEGER NOT NULL,
+  ruta VARCHAR(200) NOT NULL,
+  fk_id_curso INTEGER NOT NULL
+);
 /*
 Autor: Juan Carlos Hernández de Anda
 Fecha: 01/04/2019
 Accion: Corrección de llave foranea
 */
---ALTER TABLE Curso DROP CONSTRAINT curso_fk_id_tipo_curso_fkey;
-ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Tipo_curso (pk_id_tipo_curso) ON DELETE CASCADE;
 
+ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Tipo_curso (pk_id_tipo_curso) ON DELETE CASCADE;
 ALTER TABLE Usuario_sys ADD FOREIGN KEY(fk_id_estatus_usuario_sys) REFERENCES Estatus_usuario_sys (pk_estatus_usuario_sys ) ON DELETE CASCADE;
 ALTER TABLE Usuario_sys ADD FOREIGN KEY(fk_id_perfil_sys) REFERENCES Perfil_sys (pk_id_perfil_sys ) ON DELETE CASCADE;
 ALTER TABLE Log_sys ADD FOREIGN KEY(fk_id_usuario_sys) REFERENCES Usuario_sys (pk_id_usuario_sys ) ON DELETE CASCADE;
@@ -180,47 +193,43 @@ ALTER TABLE Grupo ADD FOREIGN KEY(fk_id_curso) REFERENCES Curso (pk_id_curso ) O
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_grupo) REFERENCES Grupo (pk_id_grupo ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_profesor) REFERENCES Profesor (pk_id_profesor ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD calificacion VARCHAR(5);
-
---DROP TABLE Log_sys;
---DROP TABLE Log_evento_sys;
---DROP TABLE Usuario_sys;
---DROP TABLE Estatus_usuario_sys;
---DROP TABLE Perfil_sys;
---DROP TABLE Grado_profesor;
---DROP TABLE Turno;
---DROP TABLE Genero;
---DROP TABLE Estado;
---DROP TABLE Inscripcion;
---DROP TABLE Grupo;
---DROP TABLE Curso;
---DROP TABLE Profesor;
---DROP TABLE Tipo_curso;
-
-
-
-
-/*
-Autor: Juan Carlos Hernández de Anda
-Fecha: 25/03/2019
-Accion: Creacion de la tabla Tipo_curso
-*/
 ALTER TABLE Curso DROP CONSTRAINT curso_fk_id_tipo_curso_fkey;
 ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Tipo_curso (pk_id_tipo_curso) ON DELETE CASCADE;
-
-CREATE TABLE Tipo_curso(
-  pk_id_tipo_curso SERIAL PRIMARY KEY,
-  nombre VARCHAR(70)
-);
 ALTER TABLE Curso ADD FOREIGN KEY(fk_id_tipo_curso) REFERENCES Estado (pk_id_estado ) ON DELETE CASCADE;
-
---DROP TABLE Tipo_curso;
-
+ALTER TABLE public.certificado OWNER to "SICECD";
+/*
+Autor: Juan Carlos Hernández de Anda
+Fecha: 11/04/2019
+Accion: Creacion de datos de los catalogos y datos de prueba
+*/
+ALTER TABLE public.curso OWNER to "SICECD";
+ALTER TABLE public.estado OWNER to "SICECD";
+ALTER TABLE public.estatus_usuario_sys OWNER to "SICECD";
+ALTER TABLE public.genero OWNER to "SICECD";
+ALTER TABLE public.grado_profesor OWNER to "SICECD";
+ALTER TABLE public.grupo OWNER to "SICECD";
+ALTER TABLE public.inscripcion OWNER to "SICECD";
+ALTER TABLE public.log_evento_sys OWNER to "SICECD";
+ALTER TABLE public.log_sys OWNER to "SICECD";
+ALTER TABLE public.perfil_sys OWNER to "SICECD";
+ALTER TABLE public.profesor OWNER to "SICECD";
+ALTER TABLE public.tipo_curso OWNER to "SICECD";
+ALTER TABLE public.turno OWNER to "SICECD";
+ALTER TABLE public.usuario_sys OWNER to "SICECD";
+ALTER TABLE Certificado ADD FOREIGN KEY (fk_id_curso) REFERENCES Curso(pk_id_curso);
+ALTER TABLE Certificado ADD FOREIGN KEY (fk_id_profesor) REFERENCES Profesor(pk_id_profesor);
+/*
+Autor: Jorge Erick Rivera Lopez
+Fecha: 04/05/2019
+Accion: Agrega campo sobre tiempo de creacion de certificado
+*/
+ALTER TABLE Certificado ADD tiempo_creado bigint default 0;
 /*
 Autor: Juan Carlos Hernández de Anda
 Fecha: 10/04/2019
 Accion: Creacion de datos de los catalogos y datos de prueba
 */
-TRUNCATE TABLE public.inscripcion, public.grupo, public.curso, public.profesor, public.estado, 
+TRUNCATE TABLE public.inscripcion, public.grupo, public.curso, public.profesor, public.estado,
 public.genero, public.grado_profesor, public.turno, public.tipo_curso, public.estado_profesores,
 public.estatus_usuario_sys_usuarios, public.test_class, public.log_sys, public.usuario_sys, public.estatus_usuario_sys, public.perfil_sys
 RESTART IDENTITY;
@@ -228,34 +237,25 @@ COMMIT;
 
 INSERT INTO public.perfil_sys(nombre) VALUES ('Administrador');
 INSERT INTO public.perfil_sys(nombre) VALUES ('Consultas');
-
 INSERT INTO public.estatus_usuario_sys(nombre) VALUES ('Activo');
 INSERT INTO public.estatus_usuario_sys(nombre) VALUES ('Inactivo');
-
-INSERT INTO public.usuario_sys(rfc, password, correo, nombre,  apellido_paterno, apellido_materno, confirmacion, codigo, confirmacioncorreo,codigo_correo,correocambio,codigorecupera, confirmarecupera, fk_id_estatus_usuario_sys, fk_id_perfil_sys) 
+INSERT INTO public.usuario_sys(rfc, password, correo, nombre,  apellido_paterno, apellido_materno, confirmacion, codigo, confirmacioncorreo,codigo_correo,correocambio,codigorecupera, confirmarecupera, fk_id_estatus_usuario_sys, fk_id_perfil_sys)
 VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'francisco3122151@gmail.com','franki', 'mcs', 'panki', 'false',123,'false',789,'',101,'false',1, 1);--123456789
-
-
-
 INSERT INTO public.tipo_curso(nombre) VALUES ('Curso');
 INSERT INTO public.tipo_curso(nombre) VALUES ('Diplomado');
 INSERT INTO public.tipo_curso(nombre) VALUES ('Especialidad');
-
 INSERT INTO public.turno(nombre) VALUES ('Matutino');
 INSERT INTO public.turno(nombre) VALUES ('Vepertino');
 INSERT INTO public.turno(nombre) VALUES ('Completo');
 INSERT INTO public.turno(nombre) VALUES('Sin definir');
-
 INSERT INTO public.grado_profesor(nombre) VALUES ('Lic.');
 INSERT INTO public.grado_profesor(nombre) VALUES ('Esp.');
 INSERT INTO public.grado_profesor(nombre) VALUES ('Mtr.');
 INSERT INTO public.grado_profesor(nombre) VALUES ('Doc.');
 INSERT INTO public.grado_profesor(nombre) VALUES ('Sin definir');
-
 INSERT INTO public.genero(genero) VALUES ('Masculino');
 INSERT INTO public.genero(genero) VALUES ('Femenino');
 INSERT INTO public.genero(genero) VALUES('Sin definir');
-
 INSERT INTO public.estado(nombre) VALUES ('Aguascalientes');
 INSERT INTO public.estado(nombre) VALUES ('Baja California');
 INSERT INTO public.estado(nombre) VALUES ('Baja California Sur');
@@ -290,20 +290,13 @@ INSERT INTO public.estado(nombre) VALUES ('Yucatán');
 INSERT INTO public.estado(nombre) VALUES ('Zacatecas');
 INSERT INTO public.estado(nombre) VALUES ('Sin definir');
 COMMIT;
-
-INSERT INTO public.usuario_sys(rfc, password, correo, nombre,  apellido_paterno, apellido_materno, confirmacion, codigo, confirmacioncorreo,codigo_correo,correocambio,codigorecupera, confirmarecupera, fk_id_estatus_usuario_sys, fk_id_perfil_sys) 
+INSERT INTO public.usuario_sys(rfc, password, correo, nombre,  apellido_paterno, apellido_materno, confirmacion, codigo, confirmacioncorreo,codigo_correo,correocambio,codigorecupera, confirmarecupera, fk_id_estatus_usuario_sys, fk_id_perfil_sys)
 VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'francisco3122151@gmail.com','franki', 'mcs', 'panki', 'false',123,'false',789,'',101,'false',1, 1);--123456789
-
-
-
-
 INSERT INTO public.usuario_sys(rfc, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys) VALUES ('BBBB801201SN9', '$2a$10$8n2o/aSS96.kisZBBMzdM.BwOryAWdFwFlsjIWFvIkObYJ8Na/2O2', 'benitez@unam.mx', 1, 2);--1234567890
-
 INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Raul', 'Lopez', 'Diaz', 'LODR800505MMM', 'raul@unam.mx', 1, 1, 1, 1);
 INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Maria', 'Martinez', 'Ordaz', 'MAOM800505MMM', 'maria@unam.mx', 1, 1, 1, 1);
 INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Irma', 'Villa', 'Salinas', 'VISI800505MMM', 'irma@unam.mx', 1, 1, 1, 1);
 INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Gerardo', 'Gutierrez', 'Pliego', 'GUPG800505MMM', 'gerardo@unam.mx', 1, 1, 1, 1);
-
 INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A001', 'Biologia 1', 1, 40);
 INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A002', 'Biologia 2', 1, 40);
 INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A003', 'Biologia 3', 1, 40);
@@ -311,67 +304,22 @@ INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A004',
 INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B001', 'Matematicas 1', 1, 40);
 INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B002', 'Matematicas 2', 1, 40);
 INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B003', 'Matematicas 3', 1, 40);
-
 INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (1, '001', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
 INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (1, '002', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
 INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (5, '001', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
 COMMIT;
-
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (1, 1);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (2, 2);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (3, 3);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (1, 4);
 COMMIT;
-
-/*
-Autor: Juan Carlos Hernández de Anda
-Fecha: 11/04/2019
-Accion: Creacion de datos de los catalogos y datos de prueba
-*/
-ALTER TABLE public.curso OWNER to "SICECD";
-ALTER TABLE public.estado OWNER to "SICECD";
-ALTER TABLE public.estatus_usuario_sys OWNER to "SICECD";
-ALTER TABLE public.genero OWNER to "SICECD";
-ALTER TABLE public.grado_profesor OWNER to "SICECD";
-ALTER TABLE public.grupo OWNER to "SICECD";
-ALTER TABLE public.inscripcion OWNER to "SICECD";
-ALTER TABLE public.log_evento_sys OWNER to "SICECD";
-ALTER TABLE public.log_sys OWNER to "SICECD";
-ALTER TABLE public.perfil_sys OWNER to "SICECD";
-ALTER TABLE public.profesor OWNER to "SICECD";
-ALTER TABLE public.tipo_curso OWNER to "SICECD";
-ALTER TABLE public.turno OWNER to "SICECD";
-ALTER TABLE public.usuario_sys OWNER to "SICECD";
-
-/*
-Autor: Jorge Erick Rivera Lopez
-Fecha: 24/04/2019
-Accion Creacion de tabla para certificados
-*/
-CREATE TABLE Certificado(
-  pk_id_certificado SERIAL PRIMARY KEY,
-  fk_id_profesor INTEGER NOT NULL,
-  ruta VARCHAR(200) NOT NULL,
-  fk_id_curso INTEGER NOT NULL
-);
-ALTER TABLE Certificado ADD FOREIGN KEY (fk_id_curso) REFERENCES Curso(pk_id_curso);
-ALTER TABLE Certificado ADD FOREIGN KEY (fk_id_profesor) REFERENCES Profesor(pk_id_profesor);
 INSERT INTO curso (clave,nombre,fk_id_tipo_curso,horas) VALUES ('A005','COSDAC 2018',1,40);
 INSERT INTO profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Abraham', 'Diaz', 'Diaz', 'ABDI800505MMM', 'asmaharba@gmail.com', 1, 1, 1, 1);
-ALTER TABLE public.certificado OWNER to "SICECD";
-
-/*
-Autor: Jorge Erick Rivera Lopez
-Fecha: 04/05/2019
-Accion: Agrega campo sobre tiempo de creacion de certificado
-*/
-ALTER TABLE Certificado ADD tiempo_creado bigint default 0;
 /*
 Autor: Jorge Erick Rivera Lopez
 Fecha: 12/05/2019
 Accion: Agrega informacion para prueba de extraccion de certificados.
 */
-
 INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (8, '003', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
 INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Lourdes', 'Diaz', 'Diaz', 'LBDI800505MMM', 'matyap59@hotmail.com', 1, 1, 1, 1);
 INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Maria', 'Diaz', 'Diaz', 'MBDI800505MMM', 'mahalymf@hotmail.com', 1, 1, 1, 1);
