@@ -19,16 +19,8 @@
 <link href="css/lib/bootstrap.min.css" rel="stylesheet">
 <link href="css/lib/helper.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<link href="css/query_style.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  
-<style>
-  /* Icon when the collapsible content is shown */
-  .btn-query:after {
-    font-family: "Glyphicons Halflings";
-    content: "\e114";
-    margin-left: 15px;
-  }
-</style>
 
 </head>
 <body>
@@ -57,7 +49,7 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/consultaCursoPersonalizado" method="post" target="_blank">
+										<form action="/consultaSimpleCurso" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consulta de Cursos</h4>
 												<label>Nombre</label>
@@ -65,16 +57,16 @@
 												<label>Clave</label>
 													<input type="text" name="clave_curso" class="form-control" text="0000">
 												<label>Tipo de Curso</label>
-													<select name="tipos" class="form-control" data-placeholder=" ">
+													<select name="tipos_cursos" class="form-control" data-placeholder=" ">
 														<option value="4">Sin definir</option>
 														<option value="1">Curso</option>
 														<option value="2">Diplomado</option>
 														<option value="3">Especialidad</option>
 													</select>
 												<label>Fecha de Inicio</label>
-													<input type="date" class="form-control" name="fecha_inicio_curso_1">
+													<input type="date" class="form-control" name="fecha_inicio_curso">
 												<label>Fecha de Término</label>
-													<input type="date" class="form-control" name="fecha_fin_curso_1">
+													<input type="date" class="form-control" name="fecha_fin_curso">
 											</div>
 											<button type="submit" class="btn btn-default">Consultar</button>
 										</form>
@@ -101,7 +93,7 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/consultaCursoPersonalizado" method="post" target="_blank">
+										<form action="/consultaAvanzadaCurso" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consulta Avanzada</h4>
 												<label>Nombre</label>

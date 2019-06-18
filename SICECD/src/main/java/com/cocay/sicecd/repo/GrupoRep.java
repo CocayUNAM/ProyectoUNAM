@@ -38,7 +38,20 @@ public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
 	
 	/*
 	 * @author Derian Estrada
-	 * Consultas por Fecha
+	 * Consultas Simples por Fecha
+	 */
+	@Query(value = "SELECT * FROM Grupo WHERE fecha_inicio = :fecha_ini", nativeQuery = true)
+	List<Grupo> findByFechaInicio(@Param("fecha_ini") Date fecha_ini);
+	
+	@Query(value = "SELECT * FROM Grupo WHERE fecha_fin = :fecha_fin", nativeQuery = true)
+	List<Grupo> findByFechaFin(@Param("fecha_fin") Date fecha_fin);
+	
+	@Query(value = "SELECT * FROM Grupo WHERE fecha_inicio = :fecha_ini AND fecha_fin = :fecha_fin", nativeQuery = true)
+	List<Grupo> findByFecha(@Param("fecha_ini") Date fecha_ini, @Param("fecha_fin") Date fecha_fin);
+	
+	/*
+	 * @author Derian Estrada
+	 * Consultas Avanzadas por Fecha
 	 */
 	@Query(value = "SELECT * FROM Grupo WHERE fecha_inicio >= :fecha_ini_1 AND fecha_inicio <= :fecha_ini_2", nativeQuery = true)
 	List<Grupo> findByFechaInicio(@Param("fecha_ini_1") Date fecha_ini_1, @Param("fecha_ini_2") Date fecha_ini_2);

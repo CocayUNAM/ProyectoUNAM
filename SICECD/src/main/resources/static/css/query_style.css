@@ -1,0 +1,9 @@
+.btn-query:after {
+	font-family: "Glyphicons Halflings";
+	content: "\e113";
+	margin-left: 15px;
+}
+
+.btn-query.collapsed:after {
+	content: "\e114";
+}
