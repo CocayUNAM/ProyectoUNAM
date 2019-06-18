@@ -19,6 +19,17 @@
 <link href="css/lib/bootstrap.min.css" rel="stylesheet">
 <link href="css/lib/helper.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  
+<style>
+  /* Icon when the collapsible content is shown */
+  .btn-query:after {
+    font-family: "Glyphicons Halflings";
+    content: "\e114";
+    margin-left: 15px;
+  }
+</style>
+
 </head>
 <body>
 	<div th:replace="/includes/head.html :: head_div1" />
@@ -29,30 +40,81 @@
 		<div class="main">
 			<div class="container-fluid">
 				<section id="main-content">
+				
+					<!-- START CONTAINER CONSULTA SIMPLE -->
+					<div class="container">
 					
-					<!-- START ROW -->
-					<div class="row">
-						
-						<!-- START CONSULTAR CURSO PERSONALIZADO -->
-						<div class="col-lg-6">
+						<!-- START CONSULTA DE CURSOS -->
+						<div class="panel-heading">
+            				<h4 class="panel-title">
+              					<button type="button" class="btn btn-query btn-default collapsed" data-toggle="collapse" data-target="#consulta">
+              					Consulta Cursos
+              					</button>
+            				</h4>
+          				</div>
+          			
+          				<div id="consulta" class="col-lg-6 collapse">
 							<div class="card">
-								<div class="card-title"></div>
 								<div class="card-body">
 									<div class="basic-form">
 										<form action="/consultaCursoPersonalizado" method="post" target="_blank">
 											<div class="form-group">
-												<h4>Consulta Personalizada</h4>
+												<h4>Consulta de Cursos</h4>
 												<label>Nombre</label>
 													<input type="text" name="nombre_curso" class="form-control">
 												<label>Clave</label>
 													<input type="text" name="clave_curso" class="form-control" text="0000">
 												<label>Tipo de Curso</label>
-                                                    <select name="tipos" class="form-control" data-placeholder=" ">
-                                                    	<option value="4">Sin definir</option>
-                                                        <option value="1">Curso</option>
+													<select name="tipos" class="form-control" data-placeholder=" ">
+														<option value="4">Sin definir</option>
+														<option value="1">Curso</option>
 														<option value="2">Diplomado</option>
 														<option value="3">Especialidad</option>
-                                                    </select>
+													</select>
+												<label>Fecha de Inicio</label>
+													<input type="date" class="form-control" name="fecha_inicio_curso_1">
+												<label>Fecha de Término</label>
+													<input type="date" class="form-control" name="fecha_fin_curso_1">
+											</div>
+											<button type="submit" class="btn btn-default">Consultar</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END CONSULTA DE CURSOS -->
+					</div>
+					<!-- END CONTAINER CONSULTA SIMPLE -->
+					
+					<!-- START CONTAINER CONSULTA AVANZADA -->
+					<div class="container">
+					
+						<!-- START CONSULTA DE CURSOS AVANZADA -->
+						<div class="panel-heading">
+            				<h4 class="panel-title">
+              					<button type="button" class="btn btn-query btn-default collapsed" data-toggle="collapse" data-target="#consulta_avanzada">
+              					Consulta Avanzada
+              					</button>
+            				</h4>
+          				</div>
+						<div id="consulta_avanzada" class="col-lg-6 collapse">
+							<div class="card">
+								<div class="card-body">
+									<div class="basic-form">
+										<form action="/consultaCursoPersonalizado" method="post" target="_blank">
+											<div class="form-group">
+												<h4>Consulta Avanzada</h4>
+												<label>Nombre</label>
+													<input type="text" name="nombre_curso" class="form-control">
+												<label>Clave</label>
+													<input type="text" name="clave_curso" class="form-control" text="0000">
+												<label>Tipo de Curso</label>
+													<select name="tipos" class="form-control" data-placeholder=" ">
+														<option value="4">Sin definir</option>
+														<option value="1">Curso</option>
+														<option value="2">Diplomado</option>
+														<option value="3">Especialidad</option>
+													</select>
 												<label>Fecha de Inicio</label>
 													<input type="date" class="form-control" name="fecha_inicio_curso_1">
 													<input type="date" class="form-control" name="fecha_inicio_curso_2" disabled required>
@@ -66,21 +128,21 @@
 								</div>
 							</div>
 						</div>
-						<!-- END CONSULTAR CURSO PERSONALIZADO -->
+						<!-- END CONSULTA DE CURSOS AVANZADA -->
 						
 					</div>
-					<!-- END ROW -->
-				</section>
-				
-				<!-- START DERECHOS -->
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="footer">
-							<p>2018 © SICCED</p>
+					<!-- END CONTAINER CONSULTA AVANZADA -->
+					
+					<!-- START DERECHOS -->
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="footer">
+								<p>2019 © SICCED</p>
+							</div>
 						</div>
 					</div>
-				</div>
-				<!-- END DERECHOS -->
+					<!-- END DERECHOS -->
+				</section>
 				
             </div>
         </div>

@@ -19,6 +19,16 @@
 <link href="css/lib/bootstrap.min.css" rel="stylesheet">
 <link href="css/lib/helper.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  
+<style>
+  /* Icon when the collapsible content is shown */
+  .btn-query:after {
+    font-family: "Glyphicons Halflings";
+    content: "\e114";
+    margin-left: 15px;
+  }
+</style>
 </head>
 <body>
 	<div th:replace="/includes/head.html :: head_div1" />
@@ -29,19 +39,67 @@
 		<div class="main">
 			<div class="container-fluid">
 				<section id="main-content">
+				
+					<!-- START CONTAINER CONSULTA SIMPLE -->
+					<div class="container">
 					
-					<!-- START ROW -->
-					<div class="row">
+						<!-- START CONSULTA DE GRUPOS -->
+						<div class="panel-heading">
+            				<h4 class="panel-title">
+              					<button type="button" class="btn btn-query btn-default collapsed" data-toggle="collapse" data-target="#consulta">
+              					Consulta Grupos
+              					</button>
+            				</h4>
+          				</div>
 						
-						<!-- START CONSULTAR GRUPO PERSONALIZADO -->
-						<div class="col-lg-6">
+						<div id="consulta" class="col-lg-6 collapse">
 							<div class="card">
 								<div class="card-title"></div>
 								<div class="card-body">
 									<div class="basic-form">
 										<form action="/consultaGrupoPersonalizado" method="post" target="_blank">
 											<div class="form-group">
-												<h4>Consulta Personalizada</h4>
+												<h4>Consulta de Grupos</h4>
+												<label>Clave del grupo</label>
+													<input type="text" name="clave_grupo" class="form-control" text="0000">
+												<label>Clave del curso</label>
+													<input type="text" name="curso_grupo" class="form-control">
+												<label>Fecha de Inicio</label>
+													<input type="date" class="form-control" name="fecha_inicio_grupo_1">
+												<label>Fecha de Término</label>
+													<input type="date" class="form-control" name="fecha_fin_grupo_1">
+											</div>
+											<button type="submit" class="btn btn-default">Consultar</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END CONSULTA DE GRUPOS -->
+						
+					</div>
+					<!-- END CONTAINER CONSULTA SIMPLE -->
+					
+					<!-- START CONTAINER CONSULTA AVANZADA -->
+					<div class="container">
+					
+						<!-- START CONSULTA DE GRUPOS AVANZADA -->
+						<div class="panel-heading">
+            				<h4 class="panel-title">
+              					<button type="button" class="btn btn-query btn-default collapsed" data-toggle="collapse" data-target="#consulta_avanzada">
+              					Consulta Avanzada
+              					</button>
+            				</h4>
+          				</div>
+						
+						<div id="consulta_avanzada" class="col-lg-6 collapse">
+							<div class="card">
+								<div class="card-title"></div>
+								<div class="card-body">
+									<div class="basic-form">
+										<form action="/consultaGrupoPersonalizado" method="post" target="_blank">
+											<div class="form-group">
+												<h4>Consulta Avanzada</h4>
 												<label>Clave del grupo</label>
 													<input type="text" name="clave_grupo" class="form-control" text="0000">
 												<label>Clave del curso</label>
@@ -59,10 +117,10 @@
 								</div>
 							</div>
 						</div>
-						<!-- END CONSULTAR GRUPO PERSONALIZADO -->
+						<!-- END CONSULTA DE GRUPOS AVANZADA -->
 						
 					</div>
-					<!-- END ROW -->
+					<!-- END CONTAINER CONSULTA AVANZADA -->
 				</section>
 				
 				<!-- START DERECHOS -->
