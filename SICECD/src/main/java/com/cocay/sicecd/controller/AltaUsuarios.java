@@ -2,6 +2,7 @@ package com.cocay.sicecd.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cocay.sicecd.service.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,6 +34,8 @@ public class AltaUsuarios {
 	Perfil_sysRep perfilSys;
 	@Autowired
 	SendMailService _email;
+	@Autowired
+	Logging log;
 	
 	
 	//Alta usuario
@@ -102,18 +105,13 @@ public class AltaUsuarios {
 		return "redirect:/login?mensaje=Ya puedes realizar login";
 	}
 	
-	@GetMapping("/prueba")
+	@GetMapping("/AdministracionCursos/prueba")
 	@ResponseBody
-	public  List<String> prueba() {
-		
-		Usuario_sys candidato= (_usuarioSys.findById(5)).get();
-		candidato.setConfirmacioncorreo("false");
-		_usuarioSys.save(candidato);
-		List<String> lista =new ArrayList<>();
-		lista.add("hola1");
-		lista.add("hola2");
+	public String prueba() {
 
-		return lista;
+		log.setTrace("prueba");
+		log.setTrace("prueba", "hola");
+		return "hola";
 	}
 }
 
