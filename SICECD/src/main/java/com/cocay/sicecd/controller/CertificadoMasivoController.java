@@ -9,18 +9,15 @@ import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.security.pdf.SeguridadPDF;
 
-import java.util.concurrent.TimeUnit;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
@@ -29,33 +26,31 @@ import java.util.zip.*;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.config.ScheduledTask;
 import org.json.*;
 
 @Component
 @PropertySource(ignoreResourceNotFound = true, value = "classpath:application-cert.properties")
 public class CertificadoMasivoController {
-	private static final Logger logger = LoggerFactory.getLogger(ScheduledTask.class);
-	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	
 	@Value("${ws.ruta_local}")
 	private String RUTA_LOCAL;
 	@Value("${ws.url_rsm}")
 	private String URL_RSM;
 	@Value("${ws.temp_zip}")
 	private String TEMP_ZIP;
+	@Value("${ws.clave}")
+	private String clave;
 	@Autowired
 	CertificadoRep bd_certificado;
 	@Autowired
@@ -68,7 +63,7 @@ public class CertificadoMasivoController {
 	 * 
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 17 18 * * ?")
+	@Scheduled(cron = "0 10 19 * * ?")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost(URL_RSM);
@@ -122,6 +117,7 @@ public class CertificadoMasivoController {
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 		params.add(new BasicNameValuePair("json", json.toString()));
+		params.add(new BasicNameValuePair("clave", clave));
 		post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 		// esperar respuesta
 		HttpResponse response = client.execute(post);
