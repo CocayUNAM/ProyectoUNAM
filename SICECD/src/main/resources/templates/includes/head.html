@@ -36,8 +36,12 @@
 						class="ti-check-box"></i> Profesores </a></li>
 				<li><a th:href="@{/consultaCurso}"><i class="ti-world"></i>
 						Cursos </a></li>
-				<li><a th:href="@{/consultarProfesor}"><i class="ti-shield"></i>
+				<li><a th:href="@{/consultarProfesor}"><i class="ti-server"></i>
 						Carga Batch </a></li>
+<!-- 				<li><a th:href="@{/pruebaBatch}"><i class="ti-shield"></i> -->
+<!-- 						Prueba </a></li> -->
+				<li><a th:href="@{/AvisosCorreo}"><i class="ti-email"></i>
+						Avisos Correo </a></li>	
 				<li><a class="sidebar-sub-toggle"><i class="ti-file"></i>
 						Reportes <span class="sidebar-collapse-icon ti-angle-down"></span>
 					</a>
@@ -125,6 +129,36 @@
 					<div class="dropdown dib">
 						<div class="header-icon" data-toggle="dropdown">
 							<i class="ti-bell"></i>
+						</div>
+					</div>
+					<div class="dropdown dib"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="header" th:fragment="head_divBatch">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="float-left">
+					<div class="hamburger sidebar-toggle">
+					
+						<span class="line"></span> 
+						<span class="line"></span> 
+						<span class="line"></span>
+					
+					</div>
+				</div>
+				<div>
+			
+					<div class="dropdown dib">
+						<div class="header-icon" data-toggle="dropdown"></div>
+					</div>
+					<div class="dropdown dib">
+						<div class="header-icon" data-toggle="dropdown">
+							<h3>Carga Batch</h3>
 						</div>
 					</div>
 					<div class="dropdown dib"></div>

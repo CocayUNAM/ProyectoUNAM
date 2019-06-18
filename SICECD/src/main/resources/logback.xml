@@ -1,0 +1,34 @@
+<configuration>
+	<statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+			by default -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level %class{0} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Insert the current time formatted as "yyyyMMdd'T'HHmmss" under the 
+		key "bySecond" into the logger context. This value will be available to all 
+		subsequent configuration elements. -->
+	<timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss" timeReference="contextBirth" />
+	
+	<property name="LOG_FOLDER" value="logs/" />
+
+	<appender name="badRecordLoggerFile" class="ch.qos.logback.core.FileAppender">
+		<file>${LOG_FOLDER}/errores_registros_${bySecond}.log</file>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} - %msg%n</pattern>
+		</encoder>
+		<param name="Append" value="false" />
+	</appender>
+	
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+	</root>
+	<logger name="badRecordLogger" level="error" additivity="false">
+		<appender-ref ref="badRecordLoggerFile" />
+	</logger>
+
+</configuration>

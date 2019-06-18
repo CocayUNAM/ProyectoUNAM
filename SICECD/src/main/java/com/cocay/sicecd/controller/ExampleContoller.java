@@ -35,11 +35,6 @@ public class ExampleContoller {
 	
 	@RequestMapping(value = "/table-basic", method = RequestMethod.GET)
 	public String exampleTableBasic(Model model, Principal principal){
-		Usuario_sys user= _usuarioSys.findByRfc(principal.getName()).get(0);
-		if (user.getConfirmarecupera().equals("true")) {
-			user.setConfirmarecupera("false");
-			_usuarioSys.save(user);
-		}
 		return "example/table-basic";
 	}
 	

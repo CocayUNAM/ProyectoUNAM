@@ -25,8 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/", "/login", "/logout", "/css/**", "/fonts/**", "/img/**", "/js/**", "/favicon.ico", "/activacion","/configuracionPass", "/confirmacorreo","/enviarecupera","/prueba","/certificado","/certificadoRes").permitAll()
                 .antMatchers("/AdministracionCursos/**").hasAuthority("Administrador")
                 .antMatchers("/AdministracionProfesores/**").hasAuthority("Administrador")
-                .antMatchers("/example/table-export").hasAuthority("Administrador")
-                .antMatchers("/example/table-row-select").hasAnyAuthority("Consultas", "Administrador")
                 .anyRequest().authenticated()
             .and().formLogin()
                 .loginPage("/login")
