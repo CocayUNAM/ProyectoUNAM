@@ -33,6 +33,10 @@ public final class LogTypes {
 	public static final String CARGA_BATCH_PROFESOR = "CABA01";
 	/*Accion de hacer carga bath grupo*/
 	public static final String CARGA_BATCH_GRUPO = "CABA03";
+	/*Accion de hacer consulta a WS de constancias (nuevas, nunca antes traidas)*/
+	public static final String EXTRACCION_CONSTANCIAS_NUEVAS = "ECNU00";
+	/*Accion de hacer consulta a WS de constancias (actualiza)*/
+	public static final String EXTRACCION_CONSTANCIAS_ACTUALIZACION = "ECAC00";
 	
 	/***
 	//Example

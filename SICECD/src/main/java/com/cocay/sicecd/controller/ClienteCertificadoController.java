@@ -1,12 +1,14 @@
 package com.cocay.sicecd.controller;
 
 import com.cocay.sicecd.model.Curso;
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Certificado;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.security.pdf.SeguridadPDF;
+import com.cocay.sicecd.service.Logging;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -48,6 +50,8 @@ public class ClienteCertificadoController {
 	ProfesorRep bd_profesor;
 	@Autowired
 	CursoRep bd_curso;
+	@Autowired
+	Logging log;
 
 	/**
 	 * Metodo que obtiene un certificado dado un correo y nombre de curso, el cual
@@ -89,6 +93,7 @@ public class ClienteCertificadoController {
 		JSONObject json = new JSONObject(jsonText);
 		String mensaje = (String) json.get("mensaje");
 		if (!mensaje.equals("NULL")) {
+			log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS, "0 constancias nuevas extraídas de 1 solicitadas");
 			return null;
 		}
 		String string_pdf = (String) json.get("bytespdf");
@@ -110,6 +115,7 @@ public class ClienteCertificadoController {
 		cert.setTiempo_creado(Long.parseLong((String) json.get("tiempo")));
 		cert.setRuta(path);
 		bd_certificado.save(cert);
+		log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS, "1 constancia nueva extraída de 1 solicitada");
 		return path;
 		// return true;
 	}

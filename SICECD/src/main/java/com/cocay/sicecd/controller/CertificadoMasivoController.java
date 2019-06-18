@@ -2,13 +2,14 @@ package com.cocay.sicecd.controller;
 
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Inscripcion;
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Certificado;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.security.pdf.SeguridadPDF;
-
+import com.cocay.sicecd.service.Logging;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -57,6 +58,8 @@ public class CertificadoMasivoController {
 	ProfesorRep bd_profesor;
 	@Autowired
 	CursoRep bd_curso;
+	@Autowired
+	Logging log;
 	/**
 	 * Metodo que obtiene certificados masivamente para traer nuevos
 	 * archivos. (Cada 2 horas realiza la tarea)
@@ -72,6 +75,8 @@ public class CertificadoMasivoController {
 		if(profesores.size() == 0){
 			return;
 		}
+		int nuevas = 0;
+		int actual = 0;
 		System.out.println("A punto de buscar profesores.");
 		int k = 0;
 		for (Profesor p : profesores) {
@@ -96,6 +101,7 @@ public class CertificadoMasivoController {
 					json.put("id_curso" + k, caux.getPk_id_curso());
 					json.put("tiempo" + k, 0);
 					System.out.println("Se insertaron elementos en el JSON (certificados no presentes)");
+					nuevas++;
 					k++;
 				}
 				continue;
@@ -107,6 +113,7 @@ public class CertificadoMasivoController {
 				json.put("id_curso" + k, c.getFk_id_curso().getPk_id_curso());
 				json.put("tiempo" + k, c.getTiempo_creado());
 				System.out.println("Se insertaron elementos en el JSON (certificadospresentes)");
+				actual++;
 				k++;
 			}
 			
@@ -143,6 +150,8 @@ public class CertificadoMasivoController {
 		//msg = new String(java.util.Base64.getDecoder().decode(msg),Charset.forName("UTF-8"));
 		if(!msg.equals("NULL")) {
 			System.out.println("No hay certificados nuevos!");
+			log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS, "0 constancias nuevas extraídas de " + nuevas + " solicitadas");
+			log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_ACTUALIZACION, "0 constancias actualizadas de " + actual + " solicitadas");
 			return;
 		}
 
@@ -198,6 +207,8 @@ public class CertificadoMasivoController {
 			System.out.println(e);
 			e.printStackTrace();
 		}
+		int nuevas2 = 0;
+		int actual2 = 0;
 		// comienza a mover los pdfs a la ruta elegida
 		for (File f : tmp.listFiles()) {
 			Curso c = bd_curso.findByID(Integer.parseInt(f.getName()));
@@ -226,6 +237,9 @@ public class CertificadoMasivoController {
 					if(cert == null) {
 						System.out.println("insertando nuevo certificado!");
 						cert = new Certificado();
+						nuevas2++;
+					} else {
+						actual2++;
 					}
 					//Certificado cert = new Certificado();
 					cert.setRuta(pt);
@@ -240,6 +254,8 @@ public class CertificadoMasivoController {
 			f.delete();// elimina directorio padre (curso)
 		}
 		out.delete();// elimina zip
+		log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS,nuevas2 + " constancias nuevas extraídas de " + nuevas + "solicitadas");
+		log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_ACTUALIZACION,actual2 + "constancias actualizadas de " + actual + "solicitadas");
 		// tarea completada*/
 	}
 }
