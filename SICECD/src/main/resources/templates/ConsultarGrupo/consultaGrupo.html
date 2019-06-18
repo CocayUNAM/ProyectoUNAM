@@ -19,16 +19,9 @@
 <link href="css/lib/bootstrap.min.css" rel="stylesheet">
 <link href="css/lib/helper.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<link href="css/query_style.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  
-<style>
-  /* Icon when the collapsible content is shown */
-  .btn-query:after {
-    font-family: "Glyphicons Halflings";
-    content: "\e114";
-    margin-left: 15px;
-  }
-</style>
+
 </head>
 <body>
 	<div th:replace="/includes/head.html :: head_div1" />
@@ -57,7 +50,7 @@
 								<div class="card-title"></div>
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/consultaGrupoPersonalizado" method="post" target="_blank">
+										<form action="/consultaSimpleGrupo" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consulta de Grupos</h4>
 												<label>Clave del grupo</label>
@@ -65,9 +58,9 @@
 												<label>Clave del curso</label>
 													<input type="text" name="curso_grupo" class="form-control">
 												<label>Fecha de Inicio</label>
-													<input type="date" class="form-control" name="fecha_inicio_grupo_1">
+													<input type="date" class="form-control" name="fecha_inicio_grupo">
 												<label>Fecha de Término</label>
-													<input type="date" class="form-control" name="fecha_fin_grupo_1">
+													<input type="date" class="form-control" name="fecha_fin_grupo">
 											</div>
 											<button type="submit" class="btn btn-default">Consultar</button>
 										</form>
@@ -97,7 +90,7 @@
 								<div class="card-title"></div>
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/consultaGrupoPersonalizado" method="post" target="_blank">
+										<form action="/consultaAvanzadaGrupo" method="post" target="_blank">
 											<div class="form-group">
 												<h4>Consulta Avanzada</h4>
 												<label>Clave del grupo</label>
