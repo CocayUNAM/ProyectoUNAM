@@ -381,3 +381,17 @@ INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, co
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 6);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 7);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 8);
+/*
+Autor: Jorge Erick Rivera Lopez
+Fecha:  20/06/2019
+Accion: Agrega tablas para resguardo de urls de ws de constancias.
+*/
+
+CREATE TABLE Url_ws (
+ pk_id_url_ws SERIAL PRIMARY KEY,
+ url VARCHAR(200) UNIQUE NOT NULL,
+ varios BOOLEAN DEFAULT false,
+ activa BOOLEAN DEFAULT false
+);
+
+ALTER TABLE Url_ws OWNER to "SICECD";
