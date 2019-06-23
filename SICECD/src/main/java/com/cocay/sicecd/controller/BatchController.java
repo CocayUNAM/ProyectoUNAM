@@ -2,6 +2,7 @@ package com.cocay.sicecd.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,7 @@ import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.service.SendMailService;
 
 
 @Controller
@@ -59,6 +61,10 @@ public class BatchController {
 	Job jobGrupo;
 	
 	@Autowired
+	@Qualifier("excelFileToDatabaseJob")
+	Job excelFileToDatabaseJob;
+	
+	@Autowired
 	CursoRep curso;
 	
 	@Autowired
@@ -66,6 +72,9 @@ public class BatchController {
 	
 	@Autowired
 	ProfesorRep profesor;
+	
+	@Autowired
+	SendMailService _email;
 	
 	@RequestMapping(value = "/runjob", method = RequestMethod.GET)
 	public ModelAndView handle(ModelMap model, HttpServletRequest request) throws Exception {
@@ -161,18 +170,63 @@ public class BatchController {
 		}
 	}
 	
+	@RequestMapping(value = "/BusquedaCorreo", method = RequestMethod.POST)
+	public ModelAndView busqueda(ModelMap model, HttpServletRequest request) {
+		String nombre = request.getParameter("nombre").toUpperCase();
+		ModelAndView mv= new ModelAndView("search::search_list"); 
+		List<Profesor>	list_p1 = profesor.findAll();
+		List<Profesor>	list_p2 = profesor.findAll();
+			
+		//Filtrando por Nombre
+		if (nombre != "") {
+			for (Profesor p : list_p1) {
+				String nom = p.getNombre().toUpperCase();
+				if( !nom.contains(nombre) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+			
+		if(!list_p1.isEmpty()) {
+			model.put("profesores", list_p2);
+			mv.addObject("searchList",list_p2);
+			return new ModelAndView("/CorreosTemplate/AvisosCorreo", model);
+		} else {
+			return new ModelAndView("/CorreosTemplate/AvisosCorreo", model);
+		}
+	}
+	
 	@RequestMapping(value = "/AvisosCorreo", method = RequestMethod.GET)
 	public ModelAndView avisos(ModelMap model, HttpServletRequest request) {
 		
-		List<Profesor> list_p = profesor.loadAllProfesor();
-		if(!list_p.isEmpty()) {
-			model.put("profesores", list_p);
-			return new ModelAndView("/CorreosTemplate/AvisosCorreo", model);
-			
-		} else {
-			return new ModelAndView("/CorreosTemplate/AvisosCorreo");
-		}
+		return new ModelAndView("/CorreosTemplate/AvisosCorreo", model);
 	}
+	
+	@RequestMapping(value = "/EnviarCorreo", method = RequestMethod.GET)
+	public ModelAndView correo(ModelMap model, HttpServletRequest request) {
+		String from="cocayprueba@gmail.com";
+		String to="carlodinhoo@gmail.com";
+		String subject="PruebaCorreo";
+		String body=" FELICIDADES !!!! MEJORA TUS CONOCIMIENTOS E INSCRIBETE A LOS CURSOS QUE TENEMOS PARA TI... ENTRA AL SIGUIENTE LINK PARA MÁS INFORMACIÓN";
+		_email.sendMail(from, to, subject, body);
+		return new ModelAndView("/CorreosTemplate/AvisosCorreo", model);
+	}
+	
+	@RequestMapping(value = "/runExcel", method = RequestMethod.GET)
+	public ModelAndView insertaExcel(ModelMap model, HttpServletRequest request) throws Exception {
+		Logger logger = LoggerFactory.getLogger(this.getClass());
+		try {
+			JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis())
+					.toJobParameters();
+			jobLauncher.run(excelFileToDatabaseJob, jobParameters);
+		} catch (Exception e) {
+			logger.info(e.getMessage());
+		}
+		return new ModelAndView("/BatchTemplate/consultarProfesor");
+	}
+	
+
+
 	
 
 }

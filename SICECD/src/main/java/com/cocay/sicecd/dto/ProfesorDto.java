@@ -1,6 +1,12 @@
 package com.cocay.sicecd.dto;
 
+import java.math.BigDecimal;
+
 public class ProfesorDto {
+	
+	int id;
+	
+	int idProfesor;
 	
 	String aPaterno;
 	
@@ -171,5 +177,22 @@ public class ProfesorDto {
 	public void setPlantel(String plantel) {
 		this.plantel = plantel;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getIdProfesor() {
+		return idProfesor;
+	}
+
+	public void setIdProfesor(int idProfesor) {
+		this.idProfesor = idProfesor;
+	}
+	
 	
 }
