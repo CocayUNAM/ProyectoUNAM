@@ -25,6 +25,33 @@
 <link href="css/lib/helper.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/bootstrap-table.css" rel="stylesheet">
+<style type="text/css" media="screen">
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading .modal {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}
+</style>
 </head>
 <body>
 	<div th:replace="/includes/head.html :: head_div1"></div> 
@@ -235,72 +262,7 @@
 <!-- 			</section> -->
 		</div>
 	</div>
-
-<script type="text/javascript">
-
-function validateForm(){
-	var archivo = document.forms["myForm"]["archivo"].value;
-
-	if (archivo.length<1) {
-		
-        document.getElementById('error-archivo').innerHTML = JSalert();
-    } else{
-    	swal("Congrats!", ", Your account is created!", "success");
-    }      
-    if(archivo.length<1){
-       	return false;
-    }            
-}
-
-$(document).ready(function() {
-
-    $("button").click(function(){
-
-        var favorite = [];
-
-        $.each($("input[name='checkbox']:checked"), function(){            
-
-            favorite.push($(this).val());
-
-        });
-
-        //alert("Los valores son: " + favorite.join(", "));
-
-    });
-
-});
-
-checkboxes = document.getElementById("prueba1"); 
-var lst = [];
-for (var i = 0; i < checkboxes.length; i++) {
-    var checkbox = checkboxes[i];
-    checkbox.onclick = function() {
-        var currentRow = this.parentNode.parentNode;
-        var secondColumn = currentRow.getElementById("prueba2")[1];
-    	lst.push(secondColumn.textContent);
-        alert("My text is: " + secondColumn.textContent );
-    	
-    };
-    
-    
-}
-//alert("Los valores son: " + lst.join(", "));
-
-
-</script>
-<script type="text/javascript">
-function JSalert(){
-	swal("Completado!", " La información fue procesada correctamente!", "success");
-}
-console.log("prueba check");
-function JSalert2(){
-	swal({
-		  title: "Error",
-		  text: "Ocurrió un error mientras se procesaba la información!",
-		  icon: "warning"
-		});
-}
-</script>
+<div class="modal"><!-- Place at bottom of page --></div>
 <script src="js/lib/jquery.min.js"></script>
 <script src="js/lib/jquery.nanoscroller.min.js"></script>
 <!-- nano scroller -->

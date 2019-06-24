@@ -3,8 +3,14 @@ var stProfesor = 0;
 var stInscripcion = 0;
 
 $(document).ready(function(){
-//	console.log($("#consultaCursos").prop("aria-expanded"));
 	llenadoCorreos();
+});
+
+$body = $("body");
+
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading");    },
+     ajaxStop: function() { $body.removeClass("loading"); }    
 });
 
 function llenadoCorreos() {
@@ -147,8 +153,10 @@ function filtroCorreo(){
 	filtrosCorreos(filtros).done(function(data){
 		if(data.response != null){
 			$("#tablaCorreos").bootstrapTable('load', data.response);
+			successAlerta();
 		}else{
 			$("#tablaCorreos").bootstrapTable('load', []);
+			errorAlerta();
 		}
 	});
 	console.log(filtros);
@@ -188,8 +196,26 @@ function enviarCorreo(){
 	});
 	
 	if(lstProfesores.length != 0){
-		enviarSeleccionados(lstProfesores);
+		enviarSeleccionados(lstProfesores).done(function(data) {
+			if(data.response != null){
+				successAlerta();
+			}else{
+				errorAlerta();
+			}
+		});
 		console.log(lstProfesores);
 	}
 	
+}
+
+function successAlerta(){
+	swal("Completado!", " La información fue procesada correctamente!", "success");
+}
+
+function errorAlerta(){
+	swal({
+		  title: "Error",
+		  text: "Ocurrió un error mientras se procesaba la información!",
+		  icon: "warning"
+		});
 }
