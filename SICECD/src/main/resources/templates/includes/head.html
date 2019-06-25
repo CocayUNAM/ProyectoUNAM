@@ -36,21 +36,21 @@
 						class="ti-check-box"></i> Profesores </a></li>
 				<li><a th:href="@{/consultaCurso}"><i class="ti-world"></i>
 						Cursos </a></li>
-				<li><a th:href="@{/consultarProfesor}"><i class="ti-shield"></i>
-						Carga Batch </a></li>
-				<li><a class="sidebar-sub-toggle"><i
-						class="ti-layout-grid4-alt"></i> Reportes <span
-						class="sidebar-collapse-icon ti-angle-down"></span></a>
+				<li><a class="sidebar-sub-toggle"><i class="ti-files"></i>
+						Reportes <span class="sidebar-collapse-icon ti-angle-down"></span>
+					</a>
 					<ul>
-						<li><a th:href="@{/consultaProfesor}">Profesores</a></li>
-						<li><a th:href="@{/consultaInscripcion}">Inscripciones</a></li>
-						<li><a th:href="@{/consultaCurso}">Cursos</a></li>
-						<li><a th:href="@{/consultaGrupo}">Grupos</a></li>
-					</ul></li>
+						<li><a th:href="@{/consultaProfesor}"><i class="ti-user"></i>Profesores</a></li>
+						<li><a th:href="@{/consultaInscripcion}"><i class="ti-check-box"></i>Inscripciones</a></li>
+						<li><a th:href="@{/consultaCurso}"><i class="ti-book"></i>Cursos</a></li>
+						<li><a th:href="@{/consultaGrupo}"><i class="ti-view-list-alt"></i>Grupos</a></li>
+					</ul>
+				</li>
 				<li class="label">Sistema</li>
 				<li><a href="#"><i class="ti-user"></i> Usuarios </a></li>
 				<li><a href="#"><i class="ti-book"></i> Auditoria</a></li>
 				<li><a href="#"><i class="ti-file"></i> Documentacion </a></li>
+<<<<<<< HEAD
 				
 				<li><a class="sidebar-sub-toggle"><i
 						class="ti-layout-grid4-alt"></i>Modificar registros <span
@@ -64,6 +64,12 @@
 				</ul></li>
 					
 				
+=======
+				<li><a th:href="@{/listaProfesores}"><i class="ti-user"></i> Modificar registros </a></li>
+				<li><a th:href="@{/consultarProfesor}"><i class="ti-server"></i>Carga Batch </a></li>
+<!-- 				<li><a th:href="@{/pruebaBatch}"><i class="ti-shield"></i>Prueba </a></li> -->
+				<li><a th:href="@{/AvisosCorreo}"><i class="ti-email"></i>Avisos Correo </a></li>
+>>>>>>> 3741db6860415fd014b59afbc4dbb98dbe80616a
 
 				<li><a class="sidebar-sub-toggle"><i
 						class="ti-layout-grid4-alt"></i>Administracion <span
@@ -136,6 +142,36 @@
 					<div class="dropdown dib">
 						<div class="header-icon" data-toggle="dropdown">
 							<i class="ti-bell"></i>
+						</div>
+					</div>
+					<div class="dropdown dib"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="header" th:fragment="head_divBatch">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="float-left">
+					<div class="hamburger sidebar-toggle">
+					
+						<span class="line"></span> 
+						<span class="line"></span> 
+						<span class="line"></span>
+					
+					</div>
+				</div>
+				<div>
+			
+					<div class="dropdown dib">
+						<div class="header-icon" data-toggle="dropdown"></div>
+					</div>
+					<div class="dropdown dib">
+						<div class="header-icon" data-toggle="dropdown">
+							<h3>Carga Batch</h3>
 						</div>
 					</div>
 					<div class="dropdown dib"></div>

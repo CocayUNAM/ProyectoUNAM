@@ -1,5 +1,6 @@
 package com.cocay.sicecd.controller;
 
+import java.text.Normalizer;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,113 +50,70 @@ public class ConsultaProfesorController {
 		}
 	}
 	
-	@RequestMapping(value = "/consultarProfesorRFCList", method = RequestMethod.POST)
-	public ModelAndView consultarProfesorRFCList(ModelMap model, HttpServletRequest request) {
-		String rfcs = request.getParameter("rfc");
-		List<Profesor> list_p = profesor.findByRfcList(rfcs);
-		
-		if(!list_p.isEmpty()) {
-			model.put("profesores", list_p);
-			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
-		} else {
-			return new ModelAndView("/Avisos/ErrorBusqueda");
-		}
-	}
-	
-	@RequestMapping(value = "/consultarProfesorEstado", method = RequestMethod.POST)
-	public ModelAndView consultarProfesorEstado(ModelMap model, HttpServletRequest request) {
-		Integer id_estado = Integer.parseInt(request.getParameter("estados"));
-		
-		List<Profesor> list_p1 = profesor.findAll();
-		List<Profesor> list_p2 = profesor.findAll();
-		
-		if(!list_p1.isEmpty()) {
-			
-			for(Profesor p : list_p1) {
-				if(p.getFk_id_estado().getPk_id_estado() != id_estado) {
-					list_p2.remove(p);
-				}
-			}
-			
-			model.put("profesores", list_p2);
-			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
-		} else {
-			return new ModelAndView("/Avisos/ErrorBusqueda");
-		}
-	}
-	
-	@RequestMapping(value = "/consultarProfesorNombre", method = RequestMethod.POST)
-	public ModelAndView consultarProfesorNombre(ModelMap model, HttpServletRequest request) {
-		String nombre = request.getParameter("nombre");
-		String apellido_paterno = request.getParameter("apellido_paterno");
-		String apellido_materno = request.getParameter("apellido_materno");
-		
-		if (nombre == null) {
-			nombre = "";
-		} else {
-			nombre = nombre.toUpperCase();
-		}
-		if (apellido_paterno == null) {
-			apellido_paterno = "";
-		} else {
-			apellido_paterno = apellido_paterno.toUpperCase();
-		}
-		if (apellido_materno == null) {
-			apellido_materno = "";
-		} else {
-			apellido_materno = apellido_materno.toUpperCase();
-		}
-		
-		List<Profesor> list_p = profesor.findByCompleteNameList(nombre, apellido_paterno, apellido_materno);
-		if(!list_p.isEmpty()) {
-			model.put("profesores", list_p);
-			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
-			
-		} else {
-			return new ModelAndView("/Avisos/ErrorBusqueda");
-		}
-	}
-	
+	/*
+	 * @author Derian Estrada
+	 */
 	@RequestMapping(value = "/consultarProfesorPersonalizado", method = RequestMethod.POST)
 	public ModelAndView consultarProfesorPersonalizado(ModelMap model, HttpServletRequest request) {
-		String rfcs = request.getParameter("rfc");
-		String nombre = request.getParameter("nombre");
-		String apellido_paterno = request.getParameter("apellido_paterno");
-		String apellido_materno = request.getParameter("apellido_materno");
+		String curps = request.getParameter("curp").toUpperCase();
+		String rfcs = request.getParameter("rfc").toUpperCase();
+		String nombre = normalizar(request.getParameter("nombre")).toUpperCase();
+		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase();
+		String apellido_materno = normalizar(request.getParameter("apellido_materno")).toUpperCase();
 		
 		Integer id_grado = Integer.parseInt(request.getParameter("grado_estudios"));
 		Integer id_genero = Integer.parseInt(request.getParameter("genero"));
 		Integer id_estado = Integer.parseInt(request.getParameter("estados"));
 		Integer id_turno = Integer.parseInt(request.getParameter("turno"));
 		
-		if (apellido_paterno == null) {
-			apellido_paterno = "";
-		} else {
-			apellido_paterno = apellido_paterno.toUpperCase();
-		}
+		List<Profesor>	list_p1 = profesor.findAll();
+		List<Profesor>	list_p2 = profesor.findAll();
 		
-		if (apellido_materno == null) {
-			apellido_materno = "";
-		} else {
-			apellido_materno = apellido_materno.toUpperCase();
-		}
-		
-		List<Profesor> list_p1 = profesor.findByLastName(apellido_paterno, apellido_materno);
-		List<Profesor> list_p2 = profesor.findByLastName(apellido_paterno, apellido_materno);
-		
-		//Filtrando por Nombre
-		if (nombre != null) {
+		//Filtrando por CURP
+		if (curps != "") {
 			for (Profesor p : list_p1) {
-				if( !p.getNombre().contains(nombre) ) {
+				String pcurp = p.getCurp().toUpperCase(); 
+				if( !pcurp.contains(curps) ) {
 					list_p2.remove(p);
 				}
 			}
 		}
 		
 		//Filtrando por RFC
-		if (rfcs != null) {
-			for(Profesor p : list_p1) {
-				if( !p.getRfc().contains(rfcs) ) {
+		if (rfcs != "") {
+			for (Profesor p : list_p1) {
+				String prfc = p.getRfc().toUpperCase(); 
+				if( !prfc.contains(rfcs) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+		
+		//Filtrando por Apellido Paterno
+		if (nombre != "") {
+			for (Profesor p : list_p1) {
+				String ap = normalizar(p.getApellido_paterno()).toUpperCase(); 
+				if( !ap.contains(apellido_paterno) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+		
+		//Filtrando por Apellido Materno
+		if (nombre != "") {
+			for (Profesor p : list_p1) {
+				String am = normalizar(p.getApellido_materno()).toUpperCase(); 
+				if( !am.contains(apellido_materno) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+		
+		//Filtrando por Nombre
+		if (nombre != "") {
+			for (Profesor p : list_p1) {
+				String nom = normalizar(p.getNombre()).toUpperCase();
+				if( !nom.contains(nombre) ) {
 					list_p2.remove(p);
 				}
 			}
@@ -204,4 +162,10 @@ public class ConsultaProfesorController {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
+	
+	public String normalizar(String src) {
+        return Normalizer
+                .normalize(src , Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]" , "");
+    }
 }

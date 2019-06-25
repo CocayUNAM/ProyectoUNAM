@@ -117,7 +117,7 @@ CREATE TABLE Curso(
   pk_id_curso SERIAL PRIMARY KEY,
   clave CHAR(7) UNIQUE NOT NULL,
   nombre VARCHAR(250) NOT NULL,
-  fk_id_tipo_curso INTEGER NOT NULL,
+  fk_id_tipo_curso INTEGER,
   horas INTEGER
 );
 CREATE TABLE Grupo(
@@ -298,6 +298,8 @@ COMMIT;
 INSERT INTO public.usuario_sys(rfc, password, correo, nombre,  apellido_paterno, apellido_materno, confirmacion, codigo, confirmacioncorreo,codigo_correo,correocambio,codigorecupera, confirmarecupera, fk_id_estatus_usuario_sys, fk_id_perfil_sys) 
 VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'francisco3122151@gmail.com','franki', 'mcs', 'panki', 'false',123,'false',789,'',101,'false',1, 1);--123456789
 
+INSERT INTO public.log_evento_sys(Log_evento_sys, nombre) VALUES ('prueba', 'algunNombre');
+
 
 
 
@@ -383,3 +385,17 @@ INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, co
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 6);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 7);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 8);
+/*
+Autor: Jorge Erick Rivera Lopez
+Fecha:  20/06/2019
+Accion: Agrega tablas para resguardo de urls de ws de constancias.
+*/
+
+CREATE TABLE Url_ws (
+ pk_id_url_ws SERIAL PRIMARY KEY,
+ url VARCHAR(200) UNIQUE NOT NULL,
+ varios BOOLEAN DEFAULT false,
+ activa BOOLEAN DEFAULT false
+);
+
+ALTER TABLE Url_ws OWNER to "SICECD";

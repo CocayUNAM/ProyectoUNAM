@@ -19,6 +19,9 @@
 <link href="css/lib/bootstrap.min.css" rel="stylesheet">
 <link href="css/lib/helper.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<link href="css/query_style.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
 </head>
 <body>
 	<div th:replace="/includes/head.html :: head_div1" />
@@ -29,99 +32,35 @@
 		<div class="main">
 			<div class="container-fluid">
 				<section id="main-content">
+				
+					<!-- START CONTAINER CONSULTA SIMPLE -->
+					<div class="container">
 					
-					<!-- START ROW -->
-					<div class="row">
+						<!-- START CONSULTA DE GRUPOS -->
+						<div class="panel-heading">
+            				<h4 class="panel-title">
+              					<button type="button" class="btn btn-query btn-default collapsed" data-toggle="collapse" data-target="#consulta">
+              					Consulta Grupos
+              					</button>
+            				</h4>
+          				</div>
 						
-						<!-- START CONSULTAR GRUPO POR CURSO -->
-						<!--<div class="col-lg-6">
+						<div id="consulta" class="col-lg-6 collapse">
 							<div class="card">
 								<div class="card-title"></div>
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/consultaGrupoCurso" method="post" target="_blank">
+										<form action="/consultaSimpleGrupo" method="post" target="_blank">
 											<div class="form-group">
-												<h4>Consultar por Curso</h4>
-												<label>Clave del curso<span class="text-danger">*</span></label>
-													<input type="text" name="curso_grupo" class="form-control" required>
-												<label>Fecha de Inicio del Grupo</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_grupo">
-												<label>Fecha de Término del Grupo</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_grupo">
-											</div>
-											<button type="submit" class="btn btn-default">Consultar</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>-->
-						<!-- END CONSULTAR GRUPO POR CURSO -->
-						
-						<!-- START CONSULTAR GRUPO POR CLAVE -->
-						<!--<div class="col-lg-6">
-							<div class="card">
-								<div class="card-title"></div>
-								<div class="card-body">
-									<div class="basic-form">
-										<form action="/consultaGrupoClave" method="post" target="_blank">
-											<div class="form-group">
-												<h4>Consultar por Clave</h4>
-												<label>Clave del grupo<span class="text-danger">*</span></label>
-													<input type="text" name="clave_grupo" class="form-control" text="0000" required>
-												<label>Fecha de Inicio</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_grupo">
-												<label>Fecha de Término</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_grupo">
-											</div>
-											<button type="submit" class="btn btn-default">Consultar</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>-->
-						<!-- END CONSULTAR GRUPO POR CLAVE -->
-						
-						<!-- START CONSULTAR GRUPO POR FECHA -->
-						<!--<div class="col-lg-6">
-							<div class="card">
-								<div class="card-title"></div>
-								<div class="card-body">
-									<div class="basic-form">
-										<form action="/consultaGrupoFecha" method="post" target="_blank">
-											<div class="form-group">
-												<h4>Consultar por Fecha</h4>
-												<label>Fecha de Inicio</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_inicio_grupo">
-												<label>Fecha de Término</label>
-													<input type="date" value="2019-12-29" class="form-control" name="fecha_fin_grupo">
-											</div>
-											<button type="submit" class="btn btn-default">Consultar</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>-->
-						<!-- END CONSULTAR GRUPO POR FECHA -->
-						
-						<!-- START CONSULTAR GRUPO PERSONALIZADO -->
-						<div class="col-lg-6">
-							<div class="card">
-								<div class="card-title"></div>
-								<div class="card-body">
-									<div class="basic-form">
-										<form action="/consultaGrupoPersonalizado" method="post" target="_blank">
-											<div class="form-group">
-												<h4>Consulta Personalizada</h4>
+												<h4>Consulta de Grupos</h4>
 												<label>Clave del grupo</label>
 													<input type="text" name="clave_grupo" class="form-control" text="0000">
 												<label>Clave del curso</label>
 													<input type="text" name="curso_grupo" class="form-control">
 												<label>Fecha de Inicio</label>
-													<input type="date" value="2019-01-01" class="form-control" name="fecha_inicio_grupo_1">
-													<input type="date" value="2019-06-01" class="form-control" name="fecha_inicio_grupo_2">
+													<input type="date" class="form-control" name="fecha_inicio_grupo">
 												<label>Fecha de Término</label>
-													<input type="date" value="2019-06-01" class="form-control" name="fecha_fin_grupo_1">
-													<input type="date" value="2019-12-01" class="form-control" name="fecha_fin_grupo_2">
+													<input type="date" class="form-control" name="fecha_fin_grupo">
 											</div>
 											<button type="submit" class="btn btn-default">Consultar</button>
 										</form>
@@ -129,10 +68,52 @@
 								</div>
 							</div>
 						</div>
-						<!-- END CONSULTAR GRUPO PERSONALIZADO -->
+						<!-- END CONSULTA DE GRUPOS -->
 						
 					</div>
-					<!-- END ROW -->
+					<!-- END CONTAINER CONSULTA SIMPLE -->
+					
+					<!-- START CONTAINER CONSULTA AVANZADA -->
+					<div class="container">
+					
+						<!-- START CONSULTA DE GRUPOS AVANZADA -->
+						<div class="panel-heading">
+            				<h4 class="panel-title">
+              					<button type="button" class="btn btn-query btn-default collapsed" data-toggle="collapse" data-target="#consulta_avanzada">
+              					Consulta Avanzada
+              					</button>
+            				</h4>
+          				</div>
+						
+						<div id="consulta_avanzada" class="col-lg-6 collapse">
+							<div class="card">
+								<div class="card-title"></div>
+								<div class="card-body">
+									<div class="basic-form">
+										<form action="/consultaAvanzadaGrupo" method="post" target="_blank">
+											<div class="form-group">
+												<h4>Consulta Avanzada</h4>
+												<label>Clave del grupo</label>
+													<input type="text" name="clave_grupo" class="form-control" text="0000">
+												<label>Clave del curso</label>
+													<input type="text" name="curso_grupo" class="form-control">
+												<label>Fecha de Inicio</label>
+													<input type="date" class="form-control" name="fecha_inicio_grupo_1">
+													<input type="date" class="form-control" name="fecha_inicio_grupo_2" disabled required>
+												<label>Fecha de Término</label>
+													<input type="date" class="form-control" name="fecha_fin_grupo_1">
+													<input type="date" class="form-control" name="fecha_fin_grupo_2" disabled required>
+											</div>
+											<button type="submit" class="btn btn-default">Consultar</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- END CONSULTA DE GRUPOS AVANZADA -->
+						
+					</div>
+					<!-- END CONTAINER CONSULTA AVANZADA -->
 				</section>
 				
 				<!-- START DERECHOS -->
@@ -160,5 +141,7 @@
 	<!-- bootstrap -->
 	<script src="js/lib/bootstrap.min.js"></script>
 	<script src="js/scripts.js"></script>
+	
+	<script src="/js/lib/reports/date-functions.js"></script>
 </body>
 </html>

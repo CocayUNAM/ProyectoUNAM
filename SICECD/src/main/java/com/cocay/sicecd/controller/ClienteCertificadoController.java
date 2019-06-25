@@ -1,37 +1,31 @@
 package com.cocay.sicecd.controller;
 
 import com.cocay.sicecd.model.Curso;
-import com.cocay.sicecd.model.Inscripcion;
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Certificado;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.model.Url_ws;
 import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.repo.Url_wsRep;
+import com.cocay.sicecd.security.pdf.SeguridadPDF;
+import com.cocay.sicecd.service.Logging;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.zip.*;
+import java.io.File;
+import java.io.FileOutputStream;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -49,16 +43,74 @@ import org.json.*;
 public class ClienteCertificadoController {
 	@Value("${ws.ruta_local}")
 	private String RUTA_LOCAL;
-	@Value("${ws.url_rs}")
-	private String URL_RS;
-	
+	@Value("${ws.clave}")
+	private String clave;
 	@Autowired
 	CertificadoRep bd_certificado;
 	@Autowired
 	ProfesorRep bd_profesor;
 	@Autowired
 	CursoRep bd_curso;
-
+	@Autowired
+	Logging log;
+	@Autowired
+	Url_wsRep urls;
+	
+	private String aux_obten(Profesor profesor, Curso curso, String URL_RS) throws Exception{
+		String correo = profesor.getCorreo();
+		String nombre_curso = curso.getNombre();
+		Certificado cert = new Certificado();
+		cert.setFk_id_curso(curso);
+		cert.setFk_id_profesor(profesor);
+		//correo = correo.replaceFirst("@", "%40");
+		System.out.println(correo);
+		//nombre_curso = nombre_curso.replaceAll(" ", "%20");
+		System.out.println(nombre_curso);
+		
+		HttpClient client = HttpClients.createDefault();
+		HttpPost post = new HttpPost(URL_RS);
+		List<NameValuePair> params = new ArrayList<NameValuePair>(3);
+		params.add(new BasicNameValuePair("clave", clave));
+		params.add(new BasicNameValuePair("email",correo));
+		params.add(new BasicNameValuePair("nc",nombre_curso));
+		post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+		HttpResponse response = client.execute(post);
+		
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+		String jsonText = "";
+		String linea = null;
+		while ((linea = rd.readLine()) != null) {
+			//System.out.println(linea);
+			jsonText += linea;
+		}
+		JSONObject json = new JSONObject(jsonText);
+		String mensaje = (String) json.get("mensaje");
+		if (!mensaje.equals("NULL")) {
+			//log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS, "0 constancias nuevas extraídas de 1 solicitadas");
+			return null;
+		}
+		String string_pdf = (String) json.get("bytespdf");
+		byte[] bytearray = java.util.Base64.getDecoder().decode(string_pdf);
+		//String aux = (String) json.get("nombre_archivo");
+		//String na = new String(new String(java.util.Base64.getDecoder().decode(aux),"ISO-8859-1").getBytes("UTF-8"),"UTF-8");
+		String path = RUTA_LOCAL + curso.getNombre() + "/" + curso.getNombre() + "_" + profesor.getPk_id_profesor() + ".pdf";
+		File out = new File(path);
+		new File(out.getParent()).mkdirs();
+		try (FileOutputStream os = new FileOutputStream(out)) {
+			os.write(bytearray);
+			// System.out.println("Archivo escrito!");
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		SeguridadPDF spdf = new SeguridadPDF();
+		String nombrec = profesor.getNombre() + " " + profesor.getApellido_paterno() + " " + profesor.getApellido_materno();
+		spdf.cifraPdf(path, nombrec, curso.getNombre());
+		cert.setTiempo_creado(Long.parseLong((String) json.get("tiempo")));
+		cert.setRuta(path);
+		bd_certificado.save(cert);
+		log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS, "1 constancia nueva extraída de 1 solicitada");
+		return path;
+	}
 	/**
 	 * Metodo que obtiene un certificado dado un correo y nombre de curso, el cual
 	 * es depositado en alguna carpeta y guardada su direccion en una base de datos.
@@ -69,50 +121,18 @@ public class ClienteCertificadoController {
 	 *         obtuvo y se ha guardado en Disco y en la BD.
 	 */
 	public String obtenCertificado(Profesor profesor, Curso curso) throws Exception {
-
-		String correo = profesor.getCorreo();
-		String nombre_curso = curso.getNombre();
-		Certificado cert = new Certificado();
-		cert.setFk_id_curso(curso);
-		cert.setFk_id_profesor(profesor);
-		correo = correo.replaceFirst("@", "%40");
-		System.out.println(correo);
-		nombre_curso = nombre_curso.replaceAll(" ", "%20");
-		System.out.println(nombre_curso);
-		String url = URL_RS + "email=" + correo + "&nc=" + nombre_curso;
-		HttpClient client = HttpClients.createDefault();
-		HttpGet request = new HttpGet(url);
-		HttpResponse response = client.execute(request);
-		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-		String jsonText = "";
-		String linea = null;
-		while ((linea = rd.readLine()) != null) {
-			// System.out.println(linea);
-			jsonText += linea;
+		LinkedList<Url_ws> links = new LinkedList<>(urls.findSimples());
+		if(links.size() == 0) {
+			throw new Exception("No hay urls!");
 		}
-		JSONObject json = new JSONObject(jsonText);
-		String mensaje = (String) json.get("mensaje");
-		if (!mensaje.equals("NULL")) {
-			return null;
+		for(Url_ws u : links) {
+			String resultado = aux_obten(profesor,curso,u.getUrl());
+			if(resultado != null) {
+				return resultado;
+			}
 		}
-		String string_pdf = (String) json.get("bytespdf");
-		byte[] bytearray = java.util.Base64.getDecoder().decode(string_pdf);
-		String aux = (String) json.get("nombre_archivo");
-		String na = new String(java.util.Base64.getDecoder().decode(aux),Charset.forName("UTF-8"));
-		String path = RUTA_LOCAL + profesor.getPk_id_profesor() + "_" + na + ".pdf";
-		File out = new File(path);
-		//new File(out.getParent()).mkdirs();
-		try (FileOutputStream os = new FileOutputStream(out)) {
-			os.write(bytearray);
-			// System.out.println("Archivo escrito!");
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		cert.setTiempo_creado(Long.parseLong((String) json.get("tiempo")));
-		cert.setRuta(path);
-		bd_certificado.save(cert);
-		return path;
-		// return true;
+		log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS, "0 constancias nuevas extraídas de 1 solicitadas");
+		return null;
 	}
 
 	@RequestMapping(value = "/certificado", method = RequestMethod.GET)
