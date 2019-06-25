@@ -25,22 +25,22 @@ public class Profesor {
 	@Column(name = "pk_id_profesor")
 	int pk_id_profesor;
 	
-	@Column(name = "nombre")
+	@Column(name = "nombre", nullable = false)
 	String nombre;
 	
-	@Column(name = "apellido_paterno")
+	@Column(name = "apellido_paterno", nullable = false)
 	String apellido_paterno;
 	
 	@Column(name = "apellido_materno")
 	String apellido_materno;
 	
-	@Column(name = "rfc")
+	@Column(name = "rfc", nullable = false)
 	String rfc;
 	
 	@Column(name = "curp")
 	String curp;
 	
-	@Column(name = "correo")
+	@Column(name = "correo", nullable = false)
 	String correo;
 	
 	@Column(name = "telefono")
@@ -80,9 +80,6 @@ public class Profesor {
 	
 	@Column(name = "ocupacion")
 	String ocupacion;
-	
-	@Column(name = "curriculum")
-	String curriculum;
 
 	@OneToMany(mappedBy = "fk_id_profesor", targetEntity=Inscripcion.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -237,14 +234,6 @@ public class Profesor {
 
 	public void setOcupacion(String ocupacion) {
 		this.ocupacion = ocupacion;
-	}
-
-	public String getCurriculum() {
-		return curriculum;
-	}
-
-	public void setCurriculum(String curriculum) {
-		this.curriculum = curriculum;
 	}
 
 	public List<Inscripcion> getInscripciones() {

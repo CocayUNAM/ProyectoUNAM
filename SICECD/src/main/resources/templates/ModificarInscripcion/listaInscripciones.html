@@ -56,26 +56,17 @@
 	                                    <table id="grid" class="table table-hover" cellspacing="0">
 											<thead>
 												<tr>
-													<th class="th-sm">Nombre</th>
-	                                                <th class="th-sm">Apellido Paterno</th>
-	                                                <th class="th-sm">Apellido Materno</th>
-	                                                <th class="th-sm">Correo</th>
-	                                                <th class="th-sm">Grado de Estudios</th>
-	                                                <th class="th-sm">Clave del plantel</th>
-	                                                <th class="th-sm">RFC</th>
-	                                                
+													<th class="th-sm">Id inscripcion</th>
+													<th class="th-sm">Grupo</th>
+	                                                <th class="th-sm">RFC de Participante</th>
 												</tr>
 											</thead>
 											<tbody>
-	                                           	<th:block th:each="profesor : ${profesores}">
+	                                           	<th:block th:each="inscripcion : ${inscripciones}">
 													<tr>
-														<td class="renglon" th:text="${profesor.nombre}"></td>
-														<td class="renglon" th:text="${profesor.apellido_paterno}"></td>
-														<td class="renglon" th:text="${profesor.apellido_materno}"></td>
-														<td class="renglon" th:text="${profesor.correo}"></td>
-														<td class="renglon" th:text="${profesor.fk_id_grado_profesor.nombre}"></td>
-														<td class="renglon" th:text="${profesor.clave_plantel}"></td>
-														<td class="renglon rfc" th:value="${profesor.rfc}" th:text="${profesor.rfc}"></td>
+														<td class="renglon" th:text="${inscripcion.pk_id_inscripcion}"></td>
+														<td class="renglon" th:text="${inscripcion.fk_id_grupo}"></td>
+														<td class="renglon" th:text="${inscripcion.fk_id_profesor}"></td>
 													</tr>
 												</th:block>
 	                                        </tbody>
@@ -138,11 +129,11 @@
 						    var pos = tabla.row(this).index();
 							var row = tabla.row(pos).data();
 							console.log(row);
-							var rfc = row[6];
+							var id = row[0];
 							console.log(rfc);
 
-							window.location.href = "/pantallaModificacion?rfc="
-									+ rfc;
+							window.location.href = "/pantallaModificacionI?id="
+									+ id;
 						});
 	}
 		$(document)

@@ -1,5 +1,6 @@
 package com.cocay.sicecd.controller;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -146,6 +147,8 @@ public class ProfesoresController {
 				
 				String telefono = prof.getTelefono();
 				
+				String path = apaterno + amaterno + nombres;
+				
 //				/*base*/
 				String estado = prof.getEstado();
 				List<Estado> est = stRep.findByNombre(estado);
@@ -201,6 +204,11 @@ public class ProfesoresController {
 				profe.setFk_id_grado_profesor(gr.get());
 				
 				profe.setOcupacion(ocupacion);
+				
+			    boolean success = (new File(path)).mkdir();
+			    if (success) {
+			      System.out.println("Directorio: " + path + " creado con exito");
+			    }
 				
 				profRep.save(profe);
 			

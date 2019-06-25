@@ -108,6 +108,8 @@
                                                         <option value="Curso">Curso</option>
                                                         <option value="Diplomado">Diplomado</option>
                                                         <option value="Especialidad">Especialidad</option>
+                                                        <option value="Maestria">Maestria</option>
+                                                        <option value="Doctorado">Doctorado</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -178,6 +180,11 @@
 
 			$("#registrarCursos").submit(function(eve) {
 				eve.preventDefault();
+				var clave = $("#clave").val();
+				if(clave != "a"){
+					alert("incorrecto");
+					return false;
+				}
 				let datos = {
 					clave : $("#clave").val(),
 					tipo : $("#tipo").val(),

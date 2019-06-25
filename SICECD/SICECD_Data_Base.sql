@@ -176,6 +176,10 @@ ALTER TABLE Log_sys ADD FOREIGN KEY(fk_id_log_evento_sys) REFERENCES Log_evento_
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_estado) REFERENCES Estado (pk_id_estado ) ON DELETE CASCADE;
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_turno) REFERENCES Turno (pk_id_turno ) ON DELETE CASCADE;
 ALTER TABLE Profesor ADD FOREIGN KEY(fk_id_grado_profesor) REFERENCES Grado_profesor (pk_id_grado_profesor) ON DELETE CASCADE;
+ALTER TABLE profesor ALTER COLUMN rfc SET NOT NULL;
+ALTER TABLE profesor ALTER COLUMN correo SET NOT NULL;
+ALTER TABLE profesor ALTER COLUMN apellido_paterno SET NOT NULL;
+ALTER TABLE profesor ALTER COLUMN nombre SET NOT NULL;
 ALTER TABLE Grupo ADD FOREIGN KEY(fk_id_curso) REFERENCES Curso (pk_id_curso ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_grupo) REFERENCES Grupo (pk_id_grupo ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_profesor) REFERENCES Profesor (pk_id_profesor ) ON DELETE CASCADE;
@@ -235,11 +239,11 @@ INSERT INTO public.estatus_usuario_sys(nombre) VALUES ('Inactivo');
 INSERT INTO public.usuario_sys(rfc, password, correo, nombre,  apellido_paterno, apellido_materno, confirmacion, codigo, confirmacioncorreo,codigo_correo,correocambio,codigorecupera, confirmarecupera, fk_id_estatus_usuario_sys, fk_id_perfil_sys) 
 VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'francisco3122151@gmail.com','franki', 'mcs', 'panki', 'false',123,'false',789,'',101,'false',1, 1);--123456789
 
-
-
 INSERT INTO public.tipo_curso(nombre) VALUES ('Curso');
 INSERT INTO public.tipo_curso(nombre) VALUES ('Diplomado');
 INSERT INTO public.tipo_curso(nombre) VALUES ('Especialidad');
+insert into public.tipo_curso(nombre) values('Maestria');
+insert into public.tipo_curso(nombre) values('Doctorado');
 
 INSERT INTO public.turno(nombre) VALUES ('Matutino');
 INSERT INTO public.turno(nombre) VALUES ('Vepertino');
