@@ -8,9 +8,7 @@ $(document).ready(function(){
         	$("input[name=fecha_inicio_curso_2]").attr("disabled", true);
         }
     });
-});
-
-$(document).ready(function(){
+    
     $("input[name=fecha_fin_curso_1]").change(function(){
         var last_date = $(this).val();
 
@@ -20,9 +18,7 @@ $(document).ready(function(){
         	$("input[name=fecha_fin_curso_2]").attr("disabled", true);
         }
     });
-});
-
-$(document).ready(function(){
+    
     $("input[name=fecha_inicio_grupo_1]").change(function(){
         var first_date = $(this).val();
 
@@ -32,9 +28,7 @@ $(document).ready(function(){
         	$("input[name=fecha_inicio_grupo_2]").attr("disabled", true);
         }
     });
-});
-
-$(document).ready(function(){
+    
     $("input[name=fecha_fin_grupo_1]").change(function(){
         var last_date = $(this).val();
 

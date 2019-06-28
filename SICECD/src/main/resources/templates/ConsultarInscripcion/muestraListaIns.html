@@ -42,29 +42,19 @@
                                                 	<th>Tipo de Curso</th>
                                                 	<th>Curso</th>
                                                 	<th>Grupo</th>
-                                                	<th>Clave</th>
                                                 	<th>Profesor</th>
-                                                	<th></th>
-                                                	<th></th>
                                                 	<th>Grado de Estudios</th>
-                                                	<th>Ocupación</th>
                                                     <th>RFC</th>
-                                                    <th>Estado</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr data-th-each="ins : ${ins}">
-                                                	<td data-th-text="${ins.fk_id_grupo.curso.fk_id_tipo_curso.nombre}">Text ...</td>
-                                                	<td data-th-text="${ins.fk_id_grupo.curso.nombre}">Text ...</td>
-                                                	<td data-th-text="${ins.fk_id_grupo.pk_id_grupo}">Text ...</td>
+                                                	<td data-th-text="${ins.fk_id_grupo.fk_id_curso.fk_id_tipo_curso.nombre}">Text ...</td>
+                                                	<td data-th-text="${ins.fk_id_grupo.fk_id_curso.nombre}">Text ...</td>
                                                 	<td data-th-text="${ins.fk_id_grupo.clave}">Text ...</td>
                                                 	<td data-th-text="${ins.fk_id_profesor.nombre}">Text ...</td>
-                                                	<td data-th-text="${ins.fk_id_profesor.apellido_paterno}">Text ...</td>
-													<td data-th-text="${ins.fk_id_profesor.apellido_materno}">Text ...</td>
 													<td data-th-text="${ins.fk_id_profesor.fk_id_grado_profesor.nombre}">Text ...</td>
-													<td data-th-text="${ins.fk_id_profesor.ocupacion}">Text ...</td>
                                                 	<td data-th-text="${ins.fk_id_profesor.rfc}">Text ...</td>
-                                                    <td data-th-text="${ins.fk_id_profesor.fk_id_estado.nombre}">Text ...</td>
                                                 </tr>
                                             </tbody>
                                         </table>

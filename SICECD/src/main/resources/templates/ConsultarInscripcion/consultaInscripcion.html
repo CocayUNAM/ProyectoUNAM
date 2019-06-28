@@ -26,48 +26,125 @@
 
 	<!-- START CONTENTS -->
 	<div class="content-wrap">
-		<div class="main">
-			<div class="container-fluid">
-				<section id="main-content">
-					
-					<!-- START ROW -->
-					<div class="row">
-						
-						<!-- START CONSULTAR INSCRIPCION POR GRUPO -->
-						<div class="col-lg-6">
-							<div class="card">
-								<div class="card-title"></div>
-								<div class="card-body">
-									<div class="basic-form">
-										<form action="/consultaInsGrupo" method="post" target="_blank">
-											<div class="form-group">
-												<h4>Consultar profesores inscritos en un grupo</h4>
-												<label>ID del grupo<span class="text-danger">*</span></label>
-													<input type="text" name="ins_grupo" class="form-control" required>
-											</div>
-											<button type="submit" class="btn btn-default">Consultar</button>
-										</form>
-									</div>
-								</div>
+		<div class="container-fluid">
+			<section>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							<form action="/consultaInscripciones" method="post" target="_blank">
+							<h4>Consulta Avanzada de Inscripciones</h4>
+							<div class="panel panel-danger">
+							   		<div class="row">
+							   			<!-- START DATOS DEL CURSO -->
+							   			<div class="col-lg-3">
+							   				<div class="panel-body">
+							   					<label>Clave del Curso</label>
+							   					<input type="text" name="clave_curso" class="form-control" text="0000">
+							   				</div>
+							   			</div>
+							   			<div class="col-lg-3">
+							   				<div class="panel-body">
+							   					<label>Tipo de Curso</label>
+                                                    <select name="tipos" class="form-control">
+                                                    	<option value="4">Sin definir</option>
+                                                        <option value="1">Curso</option>
+														<option value="2">Diplomado</option>
+														<option value="3">Especialidad</option>
+                                                    </select>
+							   				</div>
+							   			</div>
+							   			<!-- END DATOS DEL CURSO -->
+							   			<!-- START DATOS DEL GRUPO -->
+							   			<div class="col-lg-3">
+							   				<div class="panel-body">
+							   					<label>Clave del Grupo</label>
+							   					<input type="text" name="clave_grupo" class="form-control" text="0000">
+							   				</div>
+							   			</div>
+							   			<!-- END DATOS DEL GRUPO -->
+							   		</div>
+							   		<!-- START FECHAS DE INICIO -->
+							   		<div class="row">
+							   			<div class="col-lg-3">
+							   				<label>Inscripciones entre las fechas:</label>
+							   			</div>
+							   			<div class="col-lg-3">
+							   				<input type="date" class="form-control" name="fecha_1">
+							   			</div>
+							   			<div class="col-lg-3">
+											<input type="date" class="form-control" name="fecha_2" disabled required>
+							   			</div>
+							   		</div>
+							   		<!-- END FECHAS DE INICIO -->
+							   		<br></br>
+							   		<!-- START DATOS PROFESOR -->
+							   		<div class="row">
+							   			<div class="col-lg-3">
+							   				<label>CURP</label>
+											<input type="text" class="form-control" name="curp" maxlength="18" placeholder="SAMH250912MDFSTO10">
+							   			</div>
+							   			<div class="col-lg-3">
+							   				<label>Nombre</label>
+											<input type="text" name="nombre" class="form-control" placeholder="Juan"
+												pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
+							   			</div>
+							   			<div class="col-lg-3">
+							   				<label>Apellido Paterno</label>
+											<input type="text" class="form-control" placeholder="Perez" name="apellido_paterno"
+												pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
+							   			</div>
+							   			<div class="col-lg-3">
+							   				<label>RFC</label>
+											<input type="text" class="form-control" name="rfc" maxlength="13" placeholder="SAMH2509126L6">
+							   			</div>
+							   		</div>
+							   		<div class="row">
+							   			<div class="col-lg-3">
+							   				<label>Grado de estudios</label>
+											<select name="grado_estudios" class="form-control" data-placeholder=" ">
+												<option value="5">Sin definir</option>
+												<option value="1">Licenciatura</option>
+												<option value="3">Maestría</option>
+												<option value="4">Doctorado</option>
+											</select>
+							   			</div>
+							   			<div class="col-lg-3">
+							   				<label>Género</label>
+							   				<select name="genero" class="form-control" data-placeholder=" ">
+							   					<option value="3">Sin definir</option>
+							   					<option value="1">Masculino</option>
+							   					<option value="2">Femenino</option>
+							   				</select>
+							   			</div>
+							   			<div class="col-lg-3">
+							   				<label>Turno</label>
+							   				<select name="turno" class="form-control" data-placeholder=" ">
+							   					<option value="4">Sin definir</option>
+							   					<option value="1">Matutino</option>
+							   					<option value="2">Vespertino</option>
+							   					<option value="3">Completo</option>
+							   				</select>
+							   			</div>
+							   		</div>
+							   		<!-- END DATOS PROFESOR -->
 							</div>
+							
+							<button type="submit" class="btn btn-default">Consultar</button>
+							</form>
 						</div>
-						<!-- END CONSULTAR INSCRIPCION POR GRUPO -->
-						
 					</div>
-					<!-- END ROW -->
-				</section>
+				</div>		
+			</section>
 				
 				<!-- START DERECHOS -->
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="footer">
-							<p>2018 © SICCED</p>
+							<p>2019 © SICCED</p>
 						</div>
 					</div>
 				</div>
 				<!-- END DERECHOS -->
-				
-            </div>
         </div>
     </div>
 	<!-- END CONTENTS -->
@@ -82,5 +159,7 @@
 	<!-- bootstrap -->
 	<script src="js/lib/bootstrap.min.js"></script>
 	<script src="js/scripts.js"></script>
+	
+	<script src="/js/lib/reports/date-functions.js"></script>
 </body>
 </html>

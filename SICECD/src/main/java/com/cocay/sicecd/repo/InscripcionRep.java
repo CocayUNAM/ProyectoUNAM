@@ -17,6 +17,4 @@ public interface InscripcionRep extends PagingAndSortingRepository<Inscripcion, 
 	@Query(value = "SELECT * FROM inscripcion", nativeQuery = true)
 	List<Inscripcion> findAll();
 	
-	@Query(value = "SELECT * FROM Inscripcion WHERE fk_id_grupo = :id", nativeQuery = true)
-	Inscripcion findByClaveGrupo(@Param("id") Integer id);
 }
