@@ -93,7 +93,7 @@
                                 <div class="card-body">
                                     <div class="form-validation">
                                         <form class="form-valide" action="@{/AdministracionProfesores/registrarParticipante}" method="POST"
-                                        id= "registrarParticipante">
+                                        id= "registrarParticipante" enctype="multipart/form-data">
                                         
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="apaterno">Apellido paterno<span class="text-danger">*</span></label>
@@ -103,9 +103,9 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="amaterno">Apellido materno<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="amaterno">Apellido materno<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Introduce apellido materno" required>
+                                                    <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Introduce apellido materno">
                                                 </div>
                                             </div>
                                             
@@ -117,7 +117,7 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="curp">CURP<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="curp">CURP<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="curp" name="curp" placeholder="Introduce CURP">
                                                 </div>
@@ -126,7 +126,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="rfc">RFC <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC">
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC" required>
                                                 </div>
                                             </div>
                                             
@@ -138,7 +138,7 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="tel">Telefono<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="tel">Telefono<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="tel" class="form-control" id="tel" name="tel" placeholder="Introduce telefono.">
                                                 </div>
@@ -147,7 +147,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="estado">Estado <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="form-control" id="estado" name="estado" style="width: 100%;">
+                                                    <select class="form-control" id="estado" name="estado" style="width: 100%;" required>
                                                         <option value="1">Aguascalientes</option>
 														<option value="2">Baja California</option>
 														<option value="3">Baja California Sur</option>
@@ -185,7 +185,7 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="cilo">Ciudad o localidad<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="cilo">Ciudad o localidad<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="cilo" name="cilo" placeholder="Introduce Ciudad o localidad.">
                                                 </div>
@@ -194,7 +194,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="genero">Selecciona género <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="genero" name="genero" style="width: 100%;">
+                                                    <select class="js-select2 form-control" id="genero" name="genero" style="width: 100%;" required>
                                                         <option></option>
                                                         <option value="1">Masculino</option>
                                                         <option value="2">Femenino</option>
@@ -203,7 +203,7 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="plantel">Plantel<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="plantel">Plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="plantel" name="plantel" placeholder="Introduce tu plantel.">
                                                 </div>
@@ -212,7 +212,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="turno">Selecciona turno <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;">
+                                                    <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;" required>
                                                         <option></option>
                                                         <option value="1">Matutino</option>
                                                         <option value="2">Vepertino</option>
@@ -222,7 +222,7 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="cplantel">Clave plantel<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="cplantel">Clave plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="cplantel" name="cplantel" placeholder="Introduce la clave del plantel.">
                                                 </div>
@@ -231,7 +231,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="grado">Ultimo grado de estudios <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="grado" name="grado" style="width: 100%;">
+                                                    <select class="js-select2 form-control" id="grado" name="grado" style="width: 100%;" required>
                                                         <option></option>
                                                         <option value="1">Lic.</option>
                                                         <option value="2">Esp.</option>
@@ -242,9 +242,16 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="ocupacion">Ocupacion<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="ocupacion">Ocupacion<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="ocupacion" name="ocupacion" placeholder="Introduce la ocupacion actual.">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="constancia">constancia<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="file" name="constancia" accept="application/pdf" id="constancia"/>
                                                 </div>
                                             </div>
                                             
@@ -302,6 +309,7 @@
 					cPlantel: $("#cplantel").val(),
 					grado: $("#grado").val(),
 					ocupacion: $("#ocupacion").val(),
+					//nombre_ar: $("#constancia").target.files[0].name,
 				}
 				$.ajax({
 					type : "POST",

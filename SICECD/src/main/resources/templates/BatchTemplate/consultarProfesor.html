@@ -19,9 +19,10 @@
 <link href="css/lib/font-awesome.min.css" rel="stylesheet">
 <link href="css/lib/themify-icons.css" rel="stylesheet">
 <link href="css/lib/menubar/sidebar.css" rel="stylesheet">
-<link href="css/lib/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/lib/helper.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<link href="css/bootstrap-table.css" rel="stylesheet">
 </head>
 <body>
 	<div th:replace="/includes/head.html :: head_div1"></div> 
@@ -54,11 +55,23 @@
 			<section>
 				<div class="row">
 					<div class="col-lg-4">
-						<h1>Carga de Profesores</h1>
+						<h1>Carga CSV</h1>
 						<div class="card">
 							<form action="/runjob" method="get">
 								<fieldset>
-									<legend>Carga Batch</legend>
+									<legend>Carga CSV</legend>
+									<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalPrueba">Cargar Archivo</button>
+									<button type="submit" class="btn btn-default btn-lg">Enviar</button>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<h1>Carga Excel</h1>
+						<div class="card">
+							<form action="/runExcel" method="get">
+								<fieldset>
+									<legend>Carga Excel</legend>
 									<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalPrueba">Cargar Archivo</button>
 									<button type="submit" class="btn btn-default btn-lg">Enviar</button>
 								</fieldset>
@@ -80,47 +93,38 @@
 								  </ul>
 								<table class="table table-striped table-bordered" id="tablaPrueba">
 									<thead>
-												<tr>
-													<th>ID</th>
-													<th>NOMBRE</th>
-													<th>A_MATERNO</th>
-													<th>A_PATERNO</th>
-													<th>RFC</th>
-													<th>CURP</th>
-													<th>CORREO</th>
-													<th>TELEFONO</th>
-													<th>fk_id_estado</th>
-													<th>CIUDAD</th>
-													<th>GENERO</th>
-													<th>PLANTEL</th>
-													<th>CLAVE_PALNTEL</th>
-													<th>fk_id_turno</th>
-													<th>fk_id_grado_profesor</th>
-													<th>OCUPACION</th>
-													<th>CURRICULUM</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr data-th-each="profesor : ${profesores}">
-													<td data-th-text="${profesor.pk_id_profesor}">Text ...</td>
-													<td data-th-text="${profesor.nombre}">Text ...</td>
-													<td data-th-text="${profesor.apellido_paterno}">Text ...</td>
-													<td data-th-text="${profesor.apellido_materno}">Text ...</td>
-													<td data-th-text="${profesor.rfc}">Text ...</td>
-													<td data-th-text="${profesor.curp}">Text ...</td>
-													<td data-th-text="${profesor.correo}">Text ...</td>
-													<td data-th-text="${profesor.telefono}">Text ...</td>
-													<td data-th-text="${profesor.fk_id_estado}">Text ...</td>
-													<td data-th-text="${profesor.ciudad_localidad}">Text ...</td>
-													<td data-th-text="${profesor.id_genero}">Text ...</td>
-													<td data-th-text="${profesor.plantel}">Text ...</td>
-													<td data-th-text="${profesor.clave_plantel}">Text ...</td>
-													<td data-th-text="${profesor.fk_id_turno}">Text ...</td>
-													<td data-th-text="${profesor.fk_id_grado_profesor}">Text ...</td>
-													<td data-th-text="${profesor.ocupacion}">Text ...</td>
-													<td data-th-text="${profesor.curriculum}">Text ...</td>
-												</tr>
-											</tbody>
+										<tr>
+											<th data-field="idProfesor">ID</th>
+											<th data-field="nombres">NOMBRE</th>
+											<th data-field="aPaterno">A_PATERNO</th>
+											<th data-field="aMaterno">A_MATERNO</th>
+											<th data-field="rfc">RFC</th>
+											<th data-field="curp">CURP</th>
+											<th data-field="correo">CORREO</th>
+											<th data-field="">TELEFONO</th>
+										</tr>
+									</thead>
+<!-- 											<tbody> -->
+<!-- 												<tr data-th-each="profesor : ${profesores}"> -->
+<!-- 													<td data-th-text="${profesor.pk_id_profesor}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.nombre}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.apellido_paterno}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.apellido_materno}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.rfc}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.curp}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.correo}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.telefono}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.fk_id_estado}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.ciudad_localidad}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.id_genero}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.plantel}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.clave_plantel}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.fk_id_turno}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.fk_id_grado_profesor}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.ocupacion}">Text ...</td> -->
+<!-- 													<td data-th-text="${profesor.curriculum}">Text ...</td> -->
+<!-- 												</tr> -->
+<!-- 											</tbody> -->
 								</table>
 							</div>
 						</div>
@@ -130,13 +134,19 @@
 		</div>
 	</div>
 <script src="js/lib/jquery.min.js"></script>
-	<script src="js/lib/jquery.nanoscroller.min.js"></script>
-	<!-- nano scroller -->
-	<script src="js/lib/menubar/sidebar.js"></script>
-	<script src="js/lib/preloader/pace.min.js"></script>
-	<!-- sidebar -->
-	<!-- bootstrap -->
-	<script src="js/lib/bootstrap.min.js"></script>
-	<script src="js/scripts.js"></script>
+<script src="js/lib/jquery.nanoscroller.min.js"></script>
+<script src="js/main.js"></script>
+<!-- nano scroller -->
+<script src="js/lib/menubar/sidebar.js"></script>
+<script src="js/lib/preloader/pace.min.js"></script>
+<!-- sidebar -->
+<!-- bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="js/bootstrap-table.min.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="js/bootstrap-table-zh-CN.min.js"></script>
+<script src="js/consultarProfesor.js"></script>
 </body>
 </html>

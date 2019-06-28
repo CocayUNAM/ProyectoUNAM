@@ -5,9 +5,11 @@ import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Certificado;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.model.Url_ws;
 import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.repo.Url_wsRep;
 import com.cocay.sicecd.security.pdf.SeguridadPDF;
 import com.cocay.sicecd.service.Logging;
 
@@ -43,11 +45,9 @@ import org.json.*;
 @Component
 @PropertySource(ignoreResourceNotFound = true, value = "classpath:application-cert.properties")
 public class CertificadoMasivoController {
-	
+
 	@Value("${ws.ruta_local}")
 	private String RUTA_LOCAL;
-	@Value("${ws.url_rsm}")
-	private String URL_RSM;
 	@Value("${ws.temp_zip}")
 	private String TEMP_ZIP;
 	@Value("${ws.clave}")
@@ -60,67 +60,13 @@ public class CertificadoMasivoController {
 	CursoRep bd_curso;
 	@Autowired
 	Logging log;
-	/**
-	 * Metodo que obtiene certificados masivamente para traer nuevos
-	 * archivos. (Cada 2 horas realiza la tarea)
-	 * 
-	 * @throws Exception
-	 */
-	@Scheduled(cron = "0 10 19 * * ?")
-	public void scheduleTaskWithCronExpression() throws Exception {
+	@Autowired
+	Url_wsRep urls;
+
+	private int[] extraccionPorURL(String URL_RSM, JSONObject json) throws Exception {
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost(URL_RSM);
-		JSONObject json = new JSONObject();
-		LinkedList<Profesor> profesores = new LinkedList<>(bd_profesor.findAll());
-		if(profesores.size() == 0){
-			return;
-		}
-		int nuevas = 0;
-		int actual = 0;
-		System.out.println("A punto de buscar profesores.");
-		int k = 0;
-		for (Profesor p : profesores) {
-			LinkedList<Certificado> cert = new LinkedList<>(p.getCertificados());
-			if (cert.size() == 0) {
-				LinkedList<Inscripcion> ins = new LinkedList<>(p.getInscripciones());
-				if (ins.size() == 0) {
-					System.out.println("No hay inscripciones asociadas!");
-					continue;
-				}
-				
-				for (Inscripcion i : ins) {
-					//int fkc = i.getFk_id_grupo().getFk_id_curso();
-					//Curso caux = bd_curso.findByID(fkc);
-					Curso caux = i.getFk_id_grupo().getFk_id_curso();
-					//if(!caux.getNombre().equals("COSDAC 2018")) {
-						//continue;
-					//}
-					System.out.println("**\n" + p.getCorreo()+ "\n" + caux.getNombre() + "\n**");
-					json.put("correo" + k, p.getCorreo());
-					json.put("curso" + k, caux.getNombre());
-					json.put("id_curso" + k, caux.getPk_id_curso());
-					json.put("tiempo" + k, 0);
-					System.out.println("Se insertaron elementos en el JSON (certificados no presentes)");
-					nuevas++;
-					k++;
-				}
-				continue;
-			}
-			for (Certificado c : cert) {
-				System.out.println("**\n" + p.getCorreo()+ "\n" + c.getFk_id_curso().getNombre() + "\n**");
-				json.put("correo" + k, p.getCorreo());
-				json.put("curso" + k, c.getFk_id_curso().getNombre());
-				json.put("id_curso" + k, c.getFk_id_curso().getPk_id_curso());
-				json.put("tiempo" + k, c.getTiempo_creado());
-				System.out.println("Se insertaron elementos en el JSON (certificadospresentes)");
-				actual++;
-				k++;
-			}
-			
-			
-		}
-		json.put("cuenta", k);
-		//System.out.println(json.toString());
+		// System.out.println(json.toString());
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 		params.add(new BasicNameValuePair("json", json.toString()));
@@ -129,7 +75,8 @@ public class CertificadoMasivoController {
 		// esperar respuesta
 		HttpResponse response = client.execute(post);
 
-		//BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "ISO_8859_1"));
+		// BufferedReader rd = new BufferedReader(new
+		// InputStreamReader(response.getEntity().getContent(), "ISO_8859_1"));
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 		String jsonText = "";
 		String linea = null;
@@ -140,19 +87,24 @@ public class CertificadoMasivoController {
 		JSONObject json_r = null;
 		try {
 			json_r = new JSONObject(jsonText);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println(jsonText);
-			return;
+			return new int[] { 0, 0 };
 		}
-		//JSONObject json_r = new JSONObject(jsonText);
+		// JSONObject json_r = new JSONObject(jsonText);
 		String msg = (String) json_r.get("mensaje");
 		System.out.println(msg);
-		//msg = new String(java.util.Base64.getDecoder().decode(msg),Charset.forName("UTF-8"));
-		if(!msg.equals("NULL")) {
-			System.out.println("No hay certificados nuevos!");
-			log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS, "0 constancias nuevas extraídas de " + nuevas + " solicitadas");
-			log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_ACTUALIZACION, "0 constancias actualizadas de " + actual + " solicitadas");
-			return;
+		// msg = new
+		// String(java.util.Base64.getDecoder().decode(msg),Charset.forName("UTF-8"));
+		if (!msg.equals("NULL")) {
+			/*
+			 * System.out.println("No hay certificados nuevos!");
+			 * log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS,
+			 * "0 constancias nuevas extraídas de " + nuevas + " solicitadas");
+			 * log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_ACTUALIZACION,
+			 * "0 constancias actualizadas de " + actual + " solicitadas");
+			 */
+			return new int[] { 0, 0 };
 		}
 
 		String mns = (String) json_r.get("zip");
@@ -178,7 +130,7 @@ public class CertificadoMasivoController {
 		}
 		try {
 			ZipFile zpf = zpf = new ZipFile(out, Charset.forName("Cp437"));
-			
+
 			Enumeration e = zpf.entries();
 			ZipEntry ze;
 			// System.out.println("PASE");
@@ -200,24 +152,26 @@ public class CertificadoMasivoController {
 				bos.close();
 				bis.close();
 			}
-		} catch(java.util.zip.ZipException zx) {
+		} catch (java.util.zip.ZipException zx) {
 			System.out.println("Zip file is empty!");
-			return;
+			return new int[] { 0, 0 };
 		} catch (Exception e) {
 			System.out.println(e);
 			e.printStackTrace();
+			return new int[] { 0, 0 };
 		}
 		int nuevas2 = 0;
 		int actual2 = 0;
 		// comienza a mover los pdfs a la ruta elegida
 		for (File f : tmp.listFiles()) {
 			Curso c = bd_curso.findByID(Integer.parseInt(f.getName()));
-			//Curso c = bd_curso.findByNombre(f.getName());
+			// Curso c = bd_curso.findByNombre(f.getName());
 			JSONObject ar = new JSONObject(json_r.get(f.getName()).toString());
 			for (File f2 : f.listFiles()) {
 				Profesor p = bd_profesor.findByCorreo(f2.getName());
 				for (File f3 : f2.listFiles()) {
-					String pt = RUTA_LOCAL + c.getNombre() + "/" + c.getNombre() + "_" + p.getPk_id_profesor() + ".pdf"; //+ f3.getName();
+					String pt = RUTA_LOCAL + c.getNombre() + "/" + c.getNombre() + "_" + p.getPk_id_profesor() + ".pdf"; // +
+																															// f3.getName();
 					FileInputStream fs = new FileInputStream(f3);
 					File aux = new File(pt);
 					new File(aux.getParent()).mkdirs();
@@ -234,16 +188,16 @@ public class CertificadoMasivoController {
 					spdf.cifraPdf(pt, nombrec, c.getNombre());
 					f3.delete();// elimina archivo
 					Certificado cert = bd_certificado.findByRuta(pt);
-					if(cert == null) {
+					if (cert == null) {
 						System.out.println("insertando nuevo certificado!");
 						cert = new Certificado();
 						nuevas2++;
 					} else {
 						actual2++;
 					}
-					//Certificado cert = new Certificado();
+					// Certificado cert = new Certificado();
 					cert.setRuta(pt);
-					long tt = Long.parseLong((String)ar.get(p.getCorreo()));
+					long tt = Long.parseLong((String) ar.get(p.getCorreo()));
 					cert.setTiempo_creado(tt);
 					cert.setFk_id_curso(c);
 					cert.setFk_id_profesor(p);
@@ -254,8 +208,87 @@ public class CertificadoMasivoController {
 			f.delete();// elimina directorio padre (curso)
 		}
 		out.delete();// elimina zip
-		log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS,nuevas2 + " constancias nuevas extraídas de " + nuevas + "solicitadas");
-		log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_ACTUALIZACION,actual2 + "constancias actualizadas de " + actual + "solicitadas");
+		/**/
+		return new int[] { nuevas2, actual2 };
+	}
+
+	/**
+	 * Metodo que obtiene certificados masivamente para traer nuevos archivos. (Cada
+	 * 2 horas realiza la tarea)
+	 * 
+	 * @throws Exception
+	 */
+	@Scheduled(cron = "0 41 19 * * ?")
+	public void scheduleTaskWithCronExpression() throws Exception {
+		LinkedList<Url_ws> links = new LinkedList<>(urls.findVarios());
+		if (links.size() == 0) {
+			throw new Exception("No hay urls!");
+		}
+		JSONObject json = new JSONObject();
+		LinkedList<Profesor> profesores = new LinkedList<>(bd_profesor.findAll());
+		if (profesores.size() == 0) {
+			return;
+		}
+		int nuevas = 0;
+		int actual = 0;
+		System.out.println("A punto de buscar profesores.");
+		int k = 0;
+		for (Profesor p : profesores) {
+			LinkedList<Certificado> cert = new LinkedList<>(p.getCertificados());
+			if (cert.size() == 0) {
+				LinkedList<Inscripcion> ins = new LinkedList<>(p.getInscripciones());
+				if (ins.size() == 0) {
+					System.out.println("No hay inscripciones asociadas!");
+					continue;
+				}
+
+				for (Inscripcion i : ins) {
+					// int fkc = i.getFk_id_grupo().getFk_id_curso();
+					// Curso caux = bd_curso.findByID(fkc);
+					Curso caux = i.getFk_id_grupo().getFk_id_curso();
+					// if(!caux.getNombre().equals("COSDAC 2018")) {
+					// continue;
+					// }
+					System.out.println("**\n" + p.getCorreo() + "\n" + caux.getNombre() + "\n**");
+					json.put("correo" + k, p.getCorreo());
+					json.put("curso" + k, caux.getNombre());
+					json.put("id_curso" + k, caux.getPk_id_curso());
+					json.put("tiempo" + k, 0);
+					System.out.println("Se insertaron elementos en el JSON (certificados no presentes)");
+					nuevas++;
+					k++;
+				}
+				continue;
+			}
+			for (Certificado c : cert) {
+				System.out.println("**\n" + p.getCorreo() + "\n" + c.getFk_id_curso().getNombre() + "\n**");
+				json.put("correo" + k, p.getCorreo());
+				json.put("curso" + k, c.getFk_id_curso().getNombre());
+				json.put("id_curso" + k, c.getFk_id_curso().getPk_id_curso());
+				json.put("tiempo" + k, c.getTiempo_creado());
+				System.out.println("Se insertaron elementos en el JSON (certificadospresentes)");
+				actual++;
+				k++;
+			}
+
+		}
+		json.put("cuenta", k);
+		int nuevas2 = 0;
+		int actual2 = 0;
+		for (Url_ws u : links) {
+			System.out.println("Intentando con " + u.getUrl());
+			int[] x = extraccionPorURL(u.getUrl(), json);
+			nuevas2 += x[0];
+			actual2 += x[1];
+		}
+		// if (nuevas != 0) {
+		log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS,
+				nuevas2 + " constancias nuevas extraídas de " + nuevas + "solicitadas");
+		// }
+		// if (actual != 0) {
+		log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_ACTUALIZACION,
+				actual2 + "constancias actualizadas de " + actual + "solicitadas");
+		// }
 		// tarea completada*/
 	}
 }

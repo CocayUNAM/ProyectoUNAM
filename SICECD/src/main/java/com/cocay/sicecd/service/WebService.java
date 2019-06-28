@@ -31,15 +31,15 @@ public class WebService {
 	private String url;
 
 	// @RequestMapping(value = "/webservice", method = RequestMethod.GET)
-	@Scheduled(cron = "30 * * * * *")
-	public String call_me() {
-
-		String json = jsonGetRequest(url);
-		System.out.println(json);
-		insert_update_Profesor(json);
-		System.out.println("----->enTRO");
-		return "consultas/consultaWebService";
-	}
+//	@Scheduled(cron = "30 * * * * *")
+//	public String call_me() {
+//
+//		String json = jsonGetRequest(url);
+//		System.out.println(json);
+//		insert_update_Profesor(json);
+//		System.out.println("----->enTRO");
+//		return "consultas/consultaWebService";
+//	}
 
 	public void insert_update_Profesor(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);

@@ -21,66 +21,185 @@
 <link href="css/lib/font-awesome.min.css" rel="stylesheet">
 <link href="css/lib/themify-icons.css" rel="stylesheet">
 <link href="css/lib/menubar/sidebar.css" rel="stylesheet">
-<link href="css/lib/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/lib/helper.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<link href="css/bootstrap-table.css" rel="stylesheet">
+<style type="text/css" media="screen">
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading .modal {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}
+</style>
 </head>
 <body>
 	<div th:replace="/includes/head.html :: head_div1"></div> 
 	<div th:replace="/includes/head.html :: head_div2"></div>
   
- 
 	<div class="content-wrap">
 		<div class="container-fluid">
 			<section>
+			
 				<div class="row">
 					<div class="col-lg-12">
 						<h1>Avisos por Correo</h1>
 						<div class="card">
-							<div class="panel panel-danger">
-							   <div class="panel-heading">Filtros</div>
-							   		<div class="row">
-							   			<div class="col-lg-3">
-							   				<div class="panel-body">
-							   					<label>Clave por Evento</label>
-												<input type="text" name="nombre_curso" class="form-control">
-							   				</div>
-							   			</div>
-							   			<div class="col-lg-3">
-							   				<div class="panel-body">
-							   					<label>Tipo de Curso</label>
-                                                    <select name="tipos" class="form-control" data-placeholder=" ">
-                                                    	<option value="4">Sin definir</option>
-                                                        <option value="1">Curso</option>
-														<option value="2">Diplomado</option>
-														<option value="3">Especialidad</option>
-                                                    </select>
-							   				</div>
-							   			</div>
-							   			<div class="col-lg-3">
-							   				<div class="panel-body">Panel Content</div>
-							   			</div>
-							   			<div class="col-lg-3">
-							   				<div class="panel-body">Panel Content</div>
-							   			</div>
-							   		</div>
-							   		<div class="row">
-							   			<div class="col-lg-3">
-							   				<div class="panel-body">Panel Content</div>
-							   			</div>
-							   			<div class="col-lg-3">
-							   				<div class="panel-body">Panel Content</div>
-							   			</div>
-							   			<div class="col-lg-3">
-							   				<div class="panel-body">Panel Content</div>
-							   			</div>
-							   			<div class="col-lg-3">
-							   				<div class="panel-body">Panel Content</div>
-							   			</div>
-							   		</div>
-							   		</br>
-							</div>
-							<button type="button" class="btn btn-default btn-lg ml-auto">Buscar</button>
+							<form action="/BusquedaCorreo" method="post" target="_blank">
+								<div class="row">
+									<div class="col-lg-4">
+										<button type="button" class="btn btn-query btn-default collapsed btn-lg" data-toggle="collapse" data-target="#consultaCursos" onclick="tpFiltro(1);">
+              									Consulta Cursos
+              							</button>						
+          							</div>
+									<div class="col-lg-4">
+										<button type="button" class="btn btn-query btn-default collapsed btn-lg" data-toggle="collapse" data-target="#consultaProfesores" onclick="tpFiltro(2);">
+              									Consulta Profesor
+              							</button>						
+          							</div>
+          							<div class="col-lg-4">
+										<button type="button" class="btn btn-query btn-default collapsed btn-lg" data-toggle="collapse" data-target="#consultaInscripcion" onclick="tpFiltro(3);">
+              									Consulta Inscripcion
+              							</button>						
+          							</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div id="consultaCursos" class="collapse">
+											<div class="card">
+												<div class="card-body">
+													<div class="basic-form">
+														<form action="/consultaSimpleCurso" method="post" target="_blank">
+															<div class="form-group">
+																<h4>Consulta de Cursos</h4>
+																<label>Nombre</label>
+																	<input type="text" name="nombre_curso" class="form-control">
+																<label>Clave</label>
+																	<input type="text" name="clave_curso" class="form-control" text="0000">
+																<label>Tipo de Curso</label>
+																	<select name="tipos_cursos" class="form-control" data-placeholder=" ">
+																		<option value="0">Sin definir</option>
+																		<option value="1">Curso</option>
+																		<option value="2">Diplomado</option>
+																		<option value="3">Especialidad</option>
+																	</select>
+																<label>Fecha de Inicio</label>
+																	<input type="date" class="form-control" name="fecha_inicio_curso">
+																<label>Fecha de Término</label>
+																	<input type="date" class="form-control" name="fecha_fin_curso">
+															</div>
+<!-- 															<button type="submit" class="btn btn-default">Consultar</button> -->
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div id="consultaProfesores" class="collapse">
+											<div class="card">
+												<div class="card-body">
+													<div class="basic-form">
+														<form action="/consultaSimpleCurso" method="post" target="_blank">
+															<div class="form-group">
+																<h4>Consulta de Profesores</h4>
+																<label>Nombre Completo</label>
+																	<input type="text" name="nombre_profesor" class="form-control" 
+																	pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
+																<label>RFC</label>
+																	<input type="text" class="form-control" name="rfc" maxlength="13">
+																<label>Estado</label>	
+																	<select name="estado_profesor" class="form-control" data-placeholder="Selecciona un Estado">
+																		<option value="0">Sin definir</option>
+																		<option value="1">Aguascalientes</option>
+																		<option value="2">Baja California</option>
+																		<option value="3">Baja California Sur</option>
+																		<option value="4">Campeche</option>
+																		<option value="5">Ciudad de México</option>
+																		<option value="6">Coahuila</option>
+																		<option value="7">Colima</option>
+																		<option value="8">Chiapas</option>
+																		<option value="9">Chihuahua</option>
+																		<option value="10">Durango</option>
+																		<option value="11">Estado de México</option>
+																		<option value="12">Guanajuato</option>
+																		<option value="13">Guerrero</option>
+																		<option value="14">Hidalgo</option>
+																		<option value="15">Jalisco</option>
+																		<option value="16">Michoacán</option>
+																		<option value="17">Morelos</option>
+																		<option value="18">Nayarit</option>
+																		<option value="19">Nuevo León</option>
+																		<option value="20">Oaxaca</option>
+																		<option value="21">Puebla</option>
+																		<option value="22">Querétaro</option>
+																		<option value="23">Quintana Roo</option>
+																		<option value="24">San Luis Potosí</option>
+																		<option value="25">Sinaloa</option>
+																		<option value="26">Sonora</option>
+																		<option value="27">Tabasco</option>
+																		<option value="28">Tamaulipas</option>
+																		<option value="29">Tlaxcala</option>
+																		<option value="30">Veracruz</option>
+																		<option value="31">Yucatán</option>
+																		<option value="32">Zacatecas</option>
+																	</select>
+				                                                <label>Turno</label>
+				                                                    <select name="turno_profesor" class="form-control" data-placeholder=" ">
+				                                                    	<option value="0">Sin definir</option>
+				                                                        <option value="1">Matutino</option>
+																		<option value="2">Vespertino</option>
+																		<option value="3">Completo</option>
+				                                                    </select>
+															</div>
+<!-- 															<button type="submit" class="btn btn-default">Consultar</button> -->
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div id="consultaInscripcion" class="collapse">
+											<div class="card">
+												<div class="card-body">
+													<div class="basic-form">
+														<form action="/consultaSimpleCurso" method="post" target="_blank">
+															<div class="form-group">
+																<h4>Consulta de Inscripcion</h4>
+																<label>ID del grupo<span class="text-danger">*</span></label>
+																	<input type="text" name="ins_grupo" class="form-control">
+															</div>
+<!-- 															<button type="submit" class="btn btn-default">Consultar</button> -->
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button type="submit" class="btn btn-default btn-lg ml-auto" onclick="filtroCorreo();" >Buscar</button>
+							</form>
 						</div>
 					</div>
 				</div>		
@@ -88,62 +207,76 @@
 			<section>
 				<div class="row">
 					<div class="col-lg-12">
-						<h1>Participantes Candidatos</h1>
+						<h1>Resultado Busqueda</h1>
 						<div class="card">
+<!-- 						<form action="/EnviarCorreo" method="GET"> -->
 							<div class="table-responsive">
-								<table class="table table-striped table-bordered" id="tablaPrueba">
+								<table class="table table-striped table-bordered" id="tablaCorreos">
 									<thead>
-												<tr>
-													<th>NOMBRE</th>
-													<th>CLAVE</th>
-													<th>CORREO</th>
-												</tr>
-											</thead>
+										<tr>
+											<th data-formatter="formatterTableCheckInput">
+ 											<input type="checkbox" name="checkAllCorreos" id="checkAllCorreos" onChange="checkAll('checkCorreos',this); validarCheckAll();"/> 
+ 												<label for="checkAllCorreos"></label>	
+ 											</th>
+											<th data-field="nombres">NOMBRE</th>
+											<th data-field="correo">CORREO</th>										
+										</tr>
+									</thead>
 								</table>
 							</div>
+							<br />
+							<button type="submit" class="btn btn-default btn-lg ml-auto" onclick="enviarCorreo();">Enviar</button>
+<!-- 							</form> -->
 						</div>
 					</div>
 				</div> 
 			</section>
+<!-- 			<section> -->
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-lg-12"> -->
+<!-- 						<h1>Participantes Candidatos</h1> -->
+<!-- 						<div class="card"> -->
+<!-- 							<div class="table-responsive"> -->
+<!-- 								<table class="table table-striped table-bordered" id="tablaCorreos"> -->
+<!-- 									<thead> -->
+<!-- 										<tr> -->
+<!-- 											<th data-detail-formatter="formatterTableCheckInput"> -->
+<!-- 												<input type="checkbox" name="checkAllCorreos" id="checkAllCorreos" onChange="checkAll('checkCorreos',this); validarCheckAll();"/> -->
+<!-- 												<label for="checkAllCorreos"></label>				 -->
+<!-- 											</th> -->
+<!-- 											<th data-field="clave" data-sortable="true">CLAVE</th> -->
+<!-- 											<th th:text="${nombre}" data-sortable="true">NOMBRE</th> -->
+<!-- 											<th th:text="${correo}" data-sortable="true">CORREO</th> -->
+<!-- 										</tr> -->
+<!-- 									</thead> -->
+<!-- 								</table> -->
+<!-- 							</div> -->
+<!-- 							<div class="row"> -->
+<!-- 								<div class="col-sm-12 text-right"> -->
+<!-- 									<div class="btn btn-primary btn-100" id="btnEnviar" onclick="btnEnviar();">Enviar</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div>  -->
+<!-- 			</section> -->
 		</div>
 	</div>
-<script type="text/javascript">
-function validateForm(){
-	var archivo = document.forms["myForm"]["archivo"].value;
-
-	if (archivo.length<1) {
-		
-        document.getElementById('error-archivo').innerHTML = JSalert();
-    } else{
-    	swal("Congrats!", ", Your account is created!", "success");
-    }      
-    if(archivo.length<1){
-       	return false;
-    }            
-}
-
-</script>
-<script type="text/javascript">
-function JSalert(){
-	swal("Completado!", " La información fue procesada correctamente!", "success");
-}
-
-function JSalert2(){
-	swal({
-		  title: "Error",
-		  text: "Ocurrió un error mientras se procesaba la información!",
-		  icon: "warning"
-		});
-}
-</script>
+<div class="modal"><!-- Place at bottom of page --></div>
 <script src="js/lib/jquery.min.js"></script>
-	<script src="js/lib/jquery.nanoscroller.min.js"></script>
-	<!-- nano scroller -->
-	<script src="js/lib/menubar/sidebar.js"></script>
-	<script src="js/lib/preloader/pace.min.js"></script>
-	<!-- sidebar -->
-	<!-- bootstrap -->
-	<script src="js/lib/bootstrap.min.js"></script>
-	<script src="js/scripts.js"></script>
+<script src="js/lib/jquery.nanoscroller.min.js"></script>
+<!-- nano scroller -->
+<script src="js/lib/menubar/sidebar.js"></script>
+<script src="js/lib/preloader/pace.min.js"></script>
+<!-- sidebar -->
+<!-- bootstrap -->
+<script src="js/lib/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/AvisosCorreo.js"></script>	
+<!-- Latest compiled and minified JavaScript -->
+<script src="js/bootstrap-table.min.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="js/bootstrap-table-zh-CN.min.js"></script>
+<script src="js/consultarProfesor.js"></script>
 </body>
 </html>
