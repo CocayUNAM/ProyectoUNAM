@@ -57,11 +57,11 @@ public class ConsultaProfesorController {
 	 */
 	@RequestMapping(value = "/consultarProfesorPersonalizado", method = RequestMethod.POST)
 	public ModelAndView consultarProfesorPersonalizado(ModelMap model, HttpServletRequest request) {
-		String curps = request.getParameter("curp").toUpperCase();
-		String rfcs = request.getParameter("rfc").toUpperCase();
-		String nombre = normalizar(request.getParameter("nombre")).toUpperCase();
-		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase();
-		String apellido_materno = normalizar(request.getParameter("apellido_materno")).toUpperCase();
+		String curps = request.getParameter("curp").toUpperCase().trim();
+		String rfcs = request.getParameter("rfc").toUpperCase().trim();
+		String nombre = normalizar(request.getParameter("nombre")).toUpperCase().trim();
+		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase().trim();
+		String apellido_materno = normalizar(request.getParameter("apellido_materno")).toUpperCase().trim();
 		
 		Integer id_grado = Integer.parseInt(request.getParameter("grado_estudios"));
 		Integer id_genero = Integer.parseInt(request.getParameter("genero"));
@@ -74,7 +74,7 @@ public class ConsultaProfesorController {
 		//Filtrando por CURP
 		if (curps != "") {
 			for (Profesor p : list_p1) {
-				String pcurp = p.getCurp().toUpperCase(); 
+				String pcurp = p.getCurp().toUpperCase().trim(); 
 				if( !pcurp.contains(curps) ) {
 					list_p2.remove(p);
 				}
@@ -84,28 +84,8 @@ public class ConsultaProfesorController {
 		//Filtrando por RFC
 		if (rfcs != "") {
 			for (Profesor p : list_p1) {
-				String prfc = p.getRfc().toUpperCase(); 
+				String prfc = p.getRfc().toUpperCase().trim(); 
 				if( !prfc.contains(rfcs) ) {
-					list_p2.remove(p);
-				}
-			}
-		}
-		
-		//Filtrando por Apellido Paterno
-		if (nombre != "") {
-			for (Profesor p : list_p1) {
-				String ap = normalizar(p.getApellido_paterno()).toUpperCase(); 
-				if( !ap.contains(apellido_paterno) ) {
-					list_p2.remove(p);
-				}
-			}
-		}
-		
-		//Filtrando por Apellido Materno
-		if (nombre != "") {
-			for (Profesor p : list_p1) {
-				String am = normalizar(p.getApellido_materno()).toUpperCase(); 
-				if( !am.contains(apellido_materno) ) {
 					list_p2.remove(p);
 				}
 			}
@@ -114,8 +94,28 @@ public class ConsultaProfesorController {
 		//Filtrando por Nombre
 		if (nombre != "") {
 			for (Profesor p : list_p1) {
-				String nom = normalizar(p.getNombre()).toUpperCase();
+				String nom = normalizar(p.getNombre()).toUpperCase().trim();
 				if( !nom.contains(nombre) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+		
+		//Filtrando por Apellido Paterno
+		if (apellido_paterno != "") {
+			for (Profesor p : list_p1) {
+				String ap = normalizar(p.getApellido_paterno()).toUpperCase().trim();
+				if( !ap.contains(apellido_paterno) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+		
+		//Filtrando por Apellido Materno
+		if (apellido_materno != "") {
+			for (Profesor p : list_p1) {
+				String am = normalizar(p.getApellido_materno()).toUpperCase().trim();
+				if( !am.contains(apellido_materno) ) {
 					list_p2.remove(p);
 				}
 			}
@@ -130,7 +130,7 @@ public class ConsultaProfesorController {
 			}
 		}
 			
-		//Filtrando por gÃ©nero
+		//Filtrando por género
 		if ( id_genero != 3) {
 			for(Profesor p : list_p1) {
 				if(p.getId_genero().getPk_id_genero() != id_genero) {
@@ -157,7 +157,7 @@ public class ConsultaProfesorController {
 			}
 		}
 		
-		if(!list_p1.isEmpty()) {
+		if(!list_p2.isEmpty() || list_p2.size() > 0) {
 			model.put("profesores", list_p2);
 			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
 		} else {

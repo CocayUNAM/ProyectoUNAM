@@ -81,21 +81,19 @@
 							   		<div class="row">
 							   			<div class="col-lg-3">
 							   				<label>CURP</label>
-											<input type="text" class="form-control" name="curp" maxlength="18" placeholder="SAMH250912MDFSTO10">
+											<input type="text" class="form-control" name="curp" id="curp" maxlength="18" placeholder="SAMH250912MDFSTO10">
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<label>Nombre</label>
-											<input type="text" name="nombre" class="form-control" placeholder="Juan"
-												pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
+											<input type="text" name="nombre" id="nombre" class="form-control" placeholder="Juan">
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<label>Apellido Paterno</label>
-											<input type="text" class="form-control" placeholder="Perez" name="apellido_paterno"
-												pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
+											<input type="text" class="form-control" placeholder="Perez" name="apellido_paterno" id="apellido_paterno">
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<label>RFC</label>
-											<input type="text" class="form-control" name="rfc" maxlength="13" placeholder="SAMH2509126L6">
+											<input type="text" class="form-control" name="rfc" maxlength="13" placeholder="SAMH2509126L6" id="rfc">
 							   			</div>
 							   		</div>
 							   		<div class="row">
@@ -160,6 +158,7 @@
 	<script src="js/lib/bootstrap.min.js"></script>
 	<script src="js/scripts.js"></script>
 	
-	<script src="/js/lib/reports/date-functions.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/js/reports/query-functions.js"></script>
 </body>
 </html>

@@ -57,22 +57,20 @@ public class ConsultaInscripcionController {
 	public ModelAndView consultaInscripciones(ModelMap model,HttpServletRequest request) throws ParseException {
 		
 		/* Datos del profesor */
-		String curp = request.getParameter("curp").toUpperCase();
-		String rfc = request.getParameter("rfc").toUpperCase();
-		String nombre = normalizar(request.getParameter("nombre")).toUpperCase();
-		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase();
+		String curp = request.getParameter("curp").toUpperCase().trim();
+		String rfc = request.getParameter("rfc").toUpperCase().trim();
+		String nombre = normalizar(request.getParameter("nombre")).toUpperCase().trim();
+		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase().trim();
 		Integer id_grado = Integer.parseInt(request.getParameter("grado_estudios"));
 		Integer id_genero = Integer.parseInt(request.getParameter("genero"));
 		Integer id_turno = Integer.parseInt(request.getParameter("turno"));
 		
 		/* Datos del curso */
-		String clave_curso = request.getParameter("clave_curso");
-		System.out.println(clave_curso);
+		String clave_curso = request.getParameter("clave_curso").trim();
 		Integer id_tipo = Integer.parseInt(request.getParameter("tipos"));
-		System.out.println(id_tipo);
 		
 		/* Datos del grupo */
-		String clave_grupo = request.getParameter("clave_grupo");
+		String clave_grupo = request.getParameter("clave_grupo").trim();
 		
 		/* Intervalo de tiempo */
 		String fecha_inicio_1 = request.getParameter("fecha_1");
@@ -97,7 +95,7 @@ public class ConsultaInscripcionController {
 		//List<Inscripcion> inscripciones = obtenerIns(ins_cursos, ins_grupos, ins_profes);
 		List<Inscripcion> inscripciones = obtenerIns(ins_grupos, ins_profes);
 		
-		if ( inscripciones != null ) {
+		if ( inscripciones != null || inscripciones.size() > 0 ) {
 			model.put("ins", inscripciones);
 			return new ModelAndView("ConsultarInscripcion/muestraListaIns", model);
 		} else {
@@ -234,21 +232,21 @@ public class ConsultaInscripcionController {
 			ins_profes.addAll(p.getInscripciones());
 		//Caso: Búsqueda por los filtros restantes
 		} else {
-			//Filtrando por Apellido Paterno
-			if (apellido_paterno != "") {
+			//Filtrando por Nombre
+			if (nombre != "") {
 				for (Profesor p : profes1) {
-					String ap = normalizar(p.getApellido_paterno()).toUpperCase(); 
-					if( !ap.contains(apellido_paterno) ) {
+					String nom = normalizar(p.getNombre()).toUpperCase().trim();
+					if( !nom.contains(nombre) ) {
 						profes2.remove(p);
 					}
 				}
 			}
-					
-			//Filtrando por Nombre
-			if (nombre != "") {
+			
+			//Filtrando por Apellido Paterno
+			if (apellido_paterno != "") {
 				for (Profesor p : profes1) {
-					String nom = normalizar(p.getNombre()).toUpperCase();
-					if( !nom.contains(nombre) ) {
+					String ap = normalizar(p.getApellido_paterno()).toUpperCase().trim();
+					if( !ap.contains(apellido_paterno) ) {
 						profes2.remove(p);
 					}
 				}

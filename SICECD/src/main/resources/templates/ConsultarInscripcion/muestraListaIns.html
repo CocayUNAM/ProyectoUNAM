@@ -42,7 +42,7 @@
                                                 	<th>Tipo de Curso</th>
                                                 	<th>Curso</th>
                                                 	<th>Grupo</th>
-                                                	<th>Profesor</th>
+                                                	<th colspan="2" >Profesor</th>
                                                 	<th>Grado de Estudios</th>
                                                     <th>RFC</th>
                                                 </tr>
@@ -53,6 +53,7 @@
                                                 	<td data-th-text="${ins.fk_id_grupo.fk_id_curso.nombre}">Text ...</td>
                                                 	<td data-th-text="${ins.fk_id_grupo.clave}">Text ...</td>
                                                 	<td data-th-text="${ins.fk_id_profesor.nombre}">Text ...</td>
+                                                	<td data-th-text="${ins.fk_id_profesor.apellido_paterno}">Text ...</td>
 													<td data-th-text="${ins.fk_id_profesor.fk_id_grado_profesor.nombre}">Text ...</td>
                                                 	<td data-th-text="${ins.fk_id_profesor.rfc}">Text ...</td>
                                                 </tr>
