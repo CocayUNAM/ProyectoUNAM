@@ -41,8 +41,9 @@ public class Grupo {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor",insertable = true, updatable = true)
 	Profesor fk_id_profesor;
-
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	
+	@OneToMany(mappedBy = "fk_id_grupo", targetEntity=Inscripcion.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
 
 	public int getPk_id_grupo() {
