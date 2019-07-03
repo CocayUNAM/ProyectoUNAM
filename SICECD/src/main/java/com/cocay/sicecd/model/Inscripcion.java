@@ -35,6 +35,17 @@ public class Inscripcion {
 	@Column(name = "calif")
 	Integer calif;
 	
+	@Column(name = "constancia")
+	String constancia;
+	
+	public String getConstancia() {
+		return constancia;
+	}
+
+	public void setConstancia(String constancia) {
+		this.constancia = constancia;
+	}
+
 	public Inscripcion(){}
 	
 	public int getPk_id_inscripcion() {

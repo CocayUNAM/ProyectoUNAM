@@ -81,6 +81,9 @@ public class Profesor {
 	@Column(name = "ocupacion")
 	String ocupacion;
 
+	@Column(name = "curriculum")
+	String curriculum;
+
 	@OneToMany(mappedBy = "fk_id_profesor", targetEntity=Inscripcion.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
@@ -88,6 +91,9 @@ public class Profesor {
 	@OneToMany(mappedBy = "fk_id_profesor",targetEntity=Certificado.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Certificado> certificados = new ArrayList<>();
+	
+	
+	
 	
 	public Profesor(){}
 	
@@ -259,5 +265,15 @@ public class Profesor {
 	public void setCertificados(List<Certificado> certificados) {
 		this.certificados = certificados;
 	}
+
+	public String getCurriculum() {
+		return curriculum;
+	}
+
+	public void setCurriculum(String curriculum) {
+		this.curriculum = curriculum;
+	}
+	
+	
 	
 }

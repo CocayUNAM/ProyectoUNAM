@@ -2,6 +2,8 @@ package com.cocay.sicecd.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.cocay.sicecd.service.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +18,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import com.cocay.sicecd.model.Inscripcion;
+import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Usuario_sys;
 import com.cocay.sicecd.repo.Estatus_usuario_sysRep;
+import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.Perfil_sysRep;
+import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.Usuario_sysRep;
 import com.cocay.sicecd.service.SendMailService;
 
@@ -105,14 +118,58 @@ public class AltaUsuarios {
 		return "redirect:/login?mensaje=Ya puedes realizar login";
 	}
 	
-	@GetMapping("/AdministracionCursos/prueba")
+	
+	
+	
+	@Autowired
+	InscripcionRep _incripcion;
+	@Autowired
+	ProfesorRep _profesor;
+	
+	@RequestMapping("prueba")
 	@ResponseBody
-	public String prueba() {
+	public void show(@RequestParam(name = "id") int id,
+					 @RequestParam (name = "tipo") String tipo,
+					 HttpServletResponse response) {
+	     
+		
+		String file= "";
+		
+		  if (tipo.equals("constancia")) {
+		  
+			  Inscripcion inscripcion= _incripcion.findById(id).get();
+			  file= inscripcion.getConstancia(); 
+		  } else {
+			  Profesor profesor=_profesor.findById(id).get(); 
+			  file=profesor.getCurriculum(); 
+		  }
+		 
 
-		log.setTrace("prueba");
-		log.setTrace("prueba", "hola");
-		return "hola";
-	}
+
+	      response.setContentType("application/pdf");
+	      response.setHeader("Content-Disposition", "attachment; filename=" +file);
+	      response.setHeader("Content-Transfer-Encoding", "binary");
+	      
+
+	      
+	      try {
+	    	  BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
+	    	  
+	    	  FileInputStream fis = new FileInputStream("src/../../"+file);
+	    	  int len;
+	    	  byte[] buf = new byte[1024];
+	    	  while((len = fis.read(buf)) > 0) {
+	    		  bos.write(buf,0,len);
+	    	  }
+	    	  bos.close();
+	    	  response.flushBuffer();
+	      }
+	      catch(IOException e) {
+	    	  e.printStackTrace();
+	    	  
+	      }
+	      
+}
 }
 
 
