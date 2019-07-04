@@ -61,7 +61,13 @@ public class AltaUsuarios {
 	@PostMapping("/AdministracionCursos/altaUsuario")
 	public ResponseEntity<String> darAltaUsuario(@RequestBody Usuario_sys consulta) 
 	{
-
+		System.out.println("[ENTRA-------]");
+		
+		  if (_usuarioSys.existsByRfc(consulta.getRfc())) { 
+			  return ResponseEntity.ok("El usuario con este rfc ya ha sido agregado"); 
+		 }
+		 
+		
 		consulta.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Inactivo").get(0));
 		consulta.setConfirmacion("true");
 		consulta.setConfirmacioncorreo("false");
