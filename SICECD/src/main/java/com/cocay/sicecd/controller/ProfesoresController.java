@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.dto.ProfesorDto;
 import com.cocay.sicecd.model.Estado;
 import com.cocay.sicecd.model.Genero;
@@ -29,6 +30,7 @@ import com.cocay.sicecd.repo.GeneroRep;
 import com.cocay.sicecd.repo.Grado_profesorRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.TurnoRep;
+import com.cocay.sicecd.service.Logging;
 
 @Controller
 @RequestMapping("AdministracionProfesores")
@@ -48,6 +50,13 @@ public class ProfesoresController {
 	
 	@Autowired
 	private GeneroRep gRep;
+	
+	@Autowired
+	Logging log;
+	
+	public void registrarAsesor() {
+		log.setTrace(LogTypes.REGISTRAR_ASESOR);
+	}
 	
 	//Mapeo del html para registrar cursos
 	@RequestMapping(value = "/registrarAsesor2", method = RequestMethod.GET)
@@ -117,6 +126,7 @@ public class ProfesoresController {
 		/*------------------------------------------------------------------------------*/
 		
 		profRep.save(pro);
+		registrarAsesor();
 		return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Asesor agregado con exito!\",\"path\":\"/AdministracionProfesores/registrarAsesor\"}");
 	}
 	

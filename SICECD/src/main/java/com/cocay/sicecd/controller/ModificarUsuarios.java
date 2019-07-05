@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Inscripcion;
@@ -24,6 +25,7 @@ import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.service.Logging;
 
 @Controller
 public class ModificarUsuarios {
@@ -39,6 +41,13 @@ public class ModificarUsuarios {
 	
 	@Autowired
 	CursoRep crRep;
+	
+	@Autowired
+	Logging log;
+	
+	public void modAsesor(){
+		log.setTrace(LogTypes.MODIFICAR_ASESOR);
+	}
 		
 	/*
 	 * Modificacion de Participantes.
@@ -482,6 +491,8 @@ public class ModificarUsuarios {
 		if (!cambios.equals("")) {
 			proRep.save(mod);
 		}
+		
+		modAsesor();
 
 		return ResponseEntity.ok("¡Asesor editado con exito!");
 	}

@@ -12,7 +12,7 @@ public final class LogTypes {
 	 *	Codigo: WLIN00
 	 * 	Elemetos: WL IN 00
 	 * 	Primer elemento: WL es un prefijo general para todas las acciones que impliquen login/logout
-	 * 	Segundo elemento: IN descrive una subcategoria dentro de las acciones de logearse, en este caso iniciar seción
+	 * 	Segundo elemento: IN descrive una subcategoria dentro de las acciones de logearse, en este caso iniciar sesión
 	 * 	Tercer elemento: 00 si fuere necesario agregar subdividir las acciones para agregar mas detalle 
 	 * 						se puede hacer uso de estos consecutivos por ejemplo 00, 01, 02, 03, etc.
 	 */
@@ -37,6 +37,26 @@ public final class LogTypes {
 	public static final String EXTRACCION_CONSTANCIAS_NUEVAS = "ECNU00";
 	/*Accion de hacer consulta a WS de constancias (actualiza)*/
 	public static final String EXTRACCION_CONSTANCIAS_ACTUALIZACION = "ECAC00";
+	/*Accion de registrar un participante*/
+	public static final String REGISTRAR_PARTICIPANTE = "REPR00";
+	/*Accion de registrar un asesor*/
+	public static final String REGISTRAR_ASESOR = "REPR01";
+	/*Accion de registrar un curso*/
+	public static final String REGISTRAR_CURSO = "RECU00";
+	/*Accion de registrar un grupo*/
+	public static final String REGISTRAR_GRUPO = "REGR00";
+	/*Accion de registrar un inscripcion*/
+	public static final String REGISTRAR_INSCRIPCION = "REIN00";
+	/*Accion de modificar un participante*/
+	public static final String MODIFICAR_PARTICIPANTE = "MOPR00";
+	/*Accion de modificar un asesor*/
+	public static final String MODIFICAR_ASESOR = "MOPR01";
+	/*Accion de modificar un curso*/
+	public static final String MODIFICAR_CURSO = "MOCU00";
+	/*Accion de modificar un grupo*/
+	public static final String MODIFICAR_GRUPO = "MOGR00";
+	/*Accion de modificar una inscripcion*/
+	public static final String MODIFICAR_INSCRIPCION = "MOIN00";
 	
 	/***
 	//Example
