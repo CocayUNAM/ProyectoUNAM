@@ -171,11 +171,9 @@ public class ConsultaProfesorController {
                 .replaceAll("[^\\p{ASCII}]" , "");
     }
 	
-	@RequestMapping(value = "/ficha_profesor")
-	public String fichaProfesor(
-			@RequestParam("id") int id,
-			Model model) {
-		/*model.addAttribute("id_profesor", id_profesor);*/
-		return "/ConsultarProfesor/ficha_profesor";
+	@RequestMapping(value = "/ficha_profesor", method = {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView fichaProfesor(@RequestParam("id") int id_profesor, Model model) {
+		model.addAttribute("id_profesor", id_profesor);
+		return new ModelAndView("/ConsultarProfesor/ficha_profesor");
 	}
 }

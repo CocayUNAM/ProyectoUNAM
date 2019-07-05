@@ -12,13 +12,13 @@
 <link rel="shortcut icon" href="img/favicon.ico">
 
 <!-- Styles -->
-<link href="css/lib/select2/select2.min.css" rel="stylesheet">
-<link href="css/lib/font-awesome.min.css" rel="stylesheet">
-<link href="css/lib/themify-icons.css" rel="stylesheet">
-<link href="css/lib/menubar/sidebar.css" rel="stylesheet">
-<link href="css/lib/bootstrap.min.css" rel="stylesheet">
-<link href="css/lib/helper.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
+<link href="/css/lib/select2/select2.min.css" rel="stylesheet">
+<link href="/css/lib/font-awesome.min.css" rel="stylesheet">
+<link href="/css/lib/themify-icons.css" rel="stylesheet">
+<link href="/css/lib/menubar/sidebar.css" rel="stylesheet">
+<link href="/css/lib/bootstrap.min.css" rel="stylesheet">
+<link href="/css/lib/helper.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
 	<div th:replace="/includes/head.html :: head_div1" />
@@ -38,7 +38,7 @@
 									<h6>Aquí va el historial del profesor</h6>
 									<div class="form-group">
 										<td>ID Profesor:</td>
-										<td th:text="${pk_id_profesor}">Text ...</td>
+										<td th:text="${id_profesor}">id_profesor</td>
 									</div>
 								</div>
 							</div>
@@ -63,13 +63,13 @@
 	<!-- END CONTENTS -->
 
 	<!-- jquery vendor -->
-	<script src="js/lib/jquery.min.js"></script>
-	<script src="js/lib/jquery.nanoscroller.min.js"></script>
+	<script src="/js/lib/jquery.min.js"></script>
+	<script src="/js/lib/jquery.nanoscroller.min.js"></script>
 	<!-- nano scroller -->
-	<script src="js/lib/menubar/sidebar.js"></script>
-	<script src="js/lib/preloader/pace.min.js"></script>
+	<script src="/js/lib/menubar/sidebar.js"></script>
+	<script src="/js/lib/preloader/pace.min.js"></script>
 	<!-- sidebar -->
 	<!-- bootstrap -->
-	<script src="js/lib/bootstrap.min.js"></script>
-	<script src="js/scripts.js"></script>
+	<script src="/js/lib/bootstrap.min.js"></script>
+	<script src="/js/scripts.js"></script>
 </body>
