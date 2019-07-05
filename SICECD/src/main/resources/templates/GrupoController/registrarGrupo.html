@@ -95,21 +95,21 @@
                                         id = "registrarGrupo">
                                         
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="clave">Clave <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="clave">Clave <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="clave" name="clave" placeholder="Ejemplo: A001" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="inicio">Fecha de inicio <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="inicio">Fecha de inicio <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="date" class="form-control" id="inicio" name="inicio" placeholder="Agregue fecha de inicio" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="termino">Fecha de termino <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="termino">Fecha de termino <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="date" class="form-control" id="termino" name="termino" placeholder="Agregue fecha de termino" required>
                                                 </div>
@@ -117,22 +117,25 @@
                                             
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="curso">Clave del curso<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="curso">Clave del curso<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="curso" name="curso" placeholder="Agregue clave" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="asesor">RFC del asesor <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="asesor">RFC del asesor <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="asesor" name="asesor" placeholder="Ingrese el RFC" required>
                                                 </div>
                                             </div>
                                             
-                                            <button type="submit" class="btn btn-default"
-                                            data-toggle="modal" data-target="#exampleModal"
-                                            > Capturar</button>
+                                            <div class="form-group">
+        										<div class="col-sm-5 col-sm-offset-3">
+		                                           <button type="submit" class="btn btn-default"
+		                                           data-toggle="modal" data-target="#exampleModal">Capturar</button>
+                                             	</div>
+    										</div>
                                     </form>
                                     
                                     </div>
@@ -160,8 +163,113 @@
     <script src="/js/lib/form-validation/jquery.validate-init.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/scripts.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
     <script>
 		$(document).ready(function() {
+			
+			$.fn.bootstrapValidator.validators.fecha = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+			            var value3 = $("#inicio").val();
+			            
+			            if (value < value3) {
+			                return false;
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.clave = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+
+			            if (value.search(/([A-Z][0-9])+\w+/) < 0) {
+			                return false;
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.rfc = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+
+			            if (value.search(/^([A-Z\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$/) < 0) {
+			                return false;
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$('#registrarGrupo').bootstrapValidator({
+		        feedbackIcons: {
+		            valid: 'glyphicon glyphicon-ok',
+		            invalid: 'glyphicon glyphicon-remove',
+		            validating: 'glyphicon glyphicon-refresh'
+		        },
+		        fields: {
+		        	clave: {
+		                validators: {
+		                    clave: {
+		                        message: ' Verifica que el formato sea como el del ejemplo '
+		                    }, 
+		                    
+		                    notEmpty: {
+		                        message: ' No puede estar vacio '
+		                    }
+		                }
+		            },
+		            
+		            inicio : {
+		        		validators: {
+			        		notEmpty: {
+		                        message: ' la fecha no puede estar vacia '
+		                    },
+		        		}
+		        	},
+		            
+		            termino: {
+		                validators: {
+		                    notEmpty: {
+		                        message: ' No puede estar vacio '
+		                    },
+		        
+		        			fecha: {
+		        				message: ' La fecha de termino no puede ser menor que la fecha de inicio '
+		        			}
+		                }
+		            },
+		            
+		            curso: {
+		                validators: {
+		                    clave: {
+		                        message: ' Verifica que el formato sea como el del ejemplo '
+		                    }, 
+		                    
+		                    notEmpty: {
+		                        message: ' No puede estar vacio '
+		                    }
+		                }
+		            },
+		            
+		            asesor : {
+		        		validators: {
+		        			rfc: {
+		                        message: ' Verifica que el rfc sea correcto '
+		                    },
+		        	
+		                    notEmpty: {
+		                        message: ' La fecha no puede estar vacia '
+		                    }
+		        	
+		        		}
+		        	}
+		            
+		        }
+		    });
 			
 			//cambio de perfil
 			let rol='Consultas';
