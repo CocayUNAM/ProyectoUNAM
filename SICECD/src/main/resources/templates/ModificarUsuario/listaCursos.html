@@ -56,17 +56,23 @@
 	                                    <table id="grid" class="table table-hover" cellspacing="0">
 											<thead>
 												<tr>
-													<th class="th-sm">Id inscripcion</th>
-													<th class="th-sm">Grupo</th>
-	                                                <th class="th-sm">RFC de Participante</th>
+													<th class="th-sm">Id curso</th>
+													<th class="th-sm">clave</th>
+	                                                <th class="th-sm">nombre</th>
+	                                                <th class="th-sm">tipo curso</th>
+	                                                <th class="th-sm">fecha inicio</th>
+	                                                <th class="th-sm">fecha termino</th>
 												</tr>
 											</thead>
 											<tbody>
-	                                           	<th:block th:each="inscripcion : ${inscripciones}">
+	                                           	<th:block th:each="curso : ${cursos}">
 													<tr>
-														<td class="renglon" th:text="${inscripcion.pk_id_inscripcion}"></td>
-														<td class="renglon" th:text="${inscripcion.fk_id_grupo}"></td>
-														<td class="renglon" th:text="${inscripcion.fk_id_profesor}"></td>
+														<td class="renglon" th:text="${curso.pk_id_curso}"></td>
+														<td class="renglon" th:text="${curso.clave}"></td>
+														<td class="renglon" th:text="${curso.nombre}"></td>
+														<td class="renglon" th:text="${curso.fk_id_tipo_curso.nombre}"></td>
+														<td class="renglon" th:text="${curso.fInicio}"></td>
+														<td class="renglon" th:text="${curso.fTermino}"></td>
 													</tr>
 												</th:block>
 	                                        </tbody>
@@ -130,9 +136,8 @@
 							var row = tabla.row(pos).data();
 							console.log(row);
 							var id = row[0];
-							console.log(rfc);
 
-							window.location.href = "/pantallaModificacionI?id="
+							window.location.href = "/pantallaModificacionC?id="
 									+ id;
 						});
 	}

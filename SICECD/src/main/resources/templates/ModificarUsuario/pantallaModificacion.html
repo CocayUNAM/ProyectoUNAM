@@ -86,8 +86,8 @@
 						<div class="card-body">
 							<div class="form-validation">
 
-								<form class="form-valide" th:action="@{/AdministracionProfesores/registrarAsesor}"
-									method="GET" id="registrarasesor">
+								<form class="form-valide" th:action="@{/AdministracionProfesores/registrarParticipante}"
+									method="GET" id="registrarprofesor">
 									
 									<div class="form-group row">
                                          <label class="col-lg-4 col-form-label" for="apellidopaterno">Apellido paterno<span class="text-danger">*</span></label>
@@ -141,8 +141,8 @@
 									<div class="form-group row">
                                          <label class="col-lg-4 col-form-label" for="estado">Estado <span class="text-danger">*</span></label>
                                          <div class="col-lg-8">
-                                             <select class="form-control" id="estado" name="estado" style="width: 100%;" required>
-                                             		<option th:value="${profesor.fk_id_estado}">Estado definido</option>
+                                             <select class="form-control" id="estado" name="estado" style="width: 100%;">
+                                             		<option th:value="${profesor.fk_id_estado.pk_id_estado}">Estado definido</option>
                                                  	<option value="1">Aguascalientes</option>
 													<option value="2">Baja California</option>
 													<option value="3">Baja California Sur</option>
@@ -197,7 +197,7 @@
                                          <label class="col-lg-4 col-form-label" for="turno">Selecciona turno <span class="text-danger">*</span></label>
                                          <div class="col-lg-8">
                                              <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;" required>
-                                                 <option th:value="${profesor.fk_id_turno}">Turno definido</option>
+                                                 <option th:value="${profesor.fk_id_turno.pk_id_turno}">Turno definido</option>
                                                  <option value="1">Matutino</option>
                                                  <option value="2">Vepertino</option>
                                                  <option value="3">Completo</option>
@@ -216,7 +216,7 @@
                                         <label class="col-lg-4 col-form-label" for="grado">Ultimo grado de estudios <span class="text-danger">*</span></label>
                                         <div class="col-lg-8">
                                             <select class="js-select2 form-control" id="grado" name="grado" style="width: 100%;" required>
-                                                <option th:value="${profesor.fk_id_grado_profesor}">Grado definido</option>
+                                                <option th:value="${profesor.fk_id_grado_profesor.pk_id_grado_profesor}">Grado definido</option>
                                                 <option value="1">Lic.</option>
                                                 <option value="2">Esp.</option>
                                                 <option value="3">Mtr.</option>
@@ -270,7 +270,13 @@
 	<script th:inline="javascript">
 $(document).ready(function() {
 			let idu = [[${profesor.pk_id_profesor}]];
-			let idEstado= [[${profesor.fk_id_estado.pk_id_estado}]];
+			
+			let nomEst = [[${profesor.fk_id_estado.nombre}]]
+			
+			let idEst = [[${profesor.fk_id_estado.pk_id_estado}]]
+			
+			console.log(nomEst)
+			console.log(idEst)
 
 			//cambio de correo
 			let cor=$("#correo").val();
@@ -281,7 +287,7 @@ $(document).ready(function() {
 			
 			//envio de datos
 			
-			$("#registrarasesor").submit(function(eve) {
+			$("#registrarprofesor").submit(function(eve) {
 				eve.preventDefault();
 				let datos = {
 					pk_id_profesor : idu,
@@ -292,13 +298,13 @@ $(document).ready(function() {
 					apellido_materno : $("#apellidomaterno").val(),
 					curp: $("#curp").val(),
 					telefono: $("#tel").val(),
-					fk_id_estado: {pk_id_estado: idEstado},
+					fk_id_estado: {pk_id_estado: $("#estado").val()},
 					ciudad_localidad: $("#cilo").val(),
 					genero: $("#genero").val(),
 					plantel: $("#plantel").val(),
-					turno: $("#turno").val(),
+					fk_id_turno: {pk_id_turno: $("#turno").val()},
 					clave_plantel: $("#cplantel").val(),
-					grado: $("#grado").val(),
+					fk_id_grado_profesor: {pk_id_grado_profesor: $("#grado").val()},
 					ocupacion: $("#ocupacion").val()
 				}
 				$.ajax({
