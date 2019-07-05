@@ -92,6 +92,7 @@ public class ConsultaInscripcionController {
 			ins_cursos = obtenerInsCursos(clave_curso, id_tipo, fecha_inicio_1, fecha_inicio_2);
 		}
 		
+		//Merge entre cursos, grupos y profes
 		//List<Inscripcion> inscripciones = obtenerIns(ins_cursos, ins_grupos, ins_profes);
 		List<Inscripcion> inscripciones = obtenerIns(ins_grupos, ins_profes);
 		
