@@ -57,6 +57,22 @@ public final class LogTypes {
 	public static final String MODIFICAR_GRUPO = "MOGR00";
 	/*Accion de modificar una inscripcion*/
 	public static final String MODIFICAR_INSCRIPCION = "MOIN00";
+	/* Acción de consultar profesores*/
+	public static final String CONSULTAR_PARTICIPANTE = "CNPR00";
+	/* Acción de consultar inscripciones*/
+	public static final String CONSULTAR_INSCRIPCION = "CNIN00";
+	/* Acción de consultar cursos*/
+	public static final String CONSULTAR_CURSO = "CNCU00";
+	/* Acción de consultar grupos*/
+	public static final String CONSULTAR_GRUPO = "CNGR00";
+	/* Acción de exportar una consulta de profesores*/
+	public static final String EXPORTAR_REPORTE_PARTICIPANTE = "EXPR00";
+	/* Acción de exportar una consulta de inscripciones*/
+	public static final String EXPORTAR_REPORTE_INSCRIPCION = "EXIN00";
+	/* Acción de exportar una consulta de cursos*/
+	public static final String EXPORTAR_REPORTE_CURSO = "EXCU00";
+	/* Acción de exportar una consulta de grupos*/
+	public static final String EXPORTAR_REPORTE_GRUPO = "EXGR00";
 	
 	/***
 	//Example
