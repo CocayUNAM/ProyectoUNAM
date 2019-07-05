@@ -51,13 +51,6 @@ public class ProfesoresController {
 	@Autowired
 	private GeneroRep gRep;
 	
-	@Autowired
-	Logging log;
-	
-	public void registrarAsesor() {
-		log.setTrace(LogTypes.REGISTRAR_ASESOR);
-	}
-	
 	//Mapeo del html para registrar cursos
 	@RequestMapping(value = "/registrarAsesor2", method = RequestMethod.GET)
 	public String RegistrarAsesores(Model model, HttpServletRequest request) throws ParseException{
@@ -126,7 +119,6 @@ public class ProfesoresController {
 		/*------------------------------------------------------------------------------*/
 		
 		profRep.save(pro);
-		registrarAsesor();
 		return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Asesor agregado con exito!\",\"path\":\"/AdministracionProfesores/registrarAsesor\"}");
 	}
 	

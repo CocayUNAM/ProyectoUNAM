@@ -41,13 +41,6 @@ public class ModificarUsuarios {
 	
 	@Autowired
 	CursoRep crRep;
-	
-	@Autowired
-	Logging log;
-	
-	public void modAsesor(){
-		log.setTrace(LogTypes.MODIFICAR_ASESOR);
-	}
 		
 	/*
 	 * Modificacion de Participantes.
@@ -491,8 +484,6 @@ public class ModificarUsuarios {
 		if (!cambios.equals("")) {
 			proRep.save(mod);
 		}
-		
-		modAsesor();
 
 		return ResponseEntity.ok("¡Asesor editado con exito!");
 	}
