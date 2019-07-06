@@ -67,188 +67,188 @@
 
 
 	<!-- START CONTENTS -->
-
 	<div class="content-wrap">
-		<div class="main">
-			<div class="container-fluid">
-				<div class="row">
-
-					<!-- titulo -->
-					<div class="col-lg-8 p-r-0 title-margin-right">
-						<div class="page-header">
-							<div class="page-title">
-								<h1> Editar Participante</h1>
-							</div>
-						</div>
-					</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card">
-						<div class="card-body">
-							<div class="form-validation">
-
-								<form class="form-valide" th:action="@{/AdministracionProfesores/registrarParticipante}"
-									method="GET" id="registrarprofesor">
-									
-									<div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="apellidopaterno">Apellido paterno<span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <input type="text" class="form-control" id="apellidopaterno" name="apellidopaterno" th:value="${profesor.apellido_paterno}" required>
-                                         </div>
-                                    </div>
-										
-									 <div class="form-group row">
-                                          <label class="col-lg-4 col-form-label" for="apellidomaterno">Apellido materno<span class="text-danger"></span></label>
-                                          <div class="col-lg-8">
-                                              <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno" th:value="${profesor.apellido_materno}" required>
-                                          </div>
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="nombre">Nombre(s)<span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <input type="text" class="form-control" id="nombre" name="nombre" th:value="${profesor.nombre}" required>
-                                         </div>
-                                   </div>
-                                   
-                                   <div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="rfc">RFC <span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <input type="text" class="form-control" id="rfc" name="rfc" th:value="${profesor.rfc}" required>
-                                         </div>
-                                    </div>
-                                    
-									<div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="curp">CURP<span class="text-danger"></span></label>
-                                         <div class="col-lg-8">
-                                             <input type="text" class="form-control" id="curp" name="curp" th:value="${profesor.curp}">
-                                         </div>
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="correo">Correo electronico<span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <input type="email" class="form-control" id="correo" name="correo" th:value="${profesor.correo}" required>
-                                         </div>
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="tel">Telefono<span class="text-danger"></span></label>
-                                         <div class="col-lg-8">
-                                             <input type="tel" class="form-control" id="tel" name="tel" th:value="${profesor.telefono}">
-                                         </div>
-                                    </div>
-									
-									<div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="estado">Estado <span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <select class="form-control" id="estado" name="estado" style="width: 100%;">
-                                             		<option th:value="${profesor.fk_id_estado.pk_id_estado}">Estado definido</option>
-                                                 	<option value="1">Aguascalientes</option>
-													<option value="2">Baja California</option>
-													<option value="3">Baja California Sur</option>
-													<option value="4">Campeche</option>
-													<option value="5">Ciudad de México</option>
-													<option value="6">Coahuila</option>
-													<option value="7">Colima</option>
-													<option value="8">Chiapas</option>
-													<option value="9">Chihuahua</option>
-													<option value="10">Durango</option>
-													<option value="11">Estado de México</option>
-													<option value="12">Guanajuato</option>
-													<option value="13">Guerrero</option>
-													<option value="14">Hidalgo</option>
-													<option value="15">Jalisco</option>
-													<option value="16">Michoacán</option>
-													<option value="17">Morelos</option>
-													<option value="18">Nayarit</option>
-													<option value="19">Nuevo León</option>
-													<option value="20">Oaxaca</option>
-													<option value="21">Puebla</option>
-													<option value="22">Querétaro</option>
-													<option value="23">Quintana Roo</option>
-													<option value="24">San Luis Potosí</option>
-													<option value="25">Sinaloa</option>
-													<option value="26">Sonora</option>
-													<option value="27">Tabasco</option>
-													<option value="28">Tamaulipas</option>
-													<option value="29">Tlaxcala</option>
-													<option value="30">Veracruz</option>
-													<option value="31">Yucatán</option>
-													<option value="32">Zacatecas</option>
-                                             </select>
-                                         </div>
-                                    </div>
-									
-									<div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="cilo">Ciudad o localidad<span class="text-danger"></span></label>
-                                         <div class="col-lg-8">
-                                             <input type="text" class="form-control" id="cilo" name="cilo" th:value="${profesor.ciudad_localidad}">
-                                         </div>
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="plantel">Plantel<span class="text-danger"></span></label>
-                                         <div class="col-lg-8">
-                                             <input type="text" class="form-control" id="plantel" name="plantel" th:value="${profesor.plantel}">
-                                         </div>
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="turno">Selecciona turno <span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;" required>
-                                                 <option th:value="${profesor.fk_id_turno.pk_id_turno}">Turno definido</option>
-                                                 <option value="1">Matutino</option>
-                                                 <option value="2">Vepertino</option>
-                                                 <option value="3">Completo</option>
-                                             </select>
-                                         </div>
-                                    </div>
-                                    
-                                    <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="cplantel">Clave plantel<span class="text-danger"></span></label>
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <h1>Modificar participante</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-validation">
+                                        <form class="form-valide" action="@{/AdministracionProfesores/registrarParticipante}" method="POST"
+                                        id= "registrarprofesor">
+                                        
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="apellidopaterno">Apellido paterno<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="apellidopaterno" name="apellidopaterno" th:value="${profesor.apellido_paterno}" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="apellidomaterno">Apellido materno<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno" th:value="${profesor.apellido_materno}" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="nombre">Nombre(s)<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${profesor.nombre}" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="curp">CURP<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="curp" name="curp" th:value="${profesor.curp}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="rfc">RFC <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" th:value="${profesor.rfc}" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="correo">Correo electronico<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="email" class="form-control" id="correo" name="correo" th:value="${profesor.correo}" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="tel">Telefono<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="tel" class="form-control" id="tel" name="tel" th:value="${profesor.telefono}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="estado">Estado <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <select class="form-control" id="estado" name="estado" style="width: 100%;" required>
+                                                    	<option th:value="${profesor.fk_id_estado.pk_id_estado}">Estado definido</option>
+                                                        <option value="1">Aguascalientes</option>
+														<option value="2">Baja California</option>
+														<option value="3">Baja California Sur</option>
+														<option value="4">Campeche</option>
+														<option value="5">Ciudad de México</option>
+														<option value="6">Coahuila</option>
+														<option value="7">Colima</option>
+														<option value="8">Chiapas</option>
+														<option value="9">Chihuahua</option>
+														<option value="10">Durango</option>
+														<option value="11">Estado de México</option>
+														<option value="12">Guanajuato</option>
+														<option value="13">Guerrero</option>
+														<option value="14">Hidalgo</option>
+														<option value="15">Jalisco</option>
+														<option value="16">Michoacán</option>
+														<option value="17">Morelos</option>
+														<option value="18">Nayarit</option>
+														<option value="19">Nuevo León</option>
+														<option value="20">Oaxaca</option>
+														<option value="21">Puebla</option>
+														<option value="22">Querétaro</option>
+														<option value="23">Quintana Roo</option>
+														<option value="24">San Luis Potosí</option>
+														<option value="25">Sinaloa</option>
+														<option value="26">Sonora</option>
+														<option value="27">Tabasco</option>
+														<option value="28">Tamaulipas</option>
+														<option value="29">Tlaxcala</option>
+														<option value="30">Veracruz</option>
+														<option value="31">Yucatán</option>
+														<option value="32">Zacatecas</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="cilo">Ciudad o localidad<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="cilo" name="cilo" th:value="${profesor.ciudad_localidad}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="plantel">Plantel<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="plantel" name="plantel" th:value="${profesor.plantel}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="turno">Selecciona turno <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;" required>
+                                                        <option th:value="${profesor.fk_id_turno.pk_id_turno}">Turno definido</option>
+                                                        <option value="1">Matutino</option>
+                                                        <option value="2">Vepertino</option>
+                                                        <option value="3">Completo</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="cplantel">Clave plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="cplantel" name="cplantel" th:value="${profesor.clave_plantel}">
                                                 </div>
-                                    </div>
+                                            </div>
                                             
-                                    <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="grado">Ultimo grado de estudios <span class="text-danger">*</span></label>
-                                        <div class="col-lg-8">
-                                            <select class="js-select2 form-control" id="grado" name="grado" style="width: 100%;" required>
-                                                <option th:value="${profesor.fk_id_grado_profesor.pk_id_grado_profesor}">Grado definido</option>
-                                                <option value="1">Lic.</option>
-                                                <option value="2">Esp.</option>
-                                                <option value="3">Mtr.</option>
-                                                <option value="4">Doc.</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="grado">Ultimo grado de estudios <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <select class="js-select2 form-control" id="grado" name="grado" style="width: 100%;" required>
+                                                        <option th:value="${profesor.fk_id_grado_profesor.pk_id_grado_profesor}">Grado definido</option>
+                                                        <option value="1">Lic.</option>
+                                                        <option value="2">Esp.</option>
+                                                        <option value="3">Mtr.</option>
+                                                        <option value="4">Doc.</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             
-                                    <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="ocupacion">Ocupacion<span class="text-danger"></span></label>
-                                        <div class="col-lg-8">
-                                            <input type="text" class="form-control" id="ocupacion" name="ocupacion" th:value="${profesor.ocupacion}">
-                                        </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="ocupacion">Ocupacion<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="ocupacion" name="ocupacion" th:value="${profesor.ocupacion}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+        										<div class="col-sm-5 col-sm-offset-3">
+		                                           <button type="submit" class="btn btn-default"
+		                                           data-toggle="modal" data-target="#exampleModal">Realizar Cambios</button>
+                                             	</div>
+    										</div>
+                                            
+                                        </form>
                                     </div>
-									
-									<button type="submit" class="btn btn-default"
-										data-toggle="modal" data-target="#exampleModal">
-										Realizar Cambios</button>
-								</form>
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-		<!-- /# row -->
-		</div>
-	</div>
-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 <!-- END CONTENTS -->
 
 	<!-- jquery vendor -->
@@ -266,10 +266,143 @@
 	<!-- 	<script src="/js/lib/form-validation/jquery.validate-init.js"></script> -->
 	<script src="/js/lib/bootstrap.min.js"></script>
 	<script src="/js/scripts.js"></script>
-
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
 
 	<script th:inline="javascript">
 $(document).ready(function() {
+	
+			$.fn.bootstrapValidator.validators.nombre = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+		
+			            if (value.search(/[A-Z][a-zA-Z][^#&<>""~;$^%{}?/*(0-9)]{1,20}$/) < 0) {
+			                return false;
+			            }
+		
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.curp = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+		
+			            if (value.search(/^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/) < 0) {
+			                return false;
+			            }
+		
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.rfc = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+		
+			            if (value.search(/^([A-Z\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$/) < 0) {
+			                return false;
+			            }
+		
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.telefono = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+		
+			            if (value.length != 10) {
+			                return false;
+			            }
+		
+			            return true;
+			        }
+			};
+			
+			$('#registrarprofesor').bootstrapValidator({
+		        feedbackIcons: {
+		            valid: 'glyphicon glyphicon-ok',
+		            invalid: 'glyphicon glyphicon-remove',
+		            validating: 'glyphicon glyphicon-refresh'
+		        },
+		        fields: {
+		        	apellidopaterno: {
+		                validators: {
+		                    notEmpty: {
+		                        message: ' No puede estar vacio '
+		                    },
+		        
+		        			nombre: {
+		        				message: ' Verfica que sea un apellido valido '
+		        			}
+		                }
+		            },
+		            
+		            apellidomaterno: {
+		        		validators: {
+		        			notEmpty: {
+		                        message: ' No puede estar vacio '
+		                    },
+		        
+		        			nombre: {
+		        				message: ' Verfica que sea un apellido valido '
+		        			}
+		                }
+		        	},
+		        	
+		        	nombre : {
+		        		validators: {
+		        			notEmpty: {
+		                        message: ' El nombre no puede estar vacio '
+		                    },
+		                    
+		                    nombre: {
+		                    	message: ' Verifica que sea un nombre valido '
+		                    }
+		        		}
+		        	},
+		        	
+		        	curp : {
+		        		validators: {
+		        			notEmpty: {
+		                        message: ' El nombre no puede estar vacio '
+		                    },
+		                    
+		                    curp: {
+		                    	message: ' Verifica que sea valido el CURP '
+		                    }
+		        		}
+		        	},
+		        	
+		        	rfc : {
+		        		validators: {
+		        			rfc: {
+		                        message: ' Verifica que el rfc sea correcto '
+		                    },
+		        	
+		                    notEmpty: {
+		                        message: ' La fecha no puede estar vacia '
+		                    }
+		        	
+		        		}
+		        	},
+		        	
+		        	tel : {
+		        		validators: {
+		        			digits: {
+		                        message: ' Utiliza solo numeros '
+		                    },
+		        	
+		        			telefono: {
+		        				message: ' Verifica que la longitud sea de 10 numeros '
+		        			}
+		        	
+		        		}
+		        	}
+		            
+		        }
+		    });
+			
 			let idu = [[${profesor.pk_id_profesor}]];
 			
 			let nomEst = [[${profesor.fk_id_estado.nombre}]]

@@ -19,6 +19,7 @@
 <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
 <link href="/css/lib/helper.css" rel="stylesheet">
 <link href="/css/lib/toggle.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 <style type="text/css">
 #spin {
 	visibility: hidden;
@@ -67,94 +68,96 @@
 
 	<!-- START CONTENTS -->
 
-	<div class="content-wrap"  >
-		<div class="main">
-			<div class="container-fluid">
-				<div class="row">
-
-					<!-- titulo -->
-					<div class="col-md-auto p-r-12 title-margin-left">
-						<div class="page-header">
-							<div class="page-title">
-								<h2> Editar curso</h2>
-							</div>
-						</div>
-					</div>
-			<div class="row">
-				<div class="col-md-auto row align-items-end" >
-					<div class="card">
-						<div class="card-body">
-							<div class="form-validation">
-
-								<form class="form-valide" th:action="@{/registrarCurso}"
-									method="GET" id="registrarCur">
-									
-									<div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="clave">Clave <span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <input type="text" class="form-control" id="clave" name="clave" th:value="${curso.clave}">
-                                         </div>
-                                     </div>
-                                     
-                                     <div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="tipo">Selecciona un tipo <span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <select class="form-control" id="tipo" name="tipo" style="width: 100%;">
-                                                 <option th:value="${curso.fk_id_tipo_curso}">Tipo definido</option>
-                                                 <option value="1">Curso</option>
-                                                 <option value="2">Diplomado</option>
-                                                 <option value="3">Especialidad</option>
-                                                 <option value="4">Maestria</option>
-                                                 <option value="5">Doctorado</option>
-                                             </select>
-                                         </div>
-                                     </div>
-                                     
-                                     <div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="horas">Horas <span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <input type="text" class="form-control" id="horas" name="horas" th:value="${curso.horas}">
-                                         </div>
-                                     </div>
-                                     
-                                     <div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="nombre">Nombre <span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <input type="text" class="form-control" id="nombre" name="nombre" th:value="${curso.nombre}">
-                                         </div>
-                                     </div>
-                                     
-                                     <div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="f_inicio">Fecha de inicio <span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <input type="date" class="form-control" id="f_inicio" name="f_inicio" th:value="${curso.fInicio}">
-                                         </div>
-                                     </div>
-                                     
-                                     <div class="form-group row">
-                                         <label class="col-lg-4 col-form-label" for="f_termino">Fecha de termino <span class="text-danger">*</span></label>
-                                         <div class="col-lg-8">
-                                             <input type="date" class="form-control" id="f_termino" name="f_termino" th:value="${curso.fTermino}">
-                                         </div>
-                                     </div> 
-                                     
-                                            <button type="submit" class="btn btn-default"
-                                            data-toggle="modal" data-target="#exampleModal"
-                                            > Capturar</button>
+	<!-- START CONTENTS -->
+	<div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+	                                <h1>Modificar un curso</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-validation">
+                                    
+                                        <form class="form-valide" th:action="@{/AdministracionCursos/registrarCursos}" method="POST"
+                                        id= "registrarCur">
+                                        
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="clave">Clave <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="clave" name="clave" th:value="${curso.clave}">		
+                                                </div>
+                                            </div>
                                             
-                                 </form>
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-		<!-- /# row -->
-		</div>
-	</div>
-</div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 col-form-label" for="tipo">Selecciona un tipo <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <select class="form-control" id="tipo" name="tipo" style="width: 100%;">
+                                                    	<option th:value="${curso.fk_id_tipo_curso}">Tipo definido</option>
+                                                        <option value="1">Curso</option>
+                                                        <option value="2">Diplomado</option>
+                                                        <option value="3">Especialidad</option>
+                                                        <option value="4">Maestria</option>
+                                                        <option value="5">Doctorado</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="horas">Horas <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="horas" name="horas" th:value="${curso.horas}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="nombre">Nombre <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${curso.nombre}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="f_inicio">Fecha de inicio <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="date" class="form-control" id="f_inicio" th:value="${curso.fInicio}" >
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="f_termino">Fecha de termino <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="date" class="form-control" id="f_termino" name="f_termino" th:value="${curso.fTermino}">
+                                                </div>
+                                            </div> 
+                                            
+                                            <div class="form-group">
+        										<div class="col-sm-5 col-sm-offset-3">
+                                            		<button type="submit" class="btn btn-default"
+                                            			data-toggle="modal" data-target="#exampleModal"> Realizar cambios</button>
+                                            	</div>
+    										</div>
+                                    </form>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 <!-- END CONTENTS -->
 
 	<!-- jquery vendor -->
@@ -172,10 +175,129 @@
 	<!-- 	<script src="/js/lib/form-validation/jquery.validate-init.js"></script> -->
 	<script src="/js/lib/bootstrap.min.js"></script>
 	<script src="/js/scripts.js"></script>
-
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
 
 	<script th:inline="javascript">
 $(document).ready(function() {
+			$.fn.bootstrapValidator.validators.clave = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+		
+			            if (value.search(/([A-Z][0-9])+\w+/) < 0) {
+			                return false;
+			            }
+		
+			            return true;
+			        }
+			    };
+			
+			$.fn.bootstrapValidator.validators.horas = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+		
+			            if (value.length > 4) {
+			                return false;
+			            }
+		
+			            return true;
+			        }
+			    };
+			
+			$.fn.bootstrapValidator.validators.nombre = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+		
+			            if (value.search(/[A-Z][a-zA-Z][^#&<>""~;$^%{}?/*]{1,20}$/) < 0) {
+			                return false;
+			            }
+		
+			            return true;
+			        }
+			    };
+			
+			$.fn.bootstrapValidator.validators.fecha = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+			            var value2 = $("#f_termino").val();
+			            var value3 = $("#f_inicio").val();
+			            
+			            if (value < value3) {
+			                return false;
+			            }
+		
+			            return true;
+			        }
+			    };
+		
+			    $('#registrarCur').bootstrapValidator({
+			        feedbackIcons: {
+			            valid: 'glyphicon glyphicon-ok',
+			            invalid: 'glyphicon glyphicon-remove',
+			            validating: 'glyphicon glyphicon-refresh'
+			        },
+			        fields: {
+			            clave: {
+			                validators: {
+			                    clave: {
+			                        message: ' Verifica que el formato sea como el del ejemplo '
+			                    }, 
+			                    
+			                    notEmpty: {
+			                        message: ' No puede estar vacio '
+			                    }
+			                }
+			            },
+			        
+			        	horas: {
+			        		validators: {
+			                    horas: {
+			                        message: ' Verifica que sea un valor valido '
+			                    }, 
+			            
+					            digits: {
+			                        message: ' Utiliza solo numeros '
+			                    },
+			                    
+			                    notEmpty: {
+			                        message: ' No puede estar vacio '
+			                    }
+			                }
+			        	},
+			        	
+			        	nombre : {
+			        		validators: {
+			        			notEmpty: {
+			                        message: ' El nombre no puede estar vacio '
+			                    },
+			                    
+			                    nombre: {
+			                    	message: ' Verifica que sea un nombre valido '
+			                    }
+			        		}
+			        	},
+			        	
+			        	f_inicio : {
+			        		validators: {
+				        		notEmpty: {
+			                        message: ' la fecha no puede estar vacia '
+			                    },
+			        		}
+			        	},
+			        	
+			        	f_termino : {
+			        		validators: {
+				        		notEmpty: {
+			                        message: ' La fecha no puede estar vacia '
+			                    },
+			                    
+			                    fecha : {
+			                    	message: ' La fecha de termino no puede ser menor que la fecha de inicio '
+			                    }
+			        		}
+			        	}
+			        }
+			    });
+	
 			let idu = [[${curso.pk_id_curso}]];
 			
 			//envio de datos
