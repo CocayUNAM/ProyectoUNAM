@@ -76,25 +76,28 @@ public class ConsultaInscripcionController {
 		String fecha_inicio_1 = request.getParameter("fecha_1");
 		String fecha_inicio_2 = request.getParameter("fecha_2");
 		
-		List<Inscripcion> ins_grupos = null;
-		List<Inscripcion> ins_profes = null;
-		List<Inscripcion> ins_cursos = null;
+		List<Inscripcion> ins_grupos = new ArrayList<Inscripcion>();
+		List<Inscripcion> ins_profes = new ArrayList<Inscripcion>();
+		List<Inscripcion> ins_cursos = new ArrayList<Inscripcion>();
 		
+		//Se obtienen las inscripciones pertenecientes al profesor buscado
 		if (rfc != "" || curp != "" || nombre != "" || apellido_paterno != "" || id_grado != 5 || id_genero != 3 || id_turno != 4) {
 			ins_profes = obtenerInsProfes(rfc, curp, nombre, apellido_paterno, id_grado, id_genero, id_turno);
 		}
 		
+		//Se obtienen las inscripciones pertenecientes al grupo buscado
 		if ( clave_grupo != "" ) {
 			ins_grupos = obtenerInsGrupos(clave_grupo);
 		}
 		
+		//Se obtienen las inscripciones pertenecientes al curso buscado
 		if ( clave_curso != "" || id_tipo != 4 || fecha_inicio_1 != null || fecha_inicio_2 != null) {
 			ins_cursos = obtenerInsCursos(clave_curso, id_tipo, fecha_inicio_1, fecha_inicio_2);
 		}
 		
 		//Merge entre cursos, grupos y profes
-		//List<Inscripcion> inscripciones = obtenerIns(ins_cursos, ins_grupos, ins_profes);
-		List<Inscripcion> inscripciones = obtenerIns(ins_grupos, ins_profes);
+		List<Inscripcion> inscripciones = obtenerIns(ins_cursos, ins_grupos, ins_profes);
+		//List<Inscripcion> inscripciones = obtenerIns(ins_grupos, ins_profes);
 		
 		if ( inscripciones != null || inscripciones.size() > 0 ) {
 			model.put("ins", inscripciones);
@@ -107,19 +110,15 @@ public class ConsultaInscripcionController {
 	/**
 	 * Realiza una intersección de las inscripciones encontradas en sección de profesores y grupos. 
 	 * @param ins_grupos Inscripciones encontradas en la sección grupos.
-	 * @param ins_profes Inscripciones encontradas en la sección grupos.
+	 * @param ins_profes Inscripciones encontradas en la sección profes.
 	 * @return una lista de las inscripciones que se encuentran en la lista de profes y grupos.
 	 */
-	public List<Inscripcion> obtenerIns (List<Inscripcion> ins_grupos, List<Inscripcion> ins_profes) {
+	public List<Inscripcion> obtenerIns (List<Inscripcion> ins_cursos, List<Inscripcion> ins_grupos, List<Inscripcion> ins_profes) {
 		List<Inscripcion> inscripciones = new ArrayList<Inscripcion>();
 		
-		if( ins_grupos != null && ins_profes == null ) {
-			return ins_grupos;
-		} else if( ins_grupos == null && ins_profes != null ) {
-			return ins_profes;
-		}else {
-			for (Inscripcion ins : ins_grupos) {
-				if ( ins_profes.contains(ins) ) {
+		if (ins_cursos.size() > 0 && ins_grupos.size() > 0 && ins_profes.size() > 0) {
+			for (Inscripcion ins : ins_profes) {
+				if (ins_grupos.contains(ins) && ins_cursos.contains(ins)) {
 					inscripciones.add(ins);
 				}
 			}
