@@ -116,7 +116,37 @@ public class ConsultaInscripcionController {
 	public List<Inscripcion> obtenerIns (List<Inscripcion> ins_cursos, List<Inscripcion> ins_grupos, List<Inscripcion> ins_profes) {
 		List<Inscripcion> inscripciones = new ArrayList<Inscripcion>();
 		
-		if (ins_cursos.size() > 0 && ins_grupos.size() > 0 && ins_profes.size() > 0) {
+		if (ins_grupos.size() > 0 && ins_cursos.size() == 0 && ins_profes.size() == 0 ) {
+			inscripciones = ins_grupos;
+		} else if (ins_grupos.size() == 0 && ins_cursos.size() > 0 && ins_profes.size() == 0 ) {
+			inscripciones = ins_cursos;
+		} if (ins_grupos.size() == 0 && ins_cursos.size() == 0 && ins_profes.size() > 0 ) {
+			inscripciones = ins_profes;
+		} else if (ins_grupos.size() > 0 && ins_cursos.size() > 0 && ins_profes.size() == 0 ) {
+			
+			for (Inscripcion ins : ins_cursos) {
+				if (ins_grupos.contains(ins)) {
+					inscripciones.add(ins);
+				}
+			}
+
+		} else if (ins_grupos.size() > 0 && ins_cursos.size() == 0 && ins_profes.size() > 0 ) {
+			
+			for (Inscripcion ins : ins_profes) {
+				if (ins_grupos.contains(ins)) {
+					inscripciones.add(ins);
+				}
+			}
+
+		}  else if (ins_grupos.size() == 0 && ins_cursos.size() > 0 && ins_profes.size() > 0 ) {
+			
+			for (Inscripcion ins : ins_cursos) {
+				if (ins_profes.contains(ins)) {
+					inscripciones.add(ins);
+				}
+			}
+
+		} else {
 			for (Inscripcion ins : ins_profes) {
 				if (ins_grupos.contains(ins) && ins_cursos.contains(ins)) {
 					inscripciones.add(ins);
