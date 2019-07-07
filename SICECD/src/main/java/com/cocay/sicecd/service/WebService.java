@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.ProfesorRep;
 
@@ -27,19 +28,22 @@ import com.cocay.sicecd.repo.ProfesorRep;
 public class WebService {
 	@Autowired
 	ProfesorRep profesor;
+	@Autowired
+	Logging log;
 	@Value("${ws.url_profesor}")
 	private String url;
+	@Value("${ws.url_key}")
+	private String key;
 
-	// @RequestMapping(value = "/webservice", method = RequestMethod.GET)
-//	@Scheduled(cron = "30 * * * * *")
-//	public String call_me() {
-//
-//		String json = jsonGetRequest(url);
-//		System.out.println(json);
-//		insert_update_Profesor(json);
-//		System.out.println("----->enTRO");
-//		return "consultas/consultaWebService";
-//	}
+	@Scheduled(cron = "30 * * * * *")
+	public void call_me() {
+
+		String json = jsonGetRequest(url+"?clave="+key);
+		System.out.println(json);
+		insert_update_Profesor(json);
+		log.setTrace(LogTypes.AGREGAR_PROFESOR,"Se agrego un profesor");
+		log.setTrace(LogTypes.ACTUALIZAR_PROFESOR,"Se actualizo un profesor");
+	}
 
 	public void insert_update_Profesor(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
