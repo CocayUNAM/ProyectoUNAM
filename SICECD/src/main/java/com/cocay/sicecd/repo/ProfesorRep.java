@@ -18,6 +18,9 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
 	@Query("SELECT p FROM Profesor p")
 	List<Profesor> findAll();
 	
+	@Query("SELECT p FROM Profesor p where p.pk_id_profesor = :id ")
+	Profesor findByID(@Param("id")Integer id);
+	
 	@Query("SELECT p FROM Profesor p where p.rfc = :rfc ")
 	Profesor findByRfc(@Param("rfc")String rfc);
 	

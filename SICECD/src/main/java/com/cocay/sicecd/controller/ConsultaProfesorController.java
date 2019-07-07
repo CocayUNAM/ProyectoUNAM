@@ -172,8 +172,28 @@ public class ConsultaProfesorController {
     }
 	
 	@RequestMapping(value = "/ficha_profesor", method = {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView fichaProfesor(@RequestParam("id") int id_profesor, Model model) {
-		model.addAttribute("id_profesor", id_profesor);
+	public ModelAndView fichaProfesor(@RequestParam("id") int id_profesor, ModelMap model) {
+		Profesor p = profesor.findByID(id_profesor);
+		String nombre_completo = p.getNombre() + " " + p.getApellido_paterno() + " " + p.getApellido_materno();
+		model.addAttribute("nombre", nombre_completo);
+		model.addAttribute("correo", p.getCurp());
+		model.addAttribute("correo", p.getCorreo());
+		model.addAttribute("correo", p.getTelefono());
+		
+		String localidad = "";
+		
+		if (p.getCiudad_localidad() == null) {
+			localidad =  p.getFk_id_estado().getNombre();
+		} else {
+			localidad = p.getCiudad_localidad() + ", " + p.getFk_id_estado().getNombre();
+		}
+		
+		model.addAttribute("localidad", localidad);
+		model.addAttribute("rfc", p.getRfc());
+		model.addAttribute("escolaridad", p.getFk_id_grado_profesor().getNombre());
+		model.addAttribute("turno", p.getFk_id_turno().getNombre());
+		
+		model.put("ins", p.getInscripciones() );
 		return new ModelAndView("/ConsultarProfesor/ficha_profesor");
 	}
 }
