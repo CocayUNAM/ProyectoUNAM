@@ -18,25 +18,6 @@
     <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="/css/lib/helper.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-    
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
-    
-    <script>
-    	$(document).ready(function(){
-    		
-    		$(".id_profesor").hide();
-    		
-    		$(".prof_option").click(function(){
-    			var valores="";
-    			
-    			$(this).parents("tr").find("#id_profesor").each(function(){
-                    valores+=$(this).html()+"\n";
-                });
-    			
-    			console.log(valores);
-    		});
-    	});
-    </script>
 </head>
 
 <body>
@@ -143,7 +124,7 @@
     <script src="/js/lib/data-table/jszip.min.js"></script>
     <script src="/js/lib/data-table/pdfmake.min.js"></script>
     <script src="/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="/js/reports/export-buttons.js"></script>
+    <script src="/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="/js/lib/data-table/buttons.print.min.js"></script>
     <script src="/js/lib/data-table/datatables-init.js"></script>
 </body>
