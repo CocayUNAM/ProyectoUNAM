@@ -19,6 +19,7 @@
 <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
 <link href="/css/lib/helper.css" rel="stylesheet">
 <link href="/css/lib/toggle.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 <style type="text/css">
 #spin {
 	visibility: hidden;
@@ -62,49 +63,46 @@
 
 	<!--     Fin de modal                 -->
 
-
-
-
-	<!-- START CONTENTS -->
-
+<!-- START CONTENTS -->
 	<div class="content-wrap">
-		<div class="main">
-			<div class="container-fluid">
-				<div class="row">
-
-					<!-- titulo -->
-					<div class="col-lg-8 p-r-0 title-margin-right">
-						<div class="page-header">
-							<div class="page-title">
-								<h1> Editar grupo</h1>
-							</div>
-						</div>
-					</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card">
-						<div class="card-body">
-							<div class="form-validation">
-
-								<form class="form-valide" th:action="@{/registrarGrupo}"
-									method="GET" id="registrarGr">
-									
-									<div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="clave">Clave <span class="text-danger">*</span></label>
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+	                                <h1>Modificar un grupo</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-validation">
+                                    
+                                        <form class="form-valide" th:action="@{/registrarGrupo}" method="POST"
+                                        id = "registrarGr">
+                                        
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="clave">Clave <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="clave" name="clave" th:value = "${grupo.clave}">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="inicio">Fecha de inicio <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="inicio">Fecha de inicio <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="date" class="form-control" id="inicio" name="inicio" th:value = "${grupo.fecha_inicio}">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="termino">Fecha de termino <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="termino">Fecha de termino <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="date" class="form-control" id="termino" name="termino" th:value = "${grupo.fecha_fin}">
                                                 </div>
@@ -112,37 +110,36 @@
                                             
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="curso">id del curso<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="curso">Clave del curso<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="curso" name="curso" th:value = "${grupo.fk_id_curso.pk_id_curso}">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="asesor">id del asesor <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="asesor">RFC del asesor <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="asesor" name="asesor" th:value = "${grupo.fk_id_profesor.pk_id_profesor}">
                                                 </div>
                                             </div>
                                             
-                                            <button type="submit" class="btn btn-default"
-                                            data-toggle="modal" data-target="#exampleModal"
-                                            > Capturar</button>
-                              
-                                            
-                                 </form>
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-		<!-- /# row -->
-		</div>
-	</div>
-</div>
+                                            <div class="form-group">
+        										<div class="col-sm-5 col-sm-offset-3">
+		                                           <button type="submit" class="btn btn-default"
+		                                           data-toggle="modal" data-target="#exampleModal">Capturar</button>
+                                             	</div>
+    										</div>
+                                    </form>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 <!-- END CONTENTS -->
 
 	<!-- jquery vendor -->
@@ -160,10 +157,101 @@
 	<!-- 	<script src="/js/lib/form-validation/jquery.validate-init.js"></script> -->
 	<script src="/js/lib/bootstrap.min.js"></script>
 	<script src="/js/scripts.js"></script>
-
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
 
 	<script th:inline="javascript">
-$(document).ready(function() {
+	$(document).ready(function() {
+		
+				$.fn.bootstrapValidator.validators.fecha = {
+				        validate: function(validator, $field, options) {
+				            var value = $field.val();
+				            var value3 = $("#inicio").val();
+				            
+				            if (value < value3) {
+				                return false;
+				            }
+		
+				            return true;
+				        }
+				};
+				
+				$.fn.bootstrapValidator.validators.clave = {
+				        validate: function(validator, $field, options) {
+				            var value = $field.val();
+		
+				            if (value.search(/([A-Z][0-9])+\w+/) < 0) {
+				                return false;
+				            }
+		
+				            return true;
+				        }
+				};
+				
+				$.fn.bootstrapValidator.validators.rfc = {
+				        validate: function(validator, $field, options) {
+				            var value = $field.val();
+		
+				            if (value.search(/^([A-Z\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$/) < 0) {
+				                return false;
+				            }
+		
+				            return true;
+				        }
+				};
+				
+				$('#registrarGr').bootstrapValidator({
+			        feedbackIcons: {
+			            valid: 'glyphicon glyphicon-ok',
+			            invalid: 'glyphicon glyphicon-remove',
+			            validating: 'glyphicon glyphicon-refresh'
+			        },
+			        fields: {
+			        	clave: {
+			                validators: {
+			                    clave: {
+			                        message: ' Verifica que el formato sea como el del ejemplo '
+			                    }, 
+			                    
+			                    notEmpty: {
+			                        message: ' No puede estar vacio '
+			                    }
+			                }
+			            },
+			            
+			            inicio : {
+			        		validators: {
+				        		notEmpty: {
+			                        message: ' la fecha no puede estar vacia '
+			                    },
+			        		}
+			        	},
+			            
+			            termino: {
+			                validators: {
+			                    notEmpty: {
+			                        message: ' No puede estar vacio '
+			                    },
+			        
+			        			fecha: {
+			        				message: ' La fecha de termino no puede ser menor que la fecha de inicio '
+			        			}
+			                }
+			            },
+			            
+			            curso: {
+			                validators: {
+			                    clave: {
+			                        message: ' Verifica que el formato sea como el del ejemplo '
+			                    }, 
+			                    
+			                    notEmpty: {
+			                        message: ' No puede estar vacio '
+			                    }
+			                }
+			            }
+			            
+			        }
+			    });
 			let idu = [[${grupo.pk_id_grupo}]];
 			
 			//envio de datos
