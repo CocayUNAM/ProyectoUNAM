@@ -41,10 +41,10 @@
 							<div class="card">
 								<div class="dt-buttons">
 									<p class="font-weight-light">Exportar: </p>
-									<a class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
+									<a id ="BtnExportCSV" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
 										<span>CSV</span>
 									</a>
-									<a id ="btnExportExcel" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
+									<a id ="BtnExportExcel" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
 										<span>Excel</span>
 									</a>
 									<a class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="javascript:pruebaDivAPdf()">
@@ -153,12 +153,14 @@
 	<script src="/js/scripts.js"></script>
 	
 	<script th:inline="javascript">
-	$("#btnExportExcel").click(function(e) {
+	$("#BtnExportExcel").click(function(e) {
 		/*<![CDATA[*/ var nombre = [[${nombre}]]; /*]]>*/
 		/*<![CDATA[*/ var rfc = [[${rfc}]]; /*]]>*/
 		/*<![CDATA[*/ var escolaridad = [[${escolaridad}]]; /*]]>*/
 		/*<![CDATA[*/ var turno = [[${turno}]]; /*]]>*/
-		var archivo = "Historial_"+nombre + ".xls";
+		var f = new Date();
+		var date = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear()
+		var archivo = "Historial_"+nombre + "_" + date + ".xls";
 		
 		var file = new Blob(
 				["\ufeff",$('#nombre').html()+"<br>",
@@ -167,6 +169,44 @@
 					"Turno: "+$('#turno').html()+"</p>",
 					$('#ins_profesor').html()],
 				{type:"application/vnd.ms-excel"});
+		var url = URL.createObjectURL(file);
+		var a = $("<a />", {
+			href: url,
+			download: archivo}).appendTo("body").get(0).click();
+		e.preventDefault();
+	});
+	
+	$("#BtnExportCSV").click(function(e) {
+		/*<![CDATA[*/ var nombre = [[${nombre}]]; /*]]>*/
+		/*<![CDATA[*/ var rfc = [[${rfc}]]; /*]]>*/
+		/*<![CDATA[*/ var escolaridad = [[${escolaridad}]]; /*]]>*/
+		/*<![CDATA[*/ var turno = [[${turno}]]; /*]]>*/
+		
+		var f = new Date();
+		var date = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear()
+		var archivo = "Historial_"+nombre + "_" + date + ".csv";
+		
+		var csv = [];
+		var rows = document.querySelectorAll("table tr");
+		
+		for (var i = 0; i < rows.length; i++){
+			var row = [], cols = rows[i].querySelectorAll("td, th");
+			
+			for (var j = 0; j < cols.length; j++) {
+				row.push(cols[j].innerText);
+			}
+			
+			csv.push(row.join(","));
+		}
+		
+		var file = new Blob(
+				["\ufeff",
+					nombre + "\n\n",
+					"RFC:, "+ rfc + "\n",
+					"Grado de Estudios:, "+ escolaridad + "\n",
+					"Turno:, "+ turno + "\n\n",
+					csv.join("\n")],
+				{type:"text/csv"});
 		var url = URL.createObjectURL(file);
 		var a = $("<a />", {
 			href: url,
