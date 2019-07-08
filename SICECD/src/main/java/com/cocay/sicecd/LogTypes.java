@@ -73,6 +73,10 @@ public final class LogTypes {
 	public static final String EXPORTAR_REPORTE_CURSO = "EXCU00";
 	/* Acción de exportar una consulta de grupos*/
 	public static final String EXPORTAR_REPORTE_GRUPO = "EXGR00";
+	/* Acción de exportar una consulta de grupos*/
+	public static final String AGREGAR_PROFESOR = "AGPR00";
+	/* Acción de exportar una consulta de grupos*/
+	public static final String ACTUALIZAR_PROFESOR = "ACPR00";
 	
 	/***
 	//Example
