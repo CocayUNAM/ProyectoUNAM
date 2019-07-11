@@ -1,7 +1,5 @@
 package com.cocay.sicecd;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 public final class LogTypes {
 	
 	private LogTypes() {

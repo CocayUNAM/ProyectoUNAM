@@ -41,6 +41,9 @@ public class ModificarUsuarios {
 	
 	@Autowired
 	CursoRep crRep;
+	
+	@Autowired
+	Logging log;
 		
 	/*
 	 * Modificacion de Participantes.
@@ -192,6 +195,8 @@ public class ModificarUsuarios {
 		}
 		
 		System.out.println(cambios);
+		
+		log.setTrace(LogTypes.MODIFICAR_PARTICIPANTE);
 		
 		if (!cambios.equals("")) {
 			proRep.save(mod);

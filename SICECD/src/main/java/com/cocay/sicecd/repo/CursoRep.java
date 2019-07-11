@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.cocay.sicecd.model.Curso;
-import com.cocay.sicecd.model.Grupo;
 
 @Repository
 public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
