@@ -239,9 +239,9 @@ public class ModificarUsuarios {
 		
 		String cambios = "";
 		
-		if (!mod.getCalificacion().equals(ins.getCalificacion())) {
-			cambios += "Rfc de " + mod.getCalificacion() + " a " + ins.getCalificacion() + "\n";
-			mod.setCalificacion(ins.getCalificacion());
+		if (!mod.getCalif().equals(ins.getCalif())) {
+			cambios += "Rfc de " + mod.getCalif() + " a " + ins.getCalif() + "\n";
+			mod.setCalif(ins.getCalif());
 		}
 		
 		if (!mod.getFk_id_grupo().getClave().equals(ins.getFk_id_grupo().getClave())) {

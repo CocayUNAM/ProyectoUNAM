@@ -31,7 +31,7 @@ public class Inscripcion {
 	Profesor fk_id_profesor;
 	
 	@Column(name = "calif")
-	Integer calif;
+	String calif;
 	
 	@Column(name = "aprobado")
 	boolean aprobado;
@@ -56,20 +56,12 @@ public class Inscripcion {
 	public void setFk_id_profesor(Profesor fk_id_profesor) {
 		this.fk_id_profesor = fk_id_profesor;
 	}
-	
-	public Integer getCalificacion() {
-		return this.calif;
-	}
-	
-	public void setCalificacion(Integer calif) {
-		this.calif = calif;
-	}
 
-	public Integer getCalif() {
+	public String getCalif() {
 		return calif;
 	}
 
-	public void setCalif(Integer calif) {
+	public void setCalif(String calif) {
 		this.calif = calif;
 	}
 

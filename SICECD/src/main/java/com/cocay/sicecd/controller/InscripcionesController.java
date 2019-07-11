@@ -52,6 +52,10 @@ public class InscripcionesController {
 
 		String par = ins.getIdProfesor();
 		
+		String cal = ins.getCalificacion();
+		
+		boolean ap = ins.isAprobado();
+		
 		List<Grupo> grupop = grupoRep.findByClave(grupo);
 		if (!grupop.isEmpty()) {
 			inst.setFk_id_grupo(grupop.get(0));
@@ -61,6 +65,10 @@ public class InscripcionesController {
 		if (profe != null) {
 			inst.setFk_id_profesor(profe);
 		}
+		
+		inst.setCalif(cal);
+		
+		inst.setAprobado(ap);
 		
 		log.setTrace(LogTypes.REGISTRAR_INSCRIPCION);
 
