@@ -258,6 +258,8 @@ public class ModificarUsuarios {
 		
 		System.out.println(cambios);
 		
+		log.setTrace(LogTypes.MODIFICAR_INSCRIPCION);
+		
 		if (!cambios.equals("")) {
 			insRep.save(mod);
 		}
@@ -325,6 +327,8 @@ public class ModificarUsuarios {
 		}
 		
 		System.out.println(cambios);
+		
+		log.setTrace(LogTypes.MODIFICAR_GRUPO);
 		
 		if (!cambios.equals("")) {
 			grRep.save(mod);
@@ -399,6 +403,8 @@ public class ModificarUsuarios {
 		}
 		
 		System.out.println(cambios);
+		
+		log.setTrace(LogTypes.MODIFICAR_CURSO);
 		
 		if (!cambios.equals("")) {
 			crRep.save(mod);
@@ -485,6 +491,7 @@ public class ModificarUsuarios {
 		}
 		
 		System.out.println(cambios);
+		log.setTrace(LogTypes.MODIFICAR_ASESOR);
 		
 		if (!cambios.equals("")) {
 			proRep.save(mod);

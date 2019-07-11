@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.dto.InscripcionDto;
 import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Inscripcion;
@@ -20,6 +21,7 @@ import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.service.Logging;
 
 @Controller
 public class InscripcionesController {
@@ -32,6 +34,9 @@ public class InscripcionesController {
 
 	@Autowired
 	ProfesorRep profRep;
+	
+	@Autowired
+	Logging log;
 
 	// Mapeo del html para registrar cursos
 	@RequestMapping(value = "/registrarInscripcion2")
@@ -56,6 +61,9 @@ public class InscripcionesController {
 		if (profe != null) {
 			inst.setFk_id_profesor(profe);
 		}
+		
+		log.setTrace(LogTypes.REGISTRAR_INSCRIPCION);
+
 		insRep.save(inst);
 		return ResponseEntity.ok("{\"message\":\"¡Inscripcion agregada con exito!\"}");
 	}
