@@ -89,6 +89,18 @@ public class Profesor {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Certificado> certificados = new ArrayList<>();
 	
+	@Column(name = "comprobante_dom")
+	String comprobante_dom;
+	
+	@Column(name = "curp_doc")
+	String curp_doc;
+	
+	@Column(name = "rfc_doc")
+	String rfc_doc;
+	
+	@Column(name = "certificado_doc")
+	String certificado_doc;
+	
 	public Profesor(){}
 	
 	public Profesor(String nombre, String apellido_paterno,String apellido_materno,String correo, String rfc) {
