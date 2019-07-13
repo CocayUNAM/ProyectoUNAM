@@ -97,6 +97,7 @@
 										<table id="bootstrap-data-table-export" class="table table-striped table-bordered">
 											<thead class="thead-light">
 												<tr>
+													<th>Rol</th>
 													<th>Tipo de Curso</th>
 													<th>Curso</th>
 													<th>Grupo</th>
@@ -106,13 +107,23 @@
 												</tr>
 											</thead>
 											<tbody>
+												<tr data-th-each="grupo : ${grupo}">
+													<td>Asesor</td>
+													<td data-th-text="${grupo.fk_id_curso.fk_id_tipo_curso.nombre}">Tipo de curso</td>
+													<td data-th-text="${grupo.fk_id_curso.nombre}">Curso</td>
+													<td data-th-text="${grupo.clave}">Grupo</td>
+													<td data-th-text="${grupo.fk_id_curso.fInicio}">Fecha de inicio</td>
+													<td data-th-text="${grupo.fk_id_curso.fTermino}">Fecha de término</td>
+													<td>-----</td>
+												</tr>
 												<tr data-th-each="ins : ${ins}">
+													<td>Profesor</td>
 													<td data-th-text="${ins.fk_id_grupo.fk_id_curso.fk_id_tipo_curso.nombre}">Tipo de curso</td>
 													<td data-th-text="${ins.fk_id_grupo.fk_id_curso.nombre}">Curso</td>
 													<td data-th-text="${ins.fk_id_grupo.clave}">Grupo</td>
 													<td data-th-text="${ins.fk_id_grupo.fk_id_curso.fInicio}">Fecha de inicio</td>
 													<td data-th-text="${ins.fk_id_grupo.fk_id_curso.fTermino}">Fecha de término</td>
-													<td data-th-text="${ins.getCalificacion()}">Calificación</td>
+													<td data-th-text="${ins.calif}">Calificación</td>
 												</tr>
 											</tbody>
 										</table>
