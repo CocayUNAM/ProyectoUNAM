@@ -1,7 +1,5 @@
 package com.cocay.sicecd.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,9 +31,12 @@ public class Inscripcion {
 	Profesor fk_id_profesor;
 	
 	@Column(name = "calif")
-	Integer calif;
+	String calif;
 	
-	public Inscripcion(){}
+	@Column(name = "aprobado")
+	boolean aprobado;
+	
+	public Inscripcion(){}	
 	
 	public int getPk_id_inscripcion() {
 		return pk_id_inscripcion;
@@ -55,13 +56,21 @@ public class Inscripcion {
 	public void setFk_id_profesor(Profesor fk_id_profesor) {
 		this.fk_id_profesor = fk_id_profesor;
 	}
-	
-	public Integer getCalificacion() {
-		return this.calif;
+
+	public String getCalif() {
+		return calif;
 	}
-	
-	public void setCalificacion(Integer calif) {
+
+	public void setCalif(String calif) {
 		this.calif = calif;
+	}
+
+	public boolean isAprobado() {
+		return aprobado;
+	}
+
+	public void setAprobado(boolean aprobado) {
+		this.aprobado = aprobado;
 	}
 
 

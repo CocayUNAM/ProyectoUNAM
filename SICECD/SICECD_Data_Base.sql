@@ -399,3 +399,43 @@ CREATE TABLE Url_ws (
 );
 
 ALTER TABLE Url_ws OWNER to "SICECD";
+
+
+
+/*
+Autor: Juan Carlos Hernández de Anda
+Fecha: 11/04/2019
+Accion: Creacion de datos de los catalogos y datos de prueba
+*/
+DROP TABLE IF EXISTS Log_sys CASCADE;
+COMMIT;
+DROP TABLE Log_evento_sys CASCADE;
+COMMIT;
+
+/*
+Despues de correr el script anterior se debe de iniciar el proyecto para que las tablase eliminadas se vuelvan a crear con el nuevo esquema
+y entonces ahora si poder realizar los correspondientes insert.
+*/ 
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('WLIN00', 'Login exitoso');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('WLIN01', 'Login fallido');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('WLOT00', 'Logout');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('ECNU00', 'Consulta a WS de constancias (nuevas, nunca antes traidas)');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('ECAC00', 'Consulta a WS de constancias (actualiza)');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('REPR00', 'Registrar un participante');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('REPR01', 'Registrar un asesor');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('RECU00', 'Registrar un curso');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('REGR00', 'Registrar un grupo');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('REIN00', 'Registrar un inscripción');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('MOPR00', 'Modificar un participante');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('MOPR01', 'Modificar un asesor');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('MOCU00', 'Modificar un curso');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('MOGR00', 'Modificar un grupo');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('MOIN00', 'Modificar una inscripción');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('CNPR00', 'Consultar profesores');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('CNIN00', 'Consultar inscripciones');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('CNCU00', 'Consultar cursos');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('CNGR00', 'Consultar grupos');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('EXPR00', 'Exportar una consulta de profesores');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('EXIN00', 'Exportar una consulta de inscripciones');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('EXCU00', 'Exportar una consulta de cursos');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('EXGR00', 'Exportar una consulta de grupos');

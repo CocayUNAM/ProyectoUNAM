@@ -41,6 +41,9 @@ public class ModificarUsuarios {
 	
 	@Autowired
 	CursoRep crRep;
+	
+	@Autowired
+	Logging log;
 		
 	/*
 	 * Modificacion de Participantes.
@@ -193,6 +196,8 @@ public class ModificarUsuarios {
 		
 		System.out.println(cambios);
 		
+		log.setTrace(LogTypes.MODIFICAR_PARTICIPANTE);
+		
 		if (!cambios.equals("")) {
 			proRep.save(mod);
 		}
@@ -234,9 +239,9 @@ public class ModificarUsuarios {
 		
 		String cambios = "";
 		
-		if (!mod.getCalificacion().equals(ins.getCalificacion())) {
-			cambios += "Rfc de " + mod.getCalificacion() + " a " + ins.getCalificacion() + "\n";
-			mod.setCalificacion(ins.getCalificacion());
+		if (!mod.getCalif().equals(ins.getCalif())) {
+			cambios += "Rfc de " + mod.getCalif() + " a " + ins.getCalif() + "\n";
+			mod.setCalif(ins.getCalif());
 		}
 		
 		if (!mod.getFk_id_grupo().getClave().equals(ins.getFk_id_grupo().getClave())) {
@@ -252,6 +257,8 @@ public class ModificarUsuarios {
 		}
 		
 		System.out.println(cambios);
+		
+		log.setTrace(LogTypes.MODIFICAR_INSCRIPCION);
 		
 		if (!cambios.equals("")) {
 			insRep.save(mod);
@@ -320,6 +327,8 @@ public class ModificarUsuarios {
 		}
 		
 		System.out.println(cambios);
+		
+		log.setTrace(LogTypes.MODIFICAR_GRUPO);
 		
 		if (!cambios.equals("")) {
 			grRep.save(mod);
@@ -394,6 +403,8 @@ public class ModificarUsuarios {
 		}
 		
 		System.out.println(cambios);
+		
+		log.setTrace(LogTypes.MODIFICAR_CURSO);
 		
 		if (!cambios.equals("")) {
 			crRep.save(mod);
@@ -480,6 +491,7 @@ public class ModificarUsuarios {
 		}
 		
 		System.out.println(cambios);
+		log.setTrace(LogTypes.MODIFICAR_ASESOR);
 		
 		if (!cambios.equals("")) {
 			proRep.save(mod);

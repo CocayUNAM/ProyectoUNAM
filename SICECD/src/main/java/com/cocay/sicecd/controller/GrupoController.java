@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.dto.GrupoDto;
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
@@ -23,6 +24,7 @@ import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.service.Logging;
 
 @Controller
 public class GrupoController {
@@ -35,6 +37,9 @@ public class GrupoController {
 	
 	@Autowired
 	ProfesorRep profRep;
+	
+	@Autowired
+	Logging log;
 	
 	// Mapeo del html para registrar cursos
 	@RequestMapping(value = "/registrarGrupo2")
@@ -90,6 +95,8 @@ public class GrupoController {
 			grupo.setFk_id_profesor(profe);
 		}
 		
+		log.setTrace(LogTypes.REGISTRAR_GRUPO);
+
 		grupoRep.save(grupo);
 		return ResponseEntity.ok("{\"message\":\"¡Grupo agregado con exito!\"}");
 	}

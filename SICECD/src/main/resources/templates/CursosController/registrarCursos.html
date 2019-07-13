@@ -302,6 +302,9 @@
 			    });
 
 			$("#registrarCursos").submit(function(eve) {
+				
+				$(this).find(':submit').attr( 'disabled','disabled' );
+
 				eve.preventDefault();
 				
 				let datos = {
