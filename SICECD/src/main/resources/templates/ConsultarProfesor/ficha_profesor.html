@@ -36,23 +36,43 @@
 					<div class="row">
 						<div class="col-lg-10">
 						
-							<!-- START OPCIONES DE CONSULTA -->
+							<!-- START OPCIONES DE CONSULTA: EXPORTAR Y DESCARGAR -->
 							<div class="card">
-								<div class="dt-buttons">
-									<p class="font-weight-light">Exportar: </p>
-									<a id="BtnExportCSV" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
-										<span>CSV</span>
-									</a>
-									<a id="BtnExportExcel" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
-										<span>Excel</span>
-									</a>
-									<!--<a id="BtnExportPDF" class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#ReportePDF">-->
-									<a class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="javascript:ReportePDF()">
-										<span>PDF</span>
-									</a>
+								<div class="row">
+									<div class="col-sm-4"><p class="font-weight-light">Exportar historial: </p></div>
+									<div class="col-sm-8"><p class="font-weight-light" th:text="'Descargar documentos de ' + ${nombre}"></p></div>
+								</div>
+								
+								<div class="row">
+									<div class="dt-buttons col-sm-4">
+										<a id="BtnExportCSV" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
+											<span>CSV</span>
+										</a>
+										<a id="BtnExportExcel" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
+											<span>Excel</span>
+										</a>
+										<!--<a id="BtnExportPDF" class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#ReportePDF">-->
+										<a class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="javascript:ReportePDF()">
+											<span>PDF</span>
+										</a>
+									</div>
+									<div class="dt-buttons col-sm-8">
+										<a id="BtnDownloadCURP" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#CURP">
+											<span>CURP</span>
+										</a>
+										<a id="BtnDownloadRFC" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#RFC">
+											<span>RFC</span>
+										</a>
+										<a id="BtnDownloadCertificado" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#Certificado">
+											<span>Certificado</span>
+										</a>
+										<a id="BtnDownloadCompDoc" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#ComprobanteDomicilio">
+											<span>Comprobante de Domicilio</span>
+										</a>
+									</div>
 								</div>
 							</div>
-							<!-- END OPCIONES DE CONSULTA -->
+							<!-- END OPCIONES DE CONSULTA: EXPORTAR Y DESCARGAR -->
 							
 							<!-- START INFORMACIÓN DEL PROFESOR -->
 							<div class="card" id="info_profesor">
