@@ -239,6 +239,10 @@ public class ModificarUsuarios {
 		
 		String cambios = "";
 		
+		if(mod.getCalif() == null) {
+			mod.setCalif(ins.getCalif());
+		}
+		
 		if (!mod.getCalif().equals(ins.getCalif())) {
 			cambios += "Rfc de " + mod.getCalif() + " a " + ins.getCalif() + "\n";
 			mod.setCalif(ins.getCalif());
@@ -304,9 +308,17 @@ public class ModificarUsuarios {
 			mod.setClave(grp.getClave());
 		}
 		
+		if(mod.getFecha_inicio() == null) {
+			mod.setFecha_inicio(grp.getFecha_inicio());
+		}
+		
 		if (!mod.getFecha_inicio().equals(grp.getFecha_inicio())) {
 			cambios += "Fecha de inicio de " + mod.getFecha_inicio() + " a " + grp.getFecha_inicio() + "\n";
 			mod.setFecha_inicio(grp.getFecha_inicio());
+		}
+		
+		if(mod.getFecha_fin() == null) {
+			mod.setFecha_fin(grp.getFecha_fin());
 		}
 		
 		if (!mod.getFecha_fin().equals(grp.getFecha_fin())) {
@@ -390,10 +402,18 @@ public class ModificarUsuarios {
 			mod.setNombre(cr.getNombre());
 		}
 		
+		if(mod.getfInicio() == null) {
+			mod.setfInicio(cr.getfInicio());
+		}
+		
 		if (!mod.getfInicio().equals(cr.getfInicio())) {
 			cambios += "Fecha de inicio de " + mod.getfInicio() + " a " + cr.getfInicio()
 			+ "\n";
 			mod.setfInicio(cr.getfInicio());
+		}
+		
+		if(mod.getfTermino() == null) {
+			mod.setfTermino(cr.getfTermino());
 		}
 		
 		if (!mod.getfTermino().equals(cr.getfTermino())) {
