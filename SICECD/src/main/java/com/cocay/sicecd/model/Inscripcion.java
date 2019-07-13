@@ -15,10 +15,17 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "Inscripcion")
 public class Inscripcion {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_inscripcion")
 	int pk_id_inscripcion;
+	
+	@Column(name = "calif", nullable = true, length=3)
+	String calif;
+	
+	@Column(name = "aprobado", nullable = true)
+	boolean aprobado;
 	
 	@ManyToOne(targetEntity=Grupo.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -29,12 +36,6 @@ public class Inscripcion {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor",insertable = true, updatable = true)
 	Profesor fk_id_profesor;
-	
-	@Column(name = "calif")
-	String calif;
-	
-	@Column(name = "aprobado")
-	boolean aprobado;
 	
 	public Inscripcion(){}	
 	
@@ -72,6 +73,5 @@ public class Inscripcion {
 	public void setAprobado(boolean aprobado) {
 		this.aprobado = aprobado;
 	}
-
 
 }

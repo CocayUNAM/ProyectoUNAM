@@ -10,12 +10,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Genero")
 public class Genero {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_genero")
 	int pk_id_genero;
-	@Column(name = "genero")
+	
+	@Column(name = "genero", nullable = false, length=30, unique=true)
 	String genero;
+	
 	public int getPk_id_genero() {
 		return pk_id_genero;
 	}
@@ -28,6 +31,5 @@ public class Genero {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-	
-	
+
 }

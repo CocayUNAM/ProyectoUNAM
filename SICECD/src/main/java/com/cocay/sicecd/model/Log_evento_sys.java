@@ -15,17 +15,17 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "Log_evento_sys")
 public class Log_evento_sys {
+	
 	@Id
-	@Column(name = "pk_id_log_evento_sys")
+	@Column(name = "pk_id_log_evento_sys", length=6)
 	String pk_id_log_evento_sys;
 
-	@Column(name = "nombre")
+	@Column(name = "nombre", nullable = false, length=100, unique=true)
 	String nombre;
 
 	@OneToMany(mappedBy = "fk_id_log_evento_sys", targetEntity=Log_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Log_sys> Log_sys_s = new ArrayList<>();
-
 
 	public String getPk_id_log_evento_sys() {
 		return pk_id_log_evento_sys;

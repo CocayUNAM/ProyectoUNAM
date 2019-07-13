@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Sistema de Control Escolar para Cursos y Diplomados</title>
+
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    
+    <!-- Styles -->
+    <link href="/css/lib/select2/select2.min.css" rel="stylesheet">
+    <link href="/css/lib/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/lib/themify-icons.css" rel="stylesheet">
+    <link href="/css/lib/menubar/sidebar.css" rel="stylesheet">
+    <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/lib/helper.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <style type="text/css">
+		#mensaje {
+			visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+<div th:replace="/includes/head.html :: head_div1" />
+<div th:replace="/includes/head.html :: head_div2" />
+
+
+<!-- Modal -->
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="d-flex align-items-center" id="proceso">
+					<h4 id="mensaje">algo</h4>
+						<div id="spin">
+							<strong>Agregando... &nbsp;</strong>
+							<div class="spinner-grow text-info" role="status"
+								aria-hidden="true"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">Selecciona una accion</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" id="limpiar">Agregar otro asesor</button>
+					<button type="button" class="btn btn-primary"
+						onclick="window.location.href ='/start'">Volver
+						a inicio</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<!-- START CONTENTS -->
+
+<!-- END CONTENTS -->
+
+    <!-- jquery vendor -->
+    <script src="/js/lib/jquery.min.js"></script>
+    <script src="/js/lib/jquery.nanoscroller.min.js"></script>
+    <!-- nano scroller -->
+    <script src="/js/lib/menubar/sidebar.js"></script>
+    <script src="/js/lib/preloader/pace.min.js"></script>
+    <!-- sidebar -->
+    <!-- bootstrap -->
+    <!-- Select2 -->
+    <script src="/js/lib/select2/select2.full.min.js"></script>
+    <script src="/js/lib/form-validation/jquery.validate.min.js"></script>
+    <script src="/js/lib/form-validation/jquery.validate-init.js"></script>
+    <script src="/js/lib/bootstrap.min.js"></script>
+    <script src="/js/scripts.js"></script>
+
+</body>
+</html>

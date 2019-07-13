@@ -20,7 +20,6 @@
 <link href="/css/lib/bootstrap.min.css" rel="stylesheet">
 <link href="/css/lib/helper.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 </head>
 
 <body>
@@ -41,13 +40,14 @@
 							<div class="card">
 								<div class="dt-buttons">
 									<p class="font-weight-light">Exportar: </p>
-									<a id ="BtnExportCSV" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
+									<a id="BtnExportCSV" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
 										<span>CSV</span>
 									</a>
-									<a id ="BtnExportExcel" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
+									<a id="BtnExportExcel" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
 										<span>Excel</span>
 									</a>
-									<a class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="javascript:pruebaDivAPdf()">
+									<!--<a id="BtnExportPDF" class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#ReportePDF">-->
+									<a class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="javascript:ReportePDF()">
 										<span>PDF</span>
 									</a>
 								</div>
@@ -151,7 +151,10 @@
 	<!-- bootstrap -->
 	<script src="/js/lib/bootstrap.min.js"></script>
 	<script src="/js/scripts.js"></script>
+	<script src="/js/scripts.js"></script>
 	
+	<script src="/js/reports/export-buttons.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 	<script th:inline="javascript">
 	$("#BtnExportExcel").click(function(e) {
 		/*<![CDATA[*/ var nombre = [[${nombre}]]; /*]]>*/
@@ -213,5 +216,11 @@
 			download: archivo}).appendTo("body").get(0).click();
 		e.preventDefault();
 	});
+	
+	$("#BtnExportPDF").on('click', function(){
+		 var doc = new jsPDF();
+		 doc.fromHTML($('#info_profesor').get(0), 15, 15, { 'width': 170 });
+		 pdf.save('Prueba.pdf');
+	}); 
 	</script>
 </body>

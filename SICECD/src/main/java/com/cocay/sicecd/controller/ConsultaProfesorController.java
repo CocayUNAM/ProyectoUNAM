@@ -28,35 +28,12 @@ public class ConsultaProfesorController {
 	public String consultaProfesor(Model model) {
 		return "ConsultarProfesor/consultaProfesor";
 	}
-
-	@RequestMapping(value = "/consultarProfesorRFC", method = RequestMethod.POST)
-	public ModelAndView consultarProfesor(ModelMap model, HttpServletRequest request) {
-		String rfcs = request.getParameter("rfc");
-		Profesor p = profesor.findByRfc(rfcs);
-		if (p != null) {
-			System.out.println(p.getCorreo());
-			System.out.println(p.getRfc());
-			model.addAttribute("nombre", p.getNombre());
-			model.addAttribute("apellido_paterno", p.getApellido_paterno());
-			model.addAttribute("apellido_materno", p.getApellido_materno());
-			model.addAttribute("correo", p.getCorreo());
-			model.addAttribute("rfc", p.getRfc());
-			model.addAttribute("estado", p.getFk_id_estado().getNombre());
-			model.addAttribute("grado", p.getFk_id_grado_profesor().getNombre());
-			model.addAttribute("clave-plantel", p.getClave_plantel());
-			model.addAttribute("ocupacion", p.getOcupacion());
-			model.addAttribute("inscripcion", p.getInscripciones());
-			return new ModelAndView("/ConsultarProfesor/muestraProfesor", model);			
-		} else {
-			return new ModelAndView("/Avisos/ErrorBusqueda");
-		}
-	}
 	
 	/*
 	 * @author Derian Estrada
 	 */
-	@RequestMapping(value = "/consultarProfesorPersonalizado", method = RequestMethod.POST)
-	public ModelAndView consultarProfesorPersonalizado(ModelMap model, HttpServletRequest request) {
+	@RequestMapping(value = "/consultaProfesor", method = RequestMethod.POST)
+	public ModelAndView consultaProfesor(ModelMap model, HttpServletRequest request) {
 		String curps = request.getParameter("curp").toUpperCase().trim();
 		String rfcs = request.getParameter("rfc").toUpperCase().trim();
 		String nombre = normalizar(request.getParameter("nombre")).toUpperCase().trim();

@@ -17,18 +17,20 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "Log_sys")
 public class Log_sys {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_log_sys")
 	int pk_id_log_sys;
-	@Column(name = "ip")
+	
+	@Column(name = "ip", nullable = false, length=15)
 	String ip;
-	@Column(name = "hora")
+	
+	@Column(name = "hora", nullable = false)
 	Date hora;
-	@Column(name = "comentario")
+	
+	@Column(name = "comentario", nullable = true, length=250)
 	String comentario;
-
-
 
 	@ManyToOne(targetEntity=Usuario_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -39,7 +41,6 @@ public class Log_sys {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_log_evento_sys")
 	Log_evento_sys fk_id_log_evento_sys;
-
 
 	public int getPk_id_log_sys() {
 		return pk_id_log_sys;
