@@ -1,11 +1,35 @@
-function pruebaDivAPdf() {
+function ReportePDF() {
+	
+	/*var pdf = new jsPDF({orientation: 'l'});
+	var res = pdf.autoTableHtmlToJson(document.getElementById('bootstrap-data-table-export'));
+	
+	pdf.autoTable(
+			res.columns,
+			res.data,
+			{margin: {top: 65},
+				styles: {overflow: 'linebreak'},
+				columnStyles: config,
+				showHeader: 'everyPage',
+				addPageContent: pageContent}
+	);
+		
+	pdf.text('Footer Text', data.settings.margin.left, pdf.internal.pageSize.height - 10);
+	pdf.text(watermark, data.settings.margin.right * 13, pdf.internal.pageSize.height - 10);*/
+}
+
+function ReportePDF() {
 	var pdf = new jsPDF('p', 'pt', 'A4');
-	var nombre = document.getElementById("#nombre").val();
-	console.log(nombre);
-	pdf.setFontSize(16);
-	pdf.text(nombre, 20, 20);
 	source = $('#ins_profesor')[0];
-	console.log(source);
+	var rfc = $('#rfc')[0];
+	var escolaridad = $('#escolaridad')[0];
+	var turno = $('#turno')[0];
+	console.log(rfc);
+	console.log(escolaridad);
+	console.log(turno);
+	
+	var f = new Date();
+	var date = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear()
+	var archivo = "Historial_" + date + ".pdf";
 	
 	specialElementHandlers = {
 		'#bypassme': function (element, renderer) {
@@ -29,7 +53,7 @@ function pruebaDivAPdf() {
 		},
 		
 		function (dispose) {
-			pdf.save('Prueba.pdf');
+			pdf.save(archivo);
 		}, margins
 	);
 }
