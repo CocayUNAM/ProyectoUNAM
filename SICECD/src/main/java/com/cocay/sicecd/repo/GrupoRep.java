@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
+import com.cocay.sicecd.model.Profesor;
 
 @Repository
 public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
@@ -22,19 +23,17 @@ public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
 	
 	/*
 	 * @author Derian Estrada
+	 * Consultas por Asesor
+	 */
+	@Query(value = "SELECT * FROM Grupo WHERE fk_id_profesor = :id_asesor", nativeQuery = true)
+	List<Grupo> findByIdAsesor(@Param("id_asesor")Integer id_asesor);
+	
+	/*
+	 * @author Derian Estrada
 	 * Consultas por Clave
 	 */
 	@Query("SELECT g FROM Grupo g WHERE upper(g.clave) LIKE CONCAT('%',:clave,'%')")
 	List<Grupo> findByClave(@Param("clave") String clave);
-	
-	@Query(value = "SELECT * FROM Grupo WHERE clave = :clave AND fecha_inicio = :fecha_ini", nativeQuery = true)
-	List<Grupo> findByClaveAndFechaIni(@Param("clave") String clave, @Param("fecha_ini") Date fecha_ini);
-	
-	@Query(value = "SELECT * FROM Grupo WHERE clave = :clave AND fecha_fin = :fecha_fin", nativeQuery = true)
-	List<Grupo> findByClaveAndFechaFin(@Param("clave") String clave, @Param("fecha_fin") Date fecha_fin);
-	
-	@Query(value = "SELECT * FROM Grupo WHERE clave = :clave AND fecha_inicio = :fecha_ini AND fecha_fin = :fecha_fin", nativeQuery = true)
-	List<Grupo> findByClaveAndFecha(@Param("clave") String clave, @Param("fecha_ini") Date fecha_ini, @Param("fecha_fin") Date fecha_fin);
 	
 	/*
 	 * @author Derian Estrada

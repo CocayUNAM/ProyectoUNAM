@@ -15,14 +15,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 
 @Controller
 public class ConsultaProfesorController {
 
 	@Autowired
-	ProfesorRep profesor;
+	ProfesorRep profesorRep;
+	
+	@Autowired
+	GrupoRep grupoRep;
 
 	@RequestMapping(value = "/consultaProfesor", method = RequestMethod.GET)
 	public String consultaProfesor(Model model) {
@@ -45,8 +50,8 @@ public class ConsultaProfesorController {
 		Integer id_estado = Integer.parseInt(request.getParameter("estados"));
 		Integer id_turno = Integer.parseInt(request.getParameter("turno"));
 		
-		List<Profesor>	list_p1 = profesor.findAll();
-		List<Profesor>	list_p2 = profesor.findAll();
+		List<Profesor>	list_p1 = profesorRep.findAll();
+		List<Profesor>	list_p2 = profesorRep.findAll();
 		
 		//Filtrando por CURP
 		if (curps != "") {
@@ -150,7 +155,9 @@ public class ConsultaProfesorController {
 	
 	@RequestMapping(value = "/ficha_profesor", method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView fichaProfesor(@RequestParam("id") int id_profesor, ModelMap model) {
-		Profesor p = profesor.findByID(id_profesor);
+		Profesor p = profesorRep.findByID(id_profesor);
+		List<Grupo> grupos = grupoRep.findByIdAsesor(p.getPk_id_profesor());
+		
 		String nombre_completo = p.getNombre() + " " + p.getApellido_paterno() + " " + p.getApellido_materno();
 		model.addAttribute("nombre", nombre_completo);
 		model.addAttribute("correo", p.getCurp());
@@ -170,7 +177,8 @@ public class ConsultaProfesorController {
 		model.addAttribute("escolaridad", p.getFk_id_grado_profesor().getNombre());
 		model.addAttribute("turno", p.getFk_id_turno().getNombre());
 		
-		model.put("ins", p.getInscripciones() );
+		model.put("grupo", grupos);
+		model.put("ins", p.getInscripciones());
 		return new ModelAndView("/ConsultarProfesor/ficha_profesor");
 	}
 }

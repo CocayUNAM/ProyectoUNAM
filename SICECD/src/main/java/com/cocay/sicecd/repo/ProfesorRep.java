@@ -24,8 +24,8 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
 	@Query("SELECT p FROM Profesor p where p.rfc = :rfc ")
 	Profesor findByRfc(@Param("rfc")String rfc);
 	
-	@Query("SELECT p FROM Profesor p where p.rfc = :rfc ")
-	List<Profesor> findByRfcList(@Param("rfc")String rfc);
+	@Query("SELECT p FROM Profesor p where p.curp = :curp ")
+	Profesor findByCurp(@Param("curp")String curp);
 
 	@Query("SELECT p FROM Profesor p "
 			+ "WHERE upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
@@ -34,15 +34,6 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
 	List<Profesor> findByCompleteNameList(@Param("nombre") String nombre,
 					@Param("apellido_paterno") String apellido_paterno,
 					@Param("apellido_materno") String apellido_materno);
-	
-	@Query("SELECT p FROM Profesor p "
-			+ "WHERE upper(p.apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "
-			+ "AND upper(p.apellido_materno) LIKE CONCAT('%',:apellido_materno,'%')")
-	/*@Query(value="SELECT * FROM Profesor "
-			+ "WHERE ascii(upper(apellido_paterno)) = ascii(upper(:apellido_paterno)) "
-			+ "AND ascii(upper(apellido_materno)) = ascii(upper(:apellido_materno))", nativeQuery=true)*/
-	List<Profesor> findByLastName(@Param("apellido_paterno") String apellido_paterno,
-								  @Param("apellido_materno") String apellido_materno);
 	
 	@Query("SELECT p FROM Profesor p where p.correo = :correo")
 	Profesor findByCorreo(@Param("correo")String correo);
@@ -59,10 +50,4 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
 	@Query("update Profesor p set p.nombre =:nombre, p.apellido_paterno=:apellido_paterno, p.apellido_materno=:apellido_materno,p.correo=:correo, p.clave_plantel=:clave_plantel, p.ciudad_localidad=:ciudad_localidad where p.curp =:curp")
 	@Transactional
 	void updateProfesor(@Param("nombre") String nombre,@Param("apellido_paterno") String apellido_paterno,@Param("apellido_materno") String apellido_materno,@Param("correo") String correo,@Param("clave_plantel") String clave_plantel,@Param("ciudad_localidad") String ciudad_localidad,@Param("curp") String curp);
-	
-	
-	@Query("SELECT p FROM Profesor p where p.curp = :curp ")
-	Profesor findByCurp(@Param("curp")String curp);
 }
-	
-	

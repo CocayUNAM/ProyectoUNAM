@@ -15,6 +15,5 @@ import com.cocay.sicecd.model.Inscripcion;
 public interface InscripcionRep extends PagingAndSortingRepository<Inscripcion, Integer>{
 	
 	@Query(value = "SELECT * FROM inscripcion", nativeQuery = true)
-	List<Inscripcion> findAll();
-	
+	List<Inscripcion> findAll();	
 }
