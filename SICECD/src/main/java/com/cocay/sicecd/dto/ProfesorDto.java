@@ -1,7 +1,5 @@
 package com.cocay.sicecd.dto;
 
-import java.math.BigDecimal;
-
 public class ProfesorDto {
 	
 	int id;

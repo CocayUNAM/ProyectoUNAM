@@ -154,7 +154,7 @@ public class ProfesoresController {
 				
 				String telefono = prof.getTelefono();
 				
-				String path = apaterno + amaterno + nombres;
+				String path = Integer.toString(profe.getPk_id_profesor());
 				
 //				/*base*/
 				String estado = prof.getEstado();
@@ -216,6 +216,7 @@ public class ProfesoresController {
 			    if (success) {
 			      System.out.println("Directorio: " + path + " creado con exito");
 			    }
+			    
 			    log.setTrace(LogTypes.REGISTRAR_PARTICIPANTE);
 				profRep.save(profe);
 			

@@ -426,6 +426,16 @@
 		        }
 		    });
 			
+			$('#constancia').change(function(){    
+			    //on change event  
+			    formdata = new FormData();
+			    if($(this).prop('files').length > 0)
+			    {
+			        file =$(this).prop('files')[0];
+			        formdata.append("constancia", file);
+			    }
+			});
+			
 			//cambio de perfil
 			let rol='Consultas';
 
@@ -447,7 +457,7 @@
 					cPlantel: $("#cplantel").val(),
 					grado: $("#grado").val(),
 					ocupacion: $("#ocupacion").val(),
-					//nombre_ar: $("#constancia").target.files[0].name,
+					nombre_ar: formdata,
 				}
 				
 				$.ajax({
