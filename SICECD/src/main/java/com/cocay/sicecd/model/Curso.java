@@ -21,31 +21,32 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "Curso")
 public class Curso {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_curso")
 	int pk_id_curso;
 	
-	@Column(name = "clave")
+	@Column(name = "clave", nullable = false, length=8, unique=true)
 	String clave;
 	
-	@Column(name = "nombre")
+	@Column(name = "nombre", nullable = false, length=150)
 	String nombre;
 
+	@Column(name = "horas", nullable = true)
+	int horas;
+	
+	@Column(name = "f_inicio", nullable = true)
+	Date fInicio;
+	
+	@Column(name = "f_termino", nullable = true)
+	Date fTermino;
+	
 	@ManyToOne(targetEntity=Tipo_curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_tipo_curso", referencedColumnName="pk_id_tipo_curso")
 	Tipo_curso fk_id_tipo_curso;
 	
-	@Column(name = "horas")
-	int horas;
-	
-	@Column(name = "f_inicio")
-	Date fInicio;
-	
-	@Column(name = "f_termino")
-	Date fTermino;
-
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Grupo> grupos = new ArrayList<>();
 

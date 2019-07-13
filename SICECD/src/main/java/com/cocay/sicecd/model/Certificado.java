@@ -15,13 +15,17 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name="Certificado")
 public class Certificado {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_certificado")
 	private int pk_id_certificado;
 	
-	@Column(name = "ruta")
+	@Column(name = "ruta", nullable = false, length=250, unique=true)
 	private String ruta;
+	
+	@Column(name = "tiempo_creado", nullable = false)
+	private long tiempo_creado;
 	
 	@ManyToOne(targetEntity=Profesor.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -32,9 +36,6 @@ public class Certificado {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso")
 	private Curso fk_id_curso;
-
-        @Column(name = "tiempo_creado")
-	private long tiempo_creado;
     
 	public int getPk_id_certificado() {
 		return pk_id_certificado;

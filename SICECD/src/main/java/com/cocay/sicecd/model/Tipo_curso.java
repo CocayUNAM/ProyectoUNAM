@@ -17,13 +17,14 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "Tipo_curso")
 public class Tipo_curso {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_tipo_curso")
 	int pk_id_tipo_curso;
-	@Column(name = "nombre")
-
-	String nombre;
+	
+	@Column(name = "nombre", nullable = false, length=40)
+	String nombre; 
 
 	@OneToMany(mappedBy = "fk_id_tipo_curso", targetEntity=Curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -52,8 +53,5 @@ public class Tipo_curso {
 	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
 	}
-
-
-
 
 }

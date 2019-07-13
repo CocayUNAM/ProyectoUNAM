@@ -10,16 +10,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Url_ws")
 public class Url_ws {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_url_ws")
 	private int pk_id_url_ws;
-	@Column(name = "url")
+	
+	@Column(name = "url", nullable = false, length=200, unique=true)
 	private String url;
-	@Column(name = "varios")
+	
+	@Column(name = "varios", nullable = true)
 	private boolean varios;
-	@Column(name = "activa")
+	
+	@Column(name = "activa", nullable = true)
 	private boolean activa;
+	
 	public int getPk_id_url_ws() {
 		return pk_id_url_ws;
 	}
@@ -44,7 +49,5 @@ public class Url_ws {
 	public void setActiva(boolean activa) {
 		this.activa = activa;
 	}
-	
-	
 
 }

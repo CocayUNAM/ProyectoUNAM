@@ -12,35 +12,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 @Entity
 @Table(name = "Estado")
 public class Estado {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_estado")
 	int pk_id_estado;
-	@Column(name = "nombre")
+	
+	@Column(name = "nombre", nullable = false, length=50, unique=true)
 	String nombre;
+	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Profesor> profesores = new ArrayList<>();
-
-	
-	/*@OneToMany(mappedBy = "fk_id_estado", targetEntity=Profesor.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<TestClass> testclases = new ArrayList<>();*/
-
-	
-	/*
-	public List<TestClass> getTestclases() {
-		return testclases;
-	}
-
-	public void setTestclases(List<TestClass> testclases) {
-		this.testclases = testclases;
-	}*/
 
 	public int getPk_id_estado() {
 		return pk_id_estado;
