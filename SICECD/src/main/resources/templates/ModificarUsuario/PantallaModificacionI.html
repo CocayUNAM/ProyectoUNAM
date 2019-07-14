@@ -188,45 +188,43 @@ $(document).ready(function() {
 		        	}
 		            
 		        }
-		    });
-			
-			//envio de datos
-			
-			$("#registrarIns").submit(function(eve) {
-				eve.preventDefault();
-				let datos = {
-					pk_id_inscripcion : idu,
-					calificacion : $("#cal").val(),
-					fk_id_grupo: {pk_id_grupo: $("#grupo").val()},
-					fk_id_profesor: {pk_id_profesor: $("#par").val()},
-				}
-				$.ajax({
-					type : "POST",
-					contentType : "application/json",
-					url : '/editarinscripcion',
-					data : JSON.stringify(datos),
-					beforeSend : function() {
-						// setting a timeout
-						$("#mensaje").css("visibility","hidden")
-						$('#spin').css("visibility","visible")
-								
-					},
-					//dataType:'json',
-					error : function(e) {
-						alert("Error");
-					},
-					success : function(respuesta) {
-						$('#spin').css("visibility","hidden")
-						var elem = $(document.createElement('h4'))
-						               .attr('id','mensaje').html(respuesta);
-						$('#mensaje').replaceWith(elem);
-						$("#mensaje").css("visibility","visible")
+		    }).on('success.form.bv', function(eve) {
+	            eve.preventDefault();
+				
+	            let datos = {
+						pk_id_inscripcion : idu,
+						calificacion : $("#cal").val(),
+						fk_id_grupo: {pk_id_grupo: $("#grupo").val()},
+						fk_id_profesor: {pk_id_profesor: $("#par").val()},
 					}
-				});
-			});
+					$.ajax({
+						type : "POST",
+						contentType : "application/json",
+						url : '/editarinscripcion',
+						data : JSON.stringify(datos),
+						beforeSend : function() {
+							// setting a timeout
+							$("#mensaje").css("visibility","hidden")
+							$('#spin').css("visibility","visible")
+									
+						},
+						//dataType:'json',
+						error : function(e) {
+							alert("Error");
+						},
+						success : function(respuesta) {
+							$('#spin').css("visibility","hidden")
+							var elem = $(document.createElement('h4'))
+							               .attr('id','mensaje').html(respuesta);
+							$('#mensaje').replaceWith(elem);
+							$("#mensaje").css("visibility","visible")
+						}
+					});
 
-
-
+	            
+	            var $form     = $(eve.target),
+	                validator = $form.data('bootstrapValidator');
+	        });
 		});
 	</script>
 </body>

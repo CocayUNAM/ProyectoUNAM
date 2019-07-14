@@ -271,6 +271,22 @@
 	<script th:inline="javascript">
 $(document).ready(function() {
 	
+			let idu = [[${profesor.pk_id_profesor}]];
+			
+			let nomEst = [[${profesor.fk_id_estado.nombre}]]
+			
+			let idEst = [[${profesor.fk_id_estado.pk_id_estado}]]
+			
+			console.log(nomEst)
+			console.log(idEst)
+		
+			//cambio de correo
+			let cor=$("#correo").val();
+			$("#correo").blur(function(){
+			    cor=$("#correo").val();
+			    
+			});
+	
 			$.fn.bootstrapValidator.validators.nombre = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
@@ -401,70 +417,55 @@ $(document).ready(function() {
 		        	}
 		            
 		        }
-		    });
-			
-			let idu = [[${profesor.pk_id_profesor}]];
-			
-			let nomEst = [[${profesor.fk_id_estado.nombre}]]
-			
-			let idEst = [[${profesor.fk_id_estado.pk_id_estado}]]
-			
-			console.log(nomEst)
-			console.log(idEst)
-
-			//cambio de correo
-			let cor=$("#correo").val();
-			$("#correo").blur(function(){
-			    cor=$("#correo").val();
-			    
-			});
-			
-			//envio de datos
-			
-			$("#registrarprofesor").submit(function(eve) {
-				eve.preventDefault();
+		    }).on('success.form.bv', function(eve) {
+	            eve.preventDefault();
+				
 				let datos = {
-					pk_id_profesor : idu,
-					correo : cor,
-					rfc : $("#rfc").val(),
-					nombre : $("#nombre").val(),
-					apellido_paterno : $("#apellidopaterno").val(),
-					apellido_materno : $("#apellidomaterno").val(),
-					curp: $("#curp").val(),
-					telefono: $("#tel").val(),
-					fk_id_estado: {pk_id_estado: $("#estado").val()},
-					ciudad_localidad: $("#cilo").val(),
-					genero: $("#genero").val(),
-					plantel: $("#plantel").val(),
-					fk_id_turno: {pk_id_turno: $("#turno").val()},
-					clave_plantel: $("#cplantel").val(),
-					fk_id_grado_profesor: {pk_id_grado_profesor: $("#grado").val()},
-					ocupacion: $("#ocupacion").val()
-				}
-				$.ajax({
-					type : "POST",
-					contentType : "application/json",
-					url : '/editarprofesor',
-					data : JSON.stringify(datos),
-					beforeSend : function() {
-						// setting a timeout
-						$("#mensaje").css("visibility","hidden")
-						$('#spin').css("visibility","visible")
-								
-					},
-					//dataType:'json',
-					error : function(e) {
-						alert("Error");
-					},
-					success : function(respuesta) {
-						$('#spin').css("visibility","hidden")
-						var elem = $(document.createElement('h4'))
-						               .attr('id','mensaje').html(respuesta);
-						$('#mensaje').replaceWith(elem);
-						$("#mensaje").css("visibility","visible")
+						pk_id_profesor : idu,
+						correo : cor,
+						rfc : $("#rfc").val(),
+						nombre : $("#nombre").val(),
+						apellido_paterno : $("#apellidopaterno").val(),
+						apellido_materno : $("#apellidomaterno").val(),
+						curp: $("#curp").val(),
+						telefono: $("#tel").val(),
+						fk_id_estado: {pk_id_estado: $("#estado").val()},
+						ciudad_localidad: $("#cilo").val(),
+						genero: $("#genero").val(),
+						plantel: $("#plantel").val(),
+						fk_id_turno: {pk_id_turno: $("#turno").val()},
+						clave_plantel: $("#cplantel").val(),
+						fk_id_grado_profesor: {pk_id_grado_profesor: $("#grado").val()},
+						ocupacion: $("#ocupacion").val()
 					}
-				});
-			});
+					$.ajax({
+						type : "POST",
+						contentType : "application/json",
+						url : '/editarprofesor',
+						data : JSON.stringify(datos),
+						beforeSend : function() {
+							// setting a timeout
+							$("#mensaje").css("visibility","hidden")
+							$('#spin').css("visibility","visible")
+									
+						},
+						//dataType:'json',
+						error : function(e) {
+							alert("Error");
+						},
+						success : function(respuesta) {
+							$('#spin').css("visibility","hidden")
+							var elem = $(document.createElement('h4'))
+							               .attr('id','mensaje').html(respuesta);
+							$('#mensaje').replaceWith(elem);
+							$("#mensaje").css("visibility","visible")
+						}
+					});
+	            
+	            var $form     = $(eve.target),
+	                validator = $form.data('bootstrapValidator');
+	        });
+
 
 
 

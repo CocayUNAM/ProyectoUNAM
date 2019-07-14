@@ -179,6 +179,9 @@
 
 	<script th:inline="javascript">
 $(document).ready(function() {
+	
+			let idu = [[${curso.pk_id_curso}]];
+			
 			$.fn.bootstrapValidator.validators.clave = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
@@ -296,49 +299,45 @@ $(document).ready(function() {
 			        		}
 			        	}
 			        }
-			    });
-	
-			let idu = [[${curso.pk_id_curso}]];
-			
-			//envio de datos
-			
-			$("#registrarCur").submit(function(eve) {
-				eve.preventDefault();
-				let datos = {
-					pk_id_curso : idu,
-					clave : $("#clave").val(),
-					fk_id_tipo_curso: {pk_id_tipo_curso: $("#tipo").val()},
-					horas : $("#horas").val(),
-					nombre : $("#nombre").val(),
-					fInicio : $("#f_inicio").val(),
-					fTermino: $("#f_termino").val(),
-				}
-				$.ajax({
-					type : "POST",
-					contentType : "application/json",
-					url : '/editarcurso',
-					data : JSON.stringify(datos),
-					beforeSend : function() {
-						// setting a timeout
-						$("#mensaje").css("visibility","hidden")
-						$('#spin').css("visibility","visible")
-								
-					},
-					//dataType:'json',
-					error : function(e) {
-						alert("Error");
-					},
-					success : function(respuesta) {
-						$('#spin').css("visibility","hidden")
-						var elem = $(document.createElement('h4'))
-						               .attr('id','mensaje').html(respuesta);
-						$('#mensaje').replaceWith(elem);
-						$("#mensaje").css("visibility","visible")
-					}
-				});
-			});
-
-
+			    }).on('success.form.bv', function(eve) {
+		            eve.preventDefault();
+					
+		            let datos = {
+							pk_id_curso : idu,
+							clave : $("#clave").val(),
+							fk_id_tipo_curso: {pk_id_tipo_curso: $("#tipo").val()},
+							horas : $("#horas").val(),
+							nombre : $("#nombre").val(),
+							fInicio : $("#f_inicio").val(),
+							fTermino: $("#f_termino").val(),
+						}
+						$.ajax({
+							type : "POST",
+							contentType : "application/json",
+							url : '/editarcurso',
+							data : JSON.stringify(datos),
+							beforeSend : function() {
+								// setting a timeout
+								$("#mensaje").css("visibility","hidden")
+								$('#spin').css("visibility","visible")
+										
+							},
+							//dataType:'json',
+							error : function(e) {
+								alert("Error");
+							},
+							success : function(respuesta) {
+								$('#spin').css("visibility","hidden")
+								var elem = $(document.createElement('h4'))
+								               .attr('id','mensaje').html(respuesta);
+								$('#mensaje').replaceWith(elem);
+								$("#mensaje").css("visibility","visible")
+							}
+						});
+		            
+		            var $form     = $(eve.target),
+		                validator = $form.data('bootstrapValidator');
+		        });
 
 		});
 	</script>
