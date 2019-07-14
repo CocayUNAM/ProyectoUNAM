@@ -160,7 +160,31 @@ CREATE TABLE Tipo_curso(
   pk_id_tipo_curso SERIAL PRIMARY KEY,
   nombre VARCHAR(70)
 );
+/*
+Autor: Héctor Santaella Marín
+Fecha: 13/07/2019
+Accion: Creacion de la tabla Url_ws_profesor
+*/
 
+CREATE TABLE Url_ws_profesor (
+ pk_id_url_ws_profesor SERIAL PRIMARY KEY,
+ url VARCHAR(200) UNIQUE NOT NULL,
+nombre VARCHAR(5),
+activa  BOOLEAN DEFAULT false
+);
+
+/*
+Autor: Héctor Santaella Marín
+Fecha: 13/07/2019
+Accion: Creacion de la tabla Url_ws_curso
+*/
+
+CREATE TABLE Url_ws_curso (
+ pk_id_url_ws_profesor SERIAL PRIMARY KEY,
+ url VARCHAR(200) UNIQUE NOT NULL,
+nombre VARCHAR(5),
+activa  BOOLEAN DEFAULT false
+);
 /*
 Autor: Juan Carlos Hernández de Anda
 Fecha: 01/04/2019

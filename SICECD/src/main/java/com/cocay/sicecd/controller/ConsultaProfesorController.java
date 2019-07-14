@@ -158,11 +158,18 @@ public class ConsultaProfesorController {
 		Profesor p = profesorRep.findByID(id_profesor);
 		List<Grupo> grupos = grupoRep.findByIdAsesor(p.getPk_id_profesor());
 		
-		String nombre_completo = p.getNombre() + " " + p.getApellido_paterno() + " " + p.getApellido_materno();
-		model.addAttribute("nombre", nombre_completo);
-		model.addAttribute("correo", p.getCurp());
+		model.addAttribute("nombre", p.getNombre());
+		model.addAttribute("apellido_paterno", p.getApellido_paterno());
+		
+		if (p.getApellido_materno() == null) { 
+			model.addAttribute("apellido_materno", "");
+		} else {
+			model.addAttribute("apellido_materno", p.getApellido_materno());
+		}
+		
+		model.addAttribute("curp", p.getCurp());
 		model.addAttribute("correo", p.getCorreo());
-		model.addAttribute("correo", p.getTelefono());
+		model.addAttribute("telefono", p.getTelefono());
 		
 		String localidad = "";
 		

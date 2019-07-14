@@ -97,7 +97,6 @@ public class ConsultaInscripcionController {
 		
 		//Merge entre cursos, grupos y profes
 		List<Inscripcion> inscripciones = obtenerIns(ins_cursos, ins_grupos, ins_profes);
-		//List<Inscripcion> inscripciones = obtenerIns(ins_grupos, ins_profes);
 		
 		if ( inscripciones != null || inscripciones.size() > 0 ) {
 			model.put("ins", inscripciones);
@@ -168,11 +167,11 @@ public class ConsultaInscripcionController {
 	 * @throws ParseException
 	 */
 	public List<Inscripcion> obtenerInsCursos(String clave_curso, Integer id_tipo, String fecha_inicio_1, String fecha_inicio_2) throws ParseException {
-		System.out.println("Entrando a obtenerInsCursos");
 		List<Inscripcion> ins_cursos = new ArrayList<Inscripcion>();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha_ini_1, fecha_ini_2;
 		List<Curso> cursos1, cursos2;
+		List<Grupo> grupos = grupo_rep.findAll();
 		
 		if(fecha_inicio_1 != "" && fecha_inicio_2 != "") {
 			fecha_ini_1 = format.parse(fecha_inicio_1);
@@ -206,14 +205,16 @@ public class ConsultaInscripcionController {
 			}
 		}
 		
+		
+		//Obteniendo inscripciones
 		for (Curso c : cursos2) {
-			List<Grupo> grupos = c.getGrupos();
 			for (Grupo g : grupos) {
-				ins_cursos.addAll(g.getInscripciones());
+				if ( g.getFk_id_curso().getPk_id_curso() == c.getPk_id_curso() ) {
+					ins_cursos.addAll(g.getInscripciones());
+				}
 			}
 		}
 		
-		System.out.println(ins_cursos.size());
 		return ins_cursos;
 	}
 	
