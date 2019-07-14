@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.json.JSONArray;
@@ -20,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.model.Url_ws;
+import com.cocay.sicecd.model.Url_ws_profesor;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.repo.Url_ws_profesorRep;
 
 @Component
 
@@ -29,20 +34,39 @@ public class WebService {
 	@Autowired
 	ProfesorRep profesor;
 	@Autowired
+	Url_ws_profesorRep urls;
+	@Autowired
 	Logging log;
-	@Value("${ws.url_profesor}")
-	private String url;
 	@Value("${ws.url_key}")
 	private String key;
 
-	@Scheduled(cron = "30 * * * * *")
-	public void call_me() {
+	@Scheduled(cron = "5 * * * * *")
+	public void get_Profesores() throws Exception {
 
-		String json = jsonGetRequest(url+"?clave="+key);
-		System.out.println(json);
-		insert_update_Profesor(json);
-		log.setTrace(LogTypes.AGREGAR_PROFESOR,"Se agrego un profesor");
-		log.setTrace(LogTypes.ACTUALIZAR_PROFESOR,"Se actualizo un profesor");
+		LinkedList<Url_ws_profesor> links = new LinkedList<>(urls.findVarios());
+
+		if (links.size() == 0) {
+			throw new Exception("No hay urls");
+		}
+
+		for (Url_ws_profesor url : links) {
+			System.out.println("Se conecto" + url.getUrl());
+			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
+			System.out.println(json);
+			insert_update_Profesor(json);
+			// log.setTrace(LogTypes.AGREGAR_PROFESOR,"Se agrego un profesor");
+			// log.setTrace(LogTypes.ACTUALIZAR_PROFESOR,"Se actualizo un profesor");
+
+		}
+
+	}
+
+	public void insert_Grade(String jSonResultString) {
+
+	}
+	
+	public void insert_Group(String jSonResultString) {
+
 	}
 
 	public void insert_update_Profesor(String jSonResultString) {
@@ -79,10 +103,8 @@ public class WebService {
 				// Se guardan profesores
 				// Algunos valores se guardan por default ya que no se tienen todos los datos
 				// disponibles en Moodle
-				System.out.println("Se actualizara el dato");
 				profesor.updateProfesor(nombre, apellido_paterno, apellido_materno, email, institucion, ciudad,
 						exits.getCurp());
-				System.out.println("Se actualizo");
 
 			}
 		}
@@ -113,10 +135,11 @@ public class WebService {
 	}
 
 	/*
-	 * Método privado para la clase WebService
-	 * Separa los apellidos recibidos de la base de datos de Moodle
-	 * en apellido paterno y materno
-	 * @return ArrayList de apellido paterno, apellido materno*/
+	 * Método privado para la clase WebService Separa los apellidos recibidos de la
+	 * base de datos de Moodle en apellido paterno y materno
+	 * 
+	 * @return ArrayList de apellido paterno, apellido materno
+	 */
 	private static ArrayList<String> separaApellidos(String s) {
 		ArrayList<String> apellidos = new ArrayList();
 		String espacio = " ";
@@ -139,11 +162,12 @@ public class WebService {
 		}
 		return apellidos;
 	}
-	
+
 	/*
-	 * Método privado para la clase WebService
-	 * Cuenta los espacios 
-	 * @return  int numero de espacios*/
+	 * Método privado para la clase WebService Cuenta los espacios
+	 * 
+	 * @return int numero de espacios
+	 */
 
 	private static int contarEspacios(String s) {
 		int n = s.length() - s.replaceAll(" ", "").length();

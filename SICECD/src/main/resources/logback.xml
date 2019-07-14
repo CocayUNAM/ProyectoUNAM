@@ -1,34 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<statusListener class="ch.qos.logback.core.status.NopStatusListener" />
-	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
-			by default -->
-		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} %-5level %class{0} - %msg%n
-			</pattern>
-		</encoder>
-	</appender>
-
-	<!-- Insert the current time formatted as "yyyyMMdd'T'HHmmss" under the 
-		key "bySecond" into the logger context. This value will be available to all 
-		subsequent configuration elements. -->
-	<timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss" timeReference="contextBirth" />
-	
-	<property name="LOG_FOLDER" value="logs/" />
-
-	<appender name="badRecordLoggerFile" class="ch.qos.logback.core.FileAppender">
-		<file>${LOG_FOLDER}/errores_registros_${bySecond}.log</file>
-		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} - %msg%n</pattern>
-		</encoder>
-		<param name="Append" value="false" />
-	</appender>
-	
-	<root level="info">
-		<appender-ref ref="STDOUT" />
-	</root>
-	<logger name="badRecordLogger" level="error" additivity="false">
-		<appender-ref ref="badRecordLoggerFile" />
-	</logger>
-
+ 
+    <property name="LOGS" value="./logs" />
+ 
+    <appender name="Console"
+        class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
+            </Pattern>
+        </layout>
+    </appender>
+ 
+    <appender name="RollingFile"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/sicecd-logger.log</file>
+        <encoder
+            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+        </encoder>
+ 
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/archived/sicecd-logger-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize> <!-- Tamaño Maximo de archivos de log -->
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>7</maxHistory> <!-- Numeros de días maximo que se guardara un archivo -->
+            <totalSizeCap>70MB</totalSizeCap> <!-- Cantidad maxima de información que se guardara -->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+     
+    <!-- LOG everything at INFO level -->
+    <root level="info"> <!-- Nivel de log que se guardara -->
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </root>
+ 
+    <!-- LOG "com.baeldung*" at TRACE level -->
+    <logger name="com.baeldung" level="trace" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </logger>
+ 
 </configuration>
