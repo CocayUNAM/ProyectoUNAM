@@ -1,6 +1,9 @@
 package com.cocay.sicecd.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +14,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cocay.sicecd.LogTypes;
@@ -163,9 +167,7 @@ public class ProfesoresController {
 		) {
 			
 			
-				String originalName = constancia.getOriginalFilename();
-			
-				System.out.println("FileName: " + originalName);
+				
 					
 			
 				Profesor profe = new Profesor();
@@ -198,7 +200,8 @@ public class ProfesoresController {
 				
 				System.out.println("El telefono es: " +telefono);
 				
-				String path = Integer.toString(profe.getPk_id_profesor());
+				String path = saveConstancia(constancia, profe);
+				
 				
 //				/*base*/
 				String estado = prof.getEstado();
@@ -266,4 +269,35 @@ public class ProfesoresController {
 			
 				return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Participante agregado con exito!\",\"path\":\"/AdministracionProfesores/registrarParticipante\"}");
 		}
+
+	private String saveConstancia(MultipartFile constancia, Profesor profe) {
+		String path = Integer.toString(profe.getPk_id_profesor());
+		System.out.println("path: " + path);
+		
+		
+
+		String originalName = constancia.getOriginalFilename();
+		System.out.println("FileName: " + originalName);
+		
+		
+		String folder = "./"+path+"/";
+		try {
+
+			
+			FileUtils.forceMkdir(new File(folder));
+			try (FileOutputStream fos = new FileOutputStream(new File(folder + originalName))){
+				IOUtils.copy(constancia.getInputStream(), fos);
+			}
+			
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+
+		return path;
+	}
 }
