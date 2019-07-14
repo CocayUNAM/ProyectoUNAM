@@ -15,6 +15,8 @@ import javax.validation.Valid;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -41,6 +43,7 @@ import com.cocay.sicecd.service.Logging;
 
 @Controller
 @RequestMapping("AdministracionRegistroManual")
+@PropertySource("classpath:application.properties")
 public class ProfesoresController {
 	
 	@Autowired
@@ -60,6 +63,10 @@ public class ProfesoresController {
 	
 	@Autowired
 	Logging log;
+	
+	@Value("${path_constancia}")
+    private String ruta;
+ 
 	
 	//Mapeo del html para registrar cursos
 	@RequestMapping(value = "/registrarAsesor2", method = RequestMethod.GET)
@@ -138,22 +145,6 @@ public class ProfesoresController {
 		@RequestMapping(value = "/registrarParticipantes", method = RequestMethod.GET)
 		public String RegistrarParti(Model model, HttpServletRequest request) throws ParseException{
 			return "ProfesoresController/registrarParticipante";
-		}
-
-		//@RequestMapping(value = "/registrarParticipante", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String>  updateEUSettings(
-		     Locale locale, 
-		     @Valid ProfesorDto prof, 
-		     @RequestParam(value = "constancia", required = true) MultipartFile constancia
-		) {
-			
-			String apaterno = prof.getaPaterno();
-			
-			System.out.println("Apellido paterno: " + apaterno);
-			
-			
-			
-			return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Participante agregado con exito!\",\"path\":\"/AdministracionProfesores/registrarParticipante\"}");
 		}
 	
 	//Mapeo del html para registrar cursos
@@ -270,21 +261,17 @@ public class ProfesoresController {
 		String originalName = constancia.getOriginalFilename();
 		System.out.println("FileName: " + originalName);
 		
-		String folder = "./"+path+"/";
+		String folder = ruta+path+"/";
 		try {
 			
 			FileUtils.forceMkdir(new File(folder));
 			try (FileOutputStream fos = new FileOutputStream(new File(folder + originalName))){
 				IOUtils.copy(constancia.getInputStream(), fos);
 			}
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-
 		return path;
 	}
 }
