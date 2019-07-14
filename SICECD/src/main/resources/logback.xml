@@ -26,7 +26,7 @@
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <maxFileSize>10MB</maxFileSize> <!-- Tamaño Maximo de archivos de log -->
             </timeBasedFileNamingAndTriggeringPolicy>
-            <maxHistory>2</maxHistory> <!-- Numeros de días maximo que se guardara un archivo -->
+            <maxHistory>7</maxHistory> <!-- Numeros de días maximo que se guardara un archivo -->
             <totalSizeCap>70MB</totalSizeCap> <!-- Cantidad maxima de información que se guardara -->
             <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
