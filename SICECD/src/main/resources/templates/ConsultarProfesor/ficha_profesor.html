@@ -40,7 +40,7 @@
 							<div class="card">
 								<div class="row">
 									<div class="col-sm-4"><p class="font-weight-light">Exportar historial: </p></div>
-									<div class="col-sm-8"><p class="font-weight-light" th:text="'Descargar documentos de ' + ${nombre}"></p></div>
+									<div class="col-sm-8"><p class="font-weight-light" th:text="'Descargar documentos de ' + ${nombre} + ' ' + ${apellido_paterno}"></p></div>
 								</div>
 								
 								<div class="row">
@@ -79,7 +79,7 @@
 							
 								<!-- START DATOS DEL PROFESOR -->
 								<div class="form-group">
-									<h3 class="card-title" th:text="${nombre}" id="nombre" value="${nombre}"></h3>
+									<h3 class="card-title" th:text="${nombre} + ' ' + ${apellido_paterno} + ' ' + ${apellido_materno} " id="nombre"></h3>
 								</div>
 								
 								<div class="card-body">
@@ -189,18 +189,28 @@
 	<script th:inline="javascript">
 	$("#BtnExportExcel").click(function(e) {
 		/*<![CDATA[*/ var nombre = [[${nombre}]]; /*]]>*/
+		/*<![CDATA[*/ var appat = [[${apellido_paterno}]]; /*]]>*/
+		/*<![CDATA[*/ var apmat = [[${apellido_materno}]]; /*]]>*/
+		/*<![CDATA[*/ var curp = [[${curp}]]; /*]]>*/
 		/*<![CDATA[*/ var rfc = [[${rfc}]]; /*]]>*/
 		/*<![CDATA[*/ var escolaridad = [[${escolaridad}]]; /*]]>*/
 		/*<![CDATA[*/ var turno = [[${turno}]]; /*]]>*/
+		/*<![CDATA[*/ var correo = [[${correo}]]; /*]]>*/
+		/*<![CDATA[*/ var telefono = [[${telefono}]]; /*]]>*/
+		/*<![CDATA[*/ var localidad = [[${localidad}]]; /*]]>*/
 		var f = new Date();
 		var date = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear()
-		var archivo = "Historial_"+nombre + "_" + date + ".xls";
+		var archivo = "Historial_"+nombre + "-" + appat +"_" + date + ".xls";
 		
 		var file = new Blob(
 				["\ufeff",$('#nombre').html()+"<br>",
-					"<p>RFC: "+$('#rfc').html()+"<br>",
+					"<p>CURP: "+$('#curp').html()+"<br>",
+					"RFC: "+$('#rfc').html()+"<br>",
 					"Grado de Estudios: "+$('#escolaridad').html()+"<br>",
-					"Turno: "+$('#turno').html()+"</p>",
+					"Turno: "+$('#turno').html()+"<br>",
+					"Correo: "+$('#correo').html()+"<br>",
+					"Telefono: "+$('#telefono').html()+"<br>",
+					"Localidad: "+$('#localidad').html()+"</p>",
 					$('#ins_profesor').html()],
 				{type:"application/vnd.ms-excel"});
 		var url = URL.createObjectURL(file);
@@ -212,15 +222,21 @@
 	
 	$("#BtnExportCSV").click(function(e) {
 		/*<![CDATA[*/ var nombre = [[${nombre}]]; /*]]>*/
+		/*<![CDATA[*/ var appat = [[${apellido_paterno}]]; /*]]>*/
+		/*<![CDATA[*/ var apmat = [[${apellido_materno}]]; /*]]>*/
+		/*<![CDATA[*/ var curp = [[${curp}]]; /*]]>*/
 		/*<![CDATA[*/ var rfc = [[${rfc}]]; /*]]>*/
 		/*<![CDATA[*/ var escolaridad = [[${escolaridad}]]; /*]]>*/
 		/*<![CDATA[*/ var turno = [[${turno}]]; /*]]>*/
+		/*<![CDATA[*/ var correo = [[${correo}]]; /*]]>*/
+		/*<![CDATA[*/ var telefono = [[${telefono}]]; /*]]>*/
+		/*<![CDATA[*/ var localidad = [[${localidad}]]; /*]]>*/
 		
 		var f = new Date();
 		var date = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear()
-		var archivo = "Historial_"+nombre + "_" + date + ".csv";
+		var archivo = "Historial_"+nombre + "-" + appat +"_" + date + ".csv";
 		
-		var csv = [];
+		var historial = [];
 		var rows = document.querySelectorAll("table tr");
 		
 		for (var i = 0; i < rows.length; i++){
@@ -230,16 +246,17 @@
 				row.push(cols[j].innerText);
 			}
 			
-			csv.push(row.join(","));
+			historial.push(row.join(","));
 		}
 		
 		var file = new Blob(
 				["\ufeff",
-					nombre + "\n\n",
-					"RFC:, "+ rfc + "\n",
-					"Grado de Estudios:, "+ escolaridad + "\n",
-					"Turno:, "+ turno + "\n\n",
-					csv.join("\n")],
+					nombre + " " + appat + " " + apmat + "\n\n",
+					"CURP:," + curp + ", , ," + "RFC:,"+ rfc + "\n",
+					"Grado de Estudios:," + escolaridad + ", , ," + "Turno:,"+ turno + "\n",
+					"Correo:," + correo + ", , ," + "Teléfono:,"+ telefono + "\n",
+					"Localidad:, "+ localidad + "\n\n",
+					historial.join("\n")],
 				{type:"text/csv"});
 		var url = URL.createObjectURL(file);
 		var a = $("<a />", {
