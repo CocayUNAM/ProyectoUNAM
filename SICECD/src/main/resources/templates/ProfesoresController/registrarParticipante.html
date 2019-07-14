@@ -426,31 +426,31 @@
 		        }
 		    }).on('success.form.bv', function(eve) {
 	            eve.preventDefault();
-				
-				let datos = {
-						aPaterno : $("#apaterno").val(),
-						aMaterno : $("#amaterno").val(),
-						nombres: $("#nombres").val(),
-						curp: $("#curp").val(),
-						rfc: $("#rfc").val(),
-						correo: $("#correo").val(),
-						telefono: $("#tel").val(),
-						estado: $("#estado").val(),
-						cilo: $("#cilo").val(),
-						genero: $("#genero").val(),
-						plantel: $("#plantel").val(),
-						turno: $("#turno").val(),
-						cPlantel: $("#cplantel").val(),
-						grado: $("#grado").val(),
-						ocupacion: $("#ocupacion").val(),
-						//nombre_ar: formdata,
-					}
+	            
+	            var formData = new FormData();
+	            formData.append('aPaterno', $("#apaterno").val());
+	            formData.append('aMaterno', $("#amaterno").val());
+	            formData.append('nombres', $("#nombres").val());
+	            formData.append('curp', $("#curp").val());
+	            formData.append('rfc', $("#rfc").val());
+	            formData.append('correo', $("#correo").val());
+	            formData.append('telefono', $("#tel").val());
+	            formData.append('estado', $("#estado").val());
+	            formData.append('cilo', $("#cilo").val());
+	            formData.append('genero', $("#genero").val());
+	            formData.append('plantel', $("#plantel").val());
+	            formData.append('turno', $("#turno").val());
+	            formData.append('cPlantel', $("#cplantel").val());
+	            formData.append('grado', $("#grado").val());
+	            formData.append('ocupacion', $("#ocupacion").val());
+	            formData.append('constancia', $("#constancia")[0].files[0]); 
 					
 					$.ajax({
 						type : "POST",
-						contentType : "application/json",
+						contentType : false,
 						url : '/AdministracionProfesores/registrarParticipante',
-						data : JSON.stringify(datos),
+						processData: false,
+						data : formData,
 						beforeSend : function() {
 							// setting a timeout
 							$("#mensaje").css("visibility","hidden")

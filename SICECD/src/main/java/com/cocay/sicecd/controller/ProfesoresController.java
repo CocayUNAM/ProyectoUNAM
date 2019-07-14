@@ -1,14 +1,19 @@
 package com.cocay.sicecd.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.dto.ProfesorDto;
@@ -133,28 +140,66 @@ public class ProfesoresController {
 			return "ProfesoresController/registrarParticipante";
 		}
 
+		//@RequestMapping(value = "/registrarParticipante", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<String>  updateEUSettings(
+		     Locale locale, 
+		     @Valid ProfesorDto prof, 
+		     @RequestParam(value = "constancia", required = true) MultipartFile constancia
+		) {
+			
+			String apaterno = prof.getaPaterno();
+			
+			System.out.println("Apellido paterno: " + apaterno);
+			
+			
+			
+			return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Participante agregado con exito!\",\"path\":\"/AdministracionProfesores/registrarParticipante\"}");
+		}
 	
 	//Mapeo del html para registrar cursos
 		@RequestMapping(value = "/registrarParticipante", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> RegistrarParticipantes(@RequestBody ProfesorDto prof){
+		public ResponseEntity<String>  registrarParticipantes(
+		     Locale locale, 
+		     @Valid ProfesorDto prof, 
+		     @RequestParam(value = "constancia", required = true) MultipartFile constancia
+		) {
+			
+			
+				
+					
 			
 				Profesor profe = new Profesor();
 				
 				String apaterno = prof.getaPaterno();
 				
+				System.out.println("Apellido paterno: " + apaterno);
+				
 				String amaterno = prof.getaMaterno();
+				
+				System.out.println("Apellido materno" + amaterno);
 				
 				String nombres = prof.getNombres();
 				
+				System.out.println("nombre: " + nombres);
+				
 				String curp = prof.getCurp();
+				
+				System.out.println("El curp: " + curp);
 				
 				String rfc = prof.getRfc();
 				
+				System.out.println("El rfc: " + rfc);
+				
 				String correo = prof.getCorreo();
+				
+				System.out.println("El correo es: " + correo);
 				
 				String telefono = prof.getTelefono();
 				
-				String path = Integer.toString(profe.getPk_id_profesor());
+				System.out.println("El telefono es: " +telefono);
+				
+				String path = saveConstancia(constancia, profe);
+				
 				
 //				/*base*/
 				String estado = prof.getEstado();
@@ -222,4 +267,35 @@ public class ProfesoresController {
 			
 				return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Participante agregado con exito!\",\"path\":\"/AdministracionProfesores/registrarParticipante\"}");
 		}
+
+	private String saveConstancia(MultipartFile constancia, Profesor profe) {
+		String path = Integer.toString(profe.getPk_id_profesor());
+		System.out.println("path: " + path);
+		
+		
+
+		String originalName = constancia.getOriginalFilename();
+		System.out.println("FileName: " + originalName);
+		
+		
+		String folder = "./"+path+"/";
+		try {
+
+			
+			FileUtils.forceMkdir(new File(folder));
+			try (FileOutputStream fos = new FileOutputStream(new File(folder + originalName))){
+				IOUtils.copy(constancia.getInputStream(), fos);
+			}
+			
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+
+		return path;
+	}
 }
