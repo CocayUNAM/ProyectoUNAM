@@ -40,7 +40,7 @@ import com.cocay.sicecd.repo.TurnoRep;
 import com.cocay.sicecd.service.Logging;
 
 @Controller
-@RequestMapping("AdministracionProfesores")
+@RequestMapping("AdministracionRegistroManual")
 public class ProfesoresController {
 	
 	@Autowired
@@ -163,11 +163,6 @@ public class ProfesoresController {
 		     @Valid ProfesorDto prof, 
 		     @RequestParam(value = "constancia", required = true) MultipartFile constancia
 		) {
-			
-			
-				
-					
-			
 				Profesor profe = new Profesor();
 				
 				String apaterno = prof.getaPaterno();
@@ -271,23 +266,17 @@ public class ProfesoresController {
 	private String saveConstancia(MultipartFile constancia, Profesor profe) {
 		String path = Integer.toString(profe.getPk_id_profesor());
 		System.out.println("path: " + path);
-		
-		
 
 		String originalName = constancia.getOriginalFilename();
 		System.out.println("FileName: " + originalName);
 		
-		
 		String folder = "./"+path+"/";
 		try {
-
 			
 			FileUtils.forceMkdir(new File(folder));
 			try (FileOutputStream fos = new FileOutputStream(new File(folder + originalName))){
 				IOUtils.copy(constancia.getInputStream(), fos);
 			}
-			
-			
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

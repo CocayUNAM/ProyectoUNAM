@@ -25,7 +25,7 @@ import com.cocay.sicecd.repo.Tipo_cursoRep;
 import com.cocay.sicecd.service.Logging;
 
 @Controller
-@RequestMapping("AdministracionCursos")
+@RequestMapping("AdministracionRegistroManual")
 public class CursosController {
 	
 	@Autowired

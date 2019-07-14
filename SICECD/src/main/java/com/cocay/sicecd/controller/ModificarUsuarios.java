@@ -28,6 +28,7 @@ import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.service.Logging;
 
 @Controller
+@RequestMapping("AdministracionModificaciones")
 public class ModificarUsuarios {
 	
 	@Autowired

@@ -86,7 +86,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="form-validation">
-                                        <form class="form-valide" action="@{/AdministracionProfesores/registrarParticipante}" method="POST"
+                                        <form class="form-valide" action="@{/AdministracionRegistroManual/registrarParticipante}" method="POST"
                                         id= "registrarprofesor">
                                         
                                             <div class="form-group row">
@@ -441,7 +441,7 @@ $(document).ready(function() {
 					$.ajax({
 						type : "POST",
 						contentType : "application/json",
-						url : '/editarprofesor',
+						url : '/AdministracionModificaciones/editarprofesor',
 						data : JSON.stringify(datos),
 						beforeSend : function() {
 							// setting a timeout

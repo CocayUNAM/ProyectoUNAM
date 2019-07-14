@@ -94,7 +94,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="form-validation">
-                                        <form class="form-valide" action="@{/AdministracionProfesores/registrarParticipante}" method="POST"
+                                        <form class="form-valide" action="@{/AdministracionRegistroManual/registrarParticipante}" method="POST"
                                         id= "registrarParticipante" enctype="multipart/form-data">
                                         
                                             <div class="form-group row">
@@ -448,7 +448,7 @@
 					$.ajax({
 						type : "POST",
 						contentType : false,
-						url : '/AdministracionProfesores/registrarParticipante',
+						url : '/AdministracionRegistroManual/registrarParticipante',
 						processData: false,
 						data : formData,
 						beforeSend : function() {
@@ -472,17 +472,6 @@
 	            var $form     = $(eve.target),
 	                validator = $form.data('bootstrapValidator');
 	        });
-
-			
-			$('#constancia').change(function(){    
-			    //on change event  
-			    formdata = new FormData();
-			    if($(this).prop('files').length > 0)
-			    {
-			        file =$(this).prop('files')[0];
-			        formdata.append("constancia", file);
-			    }
-			});
 
 			$("#limpiar").click(function(event) {
 				$("#registrarParticipante")[0].reset();

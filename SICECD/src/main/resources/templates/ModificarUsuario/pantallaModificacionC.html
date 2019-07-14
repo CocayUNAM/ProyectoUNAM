@@ -89,7 +89,7 @@
                                 <div class="card-body">
                                     <div class="form-validation">
                                     
-                                        <form class="form-valide" th:action="@{/AdministracionCursos/registrarCursos}" method="POST"
+                                        <form class="form-valide" th:action="@{/AdministracionRegistroManual/registrarCursos}" method="POST"
                                         id= "registrarCur">
                                         
                                             <div class="form-group row">
@@ -314,7 +314,7 @@ $(document).ready(function() {
 						$.ajax({
 							type : "POST",
 							contentType : "application/json",
-							url : '/editarcurso',
+							url : '/AdministracionModificaciones/editarcurso',
 							data : JSON.stringify(datos),
 							beforeSend : function() {
 								// setting a timeout
