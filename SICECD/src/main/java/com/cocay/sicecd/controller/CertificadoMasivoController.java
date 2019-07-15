@@ -41,6 +41,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.json.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 @PropertySource(ignoreResourceNotFound = true, value = "classpath:application-cert.properties")
@@ -62,7 +64,7 @@ public class CertificadoMasivoController {
 	Logging log;
 	@Autowired
 	Url_wsRep urls;
-
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	private int[] extraccionPorURL(String URL_RSM, JSONObject json) throws Exception {
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost(URL_RSM);
@@ -88,12 +90,13 @@ public class CertificadoMasivoController {
 		try {
 			json_r = new JSONObject(jsonText);
 		} catch (Exception e) {
-			System.out.println(jsonText);
+			LOGGER.error(e.getMessage());
+			//System.out.println(jsonText);
 			return new int[] { 0, 0 };
 		}
 		// JSONObject json_r = new JSONObject(jsonText);
 		String msg = (String) json_r.get("mensaje");
-		System.out.println(msg);
+		//System.out.println(msg);
 		// msg = new
 		// String(java.util.Base64.getDecoder().decode(msg),Charset.forName("UTF-8"));
 		if (!msg.equals("NULL")) {
@@ -121,6 +124,7 @@ public class CertificadoMasivoController {
 			os.write(bytearray);
 			System.out.println("Archivo escrito!");
 		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			System.out.println(e);
 		}
 		byte[] buffer = new byte[1024];
@@ -153,11 +157,13 @@ public class CertificadoMasivoController {
 				bis.close();
 			}
 		} catch (java.util.zip.ZipException zx) {
-			System.out.println("Zip file is empty!");
+			LOGGER.error("Zip file is empty!");
+			//System.out.println("Zip file is empty!");
 			return new int[] { 0, 0 };
 		} catch (Exception e) {
-			System.out.println(e);
-			e.printStackTrace();
+			LOGGER.error(e.getMessage());
+			//System.out.println(e);
+			//e.printStackTrace();
 			return new int[] { 0, 0 };
 		}
 		int nuevas2 = 0;
@@ -181,6 +187,7 @@ public class CertificadoMasivoController {
 					try (FileOutputStream os = new FileOutputStream(aux)) {
 						os.write(fs.readAllBytes());
 					} catch (Exception e) {
+						LOGGER.error(e.getMessage());
 						System.out.println(e);
 					}
 					SeguridadPDF spdf = new SeguridadPDF();
@@ -222,11 +229,13 @@ public class CertificadoMasivoController {
 	public void scheduleTaskWithCronExpression() throws Exception {
 		LinkedList<Url_ws> links = new LinkedList<>(urls.findVarios());
 		if (links.size() == 0) {
+			LOGGER.debug("No hay urls!");
 			throw new Exception("No hay urls!");
 		}
 		JSONObject json = new JSONObject();
 		LinkedList<Profesor> profesores = new LinkedList<>(bd_profesor.findAll());
 		if (profesores.size() == 0) {
+			LOGGER.info("No hay profesores");
 			return;
 		}
 		int nuevas = 0;
