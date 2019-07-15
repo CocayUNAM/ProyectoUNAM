@@ -84,37 +84,37 @@
 								
 								<div class="card-body">
 									<div class="row">
-										<div class="col-sm-3"><p class="font-weight-bold">CURP: </p></div>
-										<div class="col-sm-3"><p class="font-weight-light" th:text="${curp}" id="curp">No disponible</p></div>
-										<div class="col-sm-3"><p class="font-weight-bold">RFC: </p></div>
-										<div class="col-sm-3"><p class="font-weight-light" th:text="${rfc}" id="rfc">No disponible</p></div>
+										<div class="col-sm-3"><p class="font-weight-bold" id="curp_label">CURP: </p></div>
+										<div class="col-sm-3"><p class="font-weight-light" th:text="${curp}" id="curp_info">No disponible</p></div>
+										<div class="col-sm-3"><p class="font-weight-bold" id="rfc_label">RFC: </p></div>
+										<div class="col-sm-3"><p class="font-weight-light" th:text="${rfc}" id="rfc_info">No disponible</p></div>
 									</div>
 								
 									<div class="row">
-										<div class="col-sm-3"><p class="font-weight-bold">Escolaridad: </p></div>
-										<div class="col-sm-3"><p class="font-weight-light" th:text="${escolaridad}" id="escolaridad">No disponible</p></div>
-										<div class="col-sm-3"><p class="font-weight-bold">Turno: </p></div>
-										<div class="col-sm-3"><p class="font-weight-light" th:text="${turno}" id="turno">No disponible</p></div>
+										<div class="col-sm-3"><p class="font-weight-bold" id="escolaridad_label">Escolaridad: </p></div>
+										<div class="col-sm-3"><p class="font-weight-light" th:text="${escolaridad}" id="escolaridad_info">No disponible</p></div>
+										<div class="col-sm-3"><p class="font-weight-bold" id="turno_label">Turno: </p></div>
+										<div class="col-sm-3"><p class="font-weight-light" th:text="${turno}" id="turno_info">No disponible</p></div>
 									</div>
 								
 									<div class="row">
-										<div class="col-sm-3"><p class="font-weight-bold">Correo: </p></div>
-										<div class="col-sm-3"><p class="font-weight-light" th:text="${correo}" id="correo">No disponible</p></div>
-										<div class="col-sm-3"><p class="font-weight-bold">Teléfono: </p></div>
-										<div class="col-sm-3"><p class="font-weight-light" th:text="${telefono}" id="telefono">No disponible</p></div>
+										<div class="col-sm-3"><p class="font-weight-bold" id="correo_label">Correo: </p></div>
+										<div class="col-sm-3"><p class="font-weight-light" th:text="${correo}" id="correo_info">No disponible</p></div>
+										<div class="col-sm-3"><p class="font-weight-bold" id="telefono_label">Teléfono: </p></div>
+										<div class="col-sm-3"><p class="font-weight-light" th:text="${telefono}" id="telefono_info">No disponible</p></div>
 									</div>
 								
 									<div class="row">
-										<div class="col-sm-3"><p class="font-weight-bold">Localidad: </p></div>
-										<div class="col-sm-3"><p class="font-weight-light" th:text="${localidad}" id="localidad">No disponible</p></div>
+										<div class="col-sm-3"><p class="font-weight-bold" id="localidad_label">Localidad: </p></div>
+										<div class="col-sm-3"><p class="font-weight-light" th:text="${localidad}" id="localidad_info">No disponible</p></div>
 									</div>
 								</div>
 								<!-- END DATOS DEL PROFESOR -->
 							
 								<!-- START INSCRIPCIONES DEL PROFESOR -->
 								<div class="card-body" id="ins_profesor">
-									<div class="table-responsive">
-										<table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+									<div class="table-responsive" id="tabla_inscripciones">
+										<table class="table table-striped table-bordered">
 											<thead class="thead-light">
 												<tr>
 													<th>Rol</th>
@@ -204,13 +204,13 @@
 		
 		var file = new Blob(
 				["\ufeff",$('#nombre').html()+"<br>",
-					"<p>CURP: "+$('#curp').html()+"<br>",
-					"RFC: "+$('#rfc').html()+"<br>",
-					"Grado de Estudios: "+$('#escolaridad').html()+"<br>",
-					"Turno: "+$('#turno').html()+"<br>",
-					"Correo: "+$('#correo').html()+"<br>",
-					"Telefono: "+$('#telefono').html()+"<br>",
-					"Localidad: "+$('#localidad').html()+"</p>",
+					"<p>CURP: "+curp+"<br>",
+					"RFC: "+rfc+"<br>",
+					"Grado de Estudios: "+escolaridad+"<br>",
+					"Turno: "+turno+"<br>",
+					"Correo: "+correo+"<br>",
+					"Telefono: "+telefono+"<br>",
+					"Localidad: "+localidad+"</p>",
 					$('#ins_profesor').html()],
 				{type:"application/vnd.ms-excel"});
 		var url = URL.createObjectURL(file);
@@ -264,11 +264,5 @@
 			download: archivo}).appendTo("body").get(0).click();
 		e.preventDefault();
 	});
-	
-	$("#BtnExportPDF").on('click', function(){
-		 var doc = new jsPDF();
-		 doc.fromHTML($('#info_profesor').get(0), 15, 15, { 'width': 170 });
-		 pdf.save('Prueba.pdf');
-	}); 
 	</script>
 </body>
