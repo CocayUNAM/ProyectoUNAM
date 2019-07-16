@@ -182,7 +182,14 @@ Accion: Creacion de la tabla Url_ws_curso
 CREATE TABLE Url_ws_curso (
  pk_id_url_ws_profesor SERIAL PRIMARY KEY,
  url VARCHAR(200) UNIQUE NOT NULL,
-nombre VARCHAR(5),
+nombre VARCHAR(50),
+activa  BOOLEAN DEFAULT false
+);
+
+CREATE TABLE Url_ws_inscripcion (
+ pk_id_url_ws_inscripcion SERIAL PRIMARY KEY,
+ url VARCHAR(200) UNIQUE NOT NULL,
+nombre VARCHAR(50),
 activa  BOOLEAN DEFAULT false
 );
 /*
