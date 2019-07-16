@@ -251,9 +251,30 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="constancia">constancia<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="constancia">constancia pdf<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="file" name="constancia" accept="application/pdf" id="constancia"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="comprobante">comprobante de domicilio en pdf<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="file" name="comprobante" accept="application/pdf" id="comprobante"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="rfcpdf">rfc en pdf<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="file" name="rfcpdf" accept="application/pdf" id="rfcpdf"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="curppdf">curp en pdf<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="file" name="curppdf" accept="application/pdf" id="curppdf"/>
                                                 </div>
                                             </div>
                                             
@@ -387,10 +408,6 @@
 		        	
 		        	curp : {
 		        		validators: {
-		        			notEmpty: {
-		                        message: ' El nombre no puede estar vacio '
-		                    },
-		                    
 		                    curp: {
 		                    	message: ' Verifica que sea valido el CURP '
 		                    }
@@ -443,7 +460,23 @@
 	            formData.append('cPlantel', $("#cplantel").val());
 	            formData.append('grado', $("#grado").val());
 	            formData.append('ocupacion', $("#ocupacion").val());
-	            formData.append('constancia', $("#constancia")[0].files[0]); 
+	            
+	            if( document.getElementById("constancia").files.length != 0 ){
+	            	formData.append('constancia', $("#constancia")[0].files[0]); 
+	            }
+	            
+	            if( document.getElementById("comprobante").files.length != 0 ){
+	            	formData.append('comprobante', $("#comprobante")[0].files[0]); 
+	            }
+	            
+	            if( document.getElementById("rfcpdf").files.length != 0 ){
+	            	formData.append('rfc_doc', $("#rfcpdf")[0].files[0]); 
+	            }
+	            
+	            if( document.getElementById("curppdf").files.length != 0 ){
+	            	formData.append('curp_doc', $("#curppdf")[0].files[0]);  
+	            }
+	            
 					
 					$.ajax({
 						type : "POST",

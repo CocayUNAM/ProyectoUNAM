@@ -152,7 +152,10 @@ public class ProfesoresController {
 		public ResponseEntity<String>  registrarParticipantes(
 		     Locale locale, 
 		     @Valid ProfesorDto prof, 
-		     @RequestParam(value = "constancia", required = true) MultipartFile constancia
+		     @RequestParam(value = "constancia", required = false) MultipartFile constancia,
+		     @RequestParam(value = "comprobante", required = false) MultipartFile comprobante,
+		     @RequestParam(value = "rfc_doc", required = false) MultipartFile rfc_pdf,
+		     @RequestParam(value = "curp_doc", required = false) MultipartFile curp_pdf
 		) {
 				Profesor profe = new Profesor();
 				
@@ -183,12 +186,35 @@ public class ProfesoresController {
 				String telefono = prof.getTelefono();
 				
 				System.out.println("El telefono es: " +telefono);
+
 				
-				String path = saveConstancia(constancia, profe);
+				if(constancia != null) {
+					String originalName = constancia.getOriginalFilename();
+					saveConstancia(constancia);
+					profe.setCertificado_doc(originalName);
+				}
 				
+				if(comprobante != null) {
+					String originalName2 = comprobante.getOriginalFilename();
+					saveConstancia(comprobante);
+					profe.setComprobante_doc(originalName2);
+				}
+				
+				if(rfc_pdf != null) {
+					String originalName3 = rfc_pdf.getOriginalFilename();
+					saveConstancia(rfc_pdf);
+					profe.setRfc_doc(originalName3);
+				}
+				
+				if(curp_pdf != null) {
+					String originalName4 = curp_pdf.getOriginalFilename();
+					saveConstancia(curp_pdf);
+					profe.setCurp_doc(originalName4);
+				}
 				
 //				/*base*/
 				String estado = prof.getEstado();
+				System.out.println("-------El estado seleccionado:   " + estado);
 				List<Estado> est = stRep.findByNombre(estado);
 				
 				String cilo = prof.getCilo();
@@ -241,21 +267,21 @@ public class ProfesoresController {
 				
 				profe.setFk_id_grado_profesor(gr.get());
 				
-				profe.setOcupacion(ocupacion);
+				profe.setOcupacion(ocupacion);				
 				
-			    boolean success = (new File(path)).mkdir();
-			    if (success) {
-			      System.out.println("Directorio: " + path + " creado con exito");
-			    }
-			    
 			    log.setTrace(LogTypes.REGISTRAR_PARTICIPANTE);
 				profRep.save(profe);
 			
 				return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Participante agregado con exito!\",\"path\":\"/AdministracionProfesores/registrarParticipante\"}");
 		}
 
-	private String saveConstancia(MultipartFile constancia, Profesor profe) {
-		String path = Integer.toString(profe.getPk_id_profesor());
+	private String saveConstancia(MultipartFile constancia) {
+		
+		Profesor ultProfe = profRep.findHigherID().get(0);
+		
+		Integer idPath = ultProfe.getPk_id_profesor() + 1;
+		
+		String path = Integer.toString(idPath);
 		System.out.println("path: " + path);
 
 		String originalName = constancia.getOriginalFilename();
