@@ -198,9 +198,11 @@
 			$.fn.bootstrapValidator.validators.telefono = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-
-			            if (value.length != 10) {
-			                return false;
+						
+			            if($('#tel').val().length > 0){
+				            if (value.length != 10) {
+				                return false;
+				            }
 			            }
 
 			            return true;
@@ -237,18 +239,6 @@
 		        			}
 		                }
 		            },
-		            
-		            amaterno: {
-		        		validators: {
-		        			notEmpty: {
-		                        message: ' No puede estar vacio '
-		                    },
-		        
-		        			nombre: {
-		        				message: ' Verfica que sea un apellido valido '
-		        			}
-		                }
-		        	},
 		        	
 		        	nombres : {
 		        		validators: {
@@ -258,14 +248,6 @@
 		                    
 		                    nombre: {
 		                    	message: ' Verifica que sea un nombre valido '
-		                    }
-		        		}
-		        	},
-		        	
-		        	nac : {
-		        		validators: {
-			        		notEmpty: {
-		                        message: ' La fecha no puede estar vacia '
 		                    }
 		        		}
 		        	},

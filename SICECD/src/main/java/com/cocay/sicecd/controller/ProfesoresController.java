@@ -94,8 +94,10 @@ public class ProfesoresController {
 		Date fecha = null;
 		try {
 			fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
+			pro.setFechaNac(fecha);
 		} catch (ParseException e) {
 			e.printStackTrace();
+			pro.setFechaNac(null);
 		}  
 		
 		pro.setApellido_paterno(apaterno);
@@ -109,8 +111,6 @@ public class ProfesoresController {
 		pro.setTelefono(telefono);
 		
 		pro.setCorreo(correo);
-		
-		pro.setFechaNac(fecha);
 		
 		/*------------------------------------------------------------------------------*/
 		

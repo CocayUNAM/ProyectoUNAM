@@ -115,28 +115,28 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="horas">Horas <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="horas">Horas <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="horas" name="horas" placeholder="Ingrese las horas de duracion">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="nombre">Nombre <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="nombre">Nombre <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Agregue el nombre del curso">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="f_inicio">Fecha de inicio <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="f_inicio">Fecha de inicio <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="date" class="form-control" id="f_inicio" name="f_inicio" placeholder="Agregue fecha de inicio">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="f_termino">Fecha de termino <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="f_termino">Fecha de termino <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="date" class="form-control" id="f_termino" name="f_termino" placeholder="Agregue fecha de termino">
                                                 </div>
@@ -197,9 +197,11 @@
 			$.fn.bootstrapValidator.validators.horas = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-
-			            if (value.length > 4) {
-			                return false;
+						
+			            if($('#horas').val().length > 0){
+				            if (value.length > 4) {
+				                return false;
+				            }
 			            }
 
 			            return true;
@@ -224,8 +226,10 @@
 			            var value2 = $("#f_termino").val();
 			            var value3 = $("#f_inicio").val();
 			            
-			            if (value < value3) {
-			                return false;
+			            if($('#f_inicio').val().length > 0 && $('#f_termino').val().length > 0){
+				            if (value < value3) {
+				                return false;
+				            }
 			            }
 
 			            return true;
@@ -259,10 +263,6 @@
 			            
 					            digits: {
 			                        message: ' Utiliza solo numeros '
-			                    },
-			                    
-			                    notEmpty: {
-			                        message: ' No puede estar vacio '
 			                    }
 			                }
 			        	},
@@ -279,20 +279,8 @@
 			        		}
 			        	},
 			        	
-			        	f_inicio : {
-			        		validators: {
-				        		notEmpty: {
-			                        message: ' la fecha no puede estar vacia '
-			                    },
-			        		}
-			        	},
-			        	
 			        	f_termino : {
 			        		validators: {
-				        		notEmpty: {
-			                        message: ' La fecha no puede estar vacia '
-			                    },
-			                    
 			                    fecha : {
 			                    	message: ' La fecha de termino no puede ser menor que la fecha de inicio '
 			                    }

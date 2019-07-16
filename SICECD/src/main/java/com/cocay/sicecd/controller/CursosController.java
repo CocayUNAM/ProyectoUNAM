@@ -57,19 +57,24 @@ public class CursosController {
 		String nombre = cr.getNombre();
 		
 		String fInicio = cr.getfInicio();
+		
 		Date fecha = null;
 		try {
 			fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fInicio);
+			curso.setfInicio(fecha);
 		} catch (ParseException e) {
 			e.printStackTrace();
+			curso.setfInicio(null);
 		}  
 		
 		String fTermino = cr.getfTermino();
 		Date fecha2 = null;
 		try {
 			fecha2 = new SimpleDateFormat("yyyy-MM-dd").parse(fTermino);
+			curso.setfTermino(fecha2);
 		} catch (ParseException e) {
 			e.printStackTrace();
+			curso.setfTermino(null);
 		}  
 		
 		curso.setClave(clave);
@@ -79,10 +84,11 @@ public class CursosController {
 			curso.setFk_id_tipo_curso(cursos.get(0));
 		}
 		
-		curso.setHoras(Integer.valueOf(horas));
+		if(horas != "") {
+			curso.setHoras(Integer.valueOf(horas));
+		}
+		
 		curso.setNombre(nombre);
-		curso.setfInicio(fecha);
-		curso.setfTermino(fecha2);
 		
 		log.setTrace(LogTypes.REGISTRAR_CURSO);
 

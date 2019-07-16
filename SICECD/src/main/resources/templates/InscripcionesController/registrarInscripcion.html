@@ -95,30 +95,30 @@
                                         id="registrarInscripcion">
                                         
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="grupo">Grupo <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="grupo">Clave del grupo<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="grupo" name="grupo" placeholder="Inserte clave" required>
+                                                    <input type="text" class="form-control" id="grupo" name="grupo" placeholder="Ejemplo: A001" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="par">participante<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="par">RFC del participante<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="par" name="par" placeholder="Ingrese clave" required>
+                                                    <input type="text" class="form-control" id="par" name="par" placeholder="Ejemplo: MBDI500507GAL" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="cal">calificacion<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="cal">calificacion<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="cal" name="cal" placeholder="Ingrese calificacion" required>
+                                                    <input type="text" class="form-control" id="cal" name="cal" placeholder="Ingrese calificacion">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="ap">aprobado<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 col-form-label" for="ap">aprobado<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                      <input type="checkbox" name="ap" value="true" checked> Se aprobó el curso<br>
+                                                      <input type="checkbox" name="ap" class="checkbox" value="checked"> Se aprobó el curso<br>
                                                 </div>
                                             </div>
                                             
@@ -185,6 +185,17 @@
 			        }
 			};
 			
+		        $('input[type="checkbox"]').click(function(){
+		            if($(this).is(":checked")){
+		            	$(this).value == "checked"
+		                alert("Checkbox is checked.");
+		            }
+		            else if($(this).is(":not(:checked)")){
+		            	$(this).value == "unchecked"
+		                alert("Checkbox is unchecked.");
+		            }
+		        });
+			
 			$('#registrarInscripcion').bootstrapValidator({
 		        feedbackIcons: {
 		            valid: 'glyphicon glyphicon-ok',
@@ -225,7 +236,7 @@
 						idGrupo : $("#grupo").val(),
 						idProfesor : $("#par").val(),
 						calificacion : $("#cal").val(),
-						aprobado : $("#ap").val(),
+						aprobado : $('.checkbox').val() == "checked"
 					}
 					$.ajax({
 						type : "POST",

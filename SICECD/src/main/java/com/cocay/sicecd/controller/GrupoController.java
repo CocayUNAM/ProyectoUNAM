@@ -66,28 +66,26 @@ public class GrupoController {
 		Date fechaI = null;
 		try {
 			fechaI = new SimpleDateFormat("yyyy-MM-dd").parse(fInicio);
+			grupo.setFecha_inicio(fechaI);
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			grupo.setFecha_inicio(null);
 		}
 		
 		Date fechaT = null;
 		try {
 			fechaT = new SimpleDateFormat("yyyy-MM-dd").parse(fTermino);
+			grupo.setFecha_fin(fechaT);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			grupo.setFecha_fin(null);
 		}
 		
 		grupo.setClave(clave);
 		
-		grupo.setFecha_inicio(fechaI);
-		
-		grupo.setFecha_fin(fechaT);
-		
 		List<Curso> cursop = cursoRep.findByClave(curso);
 		if(!cursop.isEmpty()) {
-			//grupo.setFk_id_curso(cursop.get(0).getPk_id_curso());
 			grupo.setFk_id_curso(cursop.get(0));
 		}
 		
