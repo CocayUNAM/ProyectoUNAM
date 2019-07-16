@@ -1,2 +1,2 @@
-.DS_Store
-/spring-batch-excel/
+*.DS_Store
+spring-batch-excel/
