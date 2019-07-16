@@ -213,9 +213,9 @@ public class ProfesoresController {
 				}
 				
 //				/*base*/
-				String estado = prof.getEstado();
+				Integer estado = Integer.parseInt(prof.getEstado());
 				System.out.println("-------El estado seleccionado:   " + estado);
-				List<Estado> est = stRep.findByNombre(estado);
+				Optional<Estado> est = stRep.findById(estado);
 				
 				String cilo = prof.getCilo();
 				
@@ -251,9 +251,7 @@ public class ProfesoresController {
 				
 				profe.setTelefono(telefono);
 				
-				if(!est.isEmpty()) {
-					profe.setFk_id_estado(est.get(0));
-				}
+				profe.setFk_id_estado(est.get());
 				
 				profe.setCiudad_localidad(cilo);
 				
