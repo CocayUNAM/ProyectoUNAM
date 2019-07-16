@@ -38,7 +38,7 @@ public class Profesor {
 	@Column(name = "rfc", nullable = false, length=13, unique=true)
 	String rfc;
 	
-	@Column(name = "curp", nullable = true, length=18, unique=true)
+	@Column(name = "curp", nullable = true, length=18)
 	String curp;
 	
 	@Column(name = "correo", nullable = false, length=200)
