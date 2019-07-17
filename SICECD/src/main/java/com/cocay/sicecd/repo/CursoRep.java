@@ -3,10 +3,12 @@ package com.cocay.sicecd.repo;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cocay.sicecd.model.Curso;
 
@@ -58,5 +60,14 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	
 	@Query(value="SELECT * FROM Curso", nativeQuery = true)
 	List<Curso> loadAllCursos();
+	
+	/*
+	 * @author Héctor Santaella Marín
+	 * 
+	 */
+	@Modifying
+    @Query(value = "insert into Curso (clave,nombre) VALUES (:clave,:nombre)", nativeQuery = true)
+    @Transactional
+    void saveC(@Param("clave") String clave, @Param("nombre") String nombre);
 
 }
