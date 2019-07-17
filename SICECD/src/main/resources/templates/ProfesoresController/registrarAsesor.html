@@ -51,7 +51,7 @@
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal" id="limpiar">Agregar otro asesor</button>
 					<button type="button" class="btn btn-primary"
-						onclick="window.location.href ='/example/table-basic'">Volver
+						onclick="window.location.href ='/start'">Volver
 						a inicio</button>
 				</div>
 			</div>
@@ -94,39 +94,39 @@
                                 <div class="card-body">
                                     <div class="form-validation">
                                     
-                                        <form class="form-valide" th:action="@{/AdministracionProfesores/registrarAsesor}" method="POST"
+                                        <form class="form-valide" th:action="@{/AdministracionRegistroManual/registrarAsesor}" method="POST"
                                         id= "registrarAsesor">
                                         
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="apaterno">Apellido paterno<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="apaterno">Apellido paterno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="apaterno" name="apaterno" placeholder="Introduce apellido paterno" required>
+                                                    <input type="text" class="form-control" id="apaterno" name="apaterno" placeholder="Introduce apellido paterno">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="amaterno">Apellido materno<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="amaterno">Apellido materno<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Introduce apellido materno">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="nombres">Nombre(s)<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="nombres">Nombre(s)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Introduce nombre(s)" required>
+                                                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Introduce nombre(s)">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="nac">Fecha de nacimiento<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="nac">Fecha de nacimiento<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="date" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="tel">Telefono<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="tel">Telefono<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="tel" class="form-control" id="tel" name="tel" placeholder="Introduce telefono.">
                                                 </div>
@@ -134,22 +134,25 @@
                                             
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="correo">Correo electronico<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="correo">Correo electronico<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Introduce correo." required>
+                                                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Introduce correo.">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="rfc">RFC <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="rfc">RFC <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC" required>
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC">
                                                 </div>
                                             </div>
                                             
-                                            <button type="submit" class="btn btn-default"
-                                            data-toggle="modal" data-target="#exampleModal">
-                                             Capturar</button>
+                                            <div class="form-group">
+        										<div class="col-sm-5 col-sm-offset-3">
+		                                           <button type="submit" class="btn btn-default"
+		                                           data-toggle="modal" data-target="#exampleModal">Capturar</button>
+                                             	</div>
+    										</div>
                                         </form>
                                     </div>
                                 </div>
@@ -176,46 +179,146 @@
     <script src="/js/lib/form-validation/jquery.validate-init.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/scripts.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
     <script>
 		$(document).ready(function() {
 			
-			//cambio de perfil
-			let rol='Consultas';
+			$.fn.bootstrapValidator.validators.nombre = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
 
-			$("#registrarAsesor").submit(function(eve) {
-				eve.preventDefault();
-				let datos = {
-					aPaterno : $("#apaterno").val(),
-					aMaterno : $("#amaterno").val(),
-					nombres: $("#nombres").val(),
-					fNacimiento: $("#nac").val(),
-					telefono: $("#tel").val(),
-					correo: $("#correo").val(),
-					rfc: $("#rfc").val(),
-				}
-				$.ajax({
-					type : "POST",
-					contentType : "application/json",
-					url : '/AdministracionProfesores/registrarAsesor',
-					data : JSON.stringify(datos),
-					beforeSend : function() {
-						// setting a timeout
-						$("#mensaje").css("visibility","hidden")
-						$('#spin').css("visibility","visible")
-								
-					},
-					error : function(e) {
-						alert("Error");	
-					},
-					success : function(respuesta) {
-						$('#spin').css("visibility","hidden")
-						var elem = $(document.createElement('h4'))
-						               .attr('id','mensaje').html(respuesta.message);
-						$('#mensaje').replaceWith(elem);
-						$("#mensaje").css("visibility","visible")
+			            if (value.search(/[A-Z][a-zA-Z][^#&<>""~;$^%{}?/*(0-9)]{1,20}$/) < 0) {
+			                return false;
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.telefono = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+						
+			            if($('#tel').val().length > 0){
+				            if (value.length != 10) {
+				                return false;
+				            }
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.rfc = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+
+			            if (value.search(/^([A-Z\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$/) < 0) {
+			                return false;
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$('#registrarAsesor').bootstrapValidator({
+		        feedbackIcons: {
+		            valid: 'glyphicon glyphicon-ok',
+		            invalid: 'glyphicon glyphicon-remove',
+		            validating: 'glyphicon glyphicon-refresh'
+		        },
+		        fields: {
+		            apaterno: {
+		                validators: {
+		                    notEmpty: {
+		                        message: ' No puede estar vacio '
+		                    },
+		        
+		        			nombre: {
+		        				message: ' Verfica que sea un apellido valido '
+		        			}
+		                }
+		            },
+		        	
+		        	nombres : {
+		        		validators: {
+		        			notEmpty: {
+		                        message: ' El nombre no puede estar vacio '
+		                    },
+		                    
+		                    nombre: {
+		                    	message: ' Verifica que sea un nombre valido '
+		                    }
+		        		}
+		        	},
+		        	
+		        	tel : {
+		        		validators: {
+		        			digits: {
+		                        message: ' Utiliza solo numeros '
+		                    },
+		        	
+		        			telefono: {
+		        				message: ' Verifica que la longitud sea de 10 numeros '
+		        			}
+		        	
+		        		}
+		        	},
+		        	
+		        	rfc : {
+		        		validators: {
+		        			rfc: {
+		                        message: ' Verifica que el rfc sea correcto '
+		                    },
+		        	
+		                    notEmpty: {
+		                        message: ' La fecha no puede estar vacia '
+		                    }
+		        	
+		        		}
+		        	}
+		        	
+		        	
+		        }
+		    }).on('success.form.bv', function(eve) {
+	            eve.preventDefault();
+				
+	            let datos = {
+						aPaterno : $("#apaterno").val(),
+						aMaterno : $("#amaterno").val(),
+						nombres: $("#nombres").val(),
+						fNacimiento: $("#nac").val(),
+						telefono: $("#tel").val(),
+						correo: $("#correo").val(),
+						rfc: $("#rfc").val(),
 					}
-				});
-			});
+					$.ajax({
+						type : "POST",
+						contentType : "application/json",
+						url : '/AdministracionRegistroManual/registrarAsesor',
+						data : JSON.stringify(datos),
+						beforeSend : function() {
+							// setting a timeout
+							$("#mensaje").css("visibility","hidden")
+							$('#spin').css("visibility","visible")
+									
+						},
+						error : function(e) {
+							alert("Error");	
+						},
+						success : function(respuesta) {
+							$('#spin').css("visibility","hidden")
+							var elem = $(document.createElement('h4'))
+							               .attr('id','mensaje').html(respuesta.message);
+							$('#mensaje').replaceWith(elem);
+							$("#mensaje").css("visibility","visible")
+						}
+					});
+
+	            
+	            var $form     = $(eve.target),
+	                validator = $form.data('bootstrapValidator');
+	        });
 
 			$("#limpiar").click(function(event) {
 				$("#registrarAsesor")[0].reset();

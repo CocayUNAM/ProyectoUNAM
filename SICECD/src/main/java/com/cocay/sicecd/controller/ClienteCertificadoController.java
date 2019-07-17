@@ -37,6 +37,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.json.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 @PropertySource(ignoreResourceNotFound = true, value = "classpath:application-cert.properties")
@@ -55,6 +57,7 @@ public class ClienteCertificadoController {
 	Logging log;
 	@Autowired
 	Url_wsRep urls;
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	
 	private String aux_obten(Profesor profesor, Curso curso, String URL_RS) throws Exception{
 		String correo = profesor.getCorreo();
@@ -100,7 +103,8 @@ public class ClienteCertificadoController {
 			os.write(bytearray);
 			// System.out.println("Archivo escrito!");
 		} catch (Exception e) {
-			System.out.println(e);
+			LOGGER.error(e.getMessage());
+			//System.out.println(e);
 		}
 		SeguridadPDF spdf = new SeguridadPDF();
 		String nombrec = profesor.getNombre() + " " + profesor.getApellido_paterno() + " " + profesor.getApellido_materno();

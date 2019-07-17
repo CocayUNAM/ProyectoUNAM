@@ -32,7 +32,7 @@
 					<div class="col-lg-12">
 						<div class="card">
 							<form action="/consultaInscripciones" method="post" target="_blank">
-							<h4>Consulta Avanzada de Inscripciones</h4>
+							<h4>Consulta Inscripciones</h4>
 							<div class="panel panel-danger">
 							   		<div class="row">
 							   			<!-- START DATOS DEL CURSO -->
@@ -72,7 +72,7 @@
 							   				<input type="date" class="form-control" name="fecha_1">
 							   			</div>
 							   			<div class="col-lg-3">
-											<input type="date" class="form-control" name="fecha_2" disabled required>
+											<input type="date" class="form-control" name="fecha_2">
 							   			</div>
 							   		</div>
 							   		<!-- END FECHAS DE INICIO -->
@@ -85,13 +85,11 @@
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<label>Nombre</label>
-											<input type="text" name="nombre" class="form-control" placeholder="Juan"
-												pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
+											<input type="text" name="nombre" class="form-control" placeholder="Juan">
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<label>Apellido Paterno</label>
-											<input type="text" class="form-control" placeholder="Perez" name="apellido_paterno"
-												pattern="[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]">
+											<input type="text" class="form-control" placeholder="Perez" name="apellido_paterno">
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<label>RFC</label>
@@ -160,6 +158,7 @@
 	<script src="js/lib/bootstrap.min.js"></script>
 	<script src="js/scripts.js"></script>
 	
-	<script src="/js/lib/reports/date-functions.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/js/reports/query-functions.js"></script>
 </body>
 </html>

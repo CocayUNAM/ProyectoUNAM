@@ -1,15 +1,22 @@
 package com.cocay.sicecd.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +24,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.dto.ProfesorDto;
 import com.cocay.sicecd.model.Estado;
 import com.cocay.sicecd.model.Genero;
@@ -29,9 +39,11 @@ import com.cocay.sicecd.repo.GeneroRep;
 import com.cocay.sicecd.repo.Grado_profesorRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.TurnoRep;
+import com.cocay.sicecd.service.Logging;
 
 @Controller
-@RequestMapping("AdministracionProfesores")
+@RequestMapping("AdministracionRegistroManual")
+@PropertySource("classpath:application.properties")
 public class ProfesoresController {
 	
 	@Autowired
@@ -48,6 +60,13 @@ public class ProfesoresController {
 	
 	@Autowired
 	private GeneroRep gRep;
+	
+	@Autowired
+	Logging log;
+	
+	@Value("${path_constancia}")
+    private String ruta;
+ 
 	
 	//Mapeo del html para registrar cursos
 	@RequestMapping(value = "/registrarAsesor2", method = RequestMethod.GET)
@@ -75,8 +94,10 @@ public class ProfesoresController {
 		Date fecha = null;
 		try {
 			fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
+			pro.setFechaNac(fecha);
 		} catch (ParseException e) {
 			e.printStackTrace();
+			pro.setFechaNac(null);
 		}  
 		
 		pro.setApellido_paterno(apaterno);
@@ -90,8 +111,6 @@ public class ProfesoresController {
 		pro.setTelefono(telefono);
 		
 		pro.setCorreo(correo);
-		
-		pro.setFechaNac(fecha);
 		
 		/*------------------------------------------------------------------------------*/
 		
@@ -114,6 +133,8 @@ public class ProfesoresController {
 		pro.setGenero(gen.get());
 		pro.setFk_id_grado_profesor(gr.get());
 		
+		log.setTrace(LogTypes.REGISTRAR_ASESOR);
+		
 		/*------------------------------------------------------------------------------*/
 		
 		profRep.save(pro);
@@ -125,33 +146,76 @@ public class ProfesoresController {
 		public String RegistrarParti(Model model, HttpServletRequest request) throws ParseException{
 			return "ProfesoresController/registrarParticipante";
 		}
-
 	
 	//Mapeo del html para registrar cursos
 		@RequestMapping(value = "/registrarParticipante", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<String> RegistrarParticipantes(@RequestBody ProfesorDto prof){
-			
+		public ResponseEntity<String>  registrarParticipantes(
+		     Locale locale, 
+		     @Valid ProfesorDto prof, 
+		     @RequestParam(value = "constancia", required = false) MultipartFile constancia,
+		     @RequestParam(value = "comprobante", required = false) MultipartFile comprobante,
+		     @RequestParam(value = "rfc_doc", required = false) MultipartFile rfc_pdf,
+		     @RequestParam(value = "curp_doc", required = false) MultipartFile curp_pdf
+		) {
 				Profesor profe = new Profesor();
 				
 				String apaterno = prof.getaPaterno();
 				
+				System.out.println("Apellido paterno: " + apaterno);
+				
 				String amaterno = prof.getaMaterno();
+				
+				System.out.println("Apellido materno" + amaterno);
 				
 				String nombres = prof.getNombres();
 				
+				System.out.println("nombre: " + nombres);
+				
 				String curp = prof.getCurp();
+				
+				System.out.println("El curp: " + curp);
 				
 				String rfc = prof.getRfc();
 				
+				System.out.println("El rfc: " + rfc);
+				
 				String correo = prof.getCorreo();
+				
+				System.out.println("El correo es: " + correo);
 				
 				String telefono = prof.getTelefono();
 				
-				String path = apaterno + amaterno + nombres;
+				System.out.println("El telefono es: " +telefono);
+
+				
+				if(constancia != null) {
+					String originalName = constancia.getOriginalFilename();
+					saveConstancia(constancia);
+					profe.setCertificado_doc(originalName);
+				}
+				
+				if(comprobante != null) {
+					String originalName2 = comprobante.getOriginalFilename();
+					saveConstancia(comprobante);
+					profe.setComprobante_doc(originalName2);
+				}
+				
+				if(rfc_pdf != null) {
+					String originalName3 = rfc_pdf.getOriginalFilename();
+					saveConstancia(rfc_pdf);
+					profe.setRfc_doc(originalName3);
+				}
+				
+				if(curp_pdf != null) {
+					String originalName4 = curp_pdf.getOriginalFilename();
+					saveConstancia(curp_pdf);
+					profe.setCurp_doc(originalName4);
+				}
 				
 //				/*base*/
-				String estado = prof.getEstado();
-				List<Estado> est = stRep.findByNombre(estado);
+				Integer estado = Integer.parseInt(prof.getEstado());
+				System.out.println("-------El estado seleccionado:   " + estado);
+				Optional<Estado> est = stRep.findById(estado);
 				
 				String cilo = prof.getCilo();
 				
@@ -187,9 +251,7 @@ public class ProfesoresController {
 				
 				profe.setTelefono(telefono);
 				
-				if(!est.isEmpty()) {
-					profe.setFk_id_estado(est.get(0));
-				}
+				profe.setFk_id_estado(est.get());
 				
 				profe.setCiudad_localidad(cilo);
 				
@@ -203,15 +265,37 @@ public class ProfesoresController {
 				
 				profe.setFk_id_grado_profesor(gr.get());
 				
-				profe.setOcupacion(ocupacion);
+				profe.setOcupacion(ocupacion);				
 				
-			    boolean success = (new File(path)).mkdir();
-			    if (success) {
-			      System.out.println("Directorio: " + path + " creado con exito");
-			    }
-				
+			    log.setTrace(LogTypes.REGISTRAR_PARTICIPANTE);
 				profRep.save(profe);
 			
 				return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"¡Participante agregado con exito!\",\"path\":\"/AdministracionProfesores/registrarParticipante\"}");
 		}
+
+	private String saveConstancia(MultipartFile constancia) {
+		
+		Profesor ultProfe = profRep.findHigherID().get(0);
+		
+		Integer idPath = ultProfe.getPk_id_profesor() + 1;
+		
+		String path = Integer.toString(idPath);
+		System.out.println("path: " + path);
+
+		String originalName = constancia.getOriginalFilename();
+		System.out.println("FileName: " + originalName);
+		
+		String folder = ruta+path+"/";
+		try {
+			
+			FileUtils.forceMkdir(new File(folder));
+			try (FileOutputStream fos = new FileOutputStream(new File(folder + originalName))){
+				IOUtils.copy(constancia.getInputStream(), fos);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return path;
+	}
 }

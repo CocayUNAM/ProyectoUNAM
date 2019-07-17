@@ -1,5 +1,6 @@
 package com.cocay.sicecd.controller;
 
+import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,8 +41,8 @@ public class ConsultaGrupoController {
 	public ModelAndView consultaSimpleGrupo(ModelMap model,HttpServletRequest request) throws ParseException {
 		String fecha_inicio_grupo = request.getParameter("fecha_inicio_grupo");
 		String fecha_fin_grupo = request.getParameter("fecha_fin_grupo");
-		String clave_grupo = request.getParameter("clave_grupo");
-		String curso_grupo = request.getParameter("curso_grupo");
+		String clave_grupo = request.getParameter("clave_grupo").toUpperCase().trim();
+		String curso_grupo = request.getParameter("curso_grupo").toUpperCase().trim();
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha_ini, fecha_fin;
@@ -68,7 +69,8 @@ public class ConsultaGrupoController {
 		//Filtrando por clave de grupo
 		if (clave_grupo != null) {
 			for(Grupo g : grupos_1) {
-				if(!g.getClave().contains(clave_grupo)){
+				String gclave = normalizar( g.getClave() ).toUpperCase().trim();
+				if(!gclave.contains(clave_grupo)){
 					grupos_2.remove(g);
 				}
 			}
@@ -77,13 +79,14 @@ public class ConsultaGrupoController {
 		//Filtrando por clave de curso
 		if (curso_grupo != null) {
 			for(Grupo g : grupos_1) {
-				if( ! g.getFk_id_curso().getClave().contains(curso_grupo) ) {
+				String gclave = normalizar( g.getFk_id_curso().getClave() ).toUpperCase().trim();
+				if( !gclave.contains(curso_grupo) ) {
 					grupos_2.remove(g);
 				}
 			}
 		}
 		
-		if(!grupos_2.isEmpty()) {
+		if(!grupos_2.isEmpty() || grupos_2.size() > 0) {
 			model.put("grupos", grupos_2);
 			return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
 		} else {
@@ -101,8 +104,8 @@ public class ConsultaGrupoController {
 		String fecha_inicio_grupo_2 = request.getParameter("fecha_inicio_grupo_2");
 		String fecha_fin_grupo_1 = request.getParameter("fecha_fin_grupo_1");
 		String fecha_fin_grupo_2 = request.getParameter("fecha_fin_grupo_2");
-		String clave_grupo = request.getParameter("clave_grupo");
-		String curso_grupo = request.getParameter("curso_grupo");
+		String clave_grupo = request.getParameter("clave_grupo").toUpperCase().trim();
+		String curso_grupo = request.getParameter("curso_grupo").toUpperCase().trim();
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2;
@@ -133,7 +136,8 @@ public class ConsultaGrupoController {
 		//Filtrando por clave de grupo
 		if (clave_grupo != null) {
 			for(Grupo g : grupos_1) {
-				if(!g.getClave().contains(clave_grupo)){
+				String gclave = normalizar( g.getClave() ).toUpperCase().trim();
+				if(!gclave.contains(clave_grupo)){
 					grupos_2.remove(g);
 				}
 			}
@@ -142,17 +146,24 @@ public class ConsultaGrupoController {
 		//Filtrando por clave de curso
 		if (curso_grupo != null) {
 			for(Grupo g : grupos_1) {
-				if( ! g.getFk_id_curso().getClave().contains(curso_grupo) ) {
+				String gclave = normalizar( g.getFk_id_curso().getClave() ).toUpperCase().trim();
+				if( !gclave.contains(curso_grupo) ) {
 					grupos_2.remove(g);
 				}
 			}
 		}
 		
-		if(!grupos_2.isEmpty()) {
+		if(!grupos_2.isEmpty() || grupos_2.size() > 0) {
 			model.put("grupos", grupos_2);
 			return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
 		} else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
+	
+	public String normalizar(String src) {
+        return Normalizer
+                .normalize(src , Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]" , "");
+    }
 }

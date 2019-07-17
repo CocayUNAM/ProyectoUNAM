@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.dto.GrupoDto;
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
@@ -23,8 +24,10 @@ import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.service.Logging;
 
 @Controller
+@RequestMapping("AdministracionRegistroManual")
 public class GrupoController {
 	
 	@Autowired
@@ -35,6 +38,9 @@ public class GrupoController {
 	
 	@Autowired
 	ProfesorRep profRep;
+	
+	@Autowired
+	Logging log;
 	
 	// Mapeo del html para registrar cursos
 	@RequestMapping(value = "/registrarGrupo2")
@@ -60,28 +66,26 @@ public class GrupoController {
 		Date fechaI = null;
 		try {
 			fechaI = new SimpleDateFormat("yyyy-MM-dd").parse(fInicio);
+			grupo.setFecha_inicio(fechaI);
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			grupo.setFecha_inicio(null);
 		}
 		
 		Date fechaT = null;
 		try {
 			fechaT = new SimpleDateFormat("yyyy-MM-dd").parse(fTermino);
+			grupo.setFecha_fin(fechaT);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			grupo.setFecha_fin(null);
 		}
 		
 		grupo.setClave(clave);
 		
-		grupo.setFecha_inicio(fechaI);
-		
-		grupo.setFecha_fin(fechaT);
-		
 		List<Curso> cursop = cursoRep.findByClave(curso);
 		if(!cursop.isEmpty()) {
-			//grupo.setFk_id_curso(cursop.get(0).getPk_id_curso());
 			grupo.setFk_id_curso(cursop.get(0));
 		}
 		
@@ -90,6 +94,8 @@ public class GrupoController {
 			grupo.setFk_id_profesor(profe);
 		}
 		
+		log.setTrace(LogTypes.REGISTRAR_GRUPO);
+
 		grupoRep.save(grupo);
 		return ResponseEntity.ok("{\"message\":\"¡Grupo agregado con exito!\"}");
 	}

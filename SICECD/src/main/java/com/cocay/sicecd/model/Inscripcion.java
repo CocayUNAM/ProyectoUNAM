@@ -1,7 +1,5 @@
 package com.cocay.sicecd.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,10 +15,17 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "Inscripcion")
 public class Inscripcion {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_inscripcion")
 	int pk_id_inscripcion;
+	
+	@Column(name = "calif", nullable = true, length=3)
+	String calif;
+	
+	@Column(name = "aprobado", nullable = true)
+	boolean aprobado;
 	
 	@ManyToOne(targetEntity=Grupo.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -32,21 +37,7 @@ public class Inscripcion {
 	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor",insertable = true, updatable = true)
 	Profesor fk_id_profesor;
 	
-	@Column(name = "calif")
-	Integer calif;
-	
-	@Column(name = "constancia")
-	String constancia;
-	
-	public String getConstancia() {
-		return constancia;
-	}
-
-	public void setConstancia(String constancia) {
-		this.constancia = constancia;
-	}
-
-	public Inscripcion(){}
+	public Inscripcion(){}	
 	
 	public int getPk_id_inscripcion() {
 		return pk_id_inscripcion;
@@ -66,14 +57,21 @@ public class Inscripcion {
 	public void setFk_id_profesor(Profesor fk_id_profesor) {
 		this.fk_id_profesor = fk_id_profesor;
 	}
-	
-	public Integer getCalificacion() {
-		return this.calif;
+
+	public String getCalif() {
+		return calif;
 	}
-	
-	public void setCalificacion(Integer calif) {
+
+	public void setCalif(String calif) {
 		this.calif = calif;
 	}
 
+	public boolean isAprobado() {
+		return aprobado;
+	}
+
+	public void setAprobado(boolean aprobado) {
+		this.aprobado = aprobado;
+	}
 
 }

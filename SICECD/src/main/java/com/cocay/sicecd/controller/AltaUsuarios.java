@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cocay.sicecd.service.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -127,55 +128,7 @@ public class AltaUsuarios {
 	
 	
 	
-	@Autowired
-	InscripcionRep _incripcion;
-	@Autowired
-	ProfesorRep _profesor;
-	
-	@RequestMapping("prueba")
-	@ResponseBody
-	public void show(@RequestParam(name = "id") int id,
-					 @RequestParam (name = "tipo") String tipo,
-					 HttpServletResponse response) {
-	     
-		
-		String file= "";
-		
-		  if (tipo.equals("constancia")) {
-		  
-			  Inscripcion inscripcion= _incripcion.findById(id).get();
-			  file= inscripcion.getConstancia(); 
-		  } else {
-			  Profesor profesor=_profesor.findById(id).get(); 
-			  file=profesor.getCurriculum(); 
-		  }
-		 
 
-
-	      response.setContentType("application/pdf");
-	      response.setHeader("Content-Disposition", "attachment; filename=" +file);
-	      response.setHeader("Content-Transfer-Encoding", "binary");
-	      
-
-	      
-	      try {
-	    	  BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
-	    	  
-	    	  FileInputStream fis = new FileInputStream("src/../../"+file);
-	    	  int len;
-	    	  byte[] buf = new byte[1024];
-	    	  while((len = fis.read(buf)) > 0) {
-	    		  bos.write(buf,0,len);
-	    	  }
-	    	  bos.close();
-	    	  response.flushBuffer();
-	      }
-	      catch(IOException e) {
-	    	  e.printStackTrace();
-	    	  
-	      }
-	      
-}
 }
 
 

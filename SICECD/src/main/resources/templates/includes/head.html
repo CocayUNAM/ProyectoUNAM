@@ -32,77 +32,67 @@
 			<ul>
 
 				<li class="label">Cursos</li>
-				<li><a th:href="@{/consultaProfesor}"><i
-						class="ti-check-box"></i> Profesores </a></li>
-				<li><a th:href="@{/consultaCurso}"><i class="ti-world"></i>
-						Cursos </a></li>
+				
+				<li><a class="sidebar-sub-toggle"><i
+						class="ti-layout-grid4-alt"></i> Registro Manual <span
+						class="sidebar-collapse-icon ti-angle-down"></span></a>
+					<ul>
+						<li><a th:href="@{/AdministracionRegistroManual/registrarParticipantes}"><i class="ti-user"></i> Participante</a></li>
+						<li><a th:href="@{/AdministracionRegistroManual/registrarAsesor2}"><i class="ti-user"></i> Asesor</a></li>
+						<li><a th:href="@{/AdministracionRegistroManual/registrarCursos2}"><i class="ti-book"></i> Curso</a></li>
+						<li><a th:href="@{/AdministracionRegistroManual/registrarGrupo2}"><i class="ti-view-list-alt"></i> Grupo</a></li>	
+						<li><a th:href="@{/AdministracionRegistroManual/registrarInscripcion2}"><i class="ti-check-box"></i> Inscripcion</a></li>
+				</ul></li>
+									
+				<li><a class="sidebar-sub-toggle"><i
+						class="ti-layout-grid4-alt"></i>Modificar Registros <span
+						class="sidebar-collapse-icon ti-angle-down"></span></a>
+					<ul>
+						<li><a th:href="@{/AdministracionModificaciones/listaProfesores}"><i class="ti-user"></i> Participantes </a></li>
+						<li><a th:href="@{/AdministracionModificaciones/listaAsesores}"><i class="ti-user"></i> Asesor </a></li>
+						<li><a th:href="@{/AdministracionModificaciones/listaCursos}"><i class="ti-book"></i> Curso </a></li>
+						<li><a th:href="@{/AdministracionModificaciones/listaGrupos}"><i class="ti-view-list-alt"></i> Grupo </a></li>
+						<li><a th:href="@{/AdministracionModificaciones/listaInscripciones}"><i class="ti-check-box"></i> Inscripcion </a></li>
+				</ul></li>
+					
+				<li><a th:href="@{/consultarProfesor}"><i class="ti-server"></i>Carga Batch </a></li>
+
 				<li><a class="sidebar-sub-toggle"><i class="ti-files"></i>
 						Reportes <span class="sidebar-collapse-icon ti-angle-down"></span>
 					</a>
 					<ul>
 						<li><a th:href="@{/consultaProfesor}"><i class="ti-user"></i>Profesores</a></li>
-						<li><a th:href="@{/consultaInscripcion}"><i class="ti-check-box"></i>Inscripciones</a></li>
 						<li><a th:href="@{/consultaCurso}"><i class="ti-book"></i>Cursos</a></li>
 						<li><a th:href="@{/consultaGrupo}"><i class="ti-view-list-alt"></i>Grupos</a></li>
+						<li><a th:href="@{/consultaInscripcion}"><i class="ti-check-box"></i>Inscripciones</a></li>
 					</ul>
 				</li>
-				<li class="label">Sistema</li>
-				<li><a href="#"><i class="ti-user"></i> Usuarios </a></li>
-				<li><a href="#"><i class="ti-book"></i> Auditoria</a></li>
-				<li><a href="#"><i class="ti-file"></i> Documentacion </a></li>
-<<<<<<< HEAD
 				
-				<li><a class="sidebar-sub-toggle"><i
-						class="ti-layout-grid4-alt"></i>Modificar registros <span
-						class="sidebar-collapse-icon ti-angle-down"></span></a>
-					<ul>
-						<li><a th:href="@{/listaProfesores}"><i class="ti-user"></i> Modificar Participantes </a></li>
-						<li><a th:href="@{/listaProfesores}"><i class="ti-user"></i> Modificar curso </a></li>
-						<li><a th:href="@{/listaProfesores}"><i class="ti-user"></i> Modificar asesor </a></li>
-						<li><a th:href="@{/listaProfesores}"><i class="ti-user"></i> Modificar grupo </a></li>
-						<li><a th:href="@{/listaInscripciones}"><i class="ti-user"></i> Modificar inscripcion </a></li>
-				</ul></li>
-					
-				
-=======
-				<li><a th:href="@{/listaProfesores}"><i class="ti-user"></i> Modificar registros </a></li>
-				<li><a th:href="@{/consultarProfesor}"><i class="ti-server"></i>Carga Batch </a></li>
-<!-- 				<li><a th:href="@{/pruebaBatch}"><i class="ti-shield"></i>Prueba </a></li> -->
 				<li><a th:href="@{/AvisosCorreo}"><i class="ti-email"></i>Avisos Correo </a></li>
->>>>>>> 3741db6860415fd014b59afbc4dbb98dbe80616a
-
+				
+				
+				
+				<li class="label">Sistema</li>
+				
 				<li><a class="sidebar-sub-toggle"><i
 						class="ti-layout-grid4-alt"></i>Administracion <span
 						class="sidebar-collapse-icon ti-angle-down"></span></a>
 					<ul>
-						<li><a th:href="@{/AdministracionCursos/formAltaUsuario}">Dar
-								de alta usuario</a></li>
-						<li><a th:href="@{/AdministracionCursos/listaUsuarios}">Editar
-								usuario</a></li>
-					</ul></li>
-
-
-				<li><a class="sidebar-sub-toggle"><i
-						class="ti-layout-grid4-alt"></i> Registro manual <span
-						class="sidebar-collapse-icon ti-angle-down"></span></a>
-					<ul>
-						<li><a th:href="@{/AdministracionCursos/registrarCursos2}">Registrar
-								curso</a></li>
-						<li><a
-							th:href="@{/AdministracionProfesores/registrarParticipantes}">Registrar
-								participante</a></li>
-						<li><a th:href="@{/AdministracionProfesores/registrarAsesor2}">Registrar
-								asesor</a></li>
-						<li><a th:href="@{/registrarGrupo2}">Registrar
-								grupo</a></li>	
-						<li><a th:href="@{/registrarInscripcion2}">Registrar
-								inscripcion</a></li>
-					</ul></li>
-
+						<li><a th:href="@{/AdministracionCursos/formAltaUsuario}"><i class="ti-user"></i>Alta usuario</a></li>
+						<li><a th:href="@{/AdministracionCursos/listaUsuarios}"><i class="ti-user"></i>Editar usuario</a></li>
+				</ul></li>
+				
+				
+				<li><a th:href="@{/listaAuditorias}"><i class="ti-book"></i> Auditoria</a></li>
+				
+				<li><a href="#"><i class="ti-file"></i> Documentacion </a></li>				
+				
 				<li><a th:href="@{/logout}"><i class="ti-close"></i> Logout</a></li>
+
+				<!--
 				<li><a th:href="@{/webservice}"><i class="ti-world"></i> </i>Web
 						Service</a></li>
-
+						
 				<li class="label">Examples</li>
 				<li><a class="sidebar-sub-toggle"><i
 						class="ti-layout-grid4-alt"></i> Table <span
@@ -118,6 +108,8 @@
 						class="ti-view-list-alt"></i> Basic Form </a></li>
 				<li><a href="/example/form-validation"><i
 						class="ti-view-list-alt"></i> Basic Validation </a></li>
+			    -->
+			    
 			</ul>
 		</div>
 	</div>

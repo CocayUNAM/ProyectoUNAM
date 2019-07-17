@@ -39,8 +39,8 @@ public class ConsultaCursoController {
 	public ModelAndView consultaSimpleCurso(ModelMap model,HttpServletRequest request) throws ParseException {
 		String fecha_inicio_curso = request.getParameter("fecha_inicio_curso");
 		String fecha_fin_curso = request.getParameter("fecha_fin_curso");
-		String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase();
-		String clave_curso = request.getParameter("clave_curso");
+		String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase().trim();
+		String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 		Integer id_tipo = Integer.parseInt(request.getParameter("tipos_cursos"));
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -77,7 +77,8 @@ public class ConsultaCursoController {
 		//Filtrando por clave de curso
 		if (clave_curso != "") {
 			for(Curso c : cursos1) {
-				if(!c.getClave().contains(clave_curso)){
+				String cclave = normalizar(c.getClave()).toUpperCase().trim();
+				if(!cclave.contains(clave_curso)){
 					cursos2.remove(c);
 				}
 			}
@@ -86,14 +87,14 @@ public class ConsultaCursoController {
 		//Filtrando por nombre de curso
 		if (nombre_curso != "") {
 			for(Curso c : cursos1) {
-				String cnom = normalizar(c.getNombre()).toUpperCase();
+				String cnom = normalizar(c.getNombre()).toUpperCase().trim();
 				if(!cnom.contains(nombre_curso)){
 					cursos2.remove(c);
 				}
 			}
 		}
 		
-		if(!cursos2.isEmpty()) {
+		if(!cursos2.isEmpty() || cursos2.size() > 0 ) {
 			model.put("cursos", cursos2);
 			return new ModelAndView("ConsultarCurso/muestraListaCurso",model);
 		} else {
@@ -111,8 +112,8 @@ public class ConsultaCursoController {
 		String fecha_inicio_curso_2 = request.getParameter("fecha_inicio_curso_2");
 		String fecha_fin_curso_1 = request.getParameter("fecha_fin_curso_1");
 		String fecha_fin_curso_2 = request.getParameter("fecha_fin_curso_2");
-		String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase();
-		String clave_curso = request.getParameter("clave_curso");
+		String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase().trim();
+		String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 		Integer id_tipo = Integer.parseInt(request.getParameter("tipos"));
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -153,7 +154,8 @@ public class ConsultaCursoController {
 		//Filtrando por clave de curso
 		if (clave_curso != "") {
 			for(Curso c : cursos1) {
-				if(!c.getClave().contains(clave_curso)){
+				String cclave = normalizar(c.getClave()).toUpperCase().trim();
+				if(!cclave.contains(clave_curso)){
 					cursos2.remove(c);
 				}
 			}
@@ -162,14 +164,14 @@ public class ConsultaCursoController {
 		//Filtrando por nombre de curso
 		if (nombre_curso != "") {
 			for(Curso c : cursos1) {
-				String cnom = normalizar(c.getNombre()).toUpperCase();
+				String cnom = normalizar(c.getNombre()).toUpperCase().trim();
 				if(!cnom.contains(nombre_curso)){
 					cursos2.remove(c);
 				}
 			}
 		}
 		
-		if(!cursos2.isEmpty()) {
+		if(!cursos2.isEmpty() || cursos2.size() > 0) {
 			model.put("cursos", cursos2);
 			return new ModelAndView("ConsultarCurso/muestraListaCurso",model);
 		} else {

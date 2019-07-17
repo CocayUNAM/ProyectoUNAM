@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Modificar Asesor</title>
+
+<!-- ================= Favicon ================== -->
+<!-- Standard -->
+<link rel="shortcut icon" href="js/favicon.ico">
+
+<!-- Styles -->
+<link href="/css/lib/select2/select2.min.css" rel="stylesheet">
+<link href="/css/lib/font-awesome.min.css" rel="stylesheet">
+<link href="/css/lib/themify-icons.css" rel="stylesheet">
+<link href="/css/lib/menubar/sidebar.css" rel="stylesheet">
+<link href="/css/lib/bootstrap.min.css" rel="stylesheet">
+<link href="/css/lib/helper.css" rel="stylesheet">
+<link href="/css/lib/toggle.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+<style type="text/css">
+#spin {
+	visibility: hidden;
+}
+#mensaje {
+	visibility: hidden;
+}
+</style>
+
+</head>
+<body>
+	<div th:replace="/includes/head.html :: head_div1" />
+	<div th:replace="/includes/head.html :: head_div2" />
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="d-flex align-items-center" id="proceso">
+							<h4 id="mensaje">algo</h4>
+						<div id="spin">
+							<strong>Haciendo los cambios respectivos... &nbsp;</strong>
+							<div class="spinner-grow text-info" role="status"
+								aria-hidden="true"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body">Selecciona una accion</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" id="limpiar">Hacer otro cambio</button>
+					<button type="button" class="btn btn-primary"
+						onclick="window.location.href ='/start'">Volver
+						a inicio</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--     Fin de modal                 -->
+
+
+
+
+
+<!-- START CONTENTS -->
+	<div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <h1>Modificar asesor</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /# row -->
+                <section id="main-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-validation">
+                                    
+                                        <form class="form-valide" th:action="@{/AdministracionRegistroManual/registrarAsesor}" method="POST"
+                                        id= "registrarasesor">
+                                        
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="apellidopaterno">Apellido paterno<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="apellidopaterno" name="apellidopaterno" th:value="${asesor.apellido_paterno}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="apellidomaterno">Apellido materno<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno" th:value="${asesor.apellido_materno}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="nombre">Nombre(s)<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${asesor.nombre}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="fnac">Fecha de nacimiento<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="date" class="form-control" id="fnac" name="fnac" th:value="${asesor.fechaNac}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="tel">Telefono<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="tel" class="form-control" id="tel" name="tel" th:value="${asesor.telefono}">
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="correo">Correo electronico<span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="email" class="form-control" id="correo" name="correo" th:value="${asesor.correo}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="rfc">RFC <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" th:value="${asesor.rfc}">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+        										<div class="col-sm-5 col-sm-offset-3">
+		                                           <button type="submit" class="btn btn-default"
+		                                           data-toggle="modal" data-target="#exampleModal">Capturar</button>
+                                             	</div>
+    										</div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+<!-- END CONTENTS -->
+
+	<!-- jquery vendor -->
+
+
+	<script type="text/javascript" src="/js/lib/jquery.min.js"></script>
+	<script src="/js/lib/jquery.nanoscroller.min.js"></script>
+	<!-- nano scroller -->
+	<script src="/js/lib/menubar/sidebar.js"></script>
+	<script src="/js/lib/preloader/pace.min.js"></script>
+	<!-- sidebar -->
+	<!-- bootstrap -->
+	<!-- Select2 -->
+	<script src="/js/lib/select2/select2.full.min.js"></script>
+	<!-- 	<script src="/js/lib/form-validation/jquery.validate-init.js"></script> -->
+	<script src="/js/lib/bootstrap.min.js"></script>
+	<script src="/js/scripts.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
+
+	<script th:inline="javascript">
+	$(document).ready(function() {
+		
+			let idu = [[${asesor.pk_id_profesor}]];
+	
+			//cambio de correo
+			let cor=$("#correo").val();
+			$("#correo").blur(function(){
+			    cor=$("#correo").val();
+			    
+			});
+		
+	
+			$.fn.bootstrapValidator.validators.nombre = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+		
+			            if (value.search(/[A-Z][a-zA-Z][^#&<>""~;$^%{}?/*(0-9)]{1,20}$/) < 0) {
+			                return false;
+			            }
+		
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.telefono = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+		
+			            if (value.length != 10) {
+			                return false;
+			            }
+		
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.rfc = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+		
+			            if (value.search(/^([A-Z\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$/) < 0) {
+			                return false;
+			            }
+		
+			            return true;
+			        }
+			};
+			
+			$('#registrarasesor').bootstrapValidator({
+		        feedbackIcons: {
+		            valid: 'glyphicon glyphicon-ok',
+		            invalid: 'glyphicon glyphicon-remove',
+		            validating: 'glyphicon glyphicon-refresh'
+		        },
+		        fields: {
+		        	apellidopaterno: {
+		                validators: {
+		                    notEmpty: {
+		                        message: ' No puede estar vacio '
+		                    },
+		        
+		        			nombre: {
+		        				message: ' Verfica que sea un apellido valido '
+		        			}
+		                }
+		            },
+		            
+		            apellidomaterno: {
+		        		validators: {
+		        			notEmpty: {
+		                        message: ' No puede estar vacio '
+		                    },
+		        
+		        			nombre: {
+		        				message: ' Verfica que sea un apellido valido '
+		        			}
+		                }
+		        	},
+		        	
+		        	nombre : {
+		        		validators: {
+		        			notEmpty: {
+		                        message: ' El nombre no puede estar vacio '
+		                    },
+		                    
+		                    nombre: {
+		                    	message: ' Verifica que sea un nombre valido '
+		                    }
+		        		}
+		        	},
+		        	
+		        	fnac : {
+		        		validators: {
+			        		notEmpty: {
+		                        message: ' La fecha no puede estar vacia '
+		                    }
+		        		}
+		        	},
+		        	
+		        	tel : {
+		        		validators: {
+		        			digits: {
+		                        message: ' Utiliza solo numeros '
+		                    },
+		        	
+		        			telefono: {
+		        				message: ' Verifica que la longitud sea de 10 numeros '
+		        			}
+		        	
+		        		}
+		        	},
+		        	
+		        	rfc : {
+		        		validators: {
+		        			rfc: {
+		                        message: ' Verifica que el rfc sea correcto '
+		                    },
+		        	
+		                    notEmpty: {
+		                        message: ' La fecha no puede estar vacia '
+		                    }
+		        	
+		        		}
+		        	}
+		        	
+		        	
+		        }
+		    }).on('success.form.bv', function(eve) {
+	            eve.preventDefault();
+				
+				let datos = {
+						pk_id_profesor : idu,
+						correo : cor,
+						rfc : $("#rfc").val(),
+						nombre : $("#nombre").val(),
+						apellido_paterno : $("#apellidopaterno").val(),
+						apellido_materno : $("#apellidomaterno").val(),
+						telefono: $("#tel").val(),
+						fechaNac : $("#fnac").val()
+					}
+					$.ajax({
+						type : "POST",
+						contentType : "application/json",
+						url : '/AdministracionModificaciones/editarasesor',
+						data : JSON.stringify(datos),
+						beforeSend : function() {
+							// setting a timeout
+							$("#mensaje").css("visibility","hidden")
+							$('#spin').css("visibility","visible")
+									
+						},
+						//dataType:'json',
+						error : function(e) {
+							alert("Error");
+						},
+						success : function(respuesta) {
+							$('#spin').css("visibility","hidden")
+							var elem = $(document.createElement('h4'))
+							               .attr('id','mensaje').html(respuesta);
+							$('#mensaje').replaceWith(elem);
+							$("#mensaje").css("visibility","visible")
+						}
+					});
+	            
+	            var $form     = $(eve.target),
+	                validator = $form.data('bootstrapValidator');
+	        });
+
+		});
+	</script>
+</body>
+</html>

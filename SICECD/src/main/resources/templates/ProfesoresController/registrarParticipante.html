@@ -50,8 +50,10 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal" id="limpiar">Agregar otro participante</button>
+					<button type="button" class="btn btn-secondary"
+					data-dismiss="modal" id="aceptar">Aceptar</button>
 					<button type="button" class="btn btn-primary"
-						onclick="window.location.href ='/example/table-basic'">Volver
+						onclick="window.location.href ='/start'">Volver
 						a inicio</button>
 				</div>
 			</div>
@@ -92,62 +94,63 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="form-validation">
-                                        <form class="form-valide" action="@{/AdministracionProfesores/registrarParticipante}" method="POST"
+                                        <form class="form-valide" action="@{/AdministracionRegistroManual/registrarParticipante}" method="POST"
                                         id= "registrarParticipante" enctype="multipart/form-data">
                                         
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="apaterno">Apellido paterno<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="apaterno">Apellido paterno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="apaterno" name="apaterno" placeholder="Introduce apellido paterno" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="amaterno">Apellido materno<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="amaterno">Apellido materno<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Introduce apellido materno">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="nombres">Nombre(s)<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="nombres">Nombre(s)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Introduce nombre(s)" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="curp">CURP<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="curp">CURP<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="curp" name="curp" placeholder="Introduce CURP">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="rfc">RFC <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="rfc">RFC <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="correo">Correo electronico<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="correo">Correo electronico<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <input type="email" class="form-control" id="correo" name="correo" placeholder="Introduce correo." required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="tel">Telefono<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="tel">Telefono<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="tel" class="form-control" id="tel" name="tel" placeholder="Introduce telefono.">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="estado">Estado <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="estado">Estado <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="form-control" id="estado" name="estado" style="width: 100%;" required>
+                                                    <select class="js-select2 form-control" id="estado" name="estado" style="width: 100%;" required>
+                                                    	<option></option>
                                                         <option value="1">Aguascalientes</option>
 														<option value="2">Baja California</option>
 														<option value="3">Baja California Sur</option>
@@ -185,14 +188,14 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="cilo">Ciudad o localidad<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="cilo">Ciudad o localidad<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="cilo" name="cilo" placeholder="Introduce Ciudad o localidad.">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="genero">Selecciona género <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="genero">Selecciona género <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="genero" name="genero" style="width: 100%;" required>
                                                         <option></option>
@@ -203,33 +206,33 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="plantel">Plantel<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="plantel">Plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="plantel" name="plantel" placeholder="Introduce tu plantel.">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="turno">Selecciona turno <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="turno">Selecciona turno <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;" required>
                                                         <option></option>
                                                         <option value="1">Matutino</option>
-                                                        <option value="2">Vepertino</option>
+                                                        <option value="2">Vespertino</option>
                                                         <option value="3">Completo</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="cplantel">Clave plantel<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="cplantel">Clave plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="cplantel" name="cplantel" placeholder="Introduce la clave del plantel.">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="grado">Ultimo grado de estudios <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="grado">Ultimo grado de estudios <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="grado" name="grado" style="width: 100%;" required>
                                                         <option></option>
@@ -242,22 +245,46 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="ocupacion">Ocupacion<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="ocupacion">Ocupacion<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="ocupacion" name="ocupacion" placeholder="Introduce la ocupacion actual.">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="constancia">constancia<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="constancia">constancia pdf<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="file" name="constancia" accept="application/pdf" id="constancia"/>
                                                 </div>
                                             </div>
                                             
-                                            <button type="submit" class="btn btn-default"
-                                            data-toggle="modal" data-target="#exampleModal"> 
-                                            Capturar</button>
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="comprobante">comprobante de domicilio en pdf<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="file" name="comprobante" accept="application/pdf" id="comprobante"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="rfcpdf">rfc en pdf<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="file" name="rfcpdf" accept="application/pdf" id="rfcpdf"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="curppdf">curp en pdf<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="file" name="curppdf" accept="application/pdf" id="curppdf"/>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+        										<div class="col-sm-5 col-sm-offset-3">
+		                                           <button type="submit" class="btn btn-default"
+		                                           data-toggle="modal" data-target="#exampleModal">Capturar</button>
+                                             	</div>
+    										</div>
                                             
                                         </form>
                                     </div>
@@ -285,55 +312,192 @@
     <script src="/js/lib/form-validation/jquery.validate-init.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/scripts.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
     <script>
 		$(document).ready(function() {
 			
-			//cambio de perfil
-			let rol='Consultas';
+			$.fn.bootstrapValidator.validators.nombre = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
 
-			$("#registrarParticipante").submit(function(eve) {
-				eve.preventDefault();
-				let datos = {
-					aPaterno : $("#apaterno").val(),
-					aMaterno : $("#amaterno").val(),
-					nombres: $("#nombres").val(),
-					curp: $("#curp").val(),
-					rfc: $("#rfc").val(),
-					correo: $("#correo").val(),
-					telefono: $("#tel").val(),
-					estado: $("#estado").val(),
-					cilo: $("#cilo").val(),
-					genero: $("#genero").val(),
-					plantel: $("#plantel").val(),
-					turno: $("#turno").val(),
-					cPlantel: $("#cplantel").val(),
-					grado: $("#grado").val(),
-					ocupacion: $("#ocupacion").val(),
-					//nombre_ar: $("#constancia").target.files[0].name,
-				}
-				$.ajax({
-					type : "POST",
-					contentType : "application/json",
-					url : '/AdministracionProfesores/registrarParticipante',
-					data : JSON.stringify(datos),
-					beforeSend : function() {
-						// setting a timeout
-						$("#mensaje").css("visibility","hidden")
-						$('#spin').css("visibility","visible")
-								
-					},
-					error : function(e) {
-						alert("Error");
-					},
-					success : function(respuesta) {
-						$('#spin').css("visibility","hidden")
-						var elem = $(document.createElement('h4'))
-						               .attr('id','mensaje').html(respuesta.message);
-						$('#mensaje').replaceWith(elem);
-						$("#mensaje").css("visibility","visible")
-					}
-				});
-			});
+			            if (value.search(/[A-Z][a-zA-Z][^#&<>""~;$^%{}?/*(0-9)]{1,20}$/) < 0) {
+			                return false;
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.curp = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+						
+			            if($('#curp').val().length > 0){
+			            	if (value.search(/^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/) < 0) {
+			                	return false;
+			            	}
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.rfc = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+
+			            if (value.search(/^([A-Z\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$/) < 0) {
+			                return false;
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.telefono = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+						
+			            if($('#tel').val().length > 0){
+				            if (value.length != 10) {
+				                return false;
+				            }
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$('#registrarParticipante').bootstrapValidator({
+		        feedbackIcons: {
+		            valid: 'glyphicon glyphicon-ok',
+		            invalid: 'glyphicon glyphicon-remove',
+		            validating: 'glyphicon glyphicon-refresh'
+		        },
+		        fields: {
+		        	apaterno: {
+		                validators: {
+		                    notEmpty: {
+		                        message: ' No puede estar vacio '
+		                    },
+		        
+		        			nombre: {
+		        				message: ' Verfica que sea un apellido valido '
+		        			}
+		                }
+		            },
+		        	
+		        	nombres : {
+		        		validators: {
+		        			notEmpty: {
+		                        message: ' El nombre no puede estar vacio '
+		                    },
+		                    
+		                    nombre: {
+		                    	message: ' Verifica que sea un nombre valido '
+		                    }
+		        		}
+		        	},
+		        	
+		        	curp : {
+		        		validators: {
+		                    curp: {
+		                    	message: ' Verifica que sea valido el CURP '
+		                    }
+		        		}
+		        	},
+		        	
+		        	rfc : {
+		        		validators: {
+		        			rfc: {
+		                        message: ' Verifica que el rfc sea correcto '
+		                    },
+		        	
+		                    notEmpty: {
+		                        message: ' La fecha no puede estar vacia '
+		                    }
+		        	
+		        		}
+		        	},
+		        	
+		        	tel : {
+		        		validators: {
+		        			digits: {
+		                        message: ' Utiliza solo numeros '
+		                    },
+		        	
+		        			telefono: {
+		        				message: ' Verifica que la longitud sea de 10 numeros '
+		        			}
+		        	
+		        		}
+		        	}
+		            
+		        }
+		    }).on('success.form.bv', function(eve) {
+	            eve.preventDefault();
+	            
+	            var formData = new FormData();
+	            formData.append('aPaterno', $("#apaterno").val());
+	            formData.append('aMaterno', $("#amaterno").val());
+	            formData.append('nombres', $("#nombres").val());
+	            formData.append('curp', $("#curp").val());
+	            formData.append('rfc', $("#rfc").val());
+	            formData.append('correo', $("#correo").val());
+	            formData.append('telefono', $("#tel").val());
+	            formData.append('estado', $("#estado").val());
+	            formData.append('cilo', $("#cilo").val());
+	            formData.append('genero', $("#genero").val());
+	            formData.append('plantel', $("#plantel").val());
+	            formData.append('turno', $("#turno").val());
+	            formData.append('cPlantel', $("#cplantel").val());
+	            formData.append('grado', $("#grado").val());
+	            formData.append('ocupacion', $("#ocupacion").val());
+	            
+	            if( document.getElementById("constancia").files.length != 0 ){
+	            	formData.append('constancia', $("#constancia")[0].files[0]); 
+	            }
+	            
+	            if( document.getElementById("comprobante").files.length != 0 ){
+	            	formData.append('comprobante', $("#comprobante")[0].files[0]); 
+	            }
+	            
+	            if( document.getElementById("rfcpdf").files.length != 0 ){
+	            	formData.append('rfc_doc', $("#rfcpdf")[0].files[0]); 
+	            }
+	            
+	            if( document.getElementById("curppdf").files.length != 0 ){
+	            	formData.append('curp_doc', $("#curppdf")[0].files[0]);  
+	            }
+	            
+					
+					$.ajax({
+						type : "POST",
+						contentType : false,
+						url : '/AdministracionRegistroManual/registrarParticipante',
+						processData: false,
+						data : formData,
+						beforeSend : function() {
+							// setting a timeout
+							$("#mensaje").css("visibility","hidden")
+							$('#spin').css("visibility","visible")
+									
+						},
+						error : function(e) {
+							alert("Error");
+						},
+						success : function(respuesta) {
+							$('#spin').css("visibility","hidden")
+							var elem = $(document.createElement('h4'))
+							               .attr('id','mensaje').html(respuesta.message);
+							$('#mensaje').replaceWith(elem);
+							$("#mensaje").css("visibility","visible")
+						}
+					});
+	            
+	            var $form     = $(eve.target),
+	                validator = $form.data('bootstrapValidator');
+	        });
 
 			$("#limpiar").click(function(event) {
 				$("#registrarParticipante")[0].reset();

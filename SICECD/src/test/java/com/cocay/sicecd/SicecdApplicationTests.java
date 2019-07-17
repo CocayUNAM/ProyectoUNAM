@@ -1,7 +1,6 @@
 package com.cocay.sicecd;
 import com.cocay.sicecd.model.Estado;
 import com.cocay.sicecd.model.Profesor;
-import com.cocay.sicecd.model.TestClass;
 
 import java.util.List;
 
@@ -14,15 +13,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cocay.sicecd.repo.EstadoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
-import com.cocay.sicecd.repo.TestRepository;
 import com.cocay.sicecd.service.SendMailService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SicecdApplicationTests {
 
-	@Autowired
-	TestRepository _test;
 	@Autowired
 	EstadoRep _estado;
 	@Autowired

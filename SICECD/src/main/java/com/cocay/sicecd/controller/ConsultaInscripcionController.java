@@ -46,51 +46,277 @@ public class ConsultaInscripcionController {
 		return "ConsultarInscripcion/consultaInscripcion";
 	}
 	
+	/**
+	 * Busca una la lista de inscripciones de acuerdo a los datos ingresados por el usuario.
+	 * @param model
+	 * @param request
+	 * @return
+	 * @throws ParseException
+	 */
 	@RequestMapping(value = "/consultaInscripciones", method = RequestMethod.POST)
 	public ModelAndView consultaInscripciones(ModelMap model,HttpServletRequest request) throws ParseException {
 		
 		/* Datos del profesor */
-		String curp = request.getParameter("curp").toUpperCase();
-		String rfc = request.getParameter("rfc").toUpperCase();
-		String nombre = normalizar(request.getParameter("nombre")).toUpperCase();
-		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase();
+		String curp = request.getParameter("curp").toUpperCase().trim();
+		String rfc = request.getParameter("rfc").toUpperCase().trim();
+		String nombre = normalizar(request.getParameter("nombre")).toUpperCase().trim();
+		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase().trim();
 		Integer id_grado = Integer.parseInt(request.getParameter("grado_estudios"));
 		Integer id_genero = Integer.parseInt(request.getParameter("genero"));
 		Integer id_turno = Integer.parseInt(request.getParameter("turno"));
 		
 		/* Datos del curso */
-		String clave_curso = request.getParameter("clave_curso");
+		String clave_curso = request.getParameter("clave_curso").trim();
 		Integer id_tipo = Integer.parseInt(request.getParameter("tipos"));
 		
 		/* Datos del grupo */
-		String clave_grupo = request.getParameter("clave_grupo");
-		System.out.println("Clave Grupo: " + clave_grupo);
+		String clave_grupo = request.getParameter("clave_grupo").trim();
 		
 		/* Intervalo de tiempo */
 		String fecha_inicio_1 = request.getParameter("fecha_1");
 		String fecha_inicio_2 = request.getParameter("fecha_2");
 		
-		List<Inscripcion> ins1 = ins_rep.findAll();		
-		List<Inscripcion> ins2 = null;
-		Profesor p = new Profesor();
+		List<Inscripcion> ins_grupos = new ArrayList<Inscripcion>();
+		List<Inscripcion> ins_profes = new ArrayList<Inscripcion>();
+		List<Inscripcion> ins_cursos = new ArrayList<Inscripcion>();
 		
-		if (rfc != "" ) {
-			p = profesor_rep.findByRfc(rfc);
-		} else if (curp != "") {
-			p = profesor_rep.findByCurp(curp);
+		//Se obtienen las inscripciones pertenecientes al profesor buscado
+		if (rfc != "" || curp != "" || nombre != "" || apellido_paterno != "" || id_grado != 5 || id_genero != 3 || id_turno != 4) {
+			ins_profes = obtenerInsProfes(rfc, curp, nombre, apellido_paterno, id_grado, id_genero, id_turno);
 		}
 		
-		if( p != null ) {
-			ins2 = p.getInscripciones();
+		//Se obtienen las inscripciones pertenecientes al grupo buscado
+		if ( clave_grupo != "" ) {
+			ins_grupos = obtenerInsGrupos(clave_grupo);
 		}
 		
-		if ( ins2 != null ) {
-			System.out.println(ins2.size());
-			model.put("ins", ins2);
-			return new ModelAndView("ConsultarInscripcion/muestraListaIns",model);
+		//Se obtienen las inscripciones pertenecientes al curso buscado
+		if ( clave_curso != "" || id_tipo != 4 || fecha_inicio_1 != null || fecha_inicio_2 != null) {
+			ins_cursos = obtenerInsCursos(clave_curso, id_tipo, fecha_inicio_1, fecha_inicio_2);
+		}
+		
+		//Merge entre cursos, grupos y profes
+		List<Inscripcion> inscripciones = obtenerIns(ins_cursos, ins_grupos, ins_profes);
+		
+		if ( inscripciones != null || inscripciones.size() > 0 ) {
+			model.put("ins", inscripciones);
+			return new ModelAndView("ConsultarInscripcion/muestraListaIns", model);
 		} else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
+	}
+	
+	/**
+	 * Realiza una intersección de las inscripciones encontradas en sección de profesores y grupos. 
+	 * @param ins_grupos Inscripciones encontradas en la sección grupos.
+	 * @param ins_profes Inscripciones encontradas en la sección profes.
+	 * @return una lista de las inscripciones que se encuentran en la lista de profes y grupos.
+	 */
+	public List<Inscripcion> obtenerIns (List<Inscripcion> ins_cursos, List<Inscripcion> ins_grupos, List<Inscripcion> ins_profes) {
+		List<Inscripcion> inscripciones = new ArrayList<Inscripcion>();
+		
+		if (ins_grupos.size() > 0 && ins_cursos.size() == 0 && ins_profes.size() == 0 ) {
+			inscripciones = ins_grupos;
+		} else if (ins_grupos.size() == 0 && ins_cursos.size() > 0 && ins_profes.size() == 0 ) {
+			inscripciones = ins_cursos;
+		} if (ins_grupos.size() == 0 && ins_cursos.size() == 0 && ins_profes.size() > 0 ) {
+			inscripciones = ins_profes;
+		} else if (ins_grupos.size() > 0 && ins_cursos.size() > 0 && ins_profes.size() == 0 ) {
+			
+			for (Inscripcion ins : ins_cursos) {
+				if (ins_grupos.contains(ins)) {
+					inscripciones.add(ins);
+				}
+			}
+
+		} else if (ins_grupos.size() > 0 && ins_cursos.size() == 0 && ins_profes.size() > 0 ) {
+			
+			for (Inscripcion ins : ins_profes) {
+				if (ins_grupos.contains(ins)) {
+					inscripciones.add(ins);
+				}
+			}
+
+		}  else if (ins_grupos.size() == 0 && ins_cursos.size() > 0 && ins_profes.size() > 0 ) {
+			
+			for (Inscripcion ins : ins_cursos) {
+				if (ins_profes.contains(ins)) {
+					inscripciones.add(ins);
+				}
+			}
+
+		} else {
+			for (Inscripcion ins : ins_profes) {
+				if (ins_grupos.contains(ins) && ins_cursos.contains(ins)) {
+					inscripciones.add(ins);
+				}
+			}
+		}
+		
+		return inscripciones;
+	}
+	
+	/**
+	 * Se busca la lista de inscripciones de acuerdo tomando como parámetros
+	 * los datos ingresados en la sección de 'Cursos'.
+	 * @param clave_curso
+	 * @param id_tipo
+	 * @param fecha_inicio_1
+	 * @param fecha_inicio_2
+	 * @return una lista de Inscripciones.
+	 * @throws ParseException
+	 */
+	public List<Inscripcion> obtenerInsCursos(String clave_curso, Integer id_tipo, String fecha_inicio_1, String fecha_inicio_2) throws ParseException {
+		List<Inscripcion> ins_cursos = new ArrayList<Inscripcion>();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date fecha_ini_1, fecha_ini_2;
+		List<Curso> cursos1, cursos2;
+		List<Grupo> grupos = grupo_rep.findAll();
+		
+		if(fecha_inicio_1 != "" && fecha_inicio_2 != "") {
+			fecha_ini_1 = format.parse(fecha_inicio_1);
+			fecha_ini_2 = format.parse(fecha_inicio_2);
+			cursos1 = curso_rep.findByFechaInicio(fecha_ini_1, fecha_ini_2);
+			cursos2 = curso_rep.findByFechaInicio(fecha_ini_1, fecha_ini_2);
+		} else if(fecha_inicio_1 != "" && fecha_inicio_2 == "") {
+			fecha_ini_1 = format.parse(fecha_inicio_1);
+			cursos1 = curso_rep.findByFechaInicio(fecha_ini_1);
+			cursos2 = curso_rep.findByFechaInicio(fecha_ini_1);
+		} else {
+			cursos1 = curso_rep.findAll();
+			cursos2 = curso_rep.findAll();
+		}
+		
+		//Filtrando por tipo de curso
+		if (id_tipo != 4) {
+			for(Curso c : cursos1) {
+				if(c.getFk_id_tipo_curso().getPk_id_tipo_curso() != id_tipo ) {
+					cursos2.remove(c);
+				}
+			}
+		}
+		
+		//Filtrando por clave de curso
+		if (clave_curso != "") {
+			for(Curso c : cursos1) {
+				if(!c.getClave().contains(clave_curso)){
+					cursos2.remove(c);
+				}
+			}
+		}
+		
+		
+		//Obteniendo inscripciones
+		for (Curso c : cursos2) {
+			for (Grupo g : grupos) {
+				if ( g.getFk_id_curso().getPk_id_curso() == c.getPk_id_curso() ) {
+					ins_cursos.addAll(g.getInscripciones());
+				}
+			}
+		}
+		
+		return ins_cursos;
+	}
+	
+	/**
+	 * Se busca la lista de inscripciones de acuerdo tomando como parámetros
+	 * los datos ingresados en la sección de 'Grupos'.
+	 * @param clave
+	 * @return una lista de Inscripciones.
+	 */
+	public List<Inscripcion> obtenerInsGrupos(String clave) {
+		List<Inscripcion> ins_grupos = new ArrayList<Inscripcion>();
+		List<Grupo> grupos = grupo_rep.findByClave(clave);
+		
+		for (Grupo g : grupos) {
+			ins_grupos.addAll(g.getInscripciones());
+		}
+		
+		return ins_grupos;
+	}
+	
+	/**
+	 * Se busca la lista de inscripciones de acuerdo tomando como parámetros
+	 * los datos ingresados en la sección de 'Profesores'.
+	 * @param rfc
+	 * @param curp
+	 * @param nombre
+	 * @param apellido_paterno
+	 * @param id_grado
+	 * @param id_genero
+	 * @param id_turno
+	 * @return una lista de Inscripciones
+	 * @throws ParseException
+	 */
+	public List<Inscripcion> obtenerInsProfes(String rfc, String curp, String nombre, String apellido_paterno, Integer id_grado, Integer id_genero, Integer id_turno) throws ParseException {
+		List<Inscripcion> ins_profes = new ArrayList<Inscripcion>();
+		List<Profesor> profes1 = profesor_rep.findAll();
+		List<Profesor> profes2 = profesor_rep.findAll();
+		
+		//Caso: Búsqueda por RFC
+		if (rfc != "" ) {
+			Profesor p = profesor_rep.findByRfc(rfc);
+			ins_profes.addAll(p.getInscripciones());
+		//Caso: Búsqueda por CURP
+		} else if (curp != "") {
+			Profesor p = profesor_rep.findByCurp(curp);
+			ins_profes.addAll(p.getInscripciones());
+		//Caso: Búsqueda por los filtros restantes
+		} else {
+			//Filtrando por Nombre
+			if (nombre != "") {
+				for (Profesor p : profes1) {
+					String nom = normalizar(p.getNombre()).toUpperCase().trim();
+					if( !nom.contains(nombre) ) {
+						profes2.remove(p);
+					}
+				}
+			}
+			
+			//Filtrando por Apellido Paterno
+			if (apellido_paterno != "") {
+				for (Profesor p : profes1) {
+					String ap = normalizar(p.getApellido_paterno()).toUpperCase().trim();
+					if( !ap.contains(apellido_paterno) ) {
+						profes2.remove(p);
+					}
+				}
+			}
+									
+			//Filtrando por grado de estudios
+			if (id_grado != 5) {
+				for(Profesor p : profes1) {
+					if(p.getFk_id_grado_profesor().getPk_id_grado_profesor() != id_grado) {
+						profes2.remove(p);
+					}
+				}
+			}
+						
+			//Filtrando por género
+			if ( id_genero != 3) {
+				for(Profesor p : profes1) {
+					if(p.getId_genero().getPk_id_genero() != id_genero) {
+						profes2.remove(p);
+					}
+				}
+			}
+			
+			//Filtrando por turno
+			if( id_turno != 4) {
+				for(Profesor p : profes1) {
+					if(p.getFk_id_turno().getPk_id_turno() != id_turno) {
+						profes2.remove(p);
+					}
+				}
+			}
+			
+			//Se agregan las inscripciones de cada uno de los profesores
+			for (Profesor p : profes2) {
+				ins_profes.addAll(p.getInscripciones());
+			}
+		}
+		
+		return ins_profes;
 	}
 	
 	public String normalizar(String src) {

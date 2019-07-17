@@ -20,70 +20,75 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "Profesor")
 public class Profesor {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_profesor")
 	int pk_id_profesor;
 	
-	@Column(name = "nombre", nullable = false)
+	@Column(name = "nombre", nullable = false, length=250)
 	String nombre;
 	
-	@Column(name = "apellido_paterno", nullable = false)
+	@Column(name = "apellido_paterno", nullable = false, length=250)
 	String apellido_paterno;
 	
-	@Column(name = "apellido_materno")
+	@Column(name = "apellido_materno", nullable = true, length=250)
 	String apellido_materno;
 	
-	@Column(name = "rfc", nullable = false)
+	@Column(name = "rfc", nullable = false, length=13, unique=true)
 	String rfc;
 	
-	@Column(name = "curp")
+	@Column(name = "curp", nullable = true, length=18)
 	String curp;
 	
-	@Column(name = "correo", nullable = false)
+	@Column(name = "correo", nullable = false, length=200)
 	String correo;
 	
-	@Column(name = "telefono")
+	@Column(name = "telefono", nullable = true, length=20)
 	String telefono;
 	
-	@Column(name = "fecha_nac")
+	@Column(name = "fecha_nac", nullable = true)
 	Date fechaNac;
 	
-	@ManyToOne(targetEntity=Estado.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_estado", referencedColumnName="pk_id_estado",insertable = true, updatable = true)
-	Estado fk_id_estado;
-	
-	@Column(name = "ciudad_localidad")
+	@Column(name = "ciudad_localidad", nullable = true, length=250)
 	String ciudad_localidad;
 	
-	@ManyToOne(targetEntity=Genero.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "id_genero", referencedColumnName="pk_id_genero",insertable = true, updatable = true)
-	Genero id_genero;
+	@Column(name = "comprobante_doc", nullable = true, length=200)
+	String comprobante_doc;
 	
-	@Column(name = "plantel")
+	@Column(name = "curp_doc", nullable = true, length=200)
+	String curp_doc;
+	
+	@Column(name = "rfc_doc", nullable = true, length=200)
+	String rfc_doc;
+	
+	@Column(name = "certificado_doc", nullable = true, length=200)
+	String certificado_doc;
+
+	@Column(name = "ocupacion", nullable = true, length=250)
+	String ocupacion;
+	
+	@Column(name = "plantel", nullable = true, length=250)
 	String plantel;
 	
-	@Column(name = "clave_plantel")
+	@Column(name = "clave_plantel", nullable = true, length=20)
 	String clave_plantel;
 	
 	@ManyToOne(targetEntity=Turno.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_turno",referencedColumnName="pk_id_turno",insertable = true, updatable = true)
 	Turno fk_id_turno;
+
+	@ManyToOne(targetEntity=Genero.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinColumn(name = "id_genero", referencedColumnName="pk_id_genero",insertable = true, updatable = true)
+	Genero id_genero;
 	
 	@ManyToOne(targetEntity=Grado_profesor.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_grado_profesor",referencedColumnName="pk_id_grado_profesor",insertable = true, updatable = true)
 	Grado_profesor fk_id_grado_profesor;
 	
-	@Column(name = "ocupacion")
-	String ocupacion;
-
-	@Column(name = "curriculum")
-	String curriculum;
-
 	@OneToMany(mappedBy = "fk_id_profesor", targetEntity=Inscripcion.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
@@ -92,8 +97,10 @@ public class Profesor {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Certificado> certificados = new ArrayList<>();
 	
-	
-	
+	@ManyToOne(targetEntity=Estado.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinColumn(name = "fk_id_estado", referencedColumnName="pk_id_estado",insertable = true, updatable = true)
+	Estado fk_id_estado;
 	
 	public Profesor(){}
 	
@@ -266,14 +273,36 @@ public class Profesor {
 		this.certificados = certificados;
 	}
 
-	public String getCurriculum() {
-		return curriculum;
+	public String getComprobante_doc() {
+		return comprobante_doc;
 	}
 
-	public void setCurriculum(String curriculum) {
-		this.curriculum = curriculum;
+	public void setComprobante_doc(String comprobante_doc) {
+		this.comprobante_doc = comprobante_doc;
 	}
-	
-	
+
+	public String getCurp_doc() {
+		return curp_doc;
+	}
+
+	public void setCurp_doc(String curp_doc) {
+		this.curp_doc = curp_doc;
+	}
+
+	public String getRfc_doc() {
+		return rfc_doc;
+	}
+
+	public void setRfc_doc(String rfc_doc) {
+		this.rfc_doc = rfc_doc;
+	}
+
+	public String getCertificado_doc() {
+		return certificado_doc;
+	}
+
+	public void setCertificado_doc(String certificado_doc) {
+		this.certificado_doc = certificado_doc;
+	}
 	
 }

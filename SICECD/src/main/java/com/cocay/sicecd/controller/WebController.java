@@ -1,7 +1,5 @@
 package com.cocay.sicecd.controller;
 
-
-
 import java.security.Principal;
 
 import javax.servlet.http.Cookie;
@@ -9,23 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.cocay.sicecd.model.Usuario_sys;
-import com.cocay.sicecd.repo.Usuario_sysRep;
-
 
 @Controller
 public class WebController {
-
-
 	
 	@RequestMapping(value = { "/login", "/" }, method = RequestMethod.GET)
 	public String login(Model model, String error, String logout, HttpServletRequest request, Principal principal) {
@@ -64,5 +53,10 @@ public class WebController {
 			cookie.setMaxAge(0);
 		}
 		return "login";
+	}
+	
+	@RequestMapping(value = "/start", method = { RequestMethod.GET, RequestMethod.POST })
+	public String start() {
+		return "start";
 	}
 }

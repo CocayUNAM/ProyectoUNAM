@@ -50,7 +50,7 @@
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal" id="limpiar">Agregar otro curso</button>
 					<button type="button" class="btn btn-primary"
-						onclick="window.location.href ='/example/table-basic'">Volver
+						onclick="window.location.href ='/start'">Volver
 						a inicio</button>
 				</div>
 			</div>
@@ -91,20 +91,20 @@
                                 <div class="card-body">
                                     <div class="form-validation">
                                     
-                                        <form class="form-valide" th:action="@{/AdministracionCursos/registrarCursos}" method="POST"
+                                        <form class="form-valide" th:action="@{/AdministracionRegistroManual/registrarCursos}" method="POST"
                                         id= "registrarCursos">
                                         
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="clave">Clave <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="clave">Clave <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="clave" name="clave" placeholder="Ejemplo: A001" required>
+                                                    <input type="text" class="form-control" id="clave" name="clave" placeholder="Ejemplo: A001">		
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="tipo">Selecciona un tipo <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="form-control" id="tipo" name="tipo" style="width: 100%;" data-placeholder="Selecciona el tipo del curso" required>
+                                                    <select class="form-control" id="tipo" name="tipo" style="width: 100%;" data-placeholder="Selecciona el tipo del curso">
                                                         <option value="Curso">Curso</option>
                                                         <option value="Diplomado">Diplomado</option>
                                                         <option value="Especialidad">Especialidad</option>
@@ -115,36 +115,39 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="horas">Horas <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="horas">Horas <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="horas" name="horas" placeholder="Ingrese las horas de duracion" required>
+                                                    <input type="text" class="form-control" id="horas" name="horas" placeholder="Ingrese las horas de duracion">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="nombre">Nombre <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="nombre">Nombre <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Agregue el nombre del curso" required>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Agregue el nombre del curso">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="f_inicio">Fecha de inicio <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="f_inicio">Fecha de inicio <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="f_inicio" name="f_inicio" placeholder="Agregue fecha de inicio" required>
+                                                    <input type="date" class="form-control" id="f_inicio" name="f_inicio" placeholder="Agregue fecha de inicio">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 col-form-label" for="f_termino">Fecha de termino <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="f_termino">Fecha de termino <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="f_termino" name="f_termino" placeholder="Agregue fecha de termino" required>
+                                                    <input type="date" class="form-control" id="f_termino" name="f_termino" placeholder="Agregue fecha de termino">
                                                 </div>
                                             </div> 
                                             
-                                            <button type="submit" class="btn btn-default"
-                                            data-toggle="modal" data-target="#exampleModal"
-                                            > Capturar</button>
+                                            <div class="form-group">
+        										<div class="col-sm-5 col-sm-offset-3">
+                                            		<button type="submit" class="btn btn-default"
+                                            			data-toggle="modal" data-target="#exampleModal"> Capturar</button>
+                                            	</div>
+    										</div>
                                     </form>
                                     
                                     </div>
@@ -172,50 +175,155 @@
     <script src="/js/lib/form-validation/jquery.validate-init.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/scripts.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
     <script>
 		$(document).ready(function() {
 			
 			//cambio de perfil
 			let rol='Consultas';
+			
+			$.fn.bootstrapValidator.validators.clave = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
 
-			$("#registrarCursos").submit(function(eve) {
-				eve.preventDefault();
-				var clave = $("#clave").val();
-				if(clave != "a"){
-					alert("incorrecto");
-					return false;
-				}
-				let datos = {
-					clave : $("#clave").val(),
-					tipo : $("#tipo").val(),
-					horas : $("#horas").val(),
-					nombre : $("#nombre").val(),
-					fInicio: $("#f_inicio").val(),
-					fTermino: $("#f_termino").val(),
-				}
-				$.ajax({
-					type : "POST",
-					contentType : "application/json",
-					url : '/AdministracionCursos/registrarCursos',
-					data : JSON.stringify(datos),
-					beforeSend : function() {
-						// setting a timeout
-						$("#mensaje").css("visibility","hidden")
-						$('#spin').css("visibility","visible")
-								
-					},
-					error : function() {
-						alert("Error");
-					},
-					success : function(respuesta, status) {
-						$('#spin').css("visibility","hidden")
-						var elem = $(document.createElement('h4'))
-						               .attr('id','mensaje').html(respuesta.message);
-						$('#mensaje').replaceWith(elem);
-						$("#mensaje").css("visibility","visible")
+			            if (value.search(/([A-Z][0-9])+\w+/) < 0) {
+			                return false;
+			            }
+
+			            return true;
+			        }
+			    };
+			
+			$.fn.bootstrapValidator.validators.horas = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+						
+			            if($('#horas').val().length > 0){
+				            if (value.length > 4) {
+				                return false;
+				            }
+			            }
+
+			            return true;
+			        }
+			    };
+			
+			$.fn.bootstrapValidator.validators.nombre = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+
+			            if (value.search(/[A-Z][a-zA-Z][^#&<>""~;$^%{}?/*]{1,20}$/) < 0) {
+			                return false;
+			            }
+
+			            return true;
+			        }
+			    };
+			
+			$.fn.bootstrapValidator.validators.fecha = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+			            var value2 = $("#f_termino").val();
+			            var value3 = $("#f_inicio").val();
+			            
+			            if($('#f_inicio').val().length > 0 && $('#f_termino').val().length > 0){
+				            if (value < value3) {
+				                return false;
+				            }
+			            }
+
+			            return true;
+			        }
+			    };
+
+			    $('#registrarCursos').bootstrapValidator({
+			        feedbackIcons: {
+			            valid: 'glyphicon glyphicon-ok',
+			            invalid: 'glyphicon glyphicon-remove',
+			            validating: 'glyphicon glyphicon-refresh'
+			        },
+			        fields: {
+			            clave: {
+			                validators: {
+			                    clave: {
+			                        message: ' Verifica que el formato sea como el del ejemplo '
+			                    }, 
+			                    
+			                    notEmpty: {
+			                        message: ' No puede estar vacio '
+			                    }
+			                }
+			            },
+			        
+			        	horas: {
+			        		validators: {
+			                    horas: {
+			                        message: ' Verifica que sea un valor valido '
+			                    }, 
+			            
+					            digits: {
+			                        message: ' Utiliza solo numeros '
+			                    }
+			                }
+			        	},
+			        	
+			        	nombre : {
+			        		validators: {
+			        			notEmpty: {
+			                        message: ' El nombre no puede estar vacio '
+			                    },
+			                    
+			                    nombre: {
+			                    	message: ' Verifica que sea un nombre valido '
+			                    }
+			        		}
+			        	},
+			        	
+			        	f_termino : {
+			        		validators: {
+			                    fecha : {
+			                    	message: ' La fecha de termino no puede ser menor que la fecha de inicio '
+			                    }
+			        		}
+			        	}
+			        }
+			    }).on('success.form.bv', function(eve) {
+		            eve.preventDefault();
+					
+					let datos = {
+						clave : $("#clave").val(),
+						tipo : $("#tipo").val(),
+						horas : $("#horas").val(),
+						nombre : $("#nombre").val(),
+						fInicio: $("#f_inicio").val(),
+						fTermino: $("#f_termino").val(),
 					}
-				});
-			});
+					$.ajax({
+						type : "POST",
+						contentType : "application/json",
+						url : '/AdministracionRegistroManual/registrarCursos',
+						data : JSON.stringify(datos),
+						beforeSend : function() {
+							// setting a timeout
+							$("#mensaje").css("visibility","hidden")
+							$('#spin').css("visibility","visible")
+									
+						},
+						error : function() {
+							alert("Error");
+						},
+						success : function(respuesta, status) {
+							$('#spin').css("visibility","hidden")
+							var elem = $(document.createElement('h4'))
+							               .attr('id','mensaje').html(respuesta.message);
+							$('#mensaje').replaceWith(elem);
+							$("#mensaje").css("visibility","visible")
+						}
+					});
+		            
+		            var $form     = $(eve.target),
+		                validator = $form.data('bootstrapValidator');
+		        });
 
 			$("#limpiar").click(function(event) {
 				$("#registrarCursos")[0].reset();

@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.cocay.sicecd.model.Curso;
-import com.cocay.sicecd.model.Grupo;
 
 @Repository
 public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
@@ -25,51 +24,10 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	
 	/*
 	 * @author Derian Estrada
-	 * Consultas por Nombre
-	 */
-	@Query(value = "SELECT * FROM Curso WHERE nombre = :nombre", nativeQuery = true)
-	List<Curso> findByName(@Param("nombre") String nombre);
-	
-	@Query(value = "SELECT * FROM Curso WHERE nombre = :nombre AND f_inicio = :fecha_ini", nativeQuery = true)
-	List<Curso> findByNombreAndFechaIni(@Param("nombre") String nombre, @Param("fecha_ini") Date fecha_ini);
-	
-	@Query(value = "SELECT * FROM Curso WHERE nombre = :nombre AND f_termino = :fecha_fin", nativeQuery = true)
-	List<Curso> findByNombreAndFechaFin(@Param("nombre") String clave, @Param("fecha_fin") Date fecha_fin);
-	
-	@Query(value = "SELECT * FROM Curso WHERE nombre = :nombre AND f_inicio = :fecha_ini AND f_termino = :fecha_fin", nativeQuery = true)
-	List<Curso> findByNombreAndFecha(@Param("nombre") String nombre, @Param("fecha_ini") Date fecha_ini, @Param("fecha_fin") Date fecha_fin);
-	
-	/*
-	 * @author Derian Estrada
 	 * Consultas por Clave
 	 */
 	@Query("SELECT c FROM Curso c WHERE upper(c.clave) LIKE CONCAT('%',:clave,'%')")
 	List<Curso> findByClave(@Param("clave") String clave);
-	
-	@Query(value = "SELECT * FROM Curso WHERE clave = :clave AND f_inicio = :fecha_ini", nativeQuery = true)
-	List<Curso> findByClaveAndFechaIni(@Param("clave") String clave, @Param("fecha_ini") Date fecha_ini);
-	
-	@Query(value = "SELECT * FROM Curso WHERE clave = :clave AND f_termino = :fecha_fin", nativeQuery = true)
-	List<Curso> findByClaveAndFechaFin(@Param("clave") String clave, @Param("fecha_fin") Date fecha_fin);
-	
-	@Query(value = "SELECT * FROM Curso WHERE clave = :clave AND f_inicio = :fecha_ini AND f_termino = :fecha_fin", nativeQuery = true)
-	List<Curso> findByClaveAndFecha(@Param("clave") String clave, @Param("fecha_ini") Date fecha_ini, @Param("fecha_fin") Date fecha_fin);
-	
-	/*
-	 * @author Derian Estrada
-	 * Consultas por Tipo de curso
-	 */
-	@Query(value = "SELECT * FROM Curso WHERE fk_id_tipo_curso = :id_tipo", nativeQuery = true)
-	List<Curso> findByTipo(@Param("id_tipo") int id_tipo);
-	
-	@Query(value = "SELECT * FROM Curso WHERE fk_id_tipo_curso = :id_tipo AND f_inicio = :fecha_ini", nativeQuery = true)
-	List<Curso> findByTipoAndFechaIni(@Param("id_tipo") int id_tipo, @Param("fecha_ini") Date fecha_fin);
-	
-	@Query(value = "SELECT * FROM Curso WHERE fk_id_tipo_curso = :id_tipo AND f_termino = :fecha_fin", nativeQuery = true)
-	List<Curso> findByTipoAndFechaFin(@Param("id_tipo") int id_tipo, @Param("fecha_fin") Date fecha_fin);
-	
-	@Query(value = "SELECT * FROM Curso WHERE fk_id_tipo_curso = :id_tipo AND f_inicio = :fecha_ini AND f_termino = :fecha_fin", nativeQuery = true)
-	List<Curso> findByTipoAndFecha(@Param("id_tipo") int id_tipo, @Param("fecha_ini") Date fecha_ini, @Param("fecha_fin") Date fecha_fin);
 	
 	/*
 	 * @author Derian Estrada

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,28 +20,33 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "Grupo")
 public class Grupo {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_grupo")
 	int pk_id_grupo;
+	
+	@Column(name = "clave", nullable = false, length=8)
+	String clave;
+	
+	@Column(name = "fecha_inicio", nullable = true)
+	Date fecha_inicio;
+	
+	@Column(name = "fecha_fin", nullable = true)
+	Date fecha_fin;
+	
 	@ManyToOne(targetEntity=Curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso",insertable = true, updatable = true)
 	Curso fk_id_curso;
-	//int fk_id_curso;
-	@Column(name = "clave")
-	String clave;
-	@Column(name = "fecha_inicio")
-	Date fecha_inicio;
-	@Column(name = "fecha_fin")
-	Date fecha_fin;
 	
 	@ManyToOne(targetEntity=Profesor.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor",insertable = true, updatable = true)
 	Profesor fk_id_profesor;
-
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	
+	@OneToMany(mappedBy = "fk_id_grupo", targetEntity=Inscripcion.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
 
 	public int getPk_id_grupo() {
@@ -109,6 +113,5 @@ public class Grupo {
 	public void setFk_id_profesor(Profesor fk_id_profesor) {
 		this.fk_id_profesor = fk_id_profesor;
 	}
-
 
 }

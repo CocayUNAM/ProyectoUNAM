@@ -20,23 +20,12 @@
     <link href="/css/style.css" rel="stylesheet">
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
-    
-    <script>
-    	$(document).ready(function(){
-    		
-    		$(".id_profesor").hide();
-    		
-    		$(".prof_option").click(function(){
-    			var valores="";
-    			
-    			$(this).parents("tr").find("#id_profesor").each(function(){
-                    valores+=$(this).html()+"\n";
-                });
-    			
-    			console.log(valores);
-    		});
-    	});
-    </script>
+
+	<script>
+		$(document).ready(function(){
+			$(".id_profesor").hide();
+		});
+	</script>
 </head>
 
 <body>
@@ -55,8 +44,8 @@
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                     <div class="table-responsive">
-                                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-                                            <thead>
+                                        <table id="bootstrap-data-table-export" class="table table-hover table-bordered">
+                                            <thead class="thead-light">
                                                 <tr>
                                                 	<th class="id_profesor">ID</th>
                                                     <th>Nombre</th>
@@ -70,20 +59,20 @@
                                             </thead>
                                             <tbody>
                                                 <tr data-th-each="profesor : ${profesores}">
-                                                	<td id="id_profesor" class="id_profesor">
+                                                	<td id="id_profesor" class="id_profesor" name="id_profesor">
                                                 		<a th:text="${profesor.pk_id_profesor}">ID</a>
                                                 	</td>
                                                 	<td class="prof_option">
-                                                		<a th:text="${profesor.nombre}" th:href="@{/ficha_profesor/{type}(type=${profesor.pk_id_profesor})}">Nombre</a>
+                                                		<a th:text="${profesor.nombre}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}">Nombre</a>
                                                 	</td>
                                                 	<td class="prof_option">
-                                                		<a th:text="${profesor.apellido_paterno}">Apellido Paterno</a>
+                                                		<a th:text="${profesor.apellido_paterno}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}">Apellido Paterno</a>
                                                 	</td>
                                                 	<td class="prof_option">
-                                                		<a th:text="${profesor.correo}">Correo</a>
+                                                		<a th:text="${profesor.correo}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}">Correo</a>
                                                 	</td>
                                                 	<td class="prof_option">
-                                                		<a th:text="${profesor.rfc}">RFC</a>
+                                                		<a th:text="${profesor.rfc}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}">RFC</a>
                                                 	</td>
                                                 	<td>
                                                 		<a th:text="${profesor.fk_id_grado_profesor.nombre}">Grado de Estudios</a>
@@ -97,6 +86,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -125,25 +115,26 @@
     <!-- jquery vendor -->
     <script src="/js/lib/jquery.min.js"></script>
     <script src="/js/lib/jquery.nanoscroller.min.js"></script>
+    
     <!-- nano scroller -->
     <script src="/js/lib/menubar/sidebar.js"></script>
     <script src="/js/lib/preloader/pace.min.js"></script>
     <!-- sidebar -->
     
     <!-- bootstrap -->
-
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/scripts.js"></script>
+    
     <!-- scripit init-->
     <script src="/js/lib/data-table/datatables.min.js"></script>
+    <script src="/js/lib/data-table/dataTables.bootstrap4.min.js"></script>
     <script src="/js/lib/data-table/buttons.dataTables.min.js"></script>
     <script src="/js/lib/data-table/dataTables.buttons.min.js"></script>
     <script src="/js/lib/data-table/buttons.flash.min.js"></script>
     <script src="/js/lib/data-table/jszip.min.js"></script>
     <script src="/js/lib/data-table/pdfmake.min.js"></script>
     <script src="/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="/js/lib/reports/export-buttons.js"></script>
-    <script src="/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="/js/lib/data-table/buttons.html5.min.js"></script>
     <script src="/js/lib/data-table/datatables-init.js"></script>
 </body>
 </html>

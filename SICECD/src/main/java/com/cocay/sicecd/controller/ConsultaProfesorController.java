@@ -15,66 +15,48 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 
 @Controller
 public class ConsultaProfesorController {
 
 	@Autowired
-	ProfesorRep profesor;
+	ProfesorRep profesorRep;
+	
+	@Autowired
+	GrupoRep grupoRep;
 
 	@RequestMapping(value = "/consultaProfesor", method = RequestMethod.GET)
 	public String consultaProfesor(Model model) {
 		return "ConsultarProfesor/consultaProfesor";
 	}
-
-	@RequestMapping(value = "/consultarProfesorRFC", method = RequestMethod.POST)
-	public ModelAndView consultarProfesor(ModelMap model, HttpServletRequest request) {
-		String rfcs = request.getParameter("rfc");
-		Profesor p = profesor.findByRfc(rfcs);
-		if (p != null) {
-			System.out.println(p.getCorreo());
-			System.out.println(p.getRfc());
-			model.addAttribute("nombre", p.getNombre());
-			model.addAttribute("apellido_paterno", p.getApellido_paterno());
-			model.addAttribute("apellido_materno", p.getApellido_materno());
-			model.addAttribute("correo", p.getCorreo());
-			model.addAttribute("rfc", p.getRfc());
-			model.addAttribute("estado", p.getFk_id_estado().getNombre());
-			model.addAttribute("grado", p.getFk_id_grado_profesor().getNombre());
-			model.addAttribute("clave-plantel", p.getClave_plantel());
-			model.addAttribute("ocupacion", p.getOcupacion());
-			model.addAttribute("inscripcion", p.getInscripciones());
-			return new ModelAndView("/ConsultarProfesor/muestraProfesor", model);			
-		} else {
-			return new ModelAndView("/Avisos/ErrorBusqueda");
-		}
-	}
 	
 	/*
 	 * @author Derian Estrada
 	 */
-	@RequestMapping(value = "/consultarProfesorPersonalizado", method = RequestMethod.POST)
-	public ModelAndView consultarProfesorPersonalizado(ModelMap model, HttpServletRequest request) {
-		String curps = request.getParameter("curp").toUpperCase();
-		String rfcs = request.getParameter("rfc").toUpperCase();
-		String nombre = normalizar(request.getParameter("nombre")).toUpperCase();
-		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase();
-		String apellido_materno = normalizar(request.getParameter("apellido_materno")).toUpperCase();
+	@RequestMapping(value = "/consultaProfesor", method = RequestMethod.POST)
+	public ModelAndView consultaProfesor(ModelMap model, HttpServletRequest request) {
+		String curps = request.getParameter("curp").toUpperCase().trim();
+		String rfcs = request.getParameter("rfc").toUpperCase().trim();
+		String nombre = normalizar(request.getParameter("nombre")).toUpperCase().trim();
+		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase().trim();
+		String apellido_materno = normalizar(request.getParameter("apellido_materno")).toUpperCase().trim();
 		
 		Integer id_grado = Integer.parseInt(request.getParameter("grado_estudios"));
 		Integer id_genero = Integer.parseInt(request.getParameter("genero"));
 		Integer id_estado = Integer.parseInt(request.getParameter("estados"));
 		Integer id_turno = Integer.parseInt(request.getParameter("turno"));
 		
-		List<Profesor>	list_p1 = profesor.findAll();
-		List<Profesor>	list_p2 = profesor.findAll();
+		List<Profesor>	list_p1 = profesorRep.findAll();
+		List<Profesor>	list_p2 = profesorRep.findAll();
 		
 		//Filtrando por CURP
 		if (curps != "") {
 			for (Profesor p : list_p1) {
-				String pcurp = p.getCurp().toUpperCase(); 
+				String pcurp = p.getCurp().toUpperCase().trim(); 
 				if( !pcurp.contains(curps) ) {
 					list_p2.remove(p);
 				}
@@ -84,28 +66,8 @@ public class ConsultaProfesorController {
 		//Filtrando por RFC
 		if (rfcs != "") {
 			for (Profesor p : list_p1) {
-				String prfc = p.getRfc().toUpperCase(); 
+				String prfc = p.getRfc().toUpperCase().trim(); 
 				if( !prfc.contains(rfcs) ) {
-					list_p2.remove(p);
-				}
-			}
-		}
-		
-		//Filtrando por Apellido Paterno
-		if (nombre != "") {
-			for (Profesor p : list_p1) {
-				String ap = normalizar(p.getApellido_paterno()).toUpperCase(); 
-				if( !ap.contains(apellido_paterno) ) {
-					list_p2.remove(p);
-				}
-			}
-		}
-		
-		//Filtrando por Apellido Materno
-		if (nombre != "") {
-			for (Profesor p : list_p1) {
-				String am = normalizar(p.getApellido_materno()).toUpperCase(); 
-				if( !am.contains(apellido_materno) ) {
 					list_p2.remove(p);
 				}
 			}
@@ -114,8 +76,28 @@ public class ConsultaProfesorController {
 		//Filtrando por Nombre
 		if (nombre != "") {
 			for (Profesor p : list_p1) {
-				String nom = normalizar(p.getNombre()).toUpperCase();
+				String nom = normalizar(p.getNombre()).toUpperCase().trim();
 				if( !nom.contains(nombre) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+		
+		//Filtrando por Apellido Paterno
+		if (apellido_paterno != "") {
+			for (Profesor p : list_p1) {
+				String ap = normalizar(p.getApellido_paterno()).toUpperCase().trim();
+				if( !ap.contains(apellido_paterno) ) {
+					list_p2.remove(p);
+				}
+			}
+		}
+		
+		//Filtrando por Apellido Materno
+		if (apellido_materno != "") {
+			for (Profesor p : list_p1) {
+				String am = normalizar(p.getApellido_materno()).toUpperCase().trim();
+				if( !am.contains(apellido_materno) ) {
 					list_p2.remove(p);
 				}
 			}
@@ -130,7 +112,7 @@ public class ConsultaProfesorController {
 			}
 		}
 			
-		//Filtrando por gÃ©nero
+		//Filtrando por género
 		if ( id_genero != 3) {
 			for(Profesor p : list_p1) {
 				if(p.getId_genero().getPk_id_genero() != id_genero) {
@@ -157,7 +139,7 @@ public class ConsultaProfesorController {
 			}
 		}
 		
-		if(!list_p1.isEmpty()) {
+		if(!list_p2.isEmpty() || list_p2.size() > 0) {
 			model.put("profesores", list_p2);
 			return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
 		} else {
@@ -171,11 +153,39 @@ public class ConsultaProfesorController {
                 .replaceAll("[^\\p{ASCII}]" , "");
     }
 	
-	@RequestMapping(value = "/ficha_profesor")
-	public String fichaProfesor(
-			@RequestParam("id") int id,
-			Model model) {
-		/*model.addAttribute("id_profesor", id_profesor);*/
-		return "/ConsultarProfesor/ficha_profesor";
+	@RequestMapping(value = "/ficha_profesor", method = {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView fichaProfesor(@RequestParam("id") int id_profesor, ModelMap model) {
+		Profesor p = profesorRep.findByID(id_profesor);
+		List<Grupo> grupos = grupoRep.findByIdAsesor(p.getPk_id_profesor());
+		
+		model.addAttribute("nombre", p.getNombre());
+		model.addAttribute("apellido_paterno", p.getApellido_paterno());
+		
+		if (p.getApellido_materno() == null) { 
+			model.addAttribute("apellido_materno", "");
+		} else {
+			model.addAttribute("apellido_materno", p.getApellido_materno());
+		}
+		
+		model.addAttribute("curp", p.getCurp());
+		model.addAttribute("correo", p.getCorreo());
+		model.addAttribute("telefono", p.getTelefono());
+		
+		String localidad = "";
+		
+		if (p.getCiudad_localidad() == null) {
+			localidad =  p.getFk_id_estado().getNombre();
+		} else {
+			localidad = p.getCiudad_localidad() + ", " + p.getFk_id_estado().getNombre();
+		}
+		
+		model.addAttribute("localidad", localidad);
+		model.addAttribute("rfc", p.getRfc());
+		model.addAttribute("escolaridad", p.getFk_id_grado_profesor().getNombre());
+		model.addAttribute("turno", p.getFk_id_turno().getNombre());
+		
+		model.put("grupo", grupos);
+		model.put("ins", p.getInscripciones());
+		return new ModelAndView("/ConsultarProfesor/ficha_profesor");
 	}
 }

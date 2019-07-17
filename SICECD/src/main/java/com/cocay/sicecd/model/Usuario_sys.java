@@ -19,40 +19,50 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "Usuario_sys")
 public class Usuario_sys {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_usuario_sys")
 	int pk_id_usuario_sys;
-	@Column(name = "rfc")
+	
+	@Column(name = "rfc", nullable = false, length=13, unique=true)
 	String rfc;
-	@Column(name = "password")
+	
+	@Column(name = "password", nullable = false, length=60)
 	String password;
-	@Column(name = "correo")
+	
+	@Column(name = "correo", nullable = false, length=200)
 	String correo;
-	@Column(name = "nombre")
+	
+	@Column(name = "nombre", nullable = false, length=250)
 	String nombre;
-	@Column(name = "apellido_paterno")
+	
+	@Column(name = "apellido_paterno", nullable = false, length=250)
 	String apellido_paterno;
-	@Column(name = "apellido_materno")
+	
+	@Column(name = "apellido_materno", nullable = false, length=250)
 	String apellido_materno;
-	@Column(name = "confirmacion")
+	
+	@Column(name = "confirmacion", nullable = false, length=10)
 	String confirmacion;
-	@Column (name = "codigo")
+	
+	@Column (name = "codigo", nullable = false, length=10)
 	String codigo;
-	@Column(name = "confirmacioncorreo")
+	
+	@Column(name = "confirmacioncorreo", nullable = false, length=10)
 	String confirmacioncorreo;
-	@Column (name = "codigoCorreo")
+	
+	@Column (name = "codigoCorreo", nullable = false, length=10)
 	String codigoCorreo;
-	@Column (name = "correocambio")
+	
+	@Column (name = "correocambio", nullable = false, length=10)
 	String correocambio;
-	@Column (name = "codigorecupera")
+	
+	@Column (name = "codigorecupera", nullable = false, length=10)
 	String codigorecupera;
-	@Column (name = "confirmarecupera")
+	
+	@Column (name = "confirmarecupera", nullable = false, length=10)
 	String confirmarecupera;
-	
-
-	
-	
 	
 	@ManyToOne(targetEntity = Estatus_usuario_sys.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -209,14 +219,5 @@ public class Usuario_sys {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
 
-
-
-
-
-	
-	
-	
-	
 }

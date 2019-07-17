@@ -1,16 +1,17 @@
 package com.cocay.sicecd.service;
 
-import com.cocay.sicecd.model.Log_evento_sys;
+import java.security.Principal;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.cocay.sicecd.model.Log_sys;
 import com.cocay.sicecd.repo.Log_evento_sysRep;
 import com.cocay.sicecd.repo.Log_sysRep;
 import com.cocay.sicecd.repo.Usuario_sysRep;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
-import java.util.Date;
 
 @Service
 public class Logging {

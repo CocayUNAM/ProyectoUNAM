@@ -8,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.cocay.sicecd.model.Usuario_sys;
-import com.cocay.sicecd.repo.TestRepository;
 import com.cocay.sicecd.repo.Usuario_sysRep;
 
 @Controller
@@ -17,16 +15,7 @@ import com.cocay.sicecd.repo.Usuario_sysRep;
 public class ExampleContoller {
 
 	@Autowired
-	TestRepository testRepository;
-	@Autowired
 	Usuario_sysRep _usuarioSys;
-	
-	@RequestMapping(value = "/find-test", method = RequestMethod.GET)
-	public String findTest(Model model){
-		//http://localhost:8080/find-test
-        model.addAttribute("testCollection", testRepository.findAll());
-		return "example/test";
-	}
 	
 	@RequestMapping(value = "/table-row-select", method = RequestMethod.GET)
 	public String exampleTableRowSelect(Model model){
