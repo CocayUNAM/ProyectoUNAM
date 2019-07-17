@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "Profesor")
@@ -48,6 +49,7 @@ public class Profesor {
 	String telefono;
 	
 	@Column(name = "fecha_nac", nullable = true)
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	Date fechaNac;
 	
 	@Column(name = "ciudad_localidad", nullable = true, length=250)

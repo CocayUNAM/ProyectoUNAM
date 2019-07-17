@@ -103,7 +103,7 @@
                                                 <label class="col-lg-4 col-form-label" for="tipo">Selecciona un tipo <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <select class="form-control" id="tipo" name="tipo" style="width: 100%;">
-                                                    	<option th:value="${curso.fk_id_tipo_curso}">Tipo definido</option>
+                                                    	<option th:value="${curso.fk_id_tipo_curso.pk_id_tipo_curso}" th:text="${curso.fk_id_tipo_curso.nombre}">Tipo definido</option>
                                                         <option value="1">Curso</option>
                                                         <option value="2">Diplomado</option>
                                                         <option value="3">Especialidad</option>
@@ -128,16 +128,16 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="f_inicio">Fecha de inicio <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="f_inicio" >Fecha de inicio (de no cambiar insertar la anterior)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="f_inicio" th:value="${curso.fInicio}" >
+                                                    <input type="date" class="form-control" id="f_inicio" th:text="${curso.fInicio}">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="f_termino">Fecha de termino <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="f_termino">Fecha de termino (de no cambiar insertar la anterior)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="f_termino" name="f_termino" th:value="${curso.fTermino}">
+                                                    <input type="date" class="form-control" id="f_termino" name="f_termino" th:text= "${curso.fTermino}">
                                                 </div>
                                             </div> 
                                             
@@ -197,9 +197,11 @@ $(document).ready(function() {
 			$.fn.bootstrapValidator.validators.horas = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-		
-			            if (value.length > 4) {
-			                return false;
+						
+			            if($('#horas').val().length > 0){
+				            if (value.length > 4) {
+				                return false;
+				            }
 			            }
 		
 			            return true;
@@ -223,9 +225,10 @@ $(document).ready(function() {
 			            var value = $field.val();
 			            var value2 = $("#f_termino").val();
 			            var value3 = $("#f_inicio").val();
-			            
-			            if (value < value3) {
-			                return false;
+			            if($('#f_inicio').val().length > 0 && $('#f_termino').val().length > 0){
+				            if (value < value3) {
+				                return false;
+				            }
 			            }
 		
 			            return true;
@@ -259,10 +262,6 @@ $(document).ready(function() {
 			            
 					            digits: {
 			                        message: ' Utiliza solo numeros '
-			                    },
-			                    
-			                    notEmpty: {
-			                        message: ' No puede estar vacio '
 			                    }
 			                }
 			        	},
@@ -279,20 +278,8 @@ $(document).ready(function() {
 			        		}
 			        	},
 			        	
-			        	f_inicio : {
-			        		validators: {
-				        		notEmpty: {
-			                        message: ' la fecha no puede estar vacia '
-			                    },
-			        		}
-			        	},
-			        	
 			        	f_termino : {
 			        		validators: {
-				        		notEmpty: {
-			                        message: ' La fecha no puede estar vacia '
-			                    },
-			                    
 			                    fecha : {
 			                    	message: ' La fecha de termino no puede ser menor que la fecha de inicio '
 			                    }

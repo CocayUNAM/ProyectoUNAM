@@ -1,6 +1,8 @@
 package com.cocay.sicecd.dto;
 
 public class InscripcionDto {
+	
+	String identificador;
 
 	String idGrupo;
 	
@@ -41,5 +43,13 @@ public class InscripcionDto {
 	public void setAprobado(boolean aprobado) {
 		this.aprobado = aprobado;
 	}
-			
+
+	public String getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
+	}
+	
 }

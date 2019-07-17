@@ -95,16 +95,16 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="inicio">Fecha de inicio <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="inicio">Fecha de inicio (de no cambiar insertar la anterior) <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="inicio" name="inicio" th:value = "${grupo.fecha_inicio}">
+                                                    <input type="date" class="form-control" id="inicio" name="inicio" th:text = "${grupo.inicio}" th:value = "${grupo.inicio}">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="termino">Fecha de termino <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="termino">Fecha de termino (de no cambiar insertar la anterior)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="termino" name="termino" th:value = "${grupo.fecha_fin}">
+                                                    <input type="date" class="form-control" id="termino" name="termino"  th:text= "${grupo.termino}" th:value = "${grupo.termino}">
                                                 </div>
                                             </div> 
                                             
@@ -112,14 +112,14 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="curso">Clave del curso<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="curso" name="curso" th:value = "${grupo.fk_id_curso.pk_id_curso}">
+                                                    <input type="text" class="form-control" id="curso" name="curso" th:value = "${grupo.curso}">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="asesor">RFC del asesor <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="rfc">RFC del asesor <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="asesor" name="asesor" th:value = "${grupo.fk_id_profesor.pk_id_profesor}">
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" th:value = "${grupo.asesor}">
                                                 </div>
                                             </div>
                                             
@@ -162,7 +162,7 @@
 	<script th:inline="javascript">
 	$(document).ready(function() {
 				
-				let idu = [[${grupo.pk_id_grupo}]];
+				let idu = [[${grupo.identificador}]];
 
 				$.fn.bootstrapValidator.validators.fecha = {
 				        validate: function(validator, $field, options) {
@@ -220,20 +220,8 @@
 			                }
 			            },
 			            
-			            inicio : {
-			        		validators: {
-				        		notEmpty: {
-			                        message: ' la fecha no puede estar vacia '
-			                    },
-			        		}
-			        	},
-			            
 			            termino: {
 			                validators: {
-			                    notEmpty: {
-			                        message: ' No puede estar vacio '
-			                    },
-			        
 			        			fecha: {
 			        				message: ' La fecha de termino no puede ser menor que la fecha de inicio '
 			        			}
@@ -244,8 +232,24 @@
 			                validators: {
 			                    notEmpty: {
 			                        message: ' No puede estar vacio '
+			                    }, 
+			                    
+			                    clave: {
+			                    	message: ' Verifica que el formato sea el correcto '
 			                    }
 			                }
+			            },
+			            
+			            rfc: {
+			            	validators: {
+			            		notEmpty: {
+			                        message: ' No puede estar vacio '
+			                    }, 
+			            		
+			                    rfc : {
+			                    	message: ' Verifica que el formato sea el correcto '
+			                    }
+			            	}
 			            }
 			            
 			        }
@@ -253,12 +257,12 @@
 		            eve.preventDefault();
 					
 		            let datos = {
-							pk_id_grupo : idu,
+							identificador : idu,
 							clave : $("#clave").val(),
-							fecha_inicio : $("#inicio").val(),
-							fecha_fin : $("#termino").val(),
-							fk_id_curso: {pk_id_curso: $("#curso").val()},
-							fk_id_profesor: {pk_id_profesor: $("#asesor").val()},
+							inicio : $("#inicio").val(),
+							termino : $("#termino").val(),
+							curso : $("#curso").val(),
+							asesor: $("#rfc").val(),
 						}
 						$.ajax({
 							type : "POST",

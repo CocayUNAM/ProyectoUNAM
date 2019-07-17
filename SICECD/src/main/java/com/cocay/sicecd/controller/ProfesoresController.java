@@ -154,8 +154,8 @@ public class ProfesoresController {
 		     @Valid ProfesorDto prof, 
 		     @RequestParam(value = "constancia", required = false) MultipartFile constancia,
 		     @RequestParam(value = "comprobante", required = false) MultipartFile comprobante,
-		     @RequestParam(value = "rfc_doc", required = false) MultipartFile rfc_pdf,
-		     @RequestParam(value = "curp_doc", required = false) MultipartFile curp_pdf
+		     @RequestParam(value = "rfc_docu", required = false) MultipartFile rfc_pdf,
+		     @RequestParam(value = "curp_docu", required = false) MultipartFile curp_pdf
 		) {
 				Profesor profe = new Profesor();
 				
