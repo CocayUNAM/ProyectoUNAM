@@ -29,7 +29,11 @@ public class Logging {
 		Log_sys log=new Log_sys();
 		log.setHora(new Date());
 		log.setIp(request.getRemoteAddr());
-		log.setFk_id_usuario_sys(usuario.findByRfc(principal.getName()).get(0));
+		if (principal==null) {
+			log.setFk_id_usuario_sys(usuario.findById(1).get());
+		}else {			
+			log.setFk_id_usuario_sys(usuario.findByRfc(principal.getName()).get(0));
+		}
 		log.setFk_id_log_evento_sys(evento.findById(action).get());
 
 		if (comentario!=null){

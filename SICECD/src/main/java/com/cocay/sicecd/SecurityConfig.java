@@ -22,9 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
         	.csrf().disable()
             .authorizeRequests()
-                .antMatchers("/", "/login", "/logout", "/css/**", "/fonts/**", "/img/**", "/js/**", "/favicon.ico", "/activacion","/configuracionPass", "/confirmacorreo","/enviarecupera","/prueba","/certificado","/certificadoRes", "/descargas").permitAll()
+                .antMatchers("/", "/login", "/logout", "/css/**", "/fonts/**", "/img/**", "/js/**", "/favicon.ico", "/activacion","/configuracionPass", "/confirmacorreo","/enviarecupera","/prueba","/certificado","/certificadoRes").permitAll()
                 .antMatchers("/AdministracionModificaciones/**").hasAuthority("Administrador")
                 .antMatchers("/AdministracionRegistroManual/**").hasAuthority("Administrador")
+                .antMatchers("/descargas").authenticated()
                 .anyRequest().authenticated()
             .and().formLogin()
                 .loginPage("/login")
@@ -45,14 +46,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
    	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     	      BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    	        try
-    	        { 
-    	        	auth.userDetailsService(myAppUserDetailsService).passwordEncoder(passwordEncoder);
-    	        } 
-    	        catch(Exception e) 
-    	        { 
-    	            System.out.println("Caught in main."); 
-    	        } 
+    	      auth.userDetailsService(myAppUserDetailsService).passwordEncoder(passwordEncoder);
+    	        
+
 	}
 	//*/
 

@@ -30,17 +30,10 @@ public class MyAppUserDetailsService implements UserDetailsService {
 		}
         
 		UserDetails userDetails;
-		try
-        { 
     		GrantedAuthority authority = new SimpleGrantedAuthority(activeUserInfo.getFk_id_perfil_sys().getNombre());
     		userDetails = (UserDetails)new User(activeUserInfo.getRfc(),
     		activeUserInfo.getPassword(), Arrays.asList(authority));
-        } 
-        catch(Exception e) 
-        { 
-            System.out.println("[ENTRA---]Usuario invalido o inactivo") ;
-            throw e;
-        } 
+  
 		
 
 		return userDetails;

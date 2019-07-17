@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.cocay.sicecd.service.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -51,6 +52,7 @@ public class AltaUsuarios {
 	@Autowired
 	Logging log;
 	
+
 	
 	//Alta usuario
 	@RequestMapping(value = "/AdministracionCursos/formAltaUsuario", method = RequestMethod.GET)

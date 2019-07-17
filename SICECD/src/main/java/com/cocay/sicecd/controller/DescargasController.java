@@ -8,13 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cocay.sicecd.model.Certificado;
 import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 
@@ -27,20 +30,25 @@ public class DescargasController {
 	InscripcionRep _incripcion;
 	@Autowired
 	ProfesorRep _profesor;
+	@Autowired
+	CertificadoRep _certificado;
 	@Value("${path_constancia}")
 	String path;
+	@Value("${ws.ruta_local}")
+	String path2;
 	
 	@RequestMapping("descargas")
 	@ResponseBody
 	public void show(@RequestParam(name = "id") int id,
 					 @RequestParam (name = "tipo") String tipo,
 					 HttpServletResponse response) {
-		
-		System.out.println("[ENTRA]----"+ path);
+
 	     
 		
 		String file= "";
-		Profesor profesor;
+		Profesor profesor=null;
+		Certificado certificado=null;
+		 
 		
 		switch (tipo) {
 		case "comprobante":
@@ -60,6 +68,12 @@ public class DescargasController {
 			  profesor=_profesor.findById(id).get(); 
 			  file= profesor.getCertificado_doc(); 
 		break;
+		case "certificadoqr":
+			certificado=_certificado.findById(id).get(); 
+			file= certificado.getRuta(); 
+			break;
+
+		
 
 		}
 		
@@ -76,7 +90,13 @@ public class DescargasController {
 	      try {
 	    	  BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
 	    	  
-	    	  FileInputStream fis = new FileInputStream(path+file);
+	    	  FileInputStream fis=null;
+	    	  if (tipo.equals("certificadoqr")) {
+	    		  System.out.println("[ENTRA]----"+ path2+file);
+	    		  fis = new FileInputStream(path2+file);
+	    	  }else {
+	    		  fis = new FileInputStream(path+profesor.getPk_id_profesor()+"/"+file);//luisos
+	    	  }
 	    	  int len;
 	    	  byte[] buf = new byte[1024];
 	    	  while((len = fis.read(buf)) > 0) {
