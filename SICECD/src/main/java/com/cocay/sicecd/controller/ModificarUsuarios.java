@@ -318,12 +318,14 @@ public class ModificarUsuarios {
                 mod.setCertificado_doc(originalName);
             }else {
                 if(!mod.getCertificado_doc().equals(originalName)) {
-                    File archivo_anterior = new File(ruta + Integer.toString(mod.getPk_id_profesor()) + mod.getCertificado_doc());
-                    String laRuta = "\\documentos\\10\\Algoritmo del Torneo.pdf";
-                    System.out.println("----------La ruta del archivo anterior es: " + laRuta);
+                	File here = new File(".");
+                	String rutaActual = here.getAbsolutePath().replace(".", ""); 
+                	String rutaR = rutaActual.replace("\\", "/") + ruta.replace("./", "") + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getCertificado_doc();
+                    File archivo_anterior = new File(rutaR);
+                    System.out.println("----------La ruta actual es: " + rutaR);
                     if(archivo_anterior.delete()) {
-                        System.out.println(laRuta +" File deleted");
-                    }else System.out.println("archivo: " + laRuta + " doesn't exist");
+                        System.out.println(rutaR +" File deleted");
+                    }else System.out.println("archivo: " + rutaR + " doesn't exist");
                 }
             }
             saveConstancia(constancia, mod);
