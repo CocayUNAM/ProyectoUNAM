@@ -322,10 +322,7 @@ public class ModificarUsuarios {
                 	String rutaActual = here.getAbsolutePath().replace(".", ""); 
                 	String rutaR = rutaActual.replace("\\", "/") + ruta.replace("./", "") + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getCertificado_doc();
                     File archivo_anterior = new File(rutaR);
-                    System.out.println("----------La ruta actual es: " + rutaR);
-                    if(archivo_anterior.delete()) {
-                        System.out.println(rutaR +" File deleted");
-                    }else System.out.println("archivo: " + rutaR + " doesn't exist");
+                    archivo_anterior.delete();
                 }
             }
             saveConstancia(constancia, mod);
@@ -338,7 +335,10 @@ public class ModificarUsuarios {
                 mod.setComprobante_doc(originalName2);
             }else {
                 if(!mod.getComprobante_doc().equals(originalName2)) {
-                    File archivo_anterior = new File(ruta + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getComprobante_doc());
+                	File here = new File(".");
+                	String rutaActual = here.getAbsolutePath().replace(".", ""); 
+                	String rutaR = rutaActual.replace("\\", "/") + ruta.replace("./", "") + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getComprobante_doc();
+                    File archivo_anterior = new File(rutaR);
                     archivo_anterior.delete();
                 }
             }
@@ -353,7 +353,10 @@ public class ModificarUsuarios {
                 mod.setRfc_doc(originalName2);
             }else {
                 if(!mod.getRfc_doc().equals(originalName2)) {
-                    File archivo_anterior = new File(ruta + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getRfc_doc());
+                	File here = new File(".");
+                	String rutaActual = here.getAbsolutePath().replace(".", ""); 
+                	String rutaR = rutaActual.replace("\\", "/") + ruta.replace("./", "") + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getRfc_doc();
+                    File archivo_anterior = new File(rutaR);
                     archivo_anterior.delete();
                 }
             }
@@ -367,7 +370,10 @@ public class ModificarUsuarios {
                 mod.setCurp_doc(originalName2);
             }else {
                 if(!mod.getCurp_doc().equals(originalName2)) {
-                    File archivo_anterior = new File(ruta + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getCurp_doc());
+                	File here = new File(".");
+                	String rutaActual = here.getAbsolutePath().replace(".", ""); 
+                	String rutaR = rutaActual.replace("\\", "/") + ruta.replace("./", "") + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getCurp_doc();
+                    File archivo_anterior = new File(rutaR);
                     archivo_anterior.delete();
                 }
             }
