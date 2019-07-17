@@ -122,8 +122,8 @@ public class WebService {
 		LinkedList<Url_ws_inscripcion> links = new LinkedList<>(urls_inscripcion.findVarios());
 
 		if (links.size() == 0) {
-			LOGGER.debug("No hay urls");
-			throw new Exception("No hay urls");
+			LOGGER.debug("No hay urls para el proceso");
+			return;
 		}
 
 		for (Url_ws_inscripcion url : links) {
@@ -131,8 +131,8 @@ public class WebService {
 			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
 			System.out.println(json);
 			insert_Grade(json);
-			log.setTrace(LogTypes.ACTUALIZAR_PROFESOR,"Se agrego un profesor");
-			log.setTrace(LogTypes.AGREGAR_PROFESOR,"Se actualizo un profesor");
+			log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
+			log.setTrace(LogTypes.AGREGAR_PROFESOR);
 
 		}
 
