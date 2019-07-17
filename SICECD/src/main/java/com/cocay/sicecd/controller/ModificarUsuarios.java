@@ -139,13 +139,19 @@ public class ModificarUsuarios {
 		
 		prof.setEstado(Integer.toString(cambio.getFk_id_estado().getPk_id_estado()));
 		
+		prof.setNombreEstado(cambio.getFk_id_estado().getNombre());
+		
 		if(cambio.getFechaNac() != null) {
 			prof.setfNacimiento(cambio.getFechaNac().toString());
 		}
 		
 		prof.setGenero(Integer.toString(cambio.getGenero().getPk_id_genero()));
 		
+		prof.setNombreGenero(cambio.getGenero().getGenero());
+		
 		prof.setGrado(Integer.toString(cambio.getFk_id_grado_profesor().getPk_id_grado_profesor()));
+		
+		prof.setNombreGrado(cambio.getFk_id_grado_profesor().getNombre());
 		
 		prof.setNombres(cambio.getNombre());
 		
@@ -168,6 +174,7 @@ public class ModificarUsuarios {
 		}
 		
 		prof.setTurno(Integer.toString(cambio.getFk_id_turno().getPk_id_turno()));
+		prof.setNombreTurno(cambio.getFk_id_turno().getNombre());
 		
 		ModelAndView model = new ModelAndView("ModificarUsuario/pantallaModificacion");
 		model.addObject("profesor", prof);
