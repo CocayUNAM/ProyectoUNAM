@@ -51,7 +51,6 @@
 										<a id="BtnExportExcel" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#">
 											<span>Excel</span>
 										</a>
-										<!--<a id="BtnExportPDF" class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#ReportePDF">-->
 										<a class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="javascript:ReportePDF()">
 											<span>PDF</span>
 										</a>
@@ -84,28 +83,28 @@
 								
 								<div class="card-body">
 									<div class="row">
-										<div class="col-sm-3"><p class="font-weight-bold" id="curp_label">CURP: </p></div>
+										<div class="col-sm-3"><p class="font-weight-bold">CURP: </p></div>
 										<div class="col-sm-3"><p class="font-weight-light" th:text="${curp}" id="curp_info">No disponible</p></div>
-										<div class="col-sm-3"><p class="font-weight-bold" id="rfc_label">RFC: </p></div>
+										<div class="col-sm-3"><p class="font-weight-bold">RFC: </p></div>
 										<div class="col-sm-3"><p class="font-weight-light" th:text="${rfc}" id="rfc_info">No disponible</p></div>
 									</div>
 								
 									<div class="row">
-										<div class="col-sm-3"><p class="font-weight-bold" id="escolaridad_label">Escolaridad: </p></div>
+										<div class="col-sm-3"><p class="font-weight-bold">Escolaridad: </p></div>
 										<div class="col-sm-3"><p class="font-weight-light" th:text="${escolaridad}" id="escolaridad_info">No disponible</p></div>
-										<div class="col-sm-3"><p class="font-weight-bold" id="turno_label">Turno: </p></div>
+										<div class="col-sm-3"><p class="font-weight-bold">Turno: </p></div>
 										<div class="col-sm-3"><p class="font-weight-light" th:text="${turno}" id="turno_info">No disponible</p></div>
 									</div>
 								
 									<div class="row">
-										<div class="col-sm-3"><p class="font-weight-bold" id="correo_label">Correo: </p></div>
+										<div class="col-sm-3"><p class="font-weight-bold">Correo: </p></div>
 										<div class="col-sm-3"><p class="font-weight-light" th:text="${correo}" id="correo_info">No disponible</p></div>
-										<div class="col-sm-3"><p class="font-weight-bold" id="telefono_label">Teléfono: </p></div>
+										<div class="col-sm-3"><p class="font-weight-bold">Teléfono: </p></div>
 										<div class="col-sm-3"><p class="font-weight-light" th:text="${telefono}" id="telefono_info">No disponible</p></div>
 									</div>
 								
 									<div class="row">
-										<div class="col-sm-3"><p class="font-weight-bold" id="localidad_label">Localidad: </p></div>
+										<div class="col-sm-3"><p class="font-weight-bold">Localidad: </p></div>
 										<div class="col-sm-3"><p class="font-weight-light" th:text="${localidad}" id="localidad_info">No disponible</p></div>
 									</div>
 								</div>
@@ -113,8 +112,8 @@
 							
 								<!-- START INSCRIPCIONES DEL PROFESOR -->
 								<div class="card-body" id="ins_profesor">
-									<div class="table-responsive" id="tabla_inscripciones">
-										<table class="table table-striped table-bordered">
+									<div class="table-responsive">
+										<table class="table table-striped table-bordered" id="tabla_inscripciones">
 											<thead class="thead-light">
 												<tr>
 													<th>Rol</th>
@@ -184,8 +183,8 @@
 	<script src="/js/scripts.js"></script>
 	<script src="/js/scripts.js"></script>
 	
-	<script src="/js/reports/export-buttons.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+	<script src="/js/reports/export-pdf-button.js"></script>
 	<script th:inline="javascript">
 	$("#BtnExportExcel").click(function(e) {
 		/*<![CDATA[*/ var nombre = [[${nombre}]]; /*]]>*/
@@ -203,7 +202,7 @@
 		var archivo = "Historial_"+nombre + "-" + appat +"_" + date + ".xls";
 		
 		var file = new Blob(
-				["\ufeff",$('#nombre').html()+"<br>",
+				["\ufeff","<p>Historial - " + $('#nombre').html()+"</p>",
 					"<p>CURP: "+curp+"<br>",
 					"RFC: "+rfc+"<br>",
 					"Grado de Estudios: "+escolaridad+"<br>",
@@ -251,7 +250,7 @@
 		
 		var file = new Blob(
 				["\ufeff",
-					nombre + " " + appat + " " + apmat + "\n\n",
+					"Historial - " + nombre + " " + appat + " " + apmat + "\n\n",
 					"CURP:," + curp + ", , ," + "RFC:,"+ rfc + "\n",
 					"Grado de Estudios:," + escolaridad + ", , ," + "Turno:,"+ turno + "\n",
 					"Correo:," + correo + ", , ," + "Teléfono:,"+ telefono + "\n",
