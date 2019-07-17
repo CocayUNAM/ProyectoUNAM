@@ -43,7 +43,7 @@ public class EditarPerfil {
 	@GetMapping("/AdministracionCursos/listaUsuarios")
 	private ModelAndView listaUsuarios() {
 		ModelAndView model=new ModelAndView("editarPerfil/listausuarios");
-		model.addObject("usuarios",(List<Usuario_sys>)_usuarioSys.findAll());
+		model.addObject("usuarios",_usuarioSys.sinprecargado());
 		
 		return model;
 	}

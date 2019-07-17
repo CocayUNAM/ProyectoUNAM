@@ -2,8 +2,11 @@ package com.cocay.sicecd.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.cocay.sicecd.service.Logging;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,9 +19,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import com.cocay.sicecd.model.Inscripcion;
+import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Usuario_sys;
 import com.cocay.sicecd.repo.Estatus_usuario_sysRep;
+import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.Perfil_sysRep;
+import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.Usuario_sysRep;
 import com.cocay.sicecd.service.SendMailService;
 
@@ -48,7 +62,13 @@ public class AltaUsuarios {
 	@PostMapping("/AdministracionCursos/altaUsuario")
 	public ResponseEntity<String> darAltaUsuario(@RequestBody Usuario_sys consulta) 
 	{
-
+		System.out.println("[ENTRA-------]");
+		
+		  if (_usuarioSys.existsByRfc(consulta.getRfc())) { 
+			  return ResponseEntity.ok("El usuario con este rfc ya ha sido agregado"); 
+		 }
+		 
+		
 		consulta.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Inactivo").get(0));
 		consulta.setConfirmacion("true");
 		consulta.setConfirmacioncorreo("false");
@@ -105,14 +125,10 @@ public class AltaUsuarios {
 		return "redirect:/login?mensaje=Ya puedes realizar login";
 	}
 	
-	@GetMapping("/AdministracionCursos/prueba")
-	@ResponseBody
-	public String prueba() {
+	
+	
+	
 
-		log.setTrace("prueba");
-		log.setTrace("prueba", "hola");
-		return "hola";
-	}
 }
 
 

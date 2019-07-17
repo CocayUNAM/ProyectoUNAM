@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>SICCED - Grupos</title>
+    <title>SICECD - Grupos</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -43,9 +43,9 @@
                                                 	<th>Clave del Curso</th>
                                                 	<th>Curso</th>
                                                 	<th>Clave del Grupo</th>
+                                                	<th colspan="2" >Asesor</th>
                                                     <th>Fecha de Inicio</th>
                                                     <th>Fecha de Término</th>
-                                                    <th colspan="2" >Asesor</th>
                                                     <th>Inscritos</th>
                                                 </tr>
                                             </thead>
@@ -55,10 +55,10 @@
                                                 	<td data-th-text="${grupo.fk_id_curso.clave}">Text ...</td>
                                                 	<td data-th-text="${grupo.fk_id_curso.nombre}">Text ...</td>
                                                 	<td data-th-text="${grupo.clave}">Text ...</td>
-                                                	<td data-th-text="${grupo.fecha_inicio}">Text ...</td>
-                                                	<td data-th-text="${grupo.fecha_fin}">Text ...</td>
                                                 	<td data-th-text="${grupo.fk_id_profesor.nombre}">Text ...</td>
                                                 	<td data-th-text="${grupo.fk_id_profesor.apellido_paterno}">Text ...</td>
+                                                	<td data-th-text="${grupo.fecha_inicio.getDay() + ' - ' + (grupo.fecha_inicio.getMonth()+1) + ' - ' + (grupo.fecha_inicio.getYear()+1900)}">Text ...</td>
+                                                	<td data-th-text="${grupo.fecha_fin.getDay() + ' - ' + (grupo.fecha_fin.getMonth()+1) + ' - ' + (grupo.fecha_fin.getYear()+1900)}">Text ...</td>
                                                 	<td data-th-text="${grupo.getInscripciones().size()}">Text ...</td>
                                                 </tr>
                                             </tbody>
