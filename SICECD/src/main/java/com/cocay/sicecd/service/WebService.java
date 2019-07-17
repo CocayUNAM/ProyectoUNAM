@@ -38,6 +38,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 
@@ -55,6 +57,7 @@ public class WebService {
 	Logging log;
 	@Value("${ws.url_key}")
 	private String key;
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	public interface ReturnTypeOne {
 	}
@@ -119,6 +122,7 @@ public class WebService {
 		LinkedList<Url_ws_inscripcion> links = new LinkedList<>(urls_inscripcion.findVarios());
 
 		if (links.size() == 0) {
+			LOGGER.debug("No hay urls");
 			throw new Exception("No hay urls");
 		}
 
@@ -127,8 +131,8 @@ public class WebService {
 			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
 			System.out.println(json);
 			insert_Grade(json);
-			// log.setTrace(LogTypes.ACTUALIZAR_PROFESOR,"Se agrego un profesor");
-			// log.setTrace(LogTypes.AGREGAR_PROFESOR,"Se actualizo un profesor");
+			log.setTrace(LogTypes.ACTUALIZAR_PROFESOR,"Se agrego un profesor");
+			log.setTrace(LogTypes.AGREGAR_PROFESOR,"Se actualizo un profesor");
 
 		}
 
