@@ -113,9 +113,9 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="fnac">Fecha de nacimiento<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="fnac">Fecha de nacimiento (de no cambiar insertar la anterior)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="fnac" name="fnac" th:value="${asesor.fechaNac}">
+                                                    <input type="date" class="form-control" id="fnac" name="fnac" th:text="${asesor.fechaNac}"}>
                                                 </div>
                                             </div>
                                             
@@ -180,6 +180,11 @@
 	$(document).ready(function() {
 		
 			let idu = [[${asesor.pk_id_profesor}]];
+			
+			let fecha = [[${asesor.fechaNac}]];
+
+			document.getElementById("fnac").value  = fecha;
+
 	
 			//cambio de correo
 			let cor=$("#correo").val();
@@ -264,14 +269,6 @@
 		                    
 		                    nombre: {
 		                    	message: ' Verifica que sea un nombre valido '
-		                    }
-		        		}
-		        	},
-		        	
-		        	fnac : {
-		        		validators: {
-			        		notEmpty: {
-		                        message: ' La fecha no puede estar vacia '
 		                    }
 		        		}
 		        	},

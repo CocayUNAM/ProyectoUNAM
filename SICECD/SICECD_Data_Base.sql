@@ -349,16 +349,18 @@ INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B001',
 INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B002', 'Matematicas 2', 1, 40);
 INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('B003', 'Matematicas 3', 1, 40);
 
-INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (1, '001', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
-INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (1, '002', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
-INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (5, '001', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
+INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin, fk_id_profesor) VALUES (1, '001', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00', 1);
+INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin, fk_id_profesor) VALUES (1, '002', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00', 2);
+INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin, fk_id_profesor) VALUES (5, '001', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00', 3);
 COMMIT;
 
-INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (1, 1);
-INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (2, 2);
-INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (3, 3);
-INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (1, 4);
+INSERT INTO public.inscripcion(aprobado, calif, fk_id_grupo, fk_id_profesor) VALUES (true, 6, 1, 1);
+INSERT INTO public.inscripcion(aprobado, calif, fk_id_grupo, fk_id_profesor) VALUES (true, 9, 1, 2);
+INSERT INTO public.inscripcion(aprobado, calif, fk_id_grupo, fk_id_profesor) VALUES (false, 5, 2, 3);
+INSERT INTO public.inscripcion(aprobado, calif, fk_id_grupo, fk_id_profesor) VALUES (true, 9, 1, 4);
 COMMIT;
+
+
 
 /*
 Autor: Juan Carlos Hernández de Anda

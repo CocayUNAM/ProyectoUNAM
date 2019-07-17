@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "Curso")
@@ -37,9 +38,11 @@ public class Curso {
 	int horas;
 	
 	@Column(name = "f_inicio", nullable = true)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date fInicio;
 	
 	@Column(name = "f_termino", nullable = true)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date fTermino;
 	
 	@ManyToOne(targetEntity=Tipo_curso.class)
