@@ -51,8 +51,8 @@
                                                 	<td data-th-text="${curso.fk_id_tipo_curso.nombre}">Text ...</td>
                                                 	<td data-th-text="${curso.clave}">Text ...</td>
                                                 	<td data-th-text="${curso.nombre}">Text ...</td>
-                                                	<td data-th-text="${curso.fInicio.getDay() + ' - ' + (curso.fInicio.getMonth()+1) + ' - ' + (curso.fInicio.getYear()+1900)}">Text ...</td>
-                                                	<td data-th-text="${curso.fTermino.getDay() + ' - ' + (curso.fTermino.getMonth()+1) + ' - ' + (curso.fTermino.getYear()+1900)}">Text ...</td>
+                                                	<td data-th-text="${#dates.format(curso.fInicio,'dd-MMM-yyyy')}">Text ...</td>
+                                                	<td data-th-text="${#dates.format(curso.fTermino,'dd-MMM-yyyy')}">Text ...</td>
                                                 </tr>
                                             </tbody>
                                         </table>
