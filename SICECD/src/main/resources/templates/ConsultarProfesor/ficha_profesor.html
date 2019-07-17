@@ -131,8 +131,8 @@
 													<td data-th-text="${grupo.fk_id_curso.fk_id_tipo_curso.nombre}">Tipo de curso</td>
 													<td data-th-text="${grupo.fk_id_curso.nombre}">Curso</td>
 													<td data-th-text="${grupo.clave}">Grupo</td>
-													<td data-th-text="${grupo.fk_id_curso.fInicio.getDay() + ' - ' + (grupo.fk_id_curso.fInicio.getMonth()+1) + ' - ' + (grupo.fk_id_curso.fInicio.getYear()+1900)}">Fecha de inicio</td>
-													<td data-th-text="${grupo.fk_id_curso.fTermino.getDay() + ' - ' + (grupo.fk_id_curso.fTermino.getMonth()+1) + ' - ' + (grupo.fk_id_curso.fTermino.getYear()+1900)}">Fecha de término</td>
+													<td data-th-text="${#dates.format(grupo.fk_id_curso.fInicio,'dd-MMM-yyyy')}">Text ...</td>
+													<td data-th-text="${#dates.format(grupo.fk_id_curso.fTermino,'dd-MMM-yyyy')}">Text ...</td>
 													<td>-----</td>
 												</tr>
 												<tr data-th-each="ins : ${ins}">
@@ -140,8 +140,8 @@
 													<td data-th-text="${ins.fk_id_grupo.fk_id_curso.fk_id_tipo_curso.nombre}">Tipo de curso</td>
 													<td data-th-text="${ins.fk_id_grupo.fk_id_curso.nombre}">Curso</td>
 													<td data-th-text="${ins.fk_id_grupo.clave}">Grupo</td>
-													<td data-th-text="${ins.fk_id_grupo.fk_id_curso.fInicio.getDay() + ' - ' + (ins.fk_id_grupo.fk_id_curso.fInicio.getMonth()+1) + ' - ' + (ins.fk_id_grupo.fk_id_curso.fInicio.getYear()+1900)}">Fecha de inicio</td>
-													<td data-th-text="${ins.fk_id_grupo.fk_id_curso.fTermino.getDay() + ' - ' + (ins.fk_id_grupo.fk_id_curso.fTermino.getMonth()+1) + ' - ' + (ins.fk_id_grupo.fk_id_curso.fTermino.getYear()+1900)}">Fecha de término</td>
+													<td data-th-text="${#dates.format(ins.fk_id_grupo.fk_id_curso.fInicio,'dd-MMM-yyyy')}">Text ...</td>
+													<td data-th-text="${#dates.format(ins.fk_id_grupo.fk_id_curso.fTermino,'dd-MMM-yyyy')}">Text ...</td>
 													<td data-th-text="${ins.calif}">Calificación</td>
 												</tr>
 											</tbody>
