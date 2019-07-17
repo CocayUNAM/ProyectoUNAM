@@ -10276,3 +10276,996 @@ java.lang.Exception: No hay urls
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 11:56:30,010 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 11:57:18,442 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-5] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 11:57:18,471 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-5] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 11:57:18,496 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2019-07-17 11:57:18,532 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2019-07-17 11:57:19,601 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 1076 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 11:57:19,603 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 11:57:23,981 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 11:57:24,667 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 682ms. Found 21 repository interfaces.
+2019-07-17 11:57:25,271 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$27bdd742] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 11:57:26,375 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 11:57:26,384 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 11:57:26,391 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 11:57:26,399 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 11:57:26,917 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 11:57:26,918 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 7281 ms
+2019-07-17 11:57:27,562 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2019-07-17 11:57:27,706 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2019-07-17 11:57:27,735 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 11:57:29,305 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 11:57:29,721 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 11:57:29,753 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@ee03bd3
+2019-07-17 11:57:33,242 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 11:57:33,268 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 11:57:36,400 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 11:57:37,875 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@747b7846, org.springframework.security.web.context.SecurityContextPersistenceFilter@3230efcb, org.springframework.security.web.header.HeaderWriterFilter@1da2f196, org.springframework.security.web.authentication.logout.LogoutFilter@2ad596dd, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@15ca34a2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1c1fb2f8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@16bbdeac, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@355cb9f4, org.springframework.security.web.session.SessionManagementFilter@2313f82e, org.springframework.security.web.access.ExceptionTranslationFilter@f1432bf, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5ab58849]
+2019-07-17 11:57:37,971 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 11:57:38,719 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 11:57:38,722 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 11:57:38,728 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 11:57:39,099 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 11:57:40,318 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 11:57:40,394 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 11:57:40,398 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 21.148 seconds (JVM running for 407.118)
+2019-07-17 11:57:40,406 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 11:57:42,958 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-10] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 11:57:42,973 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-10] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 11:57:42,978 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown initiated...
+2019-07-17 11:57:42,997 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown completed.
+2019-07-17 11:57:44,169 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 1076 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 11:57:44,172 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 11:57:48,584 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 11:57:49,243 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 653ms. Found 21 repository interfaces.
+2019-07-17 11:57:49,869 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$27bdd742] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 11:57:50,777 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 11:57:50,861 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 11:57:50,867 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 11:57:50,899 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 11:57:51,471 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 11:57:51,472 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 7196 ms
+2019-07-17 11:57:52,770 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Starting...
+2019-07-17 11:57:52,913 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Start completed.
+2019-07-17 11:57:52,938 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 11:57:53,928 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 11:57:54,329 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 11:57:54,345 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@ee03bd3
+2019-07-17 11:57:57,252 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 11:57:57,277 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 11:57:58,882 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 11:58:01,132 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5c270e9a, org.springframework.security.web.context.SecurityContextPersistenceFilter@73320dad, org.springframework.security.web.header.HeaderWriterFilter@9ee5db3, org.springframework.security.web.authentication.logout.LogoutFilter@5ac1671c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@71558d48, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@62d6cd51, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@192e177d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@22987597, org.springframework.security.web.session.SessionManagementFilter@6714871b, org.springframework.security.web.access.ExceptionTranslationFilter@54e8a3b1, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@70a8431d]
+2019-07-17 11:58:01,167 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 11:58:01,587 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 11:58:01,592 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 11:58:01,597 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 11:58:01,933 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 11:58:02,874 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 11:58:02,940 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 11:58:02,958 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 19.245 seconds (JVM running for 429.677)
+2019-07-17 11:58:02,964 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 11:58:14,846 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-17] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 11:58:14,897 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-17] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 11:58:14,909 INFO com.zaxxer.hikari.HikariDataSource [Thread-17] HikariPool-3 - Shutdown initiated...
+2019-07-17 11:58:14,956 INFO com.zaxxer.hikari.HikariDataSource [Thread-17] HikariPool-3 - Shutdown completed.
+2019-07-17 11:58:16,572 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 1076 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 11:58:16,574 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 11:58:21,280 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 11:58:21,982 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 643ms. Found 21 repository interfaces.
+2019-07-17 11:58:22,515 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$27bdd742] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 11:58:22,962 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 11:58:22,974 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 11:58:22,981 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 11:58:22,995 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 11:58:23,271 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 11:58:23,273 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 6676 ms
+2019-07-17 11:58:23,997 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-4 - Starting...
+2019-07-17 11:58:24,189 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-4 - Start completed.
+2019-07-17 11:58:24,222 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 11:58:24,752 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 11:58:25,142 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 11:58:25,160 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@ee03bd3
+2019-07-17 11:58:28,119 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 11:58:28,222 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 11:58:29,889 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 11:58:31,403 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@179d424b, org.springframework.security.web.context.SecurityContextPersistenceFilter@30cf6334, org.springframework.security.web.header.HeaderWriterFilter@6dae6996, org.springframework.security.web.authentication.logout.LogoutFilter@55a67678, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4449a65e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2a0dcb40, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3471f54e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@13e2465f, org.springframework.security.web.session.SessionManagementFilter@12ee7b1b, org.springframework.security.web.access.ExceptionTranslationFilter@7facbe8b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7e7ba0ee]
+2019-07-17 11:58:31,521 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 11:58:32,232 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 11:58:32,247 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 11:58:32,251 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 11:58:32,563 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 11:58:33,620 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 11:58:33,643 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 11:58:33,662 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 17.509 seconds (JVM running for 460.381)
+2019-07-17 11:58:33,667 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 11:58:59,808 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 8212 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 11:58:59,824 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 11:59:00,173 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-07-17 11:59:00,178 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-07-17 11:59:08,617 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 11:59:09,925 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 1240ms. Found 21 repository interfaces.
+2019-07-17 11:59:13,020 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$1a76ff09] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 11:59:17,193 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 11:59:17,307 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 11:59:17,494 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 11:59:17,512 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 11:59:17,573 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk-11.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_101/bin/server;C:/Program Files/Java/jre1.8.0_101/bin;C:/Program Files/Java/jre1.8.0_101/lib/amd64;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\CodeGear\RAD Studio\5.0\bin;C:\Users\Public\Documents\RAD Studio\5.0\Bpl;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.0.2\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.0.2\bin;c:\mingw\bin;c:\mingw\libexec\gcc\x86_64-pc-mingw32\6.2.0;C:\Python34\Lib\site-packages\PyQt4;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Hewlett-Packard\SimplePass\;c:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static\;C:\Program Files\Java\jdk7\bin;C:\MinGW\mingw32\bin;C:\MinGW\msys\1.0\bin;C:\Program Files\Git\cmd;C:\Windows\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Haskell Platform\8.0.2\mingw\bin;C:\Program Files\nodejs\;C:\Users\Andres\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Andres\AppData\Local\Programs\Python\Python37-32\;C:\Users\Andres\AppData\Roaming\local\bin;C:\Users\Andres\AppData\Roaming\cabal\bin;C:\Users\Andres\Anaconda3;C:\Users\Andres\Anaconda3\Scripts;C:\Users\Andres\Anaconda3\Library\bin;C:\Program Files\Java\jdk-11.0.2\bin;C:\Users\Andres\AppData\Roaming\npm;C:\;C:\Users\Andres\AppData\Local\Programs\MiKTeX 2.9\miktex\bin\x64\;C:\Users\Andres\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Andres\Downloads\sts-4.2.0.RELEASE;;.]
+2019-07-17 11:59:18,862 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 11:59:18,866 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 18683 ms
+2019-07-17 11:59:21,630 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2019-07-17 11:59:22,238 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2019-07-17 11:59:22,615 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 11:59:23,218 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.3.7.Final}
+2019-07-17 11:59:23,238 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2019-07-17 11:59:24,409 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-17 11:59:25,633 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 11:59:26,362 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 11:59:26,399 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@6f710103
+2019-07-17 11:59:32,506 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 11:59:32,605 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 11:59:39,647 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 11:59:44,791 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4d483dc, org.springframework.security.web.context.SecurityContextPersistenceFilter@24972a3f, org.springframework.security.web.header.HeaderWriterFilter@4be9782a, org.springframework.security.web.authentication.logout.LogoutFilter@4c78c319, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@78b175, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cae040c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c581fa5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@687de5ed, org.springframework.security.web.session.SessionManagementFilter@41e8ece5, org.springframework.security.web.access.ExceptionTranslationFilter@15c7ed61, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@37da81a3]
+2019-07-17 11:59:44,933 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 11:59:47,235 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 11:59:47,347 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 11:59:47,564 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 11:59:48,473 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 11:59:50,540 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 11:59:50,685 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 11:59:50,800 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 53.141 seconds (JVM running for 57.929)
+2019-07-17 11:59:56,500 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-17 11:59:56,504 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2019-07-17 11:59:56,544 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 30 ms
+2019-07-17 11:59:57,321 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [605] milliseconds.
+2019-07-17 12:00:11,628 WARN org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-3] No mapping for GET /AdministracionModificaciones/js/scripts.js
+2019-07-17 12:00:13,255 WARN org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-10] No mapping for GET /AdministracionModificaciones/js/scripts.js
+2019-07-17 12:00:22,042 WARN org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-6] No mapping for GET /AdministracionRegistroManual/img/favicon.ico
+2019-07-17 12:00:30,083 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:01:16,367 WARN org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-4] No mapping for GET /AdministracionModificaciones/js/scripts.js
+2019-07-17 12:01:18,506 WARN org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-1] No mapping for GET /AdministracionModificaciones/js/scripts.js
+2019-07-17 12:01:30,006 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:02:30,005 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:03:30,004 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:03:31,699 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-5] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 12:03:31,728 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-5] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:03:31,749 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2019-07-17 12:03:31,796 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2019-07-17 12:03:32,687 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 8212 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:03:32,691 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:03:35,778 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:03:36,587 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 802ms. Found 21 repository interfaces.
+2019-07-17 12:03:37,126 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$1a76ff09] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:03:37,693 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:03:37,707 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:03:37,714 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:03:37,717 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:03:38,040 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:03:38,044 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 5339 ms
+2019-07-17 12:03:38,683 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2019-07-17 12:03:39,112 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2019-07-17 12:03:39,139 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:03:39,853 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:03:40,237 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:03:40,242 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@6f710103
+2019-07-17 12:03:43,061 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:03:43,085 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:03:44,227 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:03:45,784 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@16351d4a, org.springframework.security.web.context.SecurityContextPersistenceFilter@49074e46, org.springframework.security.web.header.HeaderWriterFilter@1a3ee66a, org.springframework.security.web.authentication.logout.LogoutFilter@12a4830a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@54af3eb2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@b97d55f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@66f77ff1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5f9c8e0b, org.springframework.security.web.session.SessionManagementFilter@161c5762, org.springframework.security.web.access.ExceptionTranslationFilter@4a111869, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6c5f4f0c]
+2019-07-17 12:03:45,844 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:03:46,437 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:03:46,445 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:03:46,451 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:03:46,663 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:03:47,428 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:03:47,447 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:03:47,452 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 14.908 seconds (JVM running for 294.581)
+2019-07-17 12:03:47,459 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 12:04:30,066 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:04:36,042 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-10] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 12:04:36,072 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-10] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:04:36,110 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown initiated...
+2019-07-17 12:04:36,147 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown completed.
+2019-07-17 12:04:37,691 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 8212 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:04:37,693 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:04:58,909 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 6924 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:04:58,928 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:04:59,243 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-07-17 12:04:59,244 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-07-17 12:05:06,698 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:05:07,689 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 951ms. Found 21 repository interfaces.
+2019-07-17 12:05:10,003 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$95067194] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:05:13,219 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:05:13,284 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:05:13,338 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:05:13,342 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:05:13,378 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk-11.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_101/bin/server;C:/Program Files/Java/jre1.8.0_101/bin;C:/Program Files/Java/jre1.8.0_101/lib/amd64;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\CodeGear\RAD Studio\5.0\bin;C:\Users\Public\Documents\RAD Studio\5.0\Bpl;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.0.2\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.0.2\bin;c:\mingw\bin;c:\mingw\libexec\gcc\x86_64-pc-mingw32\6.2.0;C:\Python34\Lib\site-packages\PyQt4;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Hewlett-Packard\SimplePass\;c:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static\;C:\Program Files\Java\jdk7\bin;C:\MinGW\mingw32\bin;C:\MinGW\msys\1.0\bin;C:\Program Files\Git\cmd;C:\Windows\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Haskell Platform\8.0.2\mingw\bin;C:\Program Files\nodejs\;C:\Users\Andres\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Andres\AppData\Local\Programs\Python\Python37-32\;C:\Users\Andres\AppData\Roaming\local\bin;C:\Users\Andres\AppData\Roaming\cabal\bin;C:\Users\Andres\Anaconda3;C:\Users\Andres\Anaconda3\Scripts;C:\Users\Andres\Anaconda3\Library\bin;C:\Program Files\Java\jdk-11.0.2\bin;C:\Users\Andres\AppData\Roaming\npm;C:\;C:\Users\Andres\AppData\Local\Programs\MiKTeX 2.9\miktex\bin\x64\;C:\Users\Andres\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Andres\Downloads\sts-4.2.0.RELEASE;;.]
+2019-07-17 12:05:14,138 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:05:14,141 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 14892 ms
+2019-07-17 12:05:16,931 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2019-07-17 12:05:17,509 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2019-07-17 12:05:17,806 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:05:18,256 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.3.7.Final}
+2019-07-17 12:05:18,268 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2019-07-17 12:05:19,295 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-17 12:05:20,439 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:05:21,081 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:05:21,122 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@5ad89673
+2019-07-17 12:05:27,176 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:05:27,244 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:05:32,975 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:05:36,491 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6aab4da9, org.springframework.security.web.context.SecurityContextPersistenceFilter@54afb005, org.springframework.security.web.header.HeaderWriterFilter@34c0c892, org.springframework.security.web.authentication.logout.LogoutFilter@306a9935, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2e41f5dc, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c4c03b0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2a5d0c94, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5b604e24, org.springframework.security.web.session.SessionManagementFilter@434a5404, org.springframework.security.web.access.ExceptionTranslationFilter@2fa9476f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@47cece76]
+2019-07-17 12:05:36,644 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:05:38,451 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:05:38,517 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:05:38,695 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:05:39,878 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:05:41,524 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:05:41,779 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:05:41,842 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 45.342 seconds (JVM running for 49.885)
+2019-07-17 12:05:46,224 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-17 12:05:46,230 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2019-07-17 12:05:46,254 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 21 ms
+2019-07-17 12:06:30,078 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:06:44,648 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-5] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 12:06:44,684 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-5] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:06:44,708 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2019-07-17 12:06:44,749 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2019-07-17 12:06:45,881 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 6924 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:06:45,889 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:06:50,852 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:06:51,560 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 698ms. Found 21 repository interfaces.
+2019-07-17 12:06:51,978 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$95067194] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:06:52,350 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:06:52,356 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:06:52,359 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:06:52,363 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:06:52,617 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:06:52,645 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 6727 ms
+2019-07-17 12:06:53,197 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2019-07-17 12:06:53,371 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2019-07-17 12:06:53,404 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:06:54,208 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:06:54,631 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:06:54,659 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@5ad89673
+2019-07-17 12:06:57,291 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:06:57,323 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:06:59,811 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:07:01,736 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2e235c49, org.springframework.security.web.context.SecurityContextPersistenceFilter@7ad8168, org.springframework.security.web.header.HeaderWriterFilter@24d890af, org.springframework.security.web.authentication.logout.LogoutFilter@72ce6e7a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@534e4859, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@10e4495d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7059ee06, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6397bbdf, org.springframework.security.web.session.SessionManagementFilter@55cafbec, org.springframework.security.web.access.ExceptionTranslationFilter@72ecb646, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@d57a47c]
+2019-07-17 12:07:01,780 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:07:02,522 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:07:02,525 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:07:02,532 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:07:02,769 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:07:03,427 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:07:03,441 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:07:03,447 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 17.814 seconds (JVM running for 131.489)
+2019-07-17 12:07:03,452 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 12:07:08,447 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-17 12:07:08,450 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2019-07-17 12:07:08,473 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 11 ms
+2019-07-17 12:07:30,071 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:07:43,312 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-10] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 12:07:43,323 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-10] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:07:43,340 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown initiated...
+2019-07-17 12:07:43,391 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown completed.
+2019-07-17 12:07:44,614 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 6924 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:07:44,616 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:07:48,429 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:07:49,248 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 815ms. Found 21 repository interfaces.
+2019-07-17 12:07:49,838 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$95067194] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:07:50,527 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:07:50,539 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:07:50,544 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:07:50,547 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:07:50,757 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:07:50,758 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 6124 ms
+2019-07-17 12:07:51,079 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Starting...
+2019-07-17 12:07:51,194 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Start completed.
+2019-07-17 12:07:51,222 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:07:51,829 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:07:52,206 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:07:52,210 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@5ad89673
+2019-07-17 12:07:54,640 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:07:54,680 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:07:55,681 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:07:57,229 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@cda0d0f, org.springframework.security.web.context.SecurityContextPersistenceFilter@609d1040, org.springframework.security.web.header.HeaderWriterFilter@784c5975, org.springframework.security.web.authentication.logout.LogoutFilter@7a1860ec, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5a06e8f5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@16303291, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@c2d46d3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6b41bf4c, org.springframework.security.web.session.SessionManagementFilter@5e6504ce, org.springframework.security.web.access.ExceptionTranslationFilter@64b24d37, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6aa478b3]
+2019-07-17 12:07:57,261 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:07:57,827 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:07:57,831 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:07:57,844 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:07:58,061 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:07:58,704 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:07:58,724 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:07:58,730 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 14.428 seconds (JVM running for 186.772)
+2019-07-17 12:07:58,735 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 12:08:03,341 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-17 12:08:03,346 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2019-07-17 12:08:03,362 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 10 ms
+2019-07-17 12:08:30,065 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:09:30,007 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:09:48,339 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-17] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 12:09:48,347 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-17] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:09:48,352 INFO com.zaxxer.hikari.HikariDataSource [Thread-17] HikariPool-3 - Shutdown initiated...
+2019-07-17 12:09:48,373 INFO com.zaxxer.hikari.HikariDataSource [Thread-17] HikariPool-3 - Shutdown completed.
+2019-07-17 12:09:49,244 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 6924 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:09:49,246 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:09:51,594 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:09:52,012 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 411ms. Found 21 repository interfaces.
+2019-07-17 12:09:52,276 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$95067194] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:09:52,525 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:09:52,531 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:09:52,533 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:09:52,537 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:09:52,738 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:09:52,740 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3483 ms
+2019-07-17 12:09:53,060 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-4 - Starting...
+2019-07-17 12:09:53,228 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-4 - Start completed.
+2019-07-17 12:09:53,252 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:09:54,058 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:09:54,433 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:09:54,446 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@5ad89673
+2019-07-17 12:09:56,245 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:09:56,267 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:09:57,226 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:09:58,180 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3fc26015, org.springframework.security.web.context.SecurityContextPersistenceFilter@67f6601e, org.springframework.security.web.header.HeaderWriterFilter@5fdf1c7a, org.springframework.security.web.authentication.logout.LogoutFilter@3e3a288e, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5183fc1d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c61fa5f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2b7a0b65, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1d09c55, org.springframework.security.web.session.SessionManagementFilter@430acbf7, org.springframework.security.web.access.ExceptionTranslationFilter@1deed245, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4f9593de]
+2019-07-17 12:09:58,291 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:09:59,077 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:09:59,083 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:09:59,088 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:09:59,381 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:09:59,989 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:10:00,002 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:10:00,007 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 10.927 seconds (JVM running for 308.049)
+2019-07-17 12:10:00,011 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 12:10:30,066 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:11:07,315 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-24] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 12:11:07,324 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-24] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:11:07,329 INFO com.zaxxer.hikari.HikariDataSource [Thread-24] HikariPool-4 - Shutdown initiated...
+2019-07-17 12:11:07,358 INFO com.zaxxer.hikari.HikariDataSource [Thread-24] HikariPool-4 - Shutdown completed.
+2019-07-17 12:11:08,406 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 6924 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:11:08,408 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:11:10,480 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:11:10,875 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 392ms. Found 21 repository interfaces.
+2019-07-17 12:11:11,152 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$95067194] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:11:11,421 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:11:11,426 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:11:11,428 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:11:11,433 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:11:11,647 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:11:11,648 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3124 ms
+2019-07-17 12:11:12,051 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-5 - Starting...
+2019-07-17 12:11:12,140 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-5 - Start completed.
+2019-07-17 12:11:12,164 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:11:12,554 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:11:12,902 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:11:12,913 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@5ad89673
+2019-07-17 12:11:14,697 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:11:14,719 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:11:15,875 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:11:17,127 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@d8e2cf8, org.springframework.security.web.context.SecurityContextPersistenceFilter@1fe4efaa, org.springframework.security.web.header.HeaderWriterFilter@4e654974, org.springframework.security.web.authentication.logout.LogoutFilter@129ea1ae, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1e3ce413, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@454ed273, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@21041d47, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4f1f2a63, org.springframework.security.web.session.SessionManagementFilter@d27d1d8, org.springframework.security.web.access.ExceptionTranslationFilter@4643867b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@564ecae4]
+2019-07-17 12:11:17,252 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:11:17,672 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:11:17,683 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:11:17,688 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:11:17,943 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:11:19,241 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:11:19,283 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:11:19,291 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 11.122 seconds (JVM running for 387.333)
+2019-07-17 12:11:19,307 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 12:11:30,095 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:12:17,948 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-31] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 12:12:17,955 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-31] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:12:17,958 INFO com.zaxxer.hikari.HikariDataSource [Thread-31] HikariPool-5 - Shutdown initiated...
+2019-07-17 12:12:17,970 INFO com.zaxxer.hikari.HikariDataSource [Thread-31] HikariPool-5 - Shutdown completed.
+2019-07-17 12:12:18,764 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 6924 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:12:18,769 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:12:20,280 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:12:20,572 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 290ms. Found 21 repository interfaces.
+2019-07-17 12:12:20,751 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$95067194] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:12:21,108 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:12:21,112 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:12:21,157 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:12:21,161 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:12:21,319 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:12:21,320 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 2543 ms
+2019-07-17 12:12:21,627 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-6 - Starting...
+2019-07-17 12:12:21,721 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-6 - Start completed.
+2019-07-17 12:12:21,743 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:12:22,058 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:12:22,316 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:12:22,323 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@5ad89673
+2019-07-17 12:12:24,283 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:12:24,306 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:12:25,743 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:12:26,634 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2cb1c7d, org.springframework.security.web.context.SecurityContextPersistenceFilter@28cb0536, org.springframework.security.web.header.HeaderWriterFilter@38ea3b3f, org.springframework.security.web.authentication.logout.LogoutFilter@640773a7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@18bda8d4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@b03bd61, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@62d94cfd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1a4cfb6, org.springframework.security.web.session.SessionManagementFilter@1b03ab7a, org.springframework.security.web.access.ExceptionTranslationFilter@5f5f8688, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1fdcefd1]
+2019-07-17 12:12:26,680 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:12:27,069 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:12:27,072 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:12:27,077 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:12:27,208 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:12:27,636 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:12:27,648 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:12:27,653 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 9.059 seconds (JVM running for 455.695)
+2019-07-17 12:12:27,658 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 12:12:30,103 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:12:33,259 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-38] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 12:12:33,265 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-38] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:12:33,269 INFO com.zaxxer.hikari.HikariDataSource [Thread-38] HikariPool-6 - Shutdown initiated...
+2019-07-17 12:12:33,285 INFO com.zaxxer.hikari.HikariDataSource [Thread-38] HikariPool-6 - Shutdown completed.
+2019-07-17 12:12:34,096 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 6924 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:12:34,100 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:12:35,361 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:12:35,728 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 366ms. Found 21 repository interfaces.
+2019-07-17 12:12:35,949 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$95067194] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:12:36,131 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:12:36,175 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:12:36,177 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:12:36,184 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:12:36,444 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:12:36,446 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 2330 ms
+2019-07-17 12:12:36,843 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-7 - Starting...
+2019-07-17 12:12:36,952 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-7 - Start completed.
+2019-07-17 12:12:36,974 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:12:37,433 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:12:37,763 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:12:37,767 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@5ad89673
+2019-07-17 12:12:39,407 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:12:39,494 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:12:41,014 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:12:41,773 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1af9fa84, org.springframework.security.web.context.SecurityContextPersistenceFilter@364e8276, org.springframework.security.web.header.HeaderWriterFilter@4d58984b, org.springframework.security.web.authentication.logout.LogoutFilter@820e97c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3464ea5f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1569425f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1cfa1a79, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@70dc4a82, org.springframework.security.web.session.SessionManagementFilter@68bf9e24, org.springframework.security.web.access.ExceptionTranslationFilter@d95d222, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3b3a061a]
+2019-07-17 12:12:41,803 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:12:42,114 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:12:42,117 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:12:42,120 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:12:42,255 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:12:43,000 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:12:43,015 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:12:43,019 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 9.03 seconds (JVM running for 471.061)
+2019-07-17 12:12:43,024 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 12:12:56,223 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 10092 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:12:56,237 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:12:56,543 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-07-17 12:12:56,545 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-07-17 12:13:02,006 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:13:03,333 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 1278ms. Found 21 repository interfaces.
+2019-07-17 12:13:05,628 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$b8a35845] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:13:09,413 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:13:09,521 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:13:09,575 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:13:09,594 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:13:09,649 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk-11.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_101/bin/server;C:/Program Files/Java/jre1.8.0_101/bin;C:/Program Files/Java/jre1.8.0_101/lib/amd64;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\CodeGear\RAD Studio\5.0\bin;C:\Users\Public\Documents\RAD Studio\5.0\Bpl;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.0.2\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.0.2\bin;c:\mingw\bin;c:\mingw\libexec\gcc\x86_64-pc-mingw32\6.2.0;C:\Python34\Lib\site-packages\PyQt4;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Hewlett-Packard\SimplePass\;c:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static\;C:\Program Files\Java\jdk7\bin;C:\MinGW\mingw32\bin;C:\MinGW\msys\1.0\bin;C:\Program Files\Git\cmd;C:\Windows\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Haskell Platform\8.0.2\mingw\bin;C:\Program Files\nodejs\;C:\Users\Andres\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Andres\AppData\Local\Programs\Python\Python37-32\;C:\Users\Andres\AppData\Roaming\local\bin;C:\Users\Andres\AppData\Roaming\cabal\bin;C:\Users\Andres\Anaconda3;C:\Users\Andres\Anaconda3\Scripts;C:\Users\Andres\Anaconda3\Library\bin;C:\Program Files\Java\jdk-11.0.2\bin;C:\Users\Andres\AppData\Roaming\npm;C:\;C:\Users\Andres\AppData\Local\Programs\MiKTeX 2.9\miktex\bin\x64\;C:\Users\Andres\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Andres\Downloads\sts-4.2.0.RELEASE;;.]
+2019-07-17 12:13:10,906 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:13:10,910 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 14361 ms
+2019-07-17 12:13:13,447 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2019-07-17 12:13:14,046 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2019-07-17 12:13:14,476 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:13:14,844 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.3.7.Final}
+2019-07-17 12:13:14,855 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2019-07-17 12:13:15,685 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-17 12:13:17,260 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:13:17,822 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:13:17,867 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@2334eac2
+2019-07-17 12:13:22,142 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:13:22,240 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:13:27,099 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:13:32,292 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3b836602, org.springframework.security.web.context.SecurityContextPersistenceFilter@14437bb7, org.springframework.security.web.header.HeaderWriterFilter@163bc06c, org.springframework.security.web.authentication.logout.LogoutFilter@540d7de3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4dd719b6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@61aa828f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@11072c54, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@b01b193, org.springframework.security.web.session.SessionManagementFilter@1a50f88f, org.springframework.security.web.access.ExceptionTranslationFilter@68993c59, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6d655d48]
+2019-07-17 12:13:32,647 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:13:35,159 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:13:35,252 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:13:35,497 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:13:36,543 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:13:37,903 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:13:38,049 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:13:38,073 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 43.982 seconds (JVM running for 46.913)
+2019-07-17 12:14:03,921 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-17 12:14:03,924 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2019-07-17 12:14:03,955 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 29 ms
+2019-07-17 12:14:04,579 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [491] milliseconds.
+2019-07-17 12:14:30,059 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:15:01,894 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-5] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 12:15:01,916 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-5] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:15:01,925 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2019-07-17 12:15:01,953 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2019-07-17 12:15:02,765 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 10092 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:15:02,767 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:15:06,295 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:15:06,947 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 640ms. Found 21 repository interfaces.
+2019-07-17 12:15:07,585 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$b8a35845] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:15:08,046 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:15:08,057 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:15:08,072 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:15:08,082 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:15:08,327 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:15:08,329 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 5551 ms
+2019-07-17 12:15:08,809 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2019-07-17 12:15:08,924 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2019-07-17 12:15:08,958 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:15:09,414 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:15:09,764 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:15:09,771 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@2334eac2
+2019-07-17 12:15:12,391 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:15:12,417 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:15:13,871 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:15:16,559 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@75040fcf, org.springframework.security.web.context.SecurityContextPersistenceFilter@6511635, org.springframework.security.web.header.HeaderWriterFilter@2396ced3, org.springframework.security.web.authentication.logout.LogoutFilter@3f19ba17, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@41f7699c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@37e52e01, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@22909e78, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6ef00cd5, org.springframework.security.web.session.SessionManagementFilter@3a74ec19, org.springframework.security.web.access.ExceptionTranslationFilter@4cafa543, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@330d3093]
+2019-07-17 12:15:16,835 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:15:17,833 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:15:17,839 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:15:17,844 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:15:18,077 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:15:18,691 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:15:18,705 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:15:18,710 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 16.058 seconds (JVM running for 147.549)
+2019-07-17 12:15:18,716 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 12:15:30,066 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:15:55,938 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-10] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 12:15:55,947 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-10] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:15:55,950 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown initiated...
+2019-07-17 12:15:55,975 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown completed.
+2019-07-17 12:15:56,714 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 10092 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:15:56,774 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:15:59,205 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:15:59,709 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 501ms. Found 21 repository interfaces.
+2019-07-17 12:15:59,970 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$b8a35845] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:16:00,578 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:16:00,589 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:16:00,596 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:16:00,599 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:16:00,797 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:16:00,798 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3999 ms
+2019-07-17 12:16:01,400 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Starting...
+2019-07-17 12:16:01,625 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Start completed.
+2019-07-17 12:16:01,648 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:16:02,993 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:16:03,842 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:16:03,891 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@2334eac2
+2019-07-17 12:16:06,106 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:16:06,126 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:16:07,203 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:16:45,963 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 12960 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:16:45,978 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:16:46,334 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-07-17 12:16:46,335 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-07-17 12:16:52,003 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:16:53,086 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 1045ms. Found 21 repository interfaces.
+2019-07-17 12:16:55,126 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$45e627f8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:16:57,773 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:16:57,873 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:16:57,968 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:16:57,973 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:16:58,039 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk-11.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_101/bin/server;C:/Program Files/Java/jre1.8.0_101/bin;C:/Program Files/Java/jre1.8.0_101/lib/amd64;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\CodeGear\RAD Studio\5.0\bin;C:\Users\Public\Documents\RAD Studio\5.0\Bpl;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.0.2\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.0.2\bin;c:\mingw\bin;c:\mingw\libexec\gcc\x86_64-pc-mingw32\6.2.0;C:\Python34\Lib\site-packages\PyQt4;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Hewlett-Packard\SimplePass\;c:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static\;C:\Program Files\Java\jdk7\bin;C:\MinGW\mingw32\bin;C:\MinGW\msys\1.0\bin;C:\Program Files\Git\cmd;C:\Windows\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Haskell Platform\8.0.2\mingw\bin;C:\Program Files\nodejs\;C:\Users\Andres\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Andres\AppData\Local\Programs\Python\Python37-32\;C:\Users\Andres\AppData\Roaming\local\bin;C:\Users\Andres\AppData\Roaming\cabal\bin;C:\Users\Andres\Anaconda3;C:\Users\Andres\Anaconda3\Scripts;C:\Users\Andres\Anaconda3\Library\bin;C:\Program Files\Java\jdk-11.0.2\bin;C:\Users\Andres\AppData\Roaming\npm;C:\;C:\Users\Andres\AppData\Local\Programs\MiKTeX 2.9\miktex\bin\x64\;C:\Users\Andres\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Andres\Downloads\sts-4.2.0.RELEASE;;.]
+2019-07-17 12:16:59,011 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:16:59,015 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 12669 ms
+2019-07-17 12:17:00,368 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2019-07-17 12:17:00,803 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2019-07-17 12:17:01,136 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:17:01,581 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.3.7.Final}
+2019-07-17 12:17:01,595 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2019-07-17 12:17:02,507 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-07-17 12:17:03,629 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:17:04,352 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:17:04,377 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@1f67134f
+2019-07-17 12:17:08,470 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:17:08,564 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:17:12,352 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:17:14,652 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3ce1b4bd, org.springframework.security.web.context.SecurityContextPersistenceFilter@41ef6197, org.springframework.security.web.header.HeaderWriterFilter@2a50ea65, org.springframework.security.web.authentication.logout.LogoutFilter@24411f3f, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@357d3163, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3ff8b65e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@11aa2a21, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@54e07a67, org.springframework.security.web.session.SessionManagementFilter@3737f962, org.springframework.security.web.access.ExceptionTranslationFilter@602f532d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3f5ca46c]
+2019-07-17 12:17:14,829 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:17:16,198 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:17:16,246 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:17:16,505 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:17:17,590 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:17:18,903 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:17:19,123 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:17:19,143 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 35.485 seconds (JVM running for 38.58)
+2019-07-17 12:17:22,916 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-17 12:17:22,920 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2019-07-17 12:17:23,008 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 87 ms
+2019-07-17 12:17:23,666 WARN org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [390] milliseconds.
+2019-07-17 12:17:30,225 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:18:12,926 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-5] Shutting down ExecutorService 'taskScheduler'
+2019-07-17 12:18:12,951 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-5] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:18:12,960 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2019-07-17 12:18:12,986 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2019-07-17 12:18:13,924 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 12960 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\04-07-2019\ProyectoUNAM\SICECD)
+2019-07-17 12:18:13,969 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-07-17 12:18:16,726 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-17 12:18:17,317 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 587ms. Found 21 repository interfaces.
+2019-07-17 12:18:17,835 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$45e627f8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-17 12:18:18,210 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2019-07-17 12:18:18,218 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:18:18,232 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2019-07-17 12:18:18,242 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.16]
+2019-07-17 12:18:18,516 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-07-17 12:18:18,519 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 4535 ms
+2019-07-17 12:18:19,013 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2019-07-17 12:18:19,148 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2019-07-17 12:18:19,180 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-07-17 12:18:19,842 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2019-07-17 12:18:20,210 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000421: Disabling contextual LOB creation as hibernate.jdbc.lob.non_contextual_creation is true
+2019-07-17 12:18:20,214 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@1f67134f
+2019-07-17 12:18:22,585 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-07-17 12:18:22,610 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2019-07-17 12:18:23,665 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-07-17 12:18:24,672 INFO org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6eefe2e8, org.springframework.security.web.context.SecurityContextPersistenceFilter@2fbf4d3c, org.springframework.security.web.header.HeaderWriterFilter@385f137, org.springframework.security.web.authentication.logout.LogoutFilter@4c840437, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@51ed328, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3f4ec4d4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@136e8643, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@72d19794, org.springframework.security.web.session.SessionManagementFilter@1998d5ac, org.springframework.security.web.access.ExceptionTranslationFilter@670eede2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@10c899f1]
+2019-07-17 12:18:24,733 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-07-17 12:18:25,321 WARN org.springframework.boot.autoconfigure.batch.JpaBatchConfigurer [restartedMain] JPA does not support custom isolation levels, so locks may not be taken when launching Jobs
+2019-07-17 12:18:25,323 INFO org.springframework.batch.core.repository.support.JobRepositoryFactoryBean [restartedMain] No database type set, using meta data indicating: POSTGRES
+2019-07-17 12:18:25,338 INFO org.springframework.batch.core.launch.support.SimpleJobLauncher [restartedMain] No TaskExecutor has been set, defaulting to synchronous executor.
+2019-07-17 12:18:25,574 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [restartedMain] Initializing ExecutorService 'taskScheduler'
+2019-07-17 12:18:26,355 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2019-07-17 12:18:26,375 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2019-07-17 12:18:26,389 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started SicecdApplication in 12.696 seconds (JVM running for 105.826)
+2019-07-17 12:18:26,400 INFO org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2019-07-17 12:18:30,065 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:18:49,155 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-17 12:18:49,158 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2019-07-17 12:18:49,170 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 8 ms
+2019-07-17 12:19:30,004 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:20:30,007 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:21:30,005 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:22:30,005 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-17 12:23:30,008 ERROR org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler [scheduling-1] Unexpected error occurred in scheduled task.
+java.lang.Exception: No hay urls
+	at com.cocay.sicecd.service.WebService.get_Calificaciones(WebService.java:126)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:93)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)

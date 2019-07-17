@@ -312,9 +312,11 @@ public class ModificarUsuarios {
             }else {
                 if(!mod.getCertificado_doc().equals(originalName)) {
                     File archivo_anterior = new File(ruta + Integer.toString(mod.getPk_id_profesor()) + mod.getCertificado_doc());
-                    String laRuta = ruta + Integer.toString(mod.getPk_id_profesor()) + "/" +  mod.getCertificado_doc();
+                    String laRuta = "\\documentos\\10\\Algoritmo del Torneo.pdf";
                     System.out.println("----------La ruta del archivo anterior es: " + laRuta);
-                    archivo_anterior.delete();
+                    if(archivo_anterior.delete()) {
+                        System.out.println(laRuta +" File deleted");
+                    }else System.out.println("archivo: " + laRuta + " doesn't exist");
                 }
             }
             saveConstancia(constancia, mod);
