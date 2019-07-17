@@ -39,6 +39,14 @@ public class ProfesorDto {
 	String ocupacion;
 	
 	String plantel;
+	
+	String comprobante_doc;
+	
+	String curp_doc;
+	
+	String rfc_doc;
+	
+	String certificado_doc;
 
 	public String getaPaterno() {
 		return aPaterno;
@@ -190,6 +198,38 @@ public class ProfesorDto {
 
 	public void setIdProfesor(int idProfesor) {
 		this.idProfesor = idProfesor;
+	}
+
+	public String getComprobante_doc() {
+		return comprobante_doc;
+	}
+
+	public void setComprobante_doc(String comprobante_doc) {
+		this.comprobante_doc = comprobante_doc;
+	}
+
+	public String getCurp_doc() {
+		return curp_doc;
+	}
+
+	public void setCurp_doc(String curp_doc) {
+		this.curp_doc = curp_doc;
+	}
+
+	public String getRfc_doc() {
+		return rfc_doc;
+	}
+
+	public void setRfc_doc(String rfc_doc) {
+		this.rfc_doc = rfc_doc;
+	}
+
+	public String getCertificado_doc() {
+		return certificado_doc;
+	}
+
+	public void setCertificado_doc(String certificado_doc) {
+		this.certificado_doc = certificado_doc;
 	}
 	
 	

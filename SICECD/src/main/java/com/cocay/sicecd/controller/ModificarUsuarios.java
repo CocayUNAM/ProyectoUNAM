@@ -22,14 +22,21 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.dto.GrupoDto;
 import com.cocay.sicecd.dto.InscripcionDto;
+import com.cocay.sicecd.dto.ProfesorDto;
 import com.cocay.sicecd.model.Curso;
+import com.cocay.sicecd.model.Estado;
+import com.cocay.sicecd.model.Grado_profesor;
 import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.model.Turno;
 import com.cocay.sicecd.repo.CursoRep;
+import com.cocay.sicecd.repo.EstadoRep;
+import com.cocay.sicecd.repo.Grado_profesorRep;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.repo.TurnoRep;
 import com.cocay.sicecd.service.Logging;
 
 @Controller
@@ -47,6 +54,15 @@ public class ModificarUsuarios {
 	
 	@Autowired
 	CursoRep crRep;
+	
+	@Autowired
+	EstadoRep stRep;
+	
+	@Autowired
+	Grado_profesorRep gpRep;
+	
+	@Autowired
+	TurnoRep tnRep;
 	
 	@Autowired
 	Logging log;
@@ -72,14 +88,81 @@ public class ModificarUsuarios {
 	@GetMapping(value = "/pantallaModificacion")
 	public ModelAndView formEditarPerfilUsuario(@RequestParam(name = "rfc") String rfc) {
 		Profesor cambio = (proRep.findByRfc(rfc));
+		
+		ProfesorDto prof = new ProfesorDto();
+		
+		prof.setIdProfesor(cambio.getPk_id_profesor());
+		
+		prof.setaMaterno(cambio.getApellido_materno());
+		
+		prof.setaPaterno(cambio.getApellido_paterno());
+		
+		if(cambio.getCertificado_doc() != null) {
+			prof.setCertificado_doc(cambio.getCertificado_doc());
+		}
+		
+		if(cambio.getCiudad_localidad() != null) {
+			prof.setCilo(cambio.getCiudad_localidad());
+		}
+		
+		if(cambio.getComprobante_doc() != null) {
+			prof.setComprobante_doc(cambio.getComprobante_doc());
+		}
+		
+		prof.setCorreo(cambio.getCorreo());
+		
+		if(cambio.getClave_plantel() != null) {
+			prof.setcPlantel(cambio.getClave_plantel());
+		}
+		
+		if(cambio.getCurp() != null) {
+			prof.setCurp(cambio.getCurp());
+		}
+		
+		if(cambio.getCurp() != null) {
+			prof.setCurp_doc(cambio.getCurp_doc());
+		}
+		
+		prof.setEstado(Integer.toString(cambio.getFk_id_estado().getPk_id_estado()));
+		
+		if(cambio.getFechaNac() != null) {
+			prof.setfNacimiento(cambio.getFechaNac().toString());
+		}
+		
+		prof.setGenero(Integer.toString(cambio.getGenero().getPk_id_genero()));
+		
+		prof.setGrado(Integer.toString(cambio.getFk_id_grado_profesor().getPk_id_grado_profesor()));
+		
+		prof.setNombres(cambio.getNombre());
+		
+		if(cambio.getOcupacion() != null) {
+			prof.setOcupacion(cambio.getOcupacion());
+		}
+		
+		if(cambio.getPlantel() != null) {
+			prof.setPlantel(cambio.getPlantel());
+		}
+		
+		prof.setRfc(cambio.getRfc());
+		
+		if(cambio.getRfc_doc() != null) {
+			prof.setRfc_doc(cambio.getRfc_doc());
+		}
+		
+		if(cambio.getTelefono() != null) {
+			prof.setTelefono(cambio.getTelefono());
+		}
+		
+		prof.setTurno(Integer.toString(cambio.getFk_id_turno().getPk_id_turno()));
+		
 		ModelAndView model = new ModelAndView("ModificarUsuario/pantallaModificacion");
-		model.addObject("profesor", cambio);
+		model.addObject("profesor", prof);
 		return model;
 	}
 	
 	@PostMapping(value = "/editarprofesor")
-	private ResponseEntity<String> editarProfesor(@RequestBody Profesor profesor) {
-		int id = profesor.getPk_id_profesor();
+	private ResponseEntity<String> editarProfesor(@RequestBody ProfesorDto profesor) {
+		int id = profesor.getIdProfesor();
 		
 		Profesor mod = proRep.findById(id).get();
 		
@@ -89,19 +172,20 @@ public class ModificarUsuarios {
 			cambios += "Rfc de " + mod.getRfc() + " a " + profesor.getRfc() + "\n";
 			mod.setRfc(profesor.getRfc());
 		}
-		if (!mod.getNombre().equals(profesor.getNombre())) {
-			cambios += "Nombre de " + mod.getNombre() + " a " + profesor.getNombre() + "\n";
-			mod.setNombre(profesor.getNombre());
+		
+		if (!mod.getNombre().equals(profesor.getNombres())) {
+			cambios += "Nombre de " + mod.getNombre() + " a " + profesor.getNombres() + "\n";
+			mod.setNombre(profesor.getNombres());
 		}
-		if (!mod.getApellido_paterno().equals(profesor.getApellido_paterno())) {
-			cambios += "Apellido Paterno de " + mod.getApellido_paterno() + " a " + profesor.getApellido_paterno()
+		if (!mod.getApellido_paterno().equals(profesor.getaPaterno())) {
+			cambios += "Apellido Paterno de " + mod.getApellido_paterno() + " a " + profesor.getaPaterno()
 					+ "\n";
-			mod.setApellido_paterno(profesor.getApellido_paterno());
+			mod.setApellido_paterno(profesor.getaPaterno());
 		}
-		if (!mod.getApellido_materno().equals(profesor.getApellido_materno())) {
-			cambios += "Apellido Materno de " + mod.getApellido_materno() + " a " + profesor.getApellido_materno()
+		if (!mod.getApellido_materno().equals(profesor.getaMaterno())) {
+			cambios += "Apellido Materno de " + mod.getApellido_materno() + " a " + profesor.getaMaterno()
 					+ "\n";
-			mod.setApellido_materno(profesor.getApellido_materno());
+			mod.setApellido_materno(profesor.getaMaterno());
 		}
 		
 		if(mod.getCurp() == null) {
@@ -135,14 +219,14 @@ public class ModificarUsuarios {
 		}
 		
 		if(mod.getCiudad_localidad() == null) {
-			cambios += "Ciudad o localidad de " + mod.getCiudad_localidad() + " a " + profesor.getCiudad_localidad()
+			cambios += "Ciudad o localidad de " + mod.getCiudad_localidad() + " a " + profesor.getCilo()
 			+ "\n";
-			mod.setCiudad_localidad(profesor.getCiudad_localidad());
+			mod.setCiudad_localidad(profesor.getCilo());
 		} else {
-			if (!mod.getCiudad_localidad().equals(profesor.getCiudad_localidad())) {
-				cambios += "Ciudad o localidad de " + mod.getCiudad_localidad() + " a " + profesor.getCiudad_localidad()
+			if (!mod.getCiudad_localidad().equals(profesor.getCilo())) {
+				cambios += "Ciudad o localidad de " + mod.getCiudad_localidad() + " a " + profesor.getCilo()
 				+ "\n";
-				mod.setCiudad_localidad(profesor.getCiudad_localidad());
+				mod.setCiudad_localidad(profesor.getCilo());
 			}
 		}
 		
@@ -159,14 +243,14 @@ public class ModificarUsuarios {
 		}
 		
 		if(mod.getClave_plantel() == null) {
-			cambios += "clave de Plantel de " + mod.getClave_plantel() + " a " + profesor.getClave_plantel()
+			cambios += "clave de Plantel de " + mod.getClave_plantel() + " a " + profesor.getcPlantel()
 			+ "\n";
-			mod.setClave_plantel(profesor.getClave_plantel());
+			mod.setClave_plantel(profesor.getcPlantel());
 		} else {
-			if (!mod.getClave_plantel().equals(profesor.getClave_plantel())) {
-				cambios += "clave de Plantel de " + mod.getClave_plantel() + " a " + profesor.getClave_plantel()
+			if (!mod.getClave_plantel().equals(profesor.getcPlantel())) {
+				cambios += "clave de Plantel de " + mod.getClave_plantel() + " a " + profesor.getcPlantel()
 				+ "\n";
-				mod.setClave_plantel(profesor.getClave_plantel());
+				mod.setClave_plantel(profesor.getcPlantel());
 			}
 		}
 		
@@ -182,22 +266,22 @@ public class ModificarUsuarios {
 			}
 		}
 		
-		if (!mod.getFk_id_estado().getNombre().equals(profesor.getFk_id_estado().getNombre())) {
-			cambios += "Estado de " + mod.getFk_id_estado().getNombre() + " a " + profesor.getFk_id_estado().getNombre()
-			+ "\n";
-			mod.setFk_id_estado(mod.getFk_id_estado());
+		Estado st = stRep.findById(Integer.parseInt(profesor.getEstado())).get();
+		
+		if (!Integer.toString(mod.getFk_id_estado().getPk_id_estado()).equals(profesor.getEstado())) {
+			mod.setFk_id_estado(st);
 		}
 		
-		if (!mod.getFk_id_grado_profesor().equals(profesor.getFk_id_grado_profesor())) {
-			cambios += "Estado de " + mod.getFk_id_grado_profesor().getNombre() + " a " + profesor.getFk_id_grado_profesor().getNombre()
-			+ "\n";
-			mod.setFk_id_grado_profesor(mod.getFk_id_grado_profesor());
+		Grado_profesor gp = gpRep.findById(Integer.parseInt(profesor.getGrado())).get();
+		
+		if (!Integer.toString(mod.getFk_id_grado_profesor().getPk_id_grado_profesor()).equals(profesor.getGrado())) {
+			mod.setFk_id_grado_profesor(gp);
 		}
 		
-		if (!mod.getFk_id_turno().equals(profesor.getFk_id_turno())) {
-			cambios += "Estado de " + mod.getFk_id_turno().getNombre() + " a " + profesor.getFk_id_turno().getNombre()
-			+ "\n";
-			mod.setFk_id_turno(mod.getFk_id_turno());
+		Turno turn = tnRep.findById(Integer.parseInt(profesor.getTurno())).get();
+		
+		if (!Integer.toString(mod.getFk_id_turno().getPk_id_turno()).equals(profesor.getTurno())) {
+			mod.setFk_id_turno(turn);
 		}
 		
 		System.out.println(cambios);

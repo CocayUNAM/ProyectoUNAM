@@ -92,21 +92,21 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="apellidopaterno">Apellido paterno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="apellidopaterno" name="apellidopaterno" th:value="${profesor.apellido_paterno}" required>
+                                                    <input type="text" class="form-control" id="apellidopaterno" name="apellidopaterno" th:value="${profesor.aPaterno}" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="apellidomaterno">Apellido materno<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno" th:value="${profesor.apellido_materno}" required>
+                                                    <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno" th:value="${profesor.aMaterno}" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="nombre">Nombre(s)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${profesor.nombre}" required>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${profesor.nombres}" required>
                                                 </div>
                                             </div>
                                             
@@ -142,7 +142,7 @@
                                                 <label class="col-lg-4 control-label" for="estado">Estado <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="estado" name="estado" style="width: 100%;" required>
-                                                    	<option th:value="${profesor.fk_id_estado.pk_id_estado}">Estado definido</option>
+                                                    	<option th:value="${profesor.estado}" th:text ="${profesor.estado}" >Estado definido</option>
                                                         <option value="1">Aguascalientes</option>
 														<option value="2">Baja California</option>
 														<option value="3">Baja California Sur</option>
@@ -182,7 +182,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="cilo">Ciudad o localidad<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="cilo" name="cilo" th:value="${profesor.ciudad_localidad}">
+                                                    <input type="text" class="form-control" id="cilo" name="cilo" th:value="${profesor.cilo}">
                                                 </div>
                                             </div>
                                             
@@ -197,7 +197,7 @@
                                                 <label class="col-lg-4 control-label" for="turno">Selecciona turno <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;" required>
-                                                        <option th:value="${profesor.fk_id_turno.pk_id_turno}">Turno definido</option>
+                                                        <option th:value="${profesor.turno}" th:text = "${profesor.turno}">Turno definido</option>
                                                         <option value="1">Matutino</option>
                                                         <option value="2">Vepertino</option>
                                                         <option value="3">Completo</option>
@@ -208,7 +208,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="cplantel">Clave plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="cplantel" name="cplantel" th:value="${profesor.clave_plantel}">
+                                                    <input type="text" class="form-control" id="cplantel" name="cplantel" th:value="${profesor.cPlantel}">
                                                 </div>
                                             </div>
                                             
@@ -216,7 +216,7 @@
                                                 <label class="col-lg-4 control-label" for="grado">Ultimo grado de estudios <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="grado" name="grado" style="width: 100%;" required>
-                                                        <option th:value="${profesor.fk_id_grado_profesor.pk_id_grado_profesor}">Grado definido</option>
+                                                        <option th:value="${profesor.grado}" th:text = "${profesor.grado}" >Grado definido</option>
                                                         <option value="1">Lic.</option>
                                                         <option value="2">Esp.</option>
                                                         <option value="3">Mtr.</option>
@@ -301,14 +301,7 @@
 	<script th:inline="javascript">
 $(document).ready(function() {
 	
-			let idu = [[${profesor.pk_id_profesor}]];
-			
-			let nomEst = [[${profesor.fk_id_estado.nombre}]]
-			
-			let idEst = [[${profesor.fk_id_estado.pk_id_estado}]]
-			
-			console.log(nomEst)
-			console.log(idEst)
+			let idu = [[${profesor.idProfesor}]];
 		
 			//cambio de correo
 			let cor=$("#correo").val();
@@ -451,21 +444,21 @@ $(document).ready(function() {
 	            eve.preventDefault();
 				
 				let datos = {
-						pk_id_profesor : idu,
+						idProfesor : idu,
 						correo : cor,
 						rfc : $("#rfc").val(),
-						nombre : $("#nombre").val(),
-						apellido_paterno : $("#apellidopaterno").val(),
-						apellido_materno : $("#apellidomaterno").val(),
+						nombres : $("#nombre").val(),
+						aPaterno : $("#apellidopaterno").val(),
+						aMaterno : $("#apellidomaterno").val(),
 						curp: $("#curp").val(),
 						telefono: $("#tel").val(),
-						fk_id_estado: {pk_id_estado: $("#estado").val()},
-						ciudad_localidad: $("#cilo").val(),
+						estado: $("#estado").val(),
+						cilo: $("#cilo").val(),
 						genero: $("#genero").val(),
 						plantel: $("#plantel").val(),
-						fk_id_turno: {pk_id_turno: $("#turno").val()},
-						clave_plantel: $("#cplantel").val(),
-						fk_id_grado_profesor: {pk_id_grado_profesor: $("#grado").val()},
+						turno: $("#turno").val(),
+						cPlantel: $("#cplantel").val(),
+						grado: $("#grado").val(),
 						ocupacion: $("#ocupacion").val()
 					}
 					$.ajax({
