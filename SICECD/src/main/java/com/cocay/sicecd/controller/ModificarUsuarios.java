@@ -1,13 +1,22 @@
 package com.cocay.sicecd.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocay.sicecd.LogTypes;
@@ -41,6 +51,7 @@ import com.cocay.sicecd.service.Logging;
 
 @Controller
 @RequestMapping("AdministracionModificaciones")
+@PropertySource("classpath:application.properties")
 public class ModificarUsuarios {
 	
 	@Autowired
@@ -66,6 +77,9 @@ public class ModificarUsuarios {
 	
 	@Autowired
 	Logging log;
+	
+	@Value("${path_constancia}")
+    private String ruta;
 		
 	/*
 	 * Modificacion de Participantes.
@@ -119,7 +133,7 @@ public class ModificarUsuarios {
 			prof.setCurp(cambio.getCurp());
 		}
 		
-		if(cambio.getCurp() != null) {
+		if(cambio.getCurp_doc() != null) {
 			prof.setCurp_doc(cambio.getCurp_doc());
 		}
 		
@@ -161,7 +175,14 @@ public class ModificarUsuarios {
 	}
 	
 	@PostMapping(value = "/editarprofesor")
-	private ResponseEntity<String> editarProfesor(@RequestBody ProfesorDto profesor) {
+	private ResponseEntity<String> editarProfesor(
+			Locale locale, 
+		    @Valid ProfesorDto profesor,
+		    @RequestParam(value = "constancia", required = false) MultipartFile constancia,
+		    @RequestParam(value = "comprobante", required = false) MultipartFile comprobante,
+            @RequestParam(value = "rfc_docu", required = false) MultipartFile rfc_pdf,
+            @RequestParam(value = "curp_docu", required = false) MultipartFile curp_pdf
+	) {
 		int id = profesor.getIdProfesor();
 		
 		Profesor mod = proRep.findById(id).get();
@@ -284,6 +305,65 @@ public class ModificarUsuarios {
 			mod.setFk_id_turno(turn);
 		}
 		
+		if(constancia != null) {
+            String originalName = constancia.getOriginalFilename();
+            if(mod.getCertificado_doc() == null) {
+                mod.setCertificado_doc(originalName);
+            }else {
+                if(!mod.getCertificado_doc().equals(originalName)) {
+                    File archivo_anterior = new File(ruta + Integer.toString(mod.getPk_id_profesor()) + mod.getCertificado_doc());
+                    String laRuta = ruta + Integer.toString(mod.getPk_id_profesor()) + "/" +  mod.getCertificado_doc();
+                    System.out.println("----------La ruta del archivo anterior es: " + laRuta);
+                    archivo_anterior.delete();
+                }
+            }
+            saveConstancia(constancia, mod);
+            mod.setCertificado_doc(originalName);
+        }
+		
+		if(comprobante != null) {
+            String originalName2 = comprobante.getOriginalFilename();
+            if(mod.getComprobante_doc() == null) {
+                mod.setComprobante_doc(originalName2);
+            }else {
+                if(!mod.getComprobante_doc().equals(originalName2)) {
+                    File archivo_anterior = new File(ruta + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getComprobante_doc());
+                    archivo_anterior.delete();
+                }
+            }
+            saveConstancia(comprobante, mod);
+            mod.setComprobante_doc(originalName2);
+        }
+        
+        if(rfc_pdf != null) {
+            String originalName2 = rfc_pdf.getOriginalFilename();
+            System.out.println("---------El nombre del rfc es:" + originalName2);
+            if(mod.getRfc_doc() == null) {
+                mod.setRfc_doc(originalName2);
+            }else {
+                if(!mod.getRfc_doc().equals(originalName2)) {
+                    File archivo_anterior = new File(ruta + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getRfc_doc());
+                    archivo_anterior.delete();
+                }
+            }
+            saveConstancia(rfc_pdf, mod);
+            mod.setRfc_doc(originalName2);
+        }
+        
+        if(curp_pdf != null) {
+            String originalName2 = curp_pdf.getOriginalFilename();
+            if(mod.getCurp_doc() == null) {
+                mod.setCurp_doc(originalName2);
+            }else {
+                if(!mod.getCurp_doc().equals(originalName2)) {
+                    File archivo_anterior = new File(ruta + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getCurp_doc());
+                    archivo_anterior.delete();
+                }
+            }
+            saveConstancia(curp_pdf, mod);
+            mod.setCurp_doc(originalName2);
+        }
+		
 		System.out.println(cambios);
 		
 		log.setTrace(LogTypes.MODIFICAR_PARTICIPANTE);
@@ -294,6 +374,28 @@ public class ModificarUsuarios {
 
 		return ResponseEntity.ok("¡Participante editado con exito!");
 	}
+	
+
+    private String saveConstancia(MultipartFile constancia, Profesor pr) {
+        
+        String path = Integer.toString(pr.getPk_id_profesor());
+        System.out.println("path: " + path);
+
+        String originalName = constancia.getOriginalFilename();
+        System.out.println("FileName: " + originalName);
+        
+        String folder = ruta+path+"/";
+        try {
+            
+            FileUtils.forceMkdir(new File(folder));
+            try (FileOutputStream fos = new FileOutputStream(new File(folder + originalName))){
+                IOUtils.copy(constancia.getInputStream(), fos);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return path;
+    }
 	
 	/*
 	 * Modificacion de inscripciones

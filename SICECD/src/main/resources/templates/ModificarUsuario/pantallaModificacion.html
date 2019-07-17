@@ -235,28 +235,28 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="constancia">constancia pdf<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="file" name="constancia" accept="application/pdf" id="constancia"/>
+                                                    <input type="file" name="constancia" accept="application/pdf" id="constancia" th:text= "${profesor.certificado_doc}"/>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="comprobante">comprobante de domicilio en pdf<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="file" name="comprobante" accept="application/pdf" id="comprobante"/>
+                                                    <input type="file" name="comprobante" accept="application/pdf" id="comprobante" th:text="${profesor.comprobante_doc}"/>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="rfcpdf">rfc en pdf<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="file" name="rfcpdf" accept="application/pdf" id="rfcpdf"/>
+                                                    <input type="file" name="rfcpdf" accept="application/pdf" id="rfcpdf" th:text="${profesor.rfc_doc}"/>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="curppdf">curp en pdf<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="file" name="curppdf" accept="application/pdf" id="curppdf"/>
+                                                    <input type="file" name="curppdf" accept="application/pdf" id="curppdf" th:text = "${profesor.curp_doc}"/>
                                                 </div>
                                             </div>
                                             
@@ -302,6 +302,8 @@
 $(document).ready(function() {
 	
 			let idu = [[${profesor.idProfesor}]];
+			
+			console.log(idu);
 		
 			//cambio de correo
 			let cor=$("#correo").val();
@@ -309,6 +311,8 @@ $(document).ready(function() {
 			    cor=$("#correo").val();
 			    
 			});
+			
+			console.log(cor);
 	
 			$.fn.bootstrapValidator.validators.nombre = {
 			        validate: function(validator, $field, options) {
@@ -442,30 +446,47 @@ $(document).ready(function() {
 		        }
 		    }).on('success.form.bv', function(eve) {
 	            eve.preventDefault();
-				
-				let datos = {
-						idProfesor : idu,
-						correo : cor,
-						rfc : $("#rfc").val(),
-						nombres : $("#nombre").val(),
-						aPaterno : $("#apellidopaterno").val(),
-						aMaterno : $("#apellidomaterno").val(),
-						curp: $("#curp").val(),
-						telefono: $("#tel").val(),
-						estado: $("#estado").val(),
-						cilo: $("#cilo").val(),
-						genero: $("#genero").val(),
-						plantel: $("#plantel").val(),
-						turno: $("#turno").val(),
-						cPlantel: $("#cplantel").val(),
-						grado: $("#grado").val(),
-						ocupacion: $("#ocupacion").val()
-					}
+	            
+	            var formData = new FormData();
+	            formData.append('idProfesor', idu);
+	            formData.append('aPaterno', $("#apellidopaterno").val());
+	            formData.append('aMaterno', $("#apellidomaterno").val());
+	            formData.append('nombres', $("#nombre").val());
+	            formData.append('curp', $("#curp").val());
+	            formData.append('rfc', $("#rfc").val());
+	            formData.append('correo', cor);
+	            formData.append('telefono', $("#tel").val());
+	            formData.append('estado', $("#estado").val());
+	            formData.append('cilo', $("#cilo").val());
+	            formData.append('genero', $("#genero").val());
+	            formData.append('plantel', $("#plantel").val());
+	            formData.append('turno', $("#turno").val());
+	            formData.append('cPlantel', $("#cplantel").val());
+	            formData.append('grado', $("#grado").val());
+	            formData.append('ocupacion', $("#ocupacion").val());
+	            
+	            if( document.getElementById("constancia").files.length != 0 ){
+                    formData.append('constancia', $("#constancia")[0].files[0]); 
+                }
+	            
+	            if( document.getElementById("comprobante").files.length != 0 ){
+                    formData.append('comprobante', $("#comprobante")[0].files[0]); 
+                }
+                
+                if( document.getElementById("rfcpdf").files.length != 0 ){
+                    formData.append('rfc_docu', $("#rfcpdf")[0].files[0]); 
+                }
+                
+                if( document.getElementById("curppdf").files.length != 0 ){
+                    formData.append('curp_docu', $("#curppdf")[0].files[0]);  
+                }
+	            
 					$.ajax({
 						type : "POST",
-						contentType : "application/json",
+						contentType : false,
 						url : '/AdministracionModificaciones/editarprofesor',
-						data : JSON.stringify(datos),
+						processData: false,
+						data : formData,
 						beforeSend : function() {
 							// setting a timeout
 							$("#mensaje").css("visibility","hidden")
