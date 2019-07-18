@@ -117,6 +117,7 @@ public class Inscripcion {
 	public void setCalif2(Integer calif2) {
 		this.calif2 = calif2;
 	}
+
 	
 
 }
