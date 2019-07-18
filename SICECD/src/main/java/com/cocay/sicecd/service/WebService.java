@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,11 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cocay.sicecd.LogTypes;
+import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Url_ws;
 import com.cocay.sicecd.model.Url_ws_inscripcion;
 import com.cocay.sicecd.model.Url_ws_profesor;
+import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.Url_ws_inscripcionRep;
@@ -47,6 +50,8 @@ import org.slf4j.LoggerFactory;
 public class WebService {
 	@Autowired
 	ProfesorRep profesor;
+	@Autowired
+	GrupoRep grupo_rep;
 	@Autowired
 	InscripcionRep inscripcionRep;
 	@Autowired
@@ -96,13 +101,15 @@ public class WebService {
 			e.printStackTrace();
 		}
 	}
-
+*/
+	/*
 	public void get_Profesores() throws Exception {
 
 		LinkedList<Url_ws_profesor> links = new LinkedList<>(urls.findVarios());
 
 		if (links.size() == 0) {
-			throw new Exception("No hay urls");
+			LOGGER.debug("No hay urls para el proceso");
+			return;
 		}
 
 		for (Url_ws_profesor url : links) {
@@ -120,12 +127,10 @@ public class WebService {
 	public void get_Calificaciones() throws Exception {
 
 		LinkedList<Url_ws_inscripcion> links = new LinkedList<>(urls_inscripcion.findVarios());
-
 		if (links.size() == 0) {
 			LOGGER.debug("No hay urls para el proceso");
 			return;
 		}
-
 		for (Url_ws_inscripcion url : links) {
 			System.out.println("Se conecto" + url.getUrl());
 			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
@@ -133,33 +138,40 @@ public class WebService {
 			insert_Grade(json);
 			log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
 			log.setTrace(LogTypes.AGREGAR_PROFESOR);
-
 		}
-
 	}
-
+	private boolean aprobadoCalificacion(double n){
+		if(n>=60)
+			return true;
+		else
+			return false;
+	}
 	public void insert_Grade(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
-		for (int i = 0; i < arr.length(); i++) {
+		for (int i = 0; 0 < 2; i++) {
 			JSONObject jsonProductObject = arr.getJSONObject(i);
-			String calificación = jsonProductObject.getString("grade");
-			String nombre_curso = jsonProductObject.getString("grade");
+			String calificacion = jsonProductObject.getString("grade");
+			String nombre_curso = jsonProductObject.getString("shortname");
 			String curp = jsonProductObject.getString("username");
-		//	Inscripcion curso= (Inscripcion) inscripcionRep.findAll();
+			int id_grupo = jsonProductObject.getInt("idnumber");
+			double result =Double.parseDouble(calificacion);
+			boolean aprobado=aprobadoCalificacion(result);
+			Profesor exits = profesor.findByCurp(curp);
+			System.out.println(calificacion);
+			System.out.println(curp);
+
+			inscripcionRep.saveI(id_grupo, exits.getPk_id_profesor(), calificacion,aprobado);
+			
+			if (curp.equals(exits.getCurp())) {
+				
+			}else {
+				LOGGER.debug("No existe el profesor , por lo que la califcación no puede ser asignada");
+				return;
+			}
+			
 
 		}
 	}
-
-	/*
-	 * public void insert_Group(String jSonResultString) { JSONArray arr = new
-	 * JSONArray(jSonResultString); for (int i = 0; i < arr.length(); i++) {
-	 * JSONObject jsonProductObject = arr.getJSONObject(i); String
-	 * calificación=jsonProductObject.getString("grade"); String curp =
-	 * jsonProductObject.getString("username"); Inscripcion curso= (Inscripcion)
-	 * inscripcionRep.findAll();
-	 * 
-	 * } }
-	 */
 
 	public void insert_update_Profesor(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);

@@ -214,7 +214,7 @@ ALTER TABLE profesor ALTER COLUMN nombre SET NOT NULL;
 ALTER TABLE Grupo ADD FOREIGN KEY(fk_id_curso) REFERENCES Curso (pk_id_curso ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_grupo) REFERENCES Grupo (pk_id_grupo ) ON DELETE CASCADE;
 ALTER TABLE Inscripcion ADD FOREIGN KEY(fk_id_profesor) REFERENCES Profesor (pk_id_profesor ) ON DELETE CASCADE;
-ALTER TABLE Inscripcion ADD calificacion VARCHAR(5);
+ALTER TABLE Inscripcion ADD calificacion VARCHAR;
 
 --DROP TABLE Log_sys;
 --DROP TABLE Log_evento_sys;
