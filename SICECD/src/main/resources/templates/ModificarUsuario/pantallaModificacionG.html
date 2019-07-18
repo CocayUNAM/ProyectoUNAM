@@ -172,6 +172,10 @@
 				            if (value < value3) {
 				                return false;
 				            }
+				            
+				            if(value3 == ""){
+				            	return false;
+				            }
 		
 				            return true;
 				        }
@@ -223,7 +227,7 @@
 			            termino: {
 			                validators: {
 			        			fecha: {
-			        				message: ' La fecha de termino no puede ser menor que la fecha de inicio '
+			        				message: ' La fecha de termino no puede ser menor que la fecha de inicio y revisa que la fecha de inicio no este vacia'
 			        			}
 			                }
 			            },

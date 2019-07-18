@@ -114,7 +114,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="ap">aprobado<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                      <input type="checkbox" name="ap" class="checkbox" value="checked"> Se aprobó el curso<br>
+                                                      <input type="checkbox" name="ap" class="checkbox"> Se aprobó el curso<br>
                                                 </div>
                                             </div>
                                             
@@ -253,7 +253,7 @@ $(document).ready(function() {
 						calificacion : $("#cal").val(),
 						idGrupo:  $("#grupo").val(),
 						idProfesor:  $("#par").val(),
-						aprobado: $('.checkbox').val() == "checked"
+						aprobado: $('input[type="checkbox"]').is(":checked")
 					}
 					$.ajax({
 						type : "POST",

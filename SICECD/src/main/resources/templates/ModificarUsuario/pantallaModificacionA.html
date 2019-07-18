@@ -209,9 +209,10 @@
 			$.fn.bootstrapValidator.validators.telefono = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-		
-			            if (value.length != 10) {
-			                return false;
+			            if($('#tel').val().length > 0){
+				            if (value.length != 10) {
+				                return false;
+				            }
 			            }
 		
 			            return true;
@@ -248,18 +249,6 @@
 		        			}
 		                }
 		            },
-		            
-		            apellidomaterno: {
-		        		validators: {
-		        			notEmpty: {
-		                        message: ' No puede estar vacio '
-		                    },
-		        
-		        			nombre: {
-		        				message: ' Verfica que sea un apellido valido '
-		        			}
-		                }
-		        	},
 		        	
 		        	nombre : {
 		        		validators: {

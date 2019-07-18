@@ -479,6 +479,8 @@ public class ModificarUsuarios {
 			mod.setFk_id_profesor(pro);
 		}
 		
+		mod.setAprobado(ins.isAprobado());
+		
 		System.out.println(cambios);
 		
 		log.setTrace(LogTypes.MODIFICAR_INSCRIPCION);
