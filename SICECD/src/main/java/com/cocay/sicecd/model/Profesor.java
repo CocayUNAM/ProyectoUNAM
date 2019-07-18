@@ -76,16 +76,19 @@ public class Profesor {
 	@Column(name = "clave_plantel", nullable = true, length=20)
 	String clave_plantel;
 	
-	@Column(name = "tempEstado")
+	@Column(name = "tempEstado", nullable = true)
 	Integer tempEstado;
-	@Column(name = "tempGenero")
+	
+	@Column(name = "tempGenero", nullable = true)
 	Integer tempGenero;
-	@Column(name = "tempTurno")
+	
+	@Column(name = "tempTurno", nullable = true)
 	Integer tempTurno;
-	@Column(name = "tempGradoP")
+	
+	@Column(name = "tempGradoP", nullable = true)
 	Integer tempGradoP;
 	
-	@Column(name = "stTabla")
+	@Column(name = "stTabla", nullable = true)
 	Integer stTabla;
 	
 	@ManyToOne(targetEntity=Turno.class)

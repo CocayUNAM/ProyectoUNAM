@@ -40,7 +40,7 @@ public class Usuario_sys {
 	@Column(name = "apellido_paterno", nullable = false, length=250)
 	String apellido_paterno;
 	
-	@Column(name = "apellido_materno", nullable = false, length=250)
+	@Column(name = "apellido_materno", nullable = true, length=250)
 	String apellido_materno;
 	
 	@Column(name = "confirmacion", nullable = false, length=10)

@@ -34,6 +34,16 @@ public class Grupo {
 	
 	@Column(name = "fecha_fin", nullable = true)
 	Date fecha_fin;
+
+	@Column(name = "tempCurso", nullable = true)
+	private Integer tempCurso;
+	
+	@Column(name = "tempProfesor", nullable = true)
+	private Integer tempProfesor;
+	
+	@Column(name = "stTabla", nullable = true)
+	Integer stTabla;
+
 	
 	@ManyToOne(targetEntity=Curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -49,15 +59,6 @@ public class Grupo {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
 	
-	@Column(name = "tempCurso")
-	private Integer tempCurso;
-	
-	@Column(name = "tempProfesor")
-	private Integer tempProfesor;
-	
-	@Column(name = "stTabla")
-	Integer stTabla;
-
 	public int getPk_id_grupo() {
 		return pk_id_grupo;
 	}

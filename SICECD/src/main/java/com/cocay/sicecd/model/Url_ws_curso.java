@@ -14,10 +14,13 @@ public class Url_ws_curso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_id_url_ws_curso")
 	private int pk_id_url_ws_curso;
-	@Column(name = "nombre")
+	
+	@Column(name = "nombre", nullable = true)
 	private String nombre;
+	
 	@Column(name = "url", nullable = false, length=200, unique=true)
 	private String url;
+	
 	@Column(name = "activa", nullable = true)
 	private boolean activa;
 
