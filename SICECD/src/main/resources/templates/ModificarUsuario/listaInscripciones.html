@@ -59,6 +59,8 @@
 													<th class="th-sm">Id inscripcion</th>
 													<th class="th-sm">Grupo</th>
 	                                                <th class="th-sm">RFC de Participante</th>
+	                                                <th class="th-sm">apellido paterno de Participante</th>
+	                                                <th class="th-sm">nombre de Participante</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -67,6 +69,8 @@
 														<td class="renglon" th:text="${inscripcion.pk_id_inscripcion}"></td>
 														<td class="renglon" th:text="${inscripcion.fk_id_grupo.clave}"></td>
 														<td class="renglon" th:text="${inscripcion.fk_id_profesor.rfc}"></td>
+														<td class="renglon" th:text="${inscripcion.fk_id_profesor.apellido_paterno}"></td>
+														<td class="renglon" th:text="${inscripcion.fk_id_profesor.nombre}"></td>
 													</tr>
 												</th:block>
 	                                        </tbody>

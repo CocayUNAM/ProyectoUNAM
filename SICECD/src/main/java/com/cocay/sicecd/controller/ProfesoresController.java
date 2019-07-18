@@ -187,7 +187,6 @@ public class ProfesoresController {
 				
 				System.out.println("El telefono es: " +telefono);
 
-				
 				if(constancia != null) {
 					String originalName = constancia.getOriginalFilename();
 					saveConstancia(constancia);
@@ -214,7 +213,6 @@ public class ProfesoresController {
 				
 //				/*base*/
 				Integer estado = Integer.parseInt(prof.getEstado());
-				System.out.println("-------El estado seleccionado:   " + estado);
 				Optional<Estado> est = stRep.findById(estado);
 				
 				String cilo = prof.getCilo();
