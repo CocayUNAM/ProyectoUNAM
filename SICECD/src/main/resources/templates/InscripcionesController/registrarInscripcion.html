@@ -118,7 +118,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="ap">aprobado<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                      <input type="checkbox" name="ap" class="checkbox" value="checked"> Se aprobó el curso<br>
+                                                      <input type="checkbox" name="ap" class="checkbox"> Se aprobó el curso<br>
                                                 </div>
                                             </div>
                                             
@@ -185,15 +185,17 @@
 			        }
 			};
 			
-		        $('input[type="checkbox"]').click(function(){
-		            if($(this).is(":checked")){
-		            	$(this).value == "checked"
-		            }
-		            else if($(this).is(":not(:checked)")){
-		            	$(this).value == "unchecked"
-		            }
-		        });
+			var valor = "unchecked";
 			
+	        $('input[type="checkbox"]').click(function(){
+	            if($(this).is(":checked")){
+	            	valor = "checked"
+	            }
+	            else if($(this).is(":not(:checked)")){
+	            	valor = "unchecked"
+	            }
+	        });
+		
 			$('#registrarInscripcion').bootstrapValidator({
 		        feedbackIcons: {
 		            valid: 'glyphicon glyphicon-ok',
@@ -234,7 +236,7 @@
 						idGrupo : $("#grupo").val(),
 						idProfesor : $("#par").val(),
 						calificacion : $("#cal").val(),
-						aprobado : $('.checkbox').val() == "checked"
+						aprobado : $('input[type="checkbox"]').is(":checked")
 					}
 					$.ajax({
 						type : "POST",
