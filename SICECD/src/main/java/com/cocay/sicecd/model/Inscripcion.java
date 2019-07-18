@@ -24,8 +24,8 @@ public class Inscripcion {
 	@Column(name = "calif", nullable = true, length=3)
 	String calif;
 	
-//	@Column(name = "aprobado")
-//	boolean aprobado;
+	@Column(name = "aprobado")
+	boolean aprobado;
 	
 	@ManyToOne(targetEntity=Grupo.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -77,13 +77,13 @@ public class Inscripcion {
 		this.calif = calif;
 	}
 
-//	public boolean isAprobado() {
-//		return aprobado;
-//	}
-//
-//	public void setAprobado(boolean aprobado) {
-//		this.aprobado = aprobado;
-//	}
+	public boolean isAprobado() {
+		return aprobado;
+	}
+
+	public void setAprobado(boolean aprobado) {
+		this.aprobado = aprobado;
+	}
 	
 	public Integer getTempGrupo() {
 		return tempGrupo;
@@ -116,6 +116,7 @@ public class Inscripcion {
 	public void setCalif2(Integer calif2) {
 		this.calif2 = calif2;
 	}
+
 	
 
 }
