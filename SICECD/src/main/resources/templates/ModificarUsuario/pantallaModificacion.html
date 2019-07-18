@@ -99,7 +99,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="apellidomaterno">Apellido materno<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno" th:value="${profesor.aMaterno}" required>
+                                                    <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno" th:value="${profesor.aMaterno}">
                                                 </div>
                                             </div>
                                             
@@ -125,9 +125,9 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="correo">Correo electronico<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="correo">Correo electronico<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="email" class="form-control" id="correo" name="correo" th:value="${profesor.correo}" required>
+                                                    <input type="email" class="form-control" id="correo" name="correo" th:value="${profesor.correo}">
                                                 </div>
                                             </div>
                                             
@@ -139,7 +139,7 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="estado">Estado <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="estado">Estado <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="estado" name="estado" style="width: 100%;" required>
                                                     	<option th:value="${profesor.estado}" th:text ="${profesor.nombreEstado}" >Estado definido</option>
@@ -194,7 +194,7 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="turno">Selecciona turno <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="turno">Selecciona turno <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;" required>
                                                         <option th:value="${profesor.turno}" th:text = "${profesor.nombreTurno}">Turno definido</option>
@@ -213,7 +213,7 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="grado">Ultimo grado de estudios <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="grado">Ultimo grado de estudios <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="grado" name="grado" style="width: 100%;" required>
                                                         <option th:value="${profesor.grado}" th:text = "${profesor.nombreGrado}" >Grado definido</option>
@@ -384,18 +384,6 @@ $(document).ready(function() {
 		        			}
 		                }
 		            },
-		            
-		            apellidomaterno: {
-		        		validators: {
-		        			notEmpty: {
-		                        message: ' No puede estar vacio '
-		                    },
-		        
-		        			nombre: {
-		        				message: ' Verfica que sea un apellido valido '
-		        			}
-		                }
-		        	},
 		        	
 		        	nombre : {
 		        		validators: {
