@@ -57,23 +57,28 @@ public class WebService {
 
 	public interface ReturnTypeTwo {
 	}
+
 	public interface ReturnTypeThree {
 	}
 
-	
 	/*
-	 * Se compone de dos secciones. Primero en el que se envían dos tareas al grupo de hilos. 
-	 * Cada llamada ExecutorService.submit () devuelve inmediatamente un valor futuro del cálculo de la tarea. 
-	 * Las tareas se envían inmediatamente en la llamada a submit () y se ejecutan en segundo plano. 
-	 * Por supuesto que pueden hacer mas de 3 tareas
-	 * En la segunda sección se obtienen los valores de futuros. 
-	 * Lo que sucede es que la llamada a Future.get () bloquea el subproceso actual hasta que se calcula el valor. 
-	 * No significa que cualquier tarea esté bloqueada, todas se estén ejecutando, el hilo solo espera hasta que una tarea determinada se complete y devuelva un valor.
-	 * Una vez que se devuelve el primer valor, se realiza la segunda llamada Future.get ().
-	 * En este caso, puede o no bloquearse. Si la segunda tarea ya ha finalizado (posiblemente antes de la primera tarea), el valor se devuelve inmediatamente. 
-	 * Si la segunda tarea aún se está ejecutando, la llamada bloquea el subproceso actual hasta que se calcula el valor.*/
+	 * Se compone de dos secciones. Primero en el que se envían dos tareas al grupo
+	 * de hilos. Cada llamada ExecutorService.submit () devuelve inmediatamente un
+	 * valor futuro del cálculo de la tarea. Las tareas se envían inmediatamente en
+	 * la llamada a submit () y se ejecutan en segundo plano. Por supuesto que
+	 * pueden hacer mas de 3 tareas En la segunda sección se obtienen los valores de
+	 * futuros. Lo que sucede es que la llamada a Future.get () bloquea el
+	 * subproceso actual hasta que se calcula el valor. No significa que cualquier
+	 * tarea esté bloqueada, todas se estén ejecutando, el hilo solo espera hasta
+	 * que una tarea determinada se complete y devuelva un valor. Una vez que se
+	 * devuelve el primer valor, se realiza la segunda llamada Future.get (). En
+	 * este caso, puede o no bloquearse. Si la segunda tarea ya ha finalizado
+	 * (posiblemente antes de la primera tarea), el valor se devuelve
+	 * inmediatamente. Si la segunda tarea aún se está ejecutando, la llamada
+	 * bloquea el subproceso actual hasta que se calcula el valor.
+	 */
 	@Scheduled(cron = "30 * * * * *")
-	public void runTwo()  {
+	public void run() {
 		ExecutorService executor = Executors.newFixedThreadPool(3);
 
 		// Tenemos listas las tareas()
@@ -109,8 +114,8 @@ public class WebService {
 			e.printStackTrace();
 		}
 	}
-	
-	public void get_Profesores()  {
+
+	public void get_Profesores() {
 
 		LinkedList<Url_ws_profesor> links = new LinkedList<>(urls.findVarios());
 
@@ -130,7 +135,7 @@ public class WebService {
 		}
 
 	}
-	
+
 	public void get_Calificaciones() {
 
 		LinkedList<Url_ws_inscripcion> links = new LinkedList<>(urls_inscripcion.findVarios());
@@ -143,11 +148,11 @@ public class WebService {
 			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
 			System.out.println(json);
 			insert_Grade(json);
-			//log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
-			//log.setTrace(LogTypes.AGREGAR_PROFESOR);
+			// log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
+			// log.setTrace(LogTypes.AGREGAR_PROFESOR);
 		}
 	}
-	
+
 	public void insert_Grade(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
 		for (int i = 0; 0 < 2; i++) {
@@ -156,21 +161,20 @@ public class WebService {
 			String nombre_curso = jsonProductObject.getString("shortname");
 			String curp = jsonProductObject.getString("username");
 			int id_grupo = jsonProductObject.getInt("idnumber");
-			double result =Double.parseDouble(calificacion);
-			boolean aprobado=aprobadoCalificacion(result);
+			double result = Double.parseDouble(calificacion);
+			boolean aprobado = aprobadoCalificacion(result);
 			Profesor exits = profesor.findByCurp(curp);
 			System.out.println(calificacion);
 			System.out.println(curp);
 
-			inscripcionRep.saveI(id_grupo, exits.getPk_id_profesor(), calificacion,aprobado);
-			
+			inscripcionRep.saveI(id_grupo, exits.getPk_id_profesor(), calificacion, aprobado);
+
 			if (curp.equals(exits.getCurp())) {
-				
-			}else {
+
+			} else {
 				LOGGER.debug("No existe el profesor , por lo que la califcación no puede ser asignada");
 				return;
 			}
-			
 
 		}
 	}
@@ -283,8 +287,8 @@ public class WebService {
 	 * 
 	 * @return boolean
 	 */
-	private boolean aprobadoCalificacion(double n){
-		return  n>=60 ? true : false;
+	private boolean aprobadoCalificacion(double n) {
+		return n >= 60 ? true : false;
 	}
 
 }
