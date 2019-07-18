@@ -20,6 +20,9 @@ public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
 	@Query("SELECT g FROM Grupo g")
 	List<Grupo> findAll();
 	
+	@Query("SELECT pk_id_grupo FROM Grupo")
+	List<Grupo> findId();
+	
 	@Query(value="SELECT * FROM Grupo", nativeQuery = true)
 	List<Grupo> loadAllGrupo();
 	

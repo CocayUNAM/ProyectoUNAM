@@ -24,7 +24,7 @@ public interface InscripcionRep extends PagingAndSortingRepository<Inscripcion, 
 	 * 
 	 */
 	@Modifying
-    @Query(value = "insert into Inscripcion (fk_id_profesor,calif) VALUES (:fk_id_profesor,:calif)", nativeQuery = true)
+    @Query(value = "insert into Inscripcion (fk_id_grupo,fk_id_profesor,calificacion,aprobado) VALUES (:fk_id_grupo,:fk_id_profesor,:calificacion,:aprobado)", nativeQuery = true)
     @Transactional
-    void saveI(@Param("fk_id_profesor") int fk_id_curso, @Param("calif") String calif);
+    void saveI(@Param("fk_id_grupo") int fk_id_grupo,@Param("fk_id_profesor") int fk_id_profesor, @Param("calificacion") String calificacion,@Param("aprobado")boolean aprobado);
 }
