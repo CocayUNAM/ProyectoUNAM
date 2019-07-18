@@ -60,7 +60,6 @@ public class WebService {
 	Url_ws_inscripcionRep urls_inscripcion;
 	@Autowired
 	Logging log;
-	@Value("${ws.url_key}")
 	private String key;
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
@@ -69,12 +68,26 @@ public class WebService {
 
 	public interface ReturnTypeTwo {
 	}
+	public interface ReturnTypeThree {
+	}
 
 	
-	/*public void runTwo()  {
-		ExecutorService executor = Executors.newFixedThreadPool(2);
+	/*
+	 * Se compone de dos secciones. Primero en el que se envían dos tareas al grupo de hilos. 
+	 * Cada llamada ExecutorService.submit () devuelve inmediatamente un valor futuro del cálculo de la tarea. 
+	 * Las tareas se envían inmediatamente en la llamada a submit () y se ejecutan en segundo plano. 
+	 * Por supuesto que pueden hacer mas de 3 tareas
+	 * En la segunda sección se obtienen los valores de futuros. 
+	 * Lo que sucede es que la llamada a Future.get () bloquea el subproceso actual hasta que se calcula el valor. 
+	 * No significa que cualquier tarea esté bloqueada, todas se estén ejecutando, el hilo solo espera hasta que una tarea determinada se complete y devuelva un valor.
+	 * Una vez que se devuelve el primer valor, se realiza la segunda llamada Future.get ().
+	 * En este caso, puede o no bloquearse. Si la segunda tarea ya ha finalizado (posiblemente antes de la primera tarea), el valor se devuelve inmediatamente. 
+	 * Si la segunda tarea aún se está ejecutando, la llamada bloquea el subproceso actual hasta que se calcula el valor.*/
+	@Scheduled(cron = "30 * * * * *")
+	public void runTwo()  {
+		ExecutorService executor = Executors.newFixedThreadPool(3);
 
-		// Dispatch two tasks.
+		// Tenemos listas las tareas()
 		Future<ReturnTypeOne> first = executor.submit(new Callable<ReturnTypeOne>() {
 			@Override
 			public ReturnTypeOne call() throws Exception {
@@ -89,26 +102,31 @@ public class WebService {
 				return null;
 			}
 		});
-
-		// Get the results.
+		Future<ReturnTypeThree> third = executor.submit(new Callable<ReturnTypeThree>() {
+			@Override
+			public ReturnTypeThree call() throws Exception {
+				get_Profesores();
+				return null;
+			}
+		});
+		// Obtenemos resultados
 		try {
 			ReturnTypeOne firstValue = first.get();
 			ReturnTypeTwo secondValue = second.get();
-			// Combine the results.
+			ReturnTypeThree thirdValue = third.get();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
 	}
-*/
-	/*
-	public void get_Profesores() throws Exception {
+	
+	public void get_Profesores()  {
 
 		LinkedList<Url_ws_profesor> links = new LinkedList<>(urls.findVarios());
 
 		if (links.size() == 0) {
-			LOGGER.debug("No hay urls para el proceso");
+			LOGGER.debug("No hay urls para el proceso obtener Profesores");
 			return;
 		}
 
@@ -122,13 +140,13 @@ public class WebService {
 
 		}
 
-	}*/
-	@Scheduled(cron = "30 * * * * *")
-	public void get_Calificaciones() throws Exception {
+	}
+	
+	public void get_Calificaciones() {
 
 		LinkedList<Url_ws_inscripcion> links = new LinkedList<>(urls_inscripcion.findVarios());
 		if (links.size() == 0) {
-			LOGGER.debug("No hay urls para el proceso");
+			LOGGER.debug("No hay urls para el proceso ObtenerCalificaciones");
 			return;
 		}
 		for (Url_ws_inscripcion url : links) {
@@ -136,16 +154,11 @@ public class WebService {
 			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
 			System.out.println(json);
 			insert_Grade(json);
-			log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
-			log.setTrace(LogTypes.AGREGAR_PROFESOR);
+			//log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
+			//log.setTrace(LogTypes.AGREGAR_PROFESOR);
 		}
 	}
-	private boolean aprobadoCalificacion(double n){
-		if(n>=60)
-			return true;
-		else
-			return false;
-	}
+	
 	public void insert_Grade(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
 		for (int i = 0; 0 < 2; i++) {
@@ -178,8 +191,6 @@ public class WebService {
 		String apellido_paterno = "";
 		String apellido_materno = "";
 		// para cada objeto del json
-
-		// Se indica por el momento solo algunos profesores guardados el el array
 		for (int i = 0; i < arr.length(); i++) {
 
 			JSONObject jsonProductObject = arr.getJSONObject(i);
@@ -276,6 +287,15 @@ public class WebService {
 	private static int contarEspacios(String s) {
 		int n = s.length() - s.replaceAll(" ", "").length();
 		return n;
+	}
+
+	/*
+	 * Método privado para la clase WebService nos dice si un profesor aprueba o no
+	 * 
+	 * @return boolean
+	 */
+	private boolean aprobadoCalificacion(double n){
+		return  n>=60 ? true : false;
 	}
 
 }
