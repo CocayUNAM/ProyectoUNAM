@@ -173,6 +173,17 @@ function filtrosCorreos(filtros){
 	});
 }
 
+function enviarComentario(comentario){
+	return $.ajax({
+		url: "http://localhost:8080/rest/CorreoService/enviarComentario",
+		type : 'POST',
+		contentType: 'application/json',
+		dataType: 'JSON',
+		data: JSON.stringify(comentario),
+		async: false
+	});
+}
+
 function enviarSeleccionados(lstCorreos){
 	return $.ajax({
 		url: "http://localhost:8080/rest/CorreoService/enviarCorreosSeleccionados",
@@ -186,11 +197,16 @@ function enviarSeleccionados(lstCorreos){
 
 function enviarCorreo(){
 	var lstProfesores = [];
+	var mns = null; // word
+	mns = $('#asunto').val();
+	var desc = CKEDITOR.instances.comentario.getData();
+	mns.trim();
 	var lstData = $("#tablaCorreos").bootstrapTable("getData");
-	
 	$(lstData).each(function(index, row){
 		var bool = $("#checkCorreos_"+index).prop("checked");
 		if(bool){
+			row.cdAsunto = mns;
+			row.cdMensaje = desc;
 			lstProfesores.push(row);
 		}		
 	});
@@ -205,6 +221,8 @@ function enviarCorreo(){
 		});
 		console.log(lstProfesores);
 	}
+	$('#asunto').val('');
+	CKEDITOR.instances.comentario.setData('');
 	
 }
 
@@ -219,3 +237,16 @@ function errorAlerta(){
 		  icon: "warning"
 		});
 }
+
+function comentarioCorreo(){
+	var mensaje = new Object();
+	mensaje.cdMensaje = $("input[name='comentario']").val();
+	enviarComentario(mensaje).done(function(data){
+		if(data.response != null){
+			console.log("Se envio el comentario");
+		}else{
+			
+		}
+	})
+}
+

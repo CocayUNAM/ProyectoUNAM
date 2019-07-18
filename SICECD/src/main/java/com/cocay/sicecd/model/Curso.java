@@ -56,6 +56,12 @@ public class Curso {
 	@OneToMany(mappedBy = "fk_id_curso",targetEntity=Certificado.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Certificado> certificados = new ArrayList<>();
+	
+	@Column(name = "temp")
+	public Integer temp;
+	
+	@Column(name = "stTabla")
+	Integer stTabla;
 
 	public Curso(){}
 	
@@ -137,4 +143,21 @@ public class Curso {
 	public void setfTermino(Date fTermino) {
 		this.fTermino = fTermino;
 	}
+
+	public Integer getTemp() {
+		return temp;
+	}
+
+	public void setTemp(Integer temp) {
+		this.temp = temp;
+	}
+
+	public Integer getStTabla() {
+		return stTabla;
+	}
+
+	public void setStTabla(Integer stTabla) {
+		this.stTabla = stTabla;
+	}
+	
 }

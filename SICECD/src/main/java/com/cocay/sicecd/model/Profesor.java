@@ -76,6 +76,18 @@ public class Profesor {
 	@Column(name = "clave_plantel", nullable = true, length=20)
 	String clave_plantel;
 	
+	@Column(name = "tempEstado")
+	Integer tempEstado;
+	@Column(name = "tempGenero")
+	Integer tempGenero;
+	@Column(name = "tempTurno")
+	Integer tempTurno;
+	@Column(name = "tempGradoP")
+	Integer tempGradoP;
+	
+	@Column(name = "stTabla")
+	Integer stTabla;
+	
 	@ManyToOne(targetEntity=Turno.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_turno",referencedColumnName="pk_id_turno",insertable = true, updatable = true)
@@ -305,6 +317,46 @@ public class Profesor {
 
 	public void setCertificado_doc(String certificado_doc) {
 		this.certificado_doc = certificado_doc;
+	}
+	
+	public Integer getTempEstado() {
+		return tempEstado;
+	}
+
+	public void setTempEstado(Integer tempEstado) {
+		this.tempEstado = tempEstado;
+	}
+
+	public Integer getTempGenero() {
+		return tempGenero;
+	}
+
+	public void setTempGenero(Integer tempGenero) {
+		this.tempGenero = tempGenero;
+	}
+
+	public Integer getTempTurno() {
+		return tempTurno;
+	}
+
+	public void setTempTurno(Integer tempTurno) {
+		this.tempTurno = tempTurno;
+	}
+
+	public Integer getTempGradoP() {
+		return tempGradoP;
+	}
+
+	public void setTempGradoP(Integer tempGradoP) {
+		this.tempGradoP = tempGradoP;
+	}
+
+	public Integer getStTabla() {
+		return stTabla;
+	}
+
+	public void setStTabla(Integer stTabla) {
+		this.stTabla = stTabla;
 	}
 	
 }

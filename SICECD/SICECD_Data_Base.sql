@@ -435,7 +435,18 @@ CREATE TABLE Url_ws (
 
 ALTER TABLE Url_ws OWNER to "SICECD";
 
+/*
+Autor: Juan Carlos Garduño Vargas
+Fecha:  17/07/2019
+Accion: Tabla Errores.
+*/
 
+CREATE TABLE errores
+(
+    pk_id_mns SERIAL PRIMARY KEY,
+    mensaje VARCHAR(250),
+    estado integer
+);
 
 /*
 Autor: Juan Carlos Hernández de Anda

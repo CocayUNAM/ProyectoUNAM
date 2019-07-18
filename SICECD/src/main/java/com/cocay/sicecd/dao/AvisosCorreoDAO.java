@@ -2,7 +2,10 @@ package com.cocay.sicecd.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.*;
+import javax.mail.internet.*;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -26,19 +29,26 @@ public class AvisosCorreoDAO {
 	@Autowired
 	SendMailService _email;
 	
+	@Autowired
+	SendMailService emailSender;
+	
 	public List<ProfesorDto> envioCorreos(List<ProfesorDto> profesorDTO) {
 		List<ProfesorDto> lstProfesores = new ArrayList<ProfesorDto>();
-		lstProfesores = profesorDTO;
+
+	    lstProfesores = profesorDTO;
 		for (ProfesorDto p : lstProfesores) {
+
 			System.out.print(p.getCorreo());
 			String from="cocayprueba@gmail.com";
 			String to=p.getCorreo();
-			String subject="PruebaCorreo";
-			String body=" FELICIDADES !!!! MEJORA TUS CONOCIMIENTOS E INSCRIBETE A LOS CURSOS QUE TENEMOS PARA TI... ENTRA AL SIGUIENTE LINK PARA MÁS INFORMACIÓN";
-			_email.sendMail(from, to, subject, body);
-		}
+			String subject=p.getCdAsunto();
+			String body = p.getCdMensaje();
+		    emailSender.sendMailSender(from, to, subject, body);
+			}
+	  
 		return lstProfesores;
 	}
+	
 	
 	@SuppressWarnings("unchecked")
 	public List<ProfesorDto> filtrosCorreos(FiltroCorreoDTO filtroCorreoDTO){

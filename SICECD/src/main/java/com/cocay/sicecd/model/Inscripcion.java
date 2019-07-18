@@ -24,8 +24,8 @@ public class Inscripcion {
 	@Column(name = "calif", nullable = true, length=3)
 	String calif;
 	
-	@Column(name = "aprobado", nullable = true)
-	boolean aprobado;
+//	@Column(name = "aprobado")
+//	boolean aprobado;
 	
 	@ManyToOne(targetEntity=Grupo.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -36,6 +36,17 @@ public class Inscripcion {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor",insertable = true, updatable = true)
 	Profesor fk_id_profesor;
+	
+	@Column(name = "tempGrupo")
+	Integer tempGrupo;
+	@Column(name = "tempProfesor")
+	Integer tempProfesor;
+	
+	@Column(name = "stTabla")
+	Integer stTabla;
+	
+	@Column(name = "calif2")
+	Integer calif2;
 	
 	public Inscripcion(){}	
 	
@@ -66,12 +77,45 @@ public class Inscripcion {
 		this.calif = calif;
 	}
 
-	public boolean isAprobado() {
-		return aprobado;
+//	public boolean isAprobado() {
+//		return aprobado;
+//	}
+//
+//	public void setAprobado(boolean aprobado) {
+//		this.aprobado = aprobado;
+//	}
+	
+	public Integer getTempGrupo() {
+		return tempGrupo;
 	}
 
-	public void setAprobado(boolean aprobado) {
-		this.aprobado = aprobado;
+	public void setTempGrupo(Integer tempGrupo) {
+		this.tempGrupo = tempGrupo;
 	}
+
+	public Integer getTempProfesor() {
+		return tempProfesor;
+	}
+
+	public void setTempProfesor(Integer tempProfesor) {
+		this.tempProfesor = tempProfesor;
+	}
+
+	public Integer getStTabla() {
+		return stTabla;
+	}
+
+	public void setStTabla(Integer stTabla) {
+		this.stTabla = stTabla;
+	}
+
+	public Integer getCalif2() {
+		return calif2;
+	}
+
+	public void setCalif2(Integer calif2) {
+		this.calif2 = calif2;
+	}
+	
 
 }

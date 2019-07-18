@@ -14,6 +14,8 @@ public class GrupoDto {
 	
 	String identificador;
 
+	String idGrupo;
+
 	public String getClave() {
 		return clave;
 	}
@@ -60,6 +62,14 @@ public class GrupoDto {
 
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
+	}
+
+	public String getIdGrupo() {
+		return idGrupo;
+	}
+
+	public void setIdGrupo(String idGrupo) {
+		this.idGrupo = idGrupo;
 	}
 
 }

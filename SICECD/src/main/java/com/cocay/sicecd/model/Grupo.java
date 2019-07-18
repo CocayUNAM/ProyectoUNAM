@@ -48,6 +48,15 @@ public class Grupo {
 	@OneToMany(mappedBy = "fk_id_grupo", targetEntity=Inscripcion.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
+	
+	@Column(name = "tempCurso")
+	private Integer tempCurso;
+	
+	@Column(name = "tempProfesor")
+	private Integer tempProfesor;
+	
+	@Column(name = "stTabla")
+	Integer stTabla;
 
 	public int getPk_id_grupo() {
 		return pk_id_grupo;
@@ -114,4 +123,27 @@ public class Grupo {
 		this.fk_id_profesor = fk_id_profesor;
 	}
 
+	public Integer getTempCurso() {
+		return tempCurso;
+	}
+
+	public void setTempCurso(Integer tempCurso) {
+		this.tempCurso = tempCurso;
+	}
+
+	public Integer getTempProfesor() {
+		return tempProfesor;
+	}
+
+	public void setTempProfesor(Integer tempProfesor) {
+		this.tempProfesor = tempProfesor;
+	}
+
+	public Integer getStTabla() {
+		return stTabla;
+	}
+
+	public void setStTabla(Integer stTabla) {
+		this.stTabla = stTabla;
+	}
 }

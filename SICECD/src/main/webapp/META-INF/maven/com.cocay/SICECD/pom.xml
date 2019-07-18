@@ -63,8 +63,7 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.5.6</version>
-		</dependency>
+			</dependency>
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
@@ -117,6 +116,7 @@
 		  <groupId>org.glassfish.jersey.containers</groupId>
 		  <artifactId>jersey-container-servlet-core</artifactId>
 		</dependency> 
+		
 		<dependency>
             <groupId>org.springframework.batch</groupId>
             <artifactId>spring-batch-excel</artifactId>
@@ -143,6 +143,14 @@
 			<artifactId>bcprov-jdk15on</artifactId>
 			<version>1.62</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+    		<groupId>commons-io</groupId>
+    		<artifactId>commons-io</artifactId>
+    		<version>2.6</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
