@@ -60,7 +60,6 @@
 	                                                <th class="th-sm">Apellido Paterno</th>
 	                                                <th class="th-sm">Apellido Materno</th>
 	                                                <th class="th-sm">Correo</th>
-	                                                <th class="th-sm">Grado de Estudios</th>
 	                                                <th class="th-sm">Clave del plantel</th>
 	                                                <th class="th-sm">RFC</th>
 	                                                
@@ -73,7 +72,6 @@
 														<td class="renglon" th:text="${profesor.apellido_paterno}"></td>
 														<td class="renglon" th:text="${profesor.apellido_materno}"></td>
 														<td class="renglon" th:text="${profesor.correo}"></td>
-														<td class="renglon" th:text="${profesor.fk_id_grado_profesor.nombre}"></td>
 														<td class="renglon" th:text="${profesor.clave_plantel}"></td>
 														<td class="renglon rfc" th:value="${profesor.rfc}" th:text="${profesor.rfc}"></td>
 													</tr>

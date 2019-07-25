@@ -161,6 +161,22 @@
     <script>
 		$(document).ready(function() {
 			
+			$.fn.bootstrapValidator.validators.calif = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+
+			            if (value.length > 2) {
+			                return false;
+			            }
+			            
+			            if(value > 10){
+			            	return false;
+			            }
+
+			            return true;
+			        }
+			};
+			
 			$.fn.bootstrapValidator.validators.clave = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
@@ -223,6 +239,19 @@
 		        	
 		                    notEmpty: {
 		                        message: ' El rfc no puede estar vacio '
+		                    }
+		        	
+		        		}
+		        	},
+		        	
+		        	cal : {
+		        		validators: {
+		        			digits: {
+		                        message: ' Utiliza solo numeros '
+		                    },
+		                    
+		                    calif : {
+		                    	message: ' Calificacion de 1 a 10 '
 		                    }
 		        	
 		        		}
