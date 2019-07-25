@@ -201,4 +201,22 @@ ALTER TABLE public.profesor OWNER to "SICECD";
 ALTER TABLE public.tipo_curso OWNER to "SICECD";
 ALTER TABLE public.turno OWNER to "SICECD";
 ALTER TABLE public.usuario_sys OWNER to "SICECD";
-ALTER TABLE Url_ws OWNER to "SICECD";
+ALTER TABLE public.Url_ws OWNER to "SICECD";
+ALTER TABLE public.url_ws_curso OWNER to "SICECD";
+ALTER TABLE public.url_ws_inscripcion OWNER to "SICECD";
+ALTER TABLE public.url_ws_profesor OWNER to "SICECD";
+ALTER TABLE public.Log_sys OWNER to "SICECD";
+ALTER TABLE public.Log_evento_sys OWNER to "SICECD";
+ALTER TABLE public.certificado OWNER to "SICECD";
+ALTER TABLE public.Tipo_curso OWNER to "SICECD";
+ALTER TABLE public.Estatus_usuario_sys OWNER to "SICECD";
+
+
+/*
+Borrado de los datos de las tablas
+*/
+TRUNCATE TABLE public.inscripcion, public.grupo, public.curso, public.profesor, public.estado, 
+public.genero, public.grado_profesor, public.turno, public.tipo_curso, public.estado_profesores,
+public.estatus_usuario_sys_usuarios, public.test_class, public.log_sys, public.usuario_sys, public.estatus_usuario_sys, public.perfil_sys
+RESTART IDENTITY;
+COMMIT;
