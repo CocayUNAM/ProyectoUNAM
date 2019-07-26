@@ -51,8 +51,10 @@
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal" id="limpiar">Agregar otra inscripcion</button>
 					<button type="button" class="btn btn-primary"
-						onclick="window.location.href ='/start'">Volver
+						onclick="window.location.href ='/start'" id = "volver">Volver
 						a inicio</button>
+					<button type="button" class="btn btn-secondary"
+					data-dismiss="modal" id="revisar">Revisar Formulario</button>
 				</div>
 			</div>
 		</div>
@@ -181,7 +183,7 @@
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
 
-			            if (value.search(/([A-Z][0-9])+\w+/) < 0) {
+			            if (value.search(/[A-Z][0-9][^#&<>""~;$^%{}°¬|?/*\(\)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 			                return false;
 			            }
 
@@ -200,17 +202,6 @@
 			            return true;
 			        }
 			};
-			
-			var valor = "unchecked";
-			
-	        $('input[type="checkbox"]').click(function(){
-	            if($(this).is(":checked")){
-	            	valor = "checked"
-	            }
-	            else if($(this).is(":not(:checked)")){
-	            	valor = "unchecked"
-	            }
-	        });
 		
 			$('#registrarInscripcion').bootstrapValidator({
 		        feedbackIcons: {
@@ -278,15 +269,27 @@
 							$('#spin').css("visibility","visible")
 									
 						},
-						error : function() {
-							alert("No se ha encontrado el profesor o el curso");
+						error : function(status) {
+							$('#spin').css("visibility","hidden")
+							var elem = $(document.createElement('h4'))
+							               .attr('id','mensaje').html("Error : Revisa que sean correctas las claves de asesor y grupo");
+							$('#mensaje').replaceWith(elem);
+							$("#mensaje").css("color","red");
+							$("#limpiar").css("visibility","hidden");
+							$("#volver").css("visibility","hidden");
+							$("#revisar").css("visibility","visible");
+							$("#mensaje").css("visibility","visible");
 						},
 						success : function(respuesta, status) {
 							$('#spin').css("visibility","hidden")
 							var elem = $(document.createElement('h4'))
 							               .attr('id','mensaje').html(respuesta.message);
 							$('#mensaje').replaceWith(elem);
-							$("#mensaje").css("visibility","visible")
+							$("#mensaje").css("color","green");
+							$("#revisar").css("visibility","hidden");
+							$("#limpiar").css("visibility","visible");
+							$("#volver").css("visibility","visible");
+							$("#mensaje").css("visibility","visible");
 						}
 					});
 

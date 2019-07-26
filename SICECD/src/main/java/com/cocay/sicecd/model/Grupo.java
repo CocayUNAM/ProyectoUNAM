@@ -26,7 +26,7 @@ public class Grupo {
 	@Column(name = "pk_id_grupo")
 	int pk_id_grupo;
 	
-	@Column(name = "clave", nullable = false, length=8)
+	@Column(name = "clave", nullable = false, length=8, unique=true)
 	String clave;
 	
 	@Column(name = "fecha_inicio", nullable = true)

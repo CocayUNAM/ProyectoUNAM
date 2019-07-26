@@ -24,7 +24,7 @@ public class Inscripcion {
 	@Column(name = "calif", nullable = true, length=3)
 	String calif;
 	
-	@Column(name = "aprobado", nullable = true)
+	@Column(name = "aprobado")
 	boolean aprobado;
 
 	@Column(name = "tempGrupo", nullable = true)
