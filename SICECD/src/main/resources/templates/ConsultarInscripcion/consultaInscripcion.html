@@ -39,17 +39,19 @@
 							   			<div class="col-lg-3">
 							   				<div class="panel-body">
 							   					<label>Clave del Curso</label>
-							   					<input type="text" name="clave_curso" class="form-control" text="0000">
+							   					<input type="text" name="clave_curso" class="form-control">
 							   				</div>
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<div class="panel-body">
 							   					<label>Tipo de Curso</label>
                                                     <select name="tipos" class="form-control">
-                                                    	<option value="4">Sin definir</option>
-                                                        <option value="1">Curso</option>
+                                                    	<option value="0">Sin definir</option>
+														<option value="1">Curso</option>
 														<option value="2">Diplomado</option>
 														<option value="3">Especialidad</option>
+														<option value="4">Maestría</option>
+														<option value="5">Doctorado</option>
                                                     </select>
 							   				</div>
 							   			</div>
@@ -58,7 +60,7 @@
 							   			<div class="col-lg-3">
 							   				<div class="panel-body">
 							   					<label>Clave del Grupo</label>
-							   					<input type="text" name="clave_grupo" class="form-control" text="0000">
+							   					<input type="text" name="clave_grupo" class="form-control">
 							   				</div>
 							   			</div>
 							   			<!-- END DATOS DEL GRUPO -->
@@ -81,25 +83,25 @@
 							   		<div class="row">
 							   			<div class="col-lg-3">
 							   				<label>CURP</label>
-											<input type="text" class="form-control" name="curp" maxlength="18" placeholder="SAMH250912MDFSTO10">
+											<input type="text" class="form-control" name="curp" maxlength="18">
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<label>Nombre</label>
-											<input type="text" name="nombre" class="form-control" placeholder="Juan">
+											<input type="text" name="nombre" class="form-control">
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<label>Apellido Paterno</label>
-											<input type="text" class="form-control" placeholder="Perez" name="apellido_paterno">
+											<input type="text" class="form-control" name="apellido_paterno">
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<label>RFC</label>
-											<input type="text" class="form-control" name="rfc" maxlength="13" placeholder="SAMH2509126L6">
+											<input type="text" class="form-control" name="rfc" maxlength="13">
 							   			</div>
 							   		</div>
 							   		<div class="row">
 							   			<div class="col-lg-3">
 							   				<label>Grado de estudios</label>
-											<select name="grado_estudios" class="form-control" data-placeholder=" ">
+											<select name="grado_estudios" class="form-control">
 												<option value="5">Sin definir</option>
 												<option value="1">Licenciatura</option>
 												<option value="3">Maestría</option>
@@ -108,7 +110,7 @@
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<label>Género</label>
-							   				<select name="genero" class="form-control" data-placeholder=" ">
+							   				<select name="genero" class="form-control">
 							   					<option value="3">Sin definir</option>
 							   					<option value="1">Masculino</option>
 							   					<option value="2">Femenino</option>
@@ -116,7 +118,7 @@
 							   			</div>
 							   			<div class="col-lg-3">
 							   				<label>Turno</label>
-							   				<select name="turno" class="form-control" data-placeholder=" ">
+							   				<select name="turno" class="form-control">
 							   					<option value="4">Sin definir</option>
 							   					<option value="1">Matutino</option>
 							   					<option value="2">Vespertino</option>
