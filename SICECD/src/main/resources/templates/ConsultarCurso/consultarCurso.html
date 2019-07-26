@@ -44,7 +44,7 @@
             				</h4>
           				</div>
           			
-          				<div id="consulta" class="col-lg-6 collapse in">
+          				<div id="consulta" class="col-lg-6 collapse">
 							<div class="card">
 								<div class="card-body">
 									<div class="basic-form">
@@ -69,7 +69,10 @@
 												<label>Fecha de Término</label>
 													<input type="date" class="form-control" name="fecha_fin_curso">
 											</div>
-											<button type="submit" class="btn btn-default">Consultar</button>
+											<div>
+												<button id="btn-limpiar" type="reset" class="btn btn-default">Limpiar Búsqueda</button>
+												<button id="btn-consultar" type="submit" class="btn btn-default">Consultar</button>
+											</div>
 										</form>
 									</div>
 								</div>
@@ -103,10 +106,12 @@
 													<input type="text" name="clave_curso" class="form-control" text="0000">
 												<label>Tipo de Curso</label>
 													<select name="tipos" class="form-control" data-placeholder=" ">
-														<option value="4">Sin definir</option>
+														<option value="0">Sin definir</option>
 														<option value="1">Curso</option>
 														<option value="2">Diplomado</option>
 														<option value="3">Especialidad</option>
+														<option value="4">Maestría</option>
+														<option value="5">Doctorado</option>
 													</select>
 												<label>Fecha de Inicio</label>
 													<input type="date" class="form-control" name="fecha_inicio_curso_1">
@@ -115,7 +120,10 @@
 													<input type="date" class="form-control" name="fecha_fin_curso_1">
 													<input type="date" class="form-control" name="fecha_fin_curso_2" disabled required>
 											</div>
-											<button type="submit" class="btn btn-default">Consultar</button>
+											<div>
+												<button id="btn-limpiar" type="reset" class="btn btn-default">Limpiar Búsqueda</button>
+												<button id="btn-consultar" type="submit" class="btn btn-default">Consultar</button>
+											</div>
 										</form>
 									</div>
 								</div>

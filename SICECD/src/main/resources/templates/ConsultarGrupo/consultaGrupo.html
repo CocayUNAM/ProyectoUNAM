@@ -45,7 +45,7 @@
             				</h4>
           				</div>
 						
-						<div id="consulta" class="col-lg-6 collapse in">
+						<div id="consulta" class="col-lg-6 collapse">
 							<div class="card">
 								<div class="card-title"></div>
 								<div class="card-body">
@@ -62,7 +62,10 @@
 												<label>Fecha de Término</label>
 													<input type="date" class="form-control" name="fecha_fin_grupo">
 											</div>
-											<button type="submit" class="btn btn-default">Consultar</button>
+											<div>
+												<button id="btn-limpiar" type="reset" class="btn btn-default">Limpiar Búsqueda</button>
+												<button id="btn-consultar" type="submit" class="btn btn-default">Consultar</button>
+											</div>
 										</form>
 									</div>
 								</div>
@@ -104,7 +107,10 @@
 													<input type="date" class="form-control" name="fecha_fin_grupo_1">
 													<input type="date" class="form-control" name="fecha_fin_grupo_2" disabled required>
 											</div>
-											<button type="submit" class="btn btn-default">Consultar</button>
+											<div>
+												<button id="btn-limpiar" type="reset" class="btn btn-default">Limpiar Búsqueda</button>
+												<button id="btn-consultar" type="submit" class="btn btn-default">Consultar</button>
+											</div>
 										</form>
 									</div>
 								</div>
