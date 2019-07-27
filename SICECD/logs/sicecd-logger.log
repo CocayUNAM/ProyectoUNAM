@@ -5062,3 +5062,9 @@ org.postgresql.util.PSQLException: ERROR: llave duplicada viola restricción de 
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:834)
+2019-07-26 19:47:37,765 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [Thread-32] Shutting down ExecutorService 'taskScheduler'
+2019-07-26 19:47:37,773 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [Thread-32] Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-07-26 19:47:37,778 INFO com.zaxxer.hikari.HikariDataSource [Thread-32] HikariPool-6 - Shutdown initiated...
+2019-07-26 19:47:37,813 INFO com.zaxxer.hikari.HikariDataSource [Thread-32] HikariPool-6 - Shutdown completed.
+2019-07-26 19:47:38,701 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting SicecdApplication on Andrew with PID 16404 (C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\fixbugs\ProyectoUNAM\SICECD\target\classes started by Andres in C:\Users\Andres\Documents\Ciencias\SS\Actulizacion\fixbugs\ProyectoUNAM\SICECD)
+2019-07-26 19:47:38,703 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
