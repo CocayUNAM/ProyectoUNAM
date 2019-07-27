@@ -188,7 +188,7 @@ public class ConsultaInscripcionController {
 		}
 		
 		//Filtrando por tipo de curso
-		if (id_tipo != 4) {
+		if (id_tipo != 0) {
 			for(Curso c : cursos1) {
 				if(c.getFk_id_tipo_curso().getPk_id_tipo_curso() != id_tipo ) {
 					cursos2.remove(c);

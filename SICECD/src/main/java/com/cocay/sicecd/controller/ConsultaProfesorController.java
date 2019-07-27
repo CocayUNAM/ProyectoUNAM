@@ -41,9 +41,25 @@ public class ConsultaProfesorController {
 	public ModelAndView consultaProfesor(ModelMap model, HttpServletRequest request) {
 		String curps = request.getParameter("curp").toUpperCase().trim();
 		String rfcs = request.getParameter("rfc").toUpperCase().trim();
-		String nombre = normalizar(request.getParameter("nombre")).toUpperCase().trim();
-		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase().trim();
-		String apellido_materno = normalizar(request.getParameter("apellido_materno")).toUpperCase().trim();
+		String nombre, apellido_paterno, apellido_materno;
+		
+		if (request.getParameter("nombre") != null) {
+			nombre = normalizar(request.getParameter("nombre")).toUpperCase().trim();
+		} else {
+			nombre = "";
+		}
+		
+		if (request.getParameter("apellido_paterno") != null) {
+			apellido_paterno = normalizar(request.getParameter("apellido_materno")).toUpperCase().trim();
+		} else {
+			apellido_paterno = "";
+		}
+		
+		if (request.getParameter("apellido_materno") != null) {
+			apellido_materno = normalizar(request.getParameter("apellido_materno")).toUpperCase().trim();
+		} else {
+			apellido_materno = "";
+		}
 		
 		Integer id_grado = Integer.parseInt(request.getParameter("grado_estudios"));
 		Integer id_genero = Integer.parseInt(request.getParameter("genero"));
