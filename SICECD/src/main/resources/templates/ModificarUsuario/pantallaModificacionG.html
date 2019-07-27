@@ -54,8 +54,10 @@
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal" id="limpiar">Hacer otro cambio</button>
 					<button type="button" class="btn btn-primary"
-						onclick="window.location.href ='/start'">Volver
+						onclick="window.location.href ='/start'" id = "volver">Volver
 						a inicio</button>
+					<button type="button" class="btn btn-secondary"
+					data-dismiss="modal" id="revisar">Revisar Formulario</button>
 				</div>
 			</div>
 		</div>
@@ -163,20 +165,20 @@
 	$(document).ready(function() {
 				
 				let idu = [[${grupo.identificador}]];
+				
+				let fecha = [[${grupo.inicio}]];
 
 				$.fn.bootstrapValidator.validators.fecha = {
 				        validate: function(validator, $field, options) {
 				            var value = $field.val();
 				            var value3 = $("#inicio").val();
 				            
-				            if (value < value3) {
-				                return false;
+				            if($('#inicio').val().length > 0 && $('#termino').val().length > 0){
+					            if (value < value3) {
+					                return false;
+					            }
 				            }
-				            
-				            if(value3 == ""){
-				            	return false;
-				            }
-		
+
 				            return true;
 				        }
 				};
@@ -184,11 +186,11 @@
 				$.fn.bootstrapValidator.validators.clave = {
 				        validate: function(validator, $field, options) {
 				            var value = $field.val();
-		
-				            if (value.search(/([A-Z][0-9])+\w+/) < 0) {
+
+				            if (value.search(/[A-Z][0-9][^#&<>""~;$^%{}°¬|?/*\(\)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
-		
+
 				            return true;
 				        }
 				};
@@ -196,15 +198,40 @@
 				$.fn.bootstrapValidator.validators.rfc = {
 				        validate: function(validator, $field, options) {
 				            var value = $field.val();
-		
+
 				            if (value.search(/^([A-Z\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$/) < 0) {
 				                return false;
 				            }
-		
+
 				            return true;
 				        }
 				};
 				
+				$.fn.bootstrapValidator.validators.fechaI = {
+				        validate: function(validator, $field, options) {
+				            var value = $field.val();
+				            
+				            var varFecha = new Date(value);
+				            
+				            var FechaOrg = new Date(fecha);
+				            var hoy = new Date();
+				            
+				            hoy.setHours(0,0,0,0);
+				            
+				            if($('#inicio').val().length > 0){
+					            if(varFecha.toISOString().slice(0,10) != FechaOrg.toISOString().slice(0,10)){
+					            	if (varFecha <= hoy) {
+						                return false;
+						            }
+					            } else {
+					            	return true
+					            }
+				            }
+
+				            return true;
+				        }
+				 };
+		
 				$('#registrarGr').bootstrapValidator({
 			        feedbackIcons: {
 			            valid: 'glyphicon glyphicon-ok',
@@ -254,7 +281,15 @@
 			                    	message: ' Verifica que el formato sea el correcto '
 			                    }
 			            	}
-			            }
+			            },
+			            
+			            inicio : {
+			        		validators : {
+			        			fechaI : {
+			        				message: ' no son validas fechas anteriores a hoy '
+			        			}
+			        		}
+			        	}
 			            
 			        }
 			    }).on('success.form.bv', function(eve) {
@@ -280,15 +315,27 @@
 										
 							},
 							//dataType:'json',
-							error : function(e) {
-								alert("Error");
+							error : function() {
+								$('#spin').css("visibility","hidden")
+								var elem = $(document.createElement('h4'))
+								               .attr('id','mensaje').html("Error : Revisa que sean correctas las claves de asesor y curso, o la clave sea unica");
+								$('#mensaje').replaceWith(elem);
+								$("#mensaje").css("color","red");
+								$("#limpiar").css("visibility","hidden");
+								$("#volver").css("visibility","hidden");
+								$("#revisar").css("visibility","visible");
+								$("#mensaje").css("visibility","visible");
 							},
-							success : function(respuesta) {
+							success : function(respuesta, status) {
 								$('#spin').css("visibility","hidden")
 								var elem = $(document.createElement('h4'))
 								               .attr('id','mensaje').html(respuesta);
 								$('#mensaje').replaceWith(elem);
-								$("#mensaje").css("visibility","visible")
+								$("#mensaje").css("color","green");
+								$("#revisar").css("visibility","hidden");
+								$("#limpiar").css("visibility","visible");
+								$("#volver").css("visibility","visible");
+								$("#mensaje").css("visibility","visible");
 							}
 						});
 

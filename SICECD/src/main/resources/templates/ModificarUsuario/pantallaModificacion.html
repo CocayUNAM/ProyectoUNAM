@@ -54,8 +54,10 @@
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal" id="limpiar">Hacer otro cambio</button>
 					<button type="button" class="btn btn-primary"
-						onclick="window.location.href ='/start'">Volver
+						onclick="window.location.href ='/start'" id = "volver">Volver
 						a inicio</button>
+					<button type="button" class="btn btn-secondary"
+					data-dismiss="modal" id="revisar">Revisar Formulario</button>
 				</div>
 			</div>
 		</div>
@@ -199,7 +201,7 @@
                                                     <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;" required>
                                                         <option th:value="${profesor.turno}" th:text = "${profesor.nombreTurno}">Turno definido</option>
                                                         <option value="1">Matutino</option>
-                                                        <option value="2">Vepertino</option>
+                                                        <option value="2">Vespertino</option>
                                                         <option value="3">Completo</option>
                                                     </select>
                                                 </div>
@@ -317,11 +319,67 @@ $(document).ready(function() {
 			$.fn.bootstrapValidator.validators.nombre = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-		
-			            if (value.search(/[A-Z][a-zA-Z][^#&<>""~;$^%{}?/*(0-9)]{1,20}$/) < 0) {
+
+			            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 			                return false;
 			            }
-		
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.amaterno = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+
+			            if($('#apellidomaterno').val().length > 0){
+				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				                return false;
+				            }
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.cilo = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+
+			            if($('#cilo').val().length > 0){
+				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				                return false;
+				            }
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.ocupacion = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+
+			            if($('#ocupacion').val().length > 0){
+				            if (value.search(/[a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				                return false;
+				            }
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.plantel = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+
+			            if($('#plantel').val().length > 0){
+				            if (value.search(/[A-Z][a-zA-Z][^<>°¬|""~;$^%{}?/*@!¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				                return false;
+				            }
+			            }
+
 			            return true;
 			        }
 			};
@@ -329,13 +387,13 @@ $(document).ready(function() {
 			$.fn.bootstrapValidator.validators.curp = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-			            
+						
 			            if($('#curp').val().length > 0){
-				            if (value.search(/^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/) < 0) {
-				                return false;
-				            }
+			            	if (value.search(/^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/) < 0) {
+			                	return false;
+			            	}
 			            }
-		
+
 			            return true;
 			        }
 			};
@@ -343,11 +401,11 @@ $(document).ready(function() {
 			$.fn.bootstrapValidator.validators.rfc = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-		
+
 			            if (value.search(/^([A-Z\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$/) < 0) {
 			                return false;
 			            }
-		
+
 			            return true;
 			        }
 			};
@@ -361,10 +419,25 @@ $(document).ready(function() {
 				                return false;
 				            }
 			            }
-			
+
 			            return true;
 			        }
 			};
+			
+			$.fn.bootstrapValidator.validators.clave = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+						
+			            if($('#cplantel').val().length > 0){
+				            if (value.search(/[A-Z][0-9][^#&<>""~;$^%{}°¬|?/*\(\)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				                return false;
+				            }
+			            }
+
+			            return true;
+			        }
+			};
+
 			
 			$('#registrarprofesor').bootstrapValidator({
 		        feedbackIcons: {
@@ -380,6 +453,14 @@ $(document).ready(function() {
 		                    },
 		        
 		        			nombre: {
+		        				message: ' Verfica que sea un apellido valido '
+		        			}
+		                }
+		            },
+		            
+		            apellidomaterno: {
+		                validators: {
+		        			amaterno: {
 		        				message: ' Verfica que sea un apellido valido '
 		        			}
 		                }
@@ -428,6 +509,38 @@ $(document).ready(function() {
 		        				message: ' Verifica que la longitud sea de 10 numeros '
 		        			}
 		        	
+		        		}
+		        	}, 
+		        	
+		        	cilo : {
+		        		validators : {
+		        			cilo: {
+		        				message : 'Verifica que sea un nombre de entidad valido'
+		        			}
+		        		}
+		        	}, 
+		        	
+		        	plantel : {
+		        		validators : {
+		        			plantel : {
+		        				message : 'Verifica que sea un nombre de plantel valido'
+		        			}
+		        		}
+		        	},
+		        	
+		        	cplantel : {
+		        		validators : {
+		        			clave : {
+		        				message : 'Verifica que sea una clave valida, como la del ejemplo'
+		        			}
+		        		}
+		        	},
+		        	
+		        	ocupacion : {
+		        		validators : {
+		        			ocupacion : {
+		        				message : 'Verifica que no contenga caracteres especiales'
+		        			}
 		        		}
 		        	}
 		            
@@ -483,14 +596,26 @@ $(document).ready(function() {
 						},
 						//dataType:'json',
 						error : function(e) {
-							alert("Error");
+							$('#spin').css("visibility","hidden")
+							var elem = $(document.createElement('h4'))
+							               .attr('id','mensaje').html("Error: RFC de asesor ya habia sido registrado");
+							$('#mensaje').replaceWith(elem);
+							$("#mensaje").css("color","red");
+							$("#limpiar").css("visibility","hidden");
+							$("#volver").css("visibility","hidden");
+							$("#revisar").css("visibility","visible");
+							$("#mensaje").css("visibility","visible");
 						},
 						success : function(respuesta) {
 							$('#spin').css("visibility","hidden")
 							var elem = $(document.createElement('h4'))
 							               .attr('id','mensaje').html(respuesta);
 							$('#mensaje').replaceWith(elem);
-							$("#mensaje").css("visibility","visible")
+							$("#mensaje").css("color","green");
+							$("#revisar").css("visibility","hidden");
+							$("#limpiar").css("visibility","visible");
+							$("#volver").css("visibility","visible");
+							$("#mensaje").css("visibility","visible");
 						}
 					});
 	            

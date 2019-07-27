@@ -130,9 +130,9 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="f_inicio" >Fecha de inicio (de no cambiar insertar la anterior)<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="f_inicio">Fecha de inicio <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="f_inicio" th:text="${curso.fInicio}">
+                                                    <input type="date" class="form-control" id="f_inicio" name="f_inicio" th:text= "${curso.fInicio}">
                                                 </div>
                                             </div>
                                             
@@ -183,6 +183,8 @@
 $(document).ready(function() {
 	
 			let idu = [[${curso.pk_id_curso}]];
+			
+			let fecha = [[${curso.fInicio}]];
 			
 			$.fn.bootstrapValidator.validators.clave = {
 			        validate: function(validator, $field, options) {
@@ -242,13 +244,19 @@ $(document).ready(function() {
 			            var value = $field.val();
 			            
 			            var varFecha = new Date(value);
+			            
+			            var FechaOrg = new Date(fecha);
 			            var hoy = new Date();
 			            
 			            hoy.setHours(0,0,0,0);
 			            
 			            if($('#f_inicio').val().length > 0){
-				            if (varFecha <= hoy) {
-				                return false;
+				            if(varFecha.toISOString().slice(0,10) != FechaOrg.toISOString().slice(0,10)){
+				            	if (varFecha <= hoy) {
+					                return false;
+					            }
+				            } else {
+				            	return true
 				            }
 			            }
 
@@ -310,7 +318,7 @@ $(document).ready(function() {
 			        	f_inicio : {
 			        		validators : {
 			        			fechaI : {
-			        				message : 'No se admiten fechas pasadas a hoy'
+			        				message : 'No se admiten fechas pasadas a hoy o revisa que la fecha coincida con la anterior registrada'
 			        			}
 			        		}
 			        	},
@@ -374,7 +382,6 @@ $(document).ready(function() {
 		            var $form     = $(eve.target),
 		                validator = $form.data('bootstrapValidator');
 		        });
-
 		});
 	</script>
 </body>

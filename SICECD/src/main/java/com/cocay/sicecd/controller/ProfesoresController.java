@@ -273,7 +273,15 @@ public class ProfesoresController {
 
 	private String saveConstancia(MultipartFile constancia) {
 		
-		Profesor ultProfe = profRep.findHigherID().get(0);
+		List<Profesor> alt = profRep.findHigherID();
+		
+		Profesor ultProfe = new Profesor();
+		
+		if(!alt.isEmpty()) {
+			ultProfe = profRep.findHigherID().get(0);
+		} else {
+			ultProfe.setPk_id_profesor(0);
+		}
 		
 		Integer idPath = ultProfe.getPk_id_profesor() + 1;
 		

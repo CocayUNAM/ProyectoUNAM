@@ -17,6 +17,7 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -469,14 +470,24 @@ public class ModificarUsuarios {
 		
 		Grupo gpo = grRep.findByClave(ins.getIdGrupo()).get(0); 
 		
-		if (!mod.getFk_id_grupo().getClave().equals(ins.getIdGrupo())) {
-			mod.setFk_id_grupo(gpo);
+		if(gpo != null) {
+			if (!mod.getFk_id_grupo().getClave().equals(ins.getIdGrupo())) {
+				mod.setFk_id_grupo(gpo);
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN)
+		            .body("¡Grupo no encontrado!");
 		}
 		
 		Profesor pro = proRep.findByRfc(ins.getIdProfesor());
 		
-		if (!mod.getFk_id_profesor().getNombre().equals(ins.getIdProfesor())) {
-			mod.setFk_id_profesor(pro);
+		if(pro != null) {
+			if (!mod.getFk_id_profesor().getNombre().equals(ins.getIdProfesor())) {
+				mod.setFk_id_profesor(pro);
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN)
+		            .body("¡Asesor no encontrado!");
 		}
 		
 		mod.setAprobado(ins.isAprobado());
@@ -616,14 +627,24 @@ public class ModificarUsuarios {
 		
 		Profesor pro = proRep.findByRfc(grp.getAsesor());
 		
-		if (!mod.getFk_id_profesor().getRfc().equals(grp.getAsesor())) {
-			mod.setFk_id_profesor(pro);
+		if(pro != null) {
+			if (!mod.getFk_id_profesor().getRfc().equals(grp.getAsesor())) {
+				mod.setFk_id_profesor(pro);
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN)
+		            .body("¡Profesor no encontrado!");
 		}
 		
 		Curso cur = crRep.findByClave(grp.getCurso()).get(0);
 		
-		if (!mod.getFk_id_curso().getClave().equals(grp.getCurso())) {
-			mod.setFk_id_curso(cur);
+		if(cur != null) {
+			if (!mod.getFk_id_curso().getClave().equals(grp.getCurso())) {
+				mod.setFk_id_curso(cur);
+			}  
+		} else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN)
+		            .body("¡Curso no encontrado!");
 		}
 
 		System.out.println(cambios);
