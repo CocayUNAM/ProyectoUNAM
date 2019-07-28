@@ -24,8 +24,8 @@ public class Inscripcion {
 	@Column(name = "calif", nullable = true, length=3)
 	String calif;
 	
-	@Column(name = "aprobado")
-	boolean aprobado;
+	@Column(name = "aprobado", nullable = true)
+	Boolean aprobado;
 
 	@Column(name = "tempGrupo", nullable = true)
 	Integer tempGrupo;
@@ -78,11 +78,11 @@ public class Inscripcion {
 		this.calif = calif;
 	}
 
-	public boolean isAprobado() {
+	public Boolean isAprobado() {
 		return aprobado;
 	}
 
-	public void setAprobado(boolean aprobado) {
+	public void setAprobado(Boolean aprobado) {
 		this.aprobado = aprobado;
 	}
 	

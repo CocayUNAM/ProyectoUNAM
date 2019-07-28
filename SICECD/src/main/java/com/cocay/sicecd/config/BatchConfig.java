@@ -185,8 +185,8 @@ public class BatchConfig  {
 	public Step stepProfesor(ItemReader<Profesor> importReader) {
 		return stepBuilderFactory.get("stepProfesor").<Profesor, Profesor>chunk(2)
 				.reader(importReader)
-//				.faultTolerant()
-//				.skipPolicy(fileVerificationSkipper())
+				.faultTolerant()
+				.skipPolicy(fileVerificationSkipper())
 				.processor(new ProcessorProfesor()).writer(new WriterProfesor(profesorRep)).build();
 	}
 	

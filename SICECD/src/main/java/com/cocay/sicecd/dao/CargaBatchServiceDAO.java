@@ -176,11 +176,10 @@ public class CargaBatchServiceDAO {
 	public List<InscripcionDto> lstInscripciones(Integer limit, Integer offset, String search, String name, String order) throws Exception {
 		List<InscripcionDto> lstInscr = new ArrayList<InscripcionDto>();
 		
-		String consulta = "SELECT pk_id_inscripcion, idGrupo, idProfesor, calificacion, calif FROM (\n" + 
+		String consulta = "SELECT pk_id_inscripcion, idGrupo, idProfesor, calif FROM (\n" + 
 				"	SELECT pk_id_inscripcion,\n" +
 				"				fk_id_grupo idGrupo,\n" + 
 				"				fk_id_profesor idProfesor,\n" + 
-				"				calificacion,\n" + 
 				"				calif\n" + 
 				"				FROM inscripcion \n"+
 				"               WHERE st_Tabla = 1) foo";
@@ -197,7 +196,6 @@ public class CargaBatchServiceDAO {
 		query.unwrap(SQLQuery.class)
 		.addScalar("idGrupo",StringType.INSTANCE)
 		.addScalar("idProfesor", StringType.INSTANCE)
-		.addScalar("calificacion", StringType.INSTANCE)
 		.addScalar("calif", StringType.INSTANCE)
 		.setResultTransformer(Transformers.aliasToBean(InscripcionDto.class));
 		query.setFirstResult(offset);
