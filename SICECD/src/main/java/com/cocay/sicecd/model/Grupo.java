@@ -26,7 +26,7 @@ public class Grupo {
 	@Column(name = "pk_id_grupo")
 	int pk_id_grupo;
 	
-	@Column(name = "clave", nullable = false, length=8)
+	@Column(name = "clave", nullable = false, length=8, unique=true)
 	String clave;
 	
 	@Column(name = "fecha_inicio", nullable = true)
@@ -34,6 +34,16 @@ public class Grupo {
 	
 	@Column(name = "fecha_fin", nullable = true)
 	Date fecha_fin;
+
+	@Column(name = "tempCurso", nullable = true)
+	private Integer tempCurso;
+	
+	@Column(name = "tempProfesor", nullable = true)
+	private Integer tempProfesor;
+	
+	@Column(name = "stTabla", nullable = true)
+	Integer stTabla;
+
 	
 	@ManyToOne(targetEntity=Curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -48,7 +58,7 @@ public class Grupo {
 	@OneToMany(mappedBy = "fk_id_grupo", targetEntity=Inscripcion.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
-
+	
 	public int getPk_id_grupo() {
 		return pk_id_grupo;
 	}
@@ -114,4 +124,27 @@ public class Grupo {
 		this.fk_id_profesor = fk_id_profesor;
 	}
 
+	public Integer getTempCurso() {
+		return tempCurso;
+	}
+
+	public void setTempCurso(Integer tempCurso) {
+		this.tempCurso = tempCurso;
+	}
+
+	public Integer getTempProfesor() {
+		return tempProfesor;
+	}
+
+	public void setTempProfesor(Integer tempProfesor) {
+		this.tempProfesor = tempProfesor;
+	}
+
+	public Integer getStTabla() {
+		return stTabla;
+	}
+
+	public void setStTabla(Integer stTabla) {
+		this.stTabla = stTabla;
+	}
 }

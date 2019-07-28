@@ -26,38 +26,41 @@
 <link href="css/style.css" rel="stylesheet">
 <link href="css/fileinput.css" rel="stylesheet">
 <style type="text/css" media="screen">
-	#spinner{
-		position: fixed;
+/* 	#spinner{ */
+/* 		position: fixed; */
+/* 		top: 50%; */
+/* 		left: 50%; */
+/* 	} */
+	
+	.pace-running #loader {
+	  	border: 16px solid #f3f3f3;
+	  	border-radius: 50%;
+	  	border-top: 16px solid #3498db;
+	  	width: 120px;
+	  	height: 120px;
+	  	-webkit-animation: spin 2s linear infinite; /* Safari */
+	  	animation: spin 2s linear infinite;
+	  	position: fixed;
 		top: 50%;
 		left: 50%;
 	}
+
+	/* Safari */
+	@-webkit-keyframes spin {
+		0% { -webkit-transform: rotate(0deg); }
+	  	100% { -webkit-transform: rotate(360deg); }
+	}
 	
-	#loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
-  position: fixed;
-		top: 50%;
-		left: 50%;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+	@keyframes spin {
+	  	0% { transform: rotate(0deg); }
+	  	100% { transform: rotate(360deg); }
+	}
 </style>
 </head>
 <body>
+	<div id="loader" >
+<!-- 		<div class="loader"></div> -->
+	</div>
 	<div th:replace="/includes/head.html :: head_div1"></div> 
 	<div th:replace="/includes/head.html :: head_divBatch"></div>
   <!-- Modal -->
@@ -70,7 +73,7 @@
           <h4 class="modal-title">Cargar Archivo</h4>
         </div>
         <div class="modal-body">
-        	  <form class="form-horizontal" method="post" th:action="@{/import/file/uploadToDB}" enctype="multipart/form-data">
+        	  <form class="form-horizontal" method="post" th:action="@{/import/file/grupo}" enctype="multipart/form-data">
 
 					<div class="form-group ">
 						<p>
@@ -127,9 +130,7 @@
 						<h1>Prueba</h1>
 						<div class="card">
 							<div>
-								<div id="loader" >
-									<div class="loader"></div>
-								</div>
+								
 									
 							</div>
 							<div class="table-responsive">
@@ -175,6 +176,7 @@
 	<script src="js/lib/bootstrap.min.js"></script>
 	<script src="js/scripts.js"></script>
 	<script src="../js/fileinput.js"></script>
+	<script src="js/main.js"></script>
 	<script type="text/javascript">
 		function validateForm(){
 			var archivo = document.forms["myForm"]["archivo"].value;
@@ -225,20 +227,25 @@
 			var uploadObject = $("#archivo");
 			var file = uploadObject[0].files[0];
 			console.log(file);
-			var fileData = new FormData(document.getElementById("form-data"));
-			fileData.append('file', file);			
-			$('#archivo').fileinput('reset');
-			$.ajax({
-				url : "http://localhost:8080/ejemploService/leerExcel",
-				type : "POST",
-				cache: false,
-				contentType: 'multipart/form-data',
-				data: fileData,
-				processData: false,
-				async: false
-			}).done(function(data) {
-				console.log(data)
-			});
+			if(file != undefined && file != null){
+				var formData = new FormData();
+				formData.append('file', file);			
+				$('#archivo').fileinput('reset');
+				$.ajax({
+					url : "http://localhost:8080/rest/ejemploService/leerExcel",
+					type : "POST",
+					data: formData,
+					enctype: 'multipart/form-data',
+					contentType: false,
+					processData: false,
+					cache: false,
+					async: false
+				}).done(function(data) {
+					console.log(data)
+				});
+			} else {
+				console.log("Seleccione un excel puto");
+			}
 		}
 		
 	</script>

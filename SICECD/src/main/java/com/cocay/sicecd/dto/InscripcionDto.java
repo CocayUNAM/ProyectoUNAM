@@ -12,6 +12,8 @@ public class InscripcionDto {
 	
 	boolean aprobado;
 
+	String calif;
+
 	public String getIdGrupo() {
 		return idGrupo;
 	}
@@ -50,6 +52,14 @@ public class InscripcionDto {
 
 	public void setIdentificador(String identificador) {
 		this.identificador = identificador;
+	}
+
+	public String getCalif() {
+		return calif;
+	}
+
+	public void setCalif(String calif) {
+		this.calif = calif;
 	}
 	
 }

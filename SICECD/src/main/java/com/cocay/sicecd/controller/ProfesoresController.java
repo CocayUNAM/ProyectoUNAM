@@ -187,7 +187,6 @@ public class ProfesoresController {
 				
 				System.out.println("El telefono es: " +telefono);
 
-				
 				if(constancia != null) {
 					String originalName = constancia.getOriginalFilename();
 					saveConstancia(constancia);
@@ -214,7 +213,6 @@ public class ProfesoresController {
 				
 //				/*base*/
 				Integer estado = Integer.parseInt(prof.getEstado());
-				System.out.println("-------El estado seleccionado:   " + estado);
 				Optional<Estado> est = stRep.findById(estado);
 				
 				String cilo = prof.getCilo();
@@ -275,7 +273,15 @@ public class ProfesoresController {
 
 	private String saveConstancia(MultipartFile constancia) {
 		
-		Profesor ultProfe = profRep.findHigherID().get(0);
+		List<Profesor> alt = profRep.findHigherID();
+		
+		Profesor ultProfe = new Profesor();
+		
+		if(!alt.isEmpty()) {
+			ultProfe = profRep.findHigherID().get(0);
+		} else {
+			ultProfe.setPk_id_profesor(0);
+		}
 		
 		Integer idPath = ultProfe.getPk_id_profesor() + 1;
 		

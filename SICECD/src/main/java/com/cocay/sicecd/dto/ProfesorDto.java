@@ -51,6 +51,10 @@ public class ProfesorDto {
 	String rfc_doc;
 	
 	String certificado_doc;
+	
+	String cdMensaje;
+	
+	String cdAsunto;
 
 	public String getaPaterno() {
 		return aPaterno;
@@ -266,6 +270,22 @@ public class ProfesorDto {
 
 	public void setNombreGenero(String nombreGenero) {
 		this.nombreGenero = nombreGenero;
+	}
+	
+	public String getCdMensaje() {
+		return cdMensaje;
+	}
+
+	public void setCdMensaje(String cdMensaje) {
+		this.cdMensaje = cdMensaje;
+	}
+
+	public String getCdAsunto() {
+		return cdAsunto;
+	}
+
+	public void setCdAsunto(String cdAsunto) {
+		this.cdAsunto = cdAsunto;
 	}
 	
 	

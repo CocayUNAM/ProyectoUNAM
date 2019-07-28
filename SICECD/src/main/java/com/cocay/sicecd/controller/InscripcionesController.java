@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -60,11 +61,17 @@ public class InscripcionesController {
 		List<Grupo> grupop = grupoRep.findByClave(grupo);
 		if (!grupop.isEmpty()) {
 			inst.setFk_id_grupo(grupop.get(0));
+		} else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN)
+		            .body("¡Grupo no encontrado!");
 		}
 
 		Profesor profe = profRep.findByRfc(par);
 		if (profe != null) {
 			inst.setFk_id_profesor(profe);
+		} else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN)
+		            .body("¡Profesor no encontrado!");
 		}
 		
 		inst.setCalif(cal);

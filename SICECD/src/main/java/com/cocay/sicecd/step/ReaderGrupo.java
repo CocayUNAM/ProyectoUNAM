@@ -4,14 +4,17 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 
+import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
 
 
 public class ReaderGrupo {
 
-	public static FlatFileItemReader<Grupo> reader(String path) {
+
+	public static FlatFileItemReader<Grupo> reader(@Value("#{jobParameters[fullPathFileName]}") String path) {
 		FlatFileItemReader<Grupo> reader = new FlatFileItemReader<Grupo>();
 
 		reader.setResource(new ClassPathResource(path));

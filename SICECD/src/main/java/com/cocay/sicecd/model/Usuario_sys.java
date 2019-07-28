@@ -40,28 +40,28 @@ public class Usuario_sys {
 	@Column(name = "apellido_paterno", nullable = false, length=250)
 	String apellido_paterno;
 	
-	@Column(name = "apellido_materno", nullable = false, length=250)
+	@Column(name = "apellido_materno", nullable = true, length=250)
 	String apellido_materno;
 	
-	@Column(name = "confirmacion", nullable = false, length=10)
+	@Column(name = "confirmacion", nullable = true, length=10)
 	String confirmacion;
 	
-	@Column (name = "codigo", nullable = false, length=10)
+	@Column (name = "codigo", nullable = true, length=10)
 	String codigo;
 	
-	@Column(name = "confirmacioncorreo", nullable = false, length=10)
+	@Column(name = "confirmacioncorreo", nullable = true, length=10)
 	String confirmacioncorreo;
 	
-	@Column (name = "codigoCorreo", nullable = false, length=10)
+	@Column (name = "codigoCorreo", nullable = true, length=10)
 	String codigoCorreo;
 	
-	@Column (name = "correocambio", nullable = false, length=10)
+	@Column (name = "correocambio", nullable = true, length=10)
 	String correocambio;
 	
-	@Column (name = "codigorecupera", nullable = false, length=10)
+	@Column (name = "codigorecupera", nullable = true, length=10)
 	String codigorecupera;
 	
-	@Column (name = "confirmarecupera", nullable = false, length=10)
+	@Column (name = "confirmarecupera", nullable = true, length=10)
 	String confirmarecupera;
 	
 	@ManyToOne(targetEntity = Estatus_usuario_sys.class)

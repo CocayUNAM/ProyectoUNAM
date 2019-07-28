@@ -13,6 +13,10 @@ public class CursoDto {
 	String fInicio;
 	
 	String fTermino;
+	
+	String idCurso;
+	
+	int total;
 
 	public String getClave() {
 		return clave;
@@ -61,4 +65,22 @@ public class CursoDto {
 	public void setfTermino(String fTermino) {
 		this.fTermino = fTermino;
 	}
+
+	public String getIdCurso() {
+		return idCurso;
+	}
+
+	public void setIdCurso(String idCurso) {
+		this.idCurso = idCurso;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	
+	
 }

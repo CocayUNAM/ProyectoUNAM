@@ -51,15 +51,15 @@
                                             </thead>
                                             <tbody>
                                                 <tr data-th-each="grupo : ${grupos}">
-                                                	<td data-th-text="${grupo.fk_id_curso.fk_id_tipo_curso.nombre}">Text ...</td>
-                                                	<td data-th-text="${grupo.fk_id_curso.clave}">Text ...</td>
-                                                	<td data-th-text="${grupo.fk_id_curso.nombre}">Text ...</td>
-                                                	<td data-th-text="${grupo.clave}">Text ...</td>
-                                                	<td data-th-text="${grupo.fk_id_profesor.nombre}">Text ...</td>
-                                                	<td data-th-text="${grupo.fk_id_profesor.apellido_paterno}">Text ...</td>
-                                                	<td data-th-text="${#dates.format(grupo.fecha_inicio,'dd-MMM-yyyy')}">Text ...</td>
-                                                	<td data-th-text="${#dates.format(grupo.fecha_fin,'dd-MMM-yyyy')}">Text ...</td>
-                                                	<td data-th-text="${grupo.getInscripciones().size()}">Text ...</td>
+                                                	<td data-th-text="${grupo?.fk_id_curso?.fk_id_tipo_curso?.nombre}">Text ...</td>
+                                                	<td data-th-text="${grupo?.fk_id_curso?.clave}">Text ...</td>
+                                                	<td data-th-text="${grupo?.fk_id_curso?.nombre}">Text ...</td>
+                                                	<td data-th-text="${grupo?.clave}">Text ...</td>
+                                                	<td data-th-text="${grupo?.fk_id_profesor?.nombre}">Text ...</td>
+                                                	<td data-th-text="${grupo?.fk_id_profesor?.apellido_paterno}">Text ...</td>
+                                                	<td data-th-text="${#dates.format(grupo?.fecha_inicio,'dd-MMM-yyyy')}">Text ...</td>
+                                                	<td data-th-text="${#dates.format(grupo?.fecha_fin,'dd-MMM-yyyy')}">Text ...</td>
+                                                	<td data-th-text="${grupo?.getInscripciones().size()}">Text ...</td>
                                                 </tr>
                                             </tbody>
                                         </table>

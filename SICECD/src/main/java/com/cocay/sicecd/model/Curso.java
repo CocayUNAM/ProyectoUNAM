@@ -44,7 +44,13 @@ public class Curso {
 	@Column(name = "f_termino", nullable = true)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date fTermino;
+
+	@Column(name = "temp", nullable = true)
+	public Integer temp;
 	
+	@Column(name = "stTabla", nullable = true)
+	Integer stTabla;
+
 	@ManyToOne(targetEntity=Tipo_curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_tipo_curso", referencedColumnName="pk_id_tipo_curso")
@@ -56,7 +62,7 @@ public class Curso {
 	@OneToMany(mappedBy = "fk_id_curso",targetEntity=Certificado.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Certificado> certificados = new ArrayList<>();
-
+	
 	public Curso(){}
 	
 	public Curso(String clave, String nombre, int horas) {
@@ -137,4 +143,21 @@ public class Curso {
 	public void setfTermino(Date fTermino) {
 		this.fTermino = fTermino;
 	}
+
+	public Integer getTemp() {
+		return temp;
+	}
+
+	public void setTemp(Integer temp) {
+		this.temp = temp;
+	}
+
+	public Integer getStTabla() {
+		return stTabla;
+	}
+
+	public void setStTabla(Integer stTabla) {
+		this.stTabla = stTabla;
+	}
+	
 }

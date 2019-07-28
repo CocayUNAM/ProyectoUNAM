@@ -19,9 +19,10 @@
 <link href="css/lib/font-awesome.min.css" rel="stylesheet">
 <link href="css/lib/themify-icons.css" rel="stylesheet">
 <link href="css/lib/menubar/sidebar.css" rel="stylesheet">
-<link href="css/lib/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/lib/helper.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<link href="css/bootstrap-table.css" rel="stylesheet">
 </head>
 <body>
 	<div th:replace="/includes/head.html :: head_div1"></div> 
@@ -32,17 +33,19 @@
     
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Cargar Archivo</h4>
-        </div>
-        <div class="modal-body">
-          <p>Buscar Archivo</p>
-          <input type="file" class="btn btn-default"></input>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        </div>
+      	<form class="form-horizontal" method="post" th:action="@{/consultarGrupo}" enctype="multipart/form-data">
+      		<div class="modal-header">
+	          <h4 class="modal-title">Cargar Archivo</h4>
+	        </div>
+	        <div class="modal-body">
+	          <p>Buscar Archivo</p>
+	          <input type="file" name="file" id="fileupload"  size="40" value="fileupload" required="required"/>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="submit" class="btn btn-default">Aceptar</button>
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	        </div>
+      	</form>
       </div>
       
     </div>
@@ -56,13 +59,13 @@
 					<div class="col-lg-4">
 						<h1>Carga de Grupos</h1>
 						<div class="card">
-							<form action="/jobGrupo" method="get">
+<!-- 							<form action="/jobGrupo" method="get"> -->
 								<fieldset>
 									<legend>Carga Batch</legend>
 									<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalPrueba">Cargar Archivo</button>
-									<button type="submit" class="btn btn-default btn-lg">Enviar</button>
+<!-- 									<button type="submit" class="btn btn-default btn-lg">Enviar</button> -->
 								</fieldset>
-							</form>
+<!-- 							</form> -->
 						</div>
 					</div>
 				</div>		
@@ -77,28 +80,37 @@
 								    <li><a th:href="@{/consultarProfesor}">Profesores</a></li>
 									<li><a th:href="@{/consultarCursos}">Cursos</a></li>
 									<li class="active"><a th:href="@{/consultarGrupo}">Grupos</a></li>
+									<li><a th:href="@{/consultarInscripcionBatch}">Inscripci&oacute;n</a></li>
 								  </ul>
-								<table class="table table-striped table-bordered" id="tablaPrueba">
+								<table class="table table-striped table-bordered" id="tablaGrupo">
 									<thead>
-												<tr>
-													<th>ID</th>
-													<th>fk_id_curso</th>
-													<th>CLAVE</th>
-													<th>FH_INICIO</th>
-													<th>FH_FIN</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr data-th-each="grupo : ${grupos}">
-													<td data-th-text="${grupo.pk_id_grupo}">Text ...</td>
-													<td data-th-text="${grupo.fk_id_curso}">Text ...</td>
-													<td data-th-text="${grupo.clave}">Text ...</td>
-													<td data-th-text="${grupo.fecha_inicio}">Text ...</td>
-													<td data-th-text="${grupo.fecha_fin}">Text ...</td>
-												</tr>
-											</tbody>
+										<tr>
+											<th data-field="idGrupo">ID</th>
+											<th data-field="clave">CLAVE</th>
+										</tr>
+									</thead>
 								</table>
 							</div>
+							<button type="button" class="btn btn-default btn-lg ml-auto" onclick="btnLimpiar2()">Limpiar</button>
+						</div>
+					</div>
+				</div> 
+			</section>
+			<section>
+				<div class="row">
+					<div class="col-lg-12">
+						<h1>Registros incorrectos</h1>
+						<div class="card">
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered" id="tablaErrores">
+									<thead>
+										<tr>
+											<th data-field="cdMensaje">DESCRIPCION</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+							<button type="button" class="btn btn-default btn-lg ml-auto" onclick="btnLimpiar()">Limpiar</button>
 						</div>
 					</div>
 				</div> 
@@ -114,5 +126,10 @@
 	<!-- bootstrap -->
 	<script src="js/lib/bootstrap.min.js"></script>
 	<script src="js/scripts.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="js/bootstrap-table.min.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="js/bootstrap-table-zh-CN.min.js"></script>
+<script src="js/consultarGrupo.js"></script>
 </body>
 </html>

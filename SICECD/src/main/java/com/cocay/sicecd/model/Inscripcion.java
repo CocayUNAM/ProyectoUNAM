@@ -24,8 +24,20 @@ public class Inscripcion {
 	@Column(name = "calif", nullable = true, length=3)
 	String calif;
 	
-	@Column(name = "aprobado", nullable = true)
+	@Column(name = "aprobado")
 	boolean aprobado;
+
+	@Column(name = "tempGrupo", nullable = true)
+	Integer tempGrupo;
+	
+	@Column(name = "tempProfesor", nullable = true)
+	Integer tempProfesor;
+	
+	@Column(name = "stTabla", nullable = true)
+	Integer stTabla;
+	
+	@Column(name = "calif2", nullable = true)
+	Integer calif2;
 	
 	@ManyToOne(targetEntity=Grupo.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -73,5 +85,39 @@ public class Inscripcion {
 	public void setAprobado(boolean aprobado) {
 		this.aprobado = aprobado;
 	}
+	
+	public Integer getTempGrupo() {
+		return tempGrupo;
+	}
+
+	public void setTempGrupo(Integer tempGrupo) {
+		this.tempGrupo = tempGrupo;
+	}
+
+	public Integer getTempProfesor() {
+		return tempProfesor;
+	}
+
+	public void setTempProfesor(Integer tempProfesor) {
+		this.tempProfesor = tempProfesor;
+	}
+
+	public Integer getStTabla() {
+		return stTabla;
+	}
+
+	public void setStTabla(Integer stTabla) {
+		this.stTabla = stTabla;
+	}
+
+	public Integer getCalif2() {
+		return calif2;
+	}
+
+	public void setCalif2(Integer calif2) {
+		this.calif2 = calif2;
+	}
+
+	
 
 }

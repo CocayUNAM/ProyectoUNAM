@@ -50,8 +50,10 @@
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal" id="limpiar">Agregar otro grupo</button>
 					<button type="button" class="btn btn-primary"
-						onclick="window.location.href ='/start'">Volver
+						onclick="window.location.href ='/start'" id = "volver">Volver
 						a inicio</button>
+					<button type="button" class="btn btn-secondary"
+					data-dismiss="modal" id="revisar">Revisar Formulario</button>
 				</div>
 			</div>
 		</div>
@@ -186,7 +188,7 @@
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
 
-			            if (value.search(/([A-Z][0-9])+\w+/) < 0) {
+			            if (value.search(/[A-Z][0-9][^#&<>""~;$^%{}°¬|?/*\(\)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 			                return false;
 			            }
 
@@ -205,6 +207,25 @@
 			            return true;
 			        }
 			};
+			
+			$.fn.bootstrapValidator.validators.fechaI = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+			            
+			            var varFecha = new Date(value);
+			            var hoy = new Date();
+			            
+			            hoy.setHours(0,0,0,0);
+			            
+			            if($('#inicio').val().length > 0){
+				            if (varFecha <= hoy) {
+				                return false;
+				            }
+			            }
+
+			            return true;
+			        }
+			    };
 			
 			$('#registrarGrupo').bootstrapValidator({
 		        feedbackIcons: {
@@ -256,6 +277,14 @@
 		                    }
 		        	
 		        		}
+		        	},
+		        	
+		        	inicio : {
+		        		validators : {
+		        			fechaI : {
+		        				message: ' no son validas fechas anteriores a hoy '
+		        			}
+		        		}
 		        	}
 		            
 		        }
@@ -280,15 +309,27 @@
 							$('#spin').css("visibility","visible")
 									
 						},
-						error : function(e) {
-							alert("Error");
+						error : function() {
+							$('#spin').css("visibility","hidden")
+							var elem = $(document.createElement('h4'))
+							               .attr('id','mensaje').html("Error : Revisa que sean correctas las claves de asesor y curso, o la clave sea unica");
+							$('#mensaje').replaceWith(elem);
+							$("#mensaje").css("color","red");
+							$("#limpiar").css("visibility","hidden");
+							$("#volver").css("visibility","hidden");
+							$("#revisar").css("visibility","visible");
+							$("#mensaje").css("visibility","visible");
 						},
-						success : function(respuesta) {
+						success : function(respuesta, status) {
 							$('#spin').css("visibility","hidden")
 							var elem = $(document.createElement('h4'))
 							               .attr('id','mensaje').html(respuesta.message);
 							$('#mensaje').replaceWith(elem);
-							$("#mensaje").css("visibility","visible")
+							$("#mensaje").css("color","green");
+							$("#revisar").css("visibility","hidden");
+							$("#limpiar").css("visibility","visible");
+							$("#volver").css("visibility","visible");
+							$("#mensaje").css("visibility","visible");
 						}
 					});
 
