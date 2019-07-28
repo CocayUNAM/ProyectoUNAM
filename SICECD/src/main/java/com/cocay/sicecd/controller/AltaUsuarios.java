@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Usuario_sys;
@@ -52,6 +53,8 @@ public class AltaUsuarios {
 	@Autowired
 	Logging log;
 	
+	
+	
 	@Value("spring.mail.username")
 	String origen;
 	
@@ -67,7 +70,6 @@ public class AltaUsuarios {
 	@PostMapping("/AdministracionCursos/altaUsuario")
 	public ResponseEntity<String> darAltaUsuario(@RequestBody Usuario_sys consulta) 
 	{
-		System.out.println("[ENTRA-------]");
 		
 		  if (_usuarioSys.existsByRfc(consulta.getRfc())) { 
 			  return ResponseEntity.ok("El usuario con este rfc ya ha sido agregado"); 
@@ -89,6 +91,8 @@ public class AltaUsuarios {
 		String body="Hola da clic al siguiente  link \n" + 
 				link+ "\npara activar tu cuenta y configurar una nueva contraseña.";
 		_email.sendMail(from, to, subject, body);
+		log.setTrace(LogTypes.ALTA_USUARIO);
+
 		return ResponseEntity.ok("Usuario Agregado con exito");
 	}
 	
@@ -126,7 +130,7 @@ public class AltaUsuarios {
 			}
 			
 		}
-		
+		log.setTrace(LogTypes.ACTIVA_USUARIO);
 		return "redirect:/login?mensaje=Ya puedes realizar login";
 	}
 	

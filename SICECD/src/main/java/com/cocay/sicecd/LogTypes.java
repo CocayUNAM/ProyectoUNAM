@@ -74,7 +74,17 @@ public final class LogTypes {
 	/* Acción de exportar una consulta de grupos*/
 	public static final String AGREGAR_PROFESOR = "AGPR00";
 	/* Acción de exportar una consulta de grupos*/
-	public static final String ACTUALIZAR_PROFESOR = "ACPR00";
+	public static final String ALTA_USUARIO = "ALUS00";
+	/* Acción de exportar una consulta de grupos*/
+	public static final String ACTIVA_USUARIO = "ACUS00";
+	/* Acción de exportar una consulta de grupos*/
+	public static final String RECUPERA_CONTRASEÑA = "RECO00";
+	/* Acción de exportar una consulta de grupos*/
+	public static final String EDITA_USUARIO= "EDUS00";
+	/* Acción de exportar una consulta de grupos*/
+	public static final String RENVIA_CAMBIO_CORREO= "RECC00";
+	/* Acción de exportar una consulta de grupos*/
+	public static final String RENVIA_CORREO_ACTIVACION= "RECA00";
 	
 	/***
 	//Example

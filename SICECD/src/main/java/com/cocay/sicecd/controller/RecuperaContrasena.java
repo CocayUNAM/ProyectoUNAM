@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Usuario_sys;
 import com.cocay.sicecd.repo.Usuario_sysRep;
+import com.cocay.sicecd.service.Logging;
 import com.cocay.sicecd.service.SendMailService;
 
 @Controller
@@ -19,6 +21,10 @@ public class RecuperaContrasena {
 	SendMailService _email;
 @Value("spring.mail.username")
 String origen;
+
+@Autowired
+Logging log;
+
 	@PostMapping("/enviarecupera")
 	private ResponseEntity<String> enviarecupera(@RequestBody Usuario_sys consulta) {
 		String mensaje="";
@@ -40,7 +46,8 @@ String origen;
 			String correoo=guardado.getCorreo();
 			mensaje="Se ha enviado un link a "+correoo.substring(0,3)+"*****"+correoo.substring(correoo.length()-3,correoo.length());
 		}
-		
+		log.setTrace(LogTypes.RECUPERA_CONTRASEÑA);
+
 		return ResponseEntity.ok(mensaje);
 		
 	}

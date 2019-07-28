@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Usuario_sys;
 import com.cocay.sicecd.repo.Usuario_sysRep;
+import com.cocay.sicecd.service.Logging;
 import com.cocay.sicecd.service.SendMailService;
 
 @Controller
@@ -27,6 +29,9 @@ public class EditarPerfil {
 	
 	@Value("spring.mail.username")
 	String origen;
+	
+	@Autowired
+	Logging log;
 	
 	private void editarCorreo(Usuario_sys guardado, Usuario_sys consulta) {
 		String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
@@ -56,6 +61,7 @@ public class EditarPerfil {
 		Usuario_sys cambio = (_usuarioSys.findByRfc(rfc.trim())).get(0);
 		ModelAndView model = new ModelAndView("editarPerfil/formEditarPerfilUsuario");
 		model.addObject("usuario", cambio);
+
 		return model;
 	}
 
@@ -106,6 +112,7 @@ public class EditarPerfil {
 			_email.sendMail(frome, toe, subjecte, bodye);
 			_usuarioSys.save(guardado);
 		}
+		log.setTrace(LogTypes.EDITA_USUARIO);
 
 		return ResponseEntity.ok("Usuario Editado con exito");
 
@@ -117,7 +124,10 @@ public class EditarPerfil {
 		Usuario_sys guardado = _usuarioSys.findByRfc(consulta.getRfc()).get(0);
 
 		editarCorreo(guardado, consulta);
+		log.setTrace(LogTypes.RENVIA_CAMBIO_CORREO);
+
 		return ResponseEntity.ok("Correo reenviado");
+		
 	}
 
 	@PostMapping("/AdministracionCursos/renviarrecupera")
@@ -135,6 +145,8 @@ public class EditarPerfil {
 		guardado.setCodigorecupera(codigo);
 		guardado.setConfirmarecupera("true");
 		_usuarioSys.save(guardado);
+		log.setTrace(LogTypes.RECUPERA_CONTRASEÑA);
+
 		return ResponseEntity.ok("Correo reenviado");
 	}
 	
@@ -144,10 +156,8 @@ public class EditarPerfil {
 	@PostMapping("/AdministracionCursos/renviaactiva")
 	public ResponseEntity<String> renviarActivacion(@RequestBody Usuario_sys consulta) 
 	{
-		System.out.println("[ENTRA------]");
 		String codigo=String.valueOf((int) (Math.random() * 1000) + 1);
 		Usuario_sys guardado= _usuarioSys.findByRfc(consulta.getRfc()).get(0);
-		System.out.println("[ENTRA------]"+guardado.getNombre());
 		String link="http://localhost:8080/configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
 		String from=origen;
 		String to=guardado.getCorreo();
@@ -158,6 +168,8 @@ public class EditarPerfil {
 		guardado.setConfirmacion("true");
 		guardado.setCodigo(codigo);
 		_usuarioSys.save(guardado);
+		log.setTrace(LogTypes.RENVIA_CORREO_ACTIVACION);
+
 		return ResponseEntity.ok("Correo reenviado");
 	}
 

@@ -133,7 +133,12 @@ INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('CNGR00', 'Con
 INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('EXPR00', 'Exportar una consulta de profesores');
 INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('EXIN00', 'Exportar una consulta de inscripciones');
 INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('EXCU00', 'Exportar una consulta de cursos');
-INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('EXGR00', 'Exportar una consulta de grupos');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('ALUS00', 'Alta de usuario');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('ACUS00', 'Activa usuario');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('RECO00', 'Renvia Contrasena');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('EDUS00', 'Edita usuario');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('RECC00', 'Renvia cambio correo');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('RECA00', 'Renvia activacion de cuenta');
 COMMIT;
 
 /*
