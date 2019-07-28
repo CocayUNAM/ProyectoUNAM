@@ -69,7 +69,7 @@ a {
 			<div class="modal-content">
 				<div class="modal-header">
 					<div class="d-flex align-items-center" id="proceso">
-						<h4 id="opc">Ingresa tu rfc</h4>
+						<h4 id="opc">Ingresa tu RFC</h4>
 							<h4 id="mensaje">algo</h4>
 						<div id="spin">
 							<strong>Consultando... &nbsp;</strong>
@@ -82,8 +82,8 @@ a {
 
 					<form id="cambio">
 						<div class="form-group">
-							<label for="recipient-name" class="col-form-label">Rfc:</label> <input
-								type="text" class="form-control" id="rfc"><br>
+							<label for="recipient-name" class="col-form-label">RFC:</label> <input
+								type="text" class="form-control" id="rfc" name="rfc"><br>
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Close</button>
 							<button type="submit" class="btn btn-primary">Enviar</button>
@@ -98,9 +98,13 @@ a {
 
 
 
-	<script type="text/javascript" src="css/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
 
-	<script src="css/bootstrap.min.js"></script>
 
 
 
@@ -116,40 +120,44 @@ a {
 		</script>
 
 	<script type="text/javascript">
-	$("#cambio").submit(
-			function(eve) {
-				eve.preventDefault();
-				let datos = {
-					rfc :  $("#rfc").val()
+    $("#cambio").validate({
+        event: "blur", rules: { 'rfc': "required" },
+        messages: { 'rfc': "Por favor el rfc" },
+        errorElement: "label",
+        submitHandler: function (form) {
+						console.log("envia");
+                let datos = {
+                    rfc :  $("#rfc").val()
 
-				};
-		$.ajax({
-			type : "POST",
-			contentType : "application/json",
-			url : '/enviarecupera',
-			data : JSON.stringify(datos),
-			beforeSend : function() {
-				// setting a timeout
-				$("#mensaje").css("visibility","hidden")
-				$("#opc").css("visibility","hidden")
-				$('#spin').css("visibility","visible")
-						
-			},
-			//dataType:'json',
-			error : function(e) {
-				alert("Error");
-			},
-			success : function(
-					respuesta) {
-				$('#spin').css("visibility","hidden")
-				var elem = $(document.createElement('h4'))
-				               .attr('id','mensaje').html(respuesta);
-				$('#mensaje').replaceWith(elem);
-				$("#mensaje").css("visibility","visible");
-				
-			}
-		});
-	});
+                };
+                $.ajax({
+                    type : "POST",
+                    contentType : "application/json",
+                    url : '/enviarecupera',
+                    data : JSON.stringify(datos),
+                    beforeSend : function() {
+                        // setting a timeout
+                        $("#mensaje").css("visibility","hidden")
+                        $("#opc").css("visibility","hidden")
+                        $('#spin').css("visibility","visible")
+                                
+                    },
+                    //dataType:'json',
+                    error : function(e) {
+                        alert("Error");
+                    },
+                    success : function(
+                            respuesta) {
+                        $('#spin').css("visibility","hidden")
+                        var elem = $(document.createElement('h4'))
+                                       .attr('id','mensaje').html(respuesta);
+                        $('#mensaje').replaceWith(elem);
+                        $("#mensaje").css("visibility","visible");
+                        
+                    }
+                });
+        }
+    });
 		</script>
 
 </body>

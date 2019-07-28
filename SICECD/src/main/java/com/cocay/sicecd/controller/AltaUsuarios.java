@@ -52,6 +52,9 @@ public class AltaUsuarios {
 	@Autowired
 	Logging log;
 	
+	@Value("spring.mail.username")
+	String origen;
+	
 
 	
 	//Alta usuario
@@ -80,7 +83,7 @@ public class AltaUsuarios {
 		_usuarioSys.save(consulta);
 		Usuario_sys guardado= _usuarioSys.findByRfc(consulta.getRfc()).get(0);
 		String link="http://localhost:8080/configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
-		String from="cocayprueba@gmail.com";
+		String from=origen;
 		String to=consulta.getCorreo();
 		String subject="Activación de cuenta";
 		String body="Hola da clic al siguiente  link \n" + 

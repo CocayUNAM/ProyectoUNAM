@@ -1,6 +1,7 @@
 package com.cocay.sicecd.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,19 +17,19 @@ public class RecuperaContrasena {
 	Usuario_sysRep _usuarioSys;
 	@Autowired
 	SendMailService _email;
-
+@Value("spring.mail.username")
+String origen;
 	@PostMapping("/enviarecupera")
 	private ResponseEntity<String> enviarecupera(@RequestBody Usuario_sys consulta) {
 		String mensaje="";
-		if ( _usuarioSys.findByRfc(consulta.getRfc()).isEmpty()) {
-			System.out.println("[USUARIO--------]"+_usuarioSys.findByRfc("FrankConsultaas").get(0).getNombre()); 
+		if (! _usuarioSys.existsByRfc(consulta.getRfc())) {
 			mensaje="rfc no valido";
 		}else {
 			Usuario_sys guardado=_usuarioSys.findByRfc(consulta.getRfc()).get(0);
 			String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
 			String link = "http://localhost:8080/configuracionPass?codigo=" + codigo + "&usuario="
 					+ guardado.getPk_id_usuario_sys();
-			String from = "cocayprueba@gmail.com";
+			String from = origen;
 			String to = guardado.getCorreo();
 			String subject = "Recuperacion de contraseña";
 			String body = "Hola da clic al siguiente  link \n" + link + "\npara confirmar tu correo.";

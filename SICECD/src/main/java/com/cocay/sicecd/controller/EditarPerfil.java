@@ -3,6 +3,7 @@ package com.cocay.sicecd.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,13 +25,14 @@ public class EditarPerfil {
 	@Autowired
 	SendMailService _email;
 	
-	
+	@Value("spring.mail.username")
+	String origen;
 	
 	private void editarCorreo(Usuario_sys guardado, Usuario_sys consulta) {
 		String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
 		String link = "http://localhost:8080/confirmacorreo?codigo=" + codigo + "&usuario="
 				+ guardado.getPk_id_usuario_sys();
-		String from = "cocayprueba@gmail.com";
+		String from = origen;
 		String to = consulta.getCorreo();
 		String subject = "Cambio de correo";
 		String body = "Hola da clic al siguiente  link \n" + link + "\npara confirmar tu correo.";
@@ -95,7 +97,7 @@ public class EditarPerfil {
 		if (!consulta.getCorreo().equals(guardado.getCorreo())) {
 			editarCorreo(guardado, consulta);
 		}
-		String frome = "cocayprueba@gmail.com";
+		String frome = origen;
 		String toe = guardado.getCorreo();
 		String subjecte = "Edicion de Perfil";
 		String bodye = "Hola se han echo una serie de cambios en tu perfil\n" + cambios;
@@ -125,7 +127,7 @@ public class EditarPerfil {
 		String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
 		String link = "http://localhost:8080/configuracionPass?codigo=" + codigo + "&usuario="
 				+ guardado.getPk_id_usuario_sys();
-		String from = "cocayprueba@gmail.com";
+		String from = origen;
 		String to = guardado.getCorreo();
 		String subject = "Recupera Contraseña";
 		String body = "Hola da clic al siguiente  link \n" + link + "\nrecuperar tu contraseña.";
@@ -147,7 +149,7 @@ public class EditarPerfil {
 		Usuario_sys guardado= _usuarioSys.findByRfc(consulta.getRfc()).get(0);
 		System.out.println("[ENTRA------]"+guardado.getNombre());
 		String link="http://localhost:8080/configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
-		String from="cocayprueba@gmail.com";
+		String from=origen;
 		String to=guardado.getCorreo();
 		String subject="Activación de cuenta";
 		String body="Hola da clic al siguiente  link \n" + 
