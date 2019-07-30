@@ -1,3 +1,4 @@
+
 package com.cocay.sicecd.model;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class Usuario_sys {
 	@Column(name = "rfc", nullable = false, length=13, unique=true)
 	String rfc;
 	
-	@Column(name = "password", nullable = false, length=60)
+	@Column(name = "password", nullable = true, length=60)
 	String password;
 	
 	@Column(name = "correo", nullable = false, length=200)
