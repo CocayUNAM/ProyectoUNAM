@@ -117,7 +117,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="fnac">Fecha de nacimiento (de no cambiar insertar la anterior)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="fnac" name="fnac" th:text="${asesor.fechaNac}">
+                                                    <input type="date" class="form-control" id="fnac" name="fnac" th:text="${asesor.fechaNac}" onkeydown="return false">
                                                 </div>
                                             </div>
                                             

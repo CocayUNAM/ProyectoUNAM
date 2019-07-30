@@ -123,7 +123,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="nac">Fecha de nacimiento<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa">
+                                                    <input type="date" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa" onkeydown="return false">
                                                 </div>
                                             </div>
                                             
@@ -200,16 +200,18 @@
 			$.fn.bootstrapValidator.validators.fecha = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-			            
-			            var varFecha = new Date(value);
 			            var hoy = new Date();
 			            
+			            var varFecha = new Date(value);
+		            			            
 			            hoy.setHours(0,0,0,0);
 						
 			            if($('#nac').val().length > 0){
+			  
 				            if (varFecha >= hoy) {
 				                return false;
 				            }
+				            
 			            }
 
 			            return true;
@@ -311,7 +313,7 @@
 		        	rfc : {
 		        		validators: {
 		        			rfc: {
-		                        message: ' Verifica que el rfc sea correcto '
+		                        message: ' Verifica que el RFC sea correcto '
 		                    },
 		        	
 		                    notEmpty: {
@@ -324,7 +326,7 @@
 		        	nac : {
 		        		validators :{
 		        			fecha : {
-		        				message : 'No se aceptan fechas futuras'
+		        				message : 'No se aceptan fechas futuras, revisa que sea una fecha valida'
 		        			}
 		        		}
 		        	}

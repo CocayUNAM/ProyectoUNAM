@@ -132,14 +132,14 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="f_inicio">Fecha de inicio <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="f_inicio" name="f_inicio" th:text= "${curso.fInicio}">
+                                                    <input type="date" class="form-control" id="f_inicio" name="f_inicio" th:text= "${curso.fInicio}" onkeydown="return false">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="f_termino">Fecha de termino (de no cambiar insertar la anterior)<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="f_termino" name="f_termino" th:text= "${curso.fTermino}">
+                                                    <input type="date" class="form-control" id="f_termino" name="f_termino" th:text= "${curso.fTermino}" onkeydown="return false">
                                                 </div>
                                             </div> 
                                             
