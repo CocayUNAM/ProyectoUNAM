@@ -32,23 +32,13 @@
 			<div class="container-fluid">
 				<section id="main-content">
 				
-					<!-- START CONTAINER CONSULTA SIMPLE -->
+					<!-- START CONSULTA DE CURSOS -->
 					<div class="container">
-					
-						<!-- START CONSULTA DE CURSOS -->
-						<div class="panel-heading">
-            				<h4 class="panel-title">
-              					<button type="button" class="btn btn-query btn-default collapsed" data-toggle="collapse" data-target="#consulta">
-              					Consulta Cursos
-              					</button>
-            				</h4>
-          				</div>
-          			
-          				<div id="consulta" class="col-lg-6 collapse">
+          				<div id="consulta" class="col-lg-6">
 							<div class="card">
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/consultaSimpleCurso" method="post">
+										<form action="/consultaCurso" method="post">
 											<div class="form-group">
 												<h4>Consulta de Cursos</h4>
 												<label>Nombre</label>
@@ -64,10 +54,6 @@
 														<option value="4">Maestría</option>
 														<option value="5">Doctorado</option>
 													</select>
-												<label>Fecha de Inicio</label>
-													<input type="date" class="form-control" name="fecha_inicio_curso">
-												<label>Fecha de Término</label>
-													<input type="date" class="form-control" name="fecha_fin_curso">
 											</div>
 											<div>
 												<button id="btn-limpiar" type="reset" class="btn btn-default">Limpiar Búsqueda</button>
@@ -78,61 +64,8 @@
 								</div>
 							</div>
 						</div>
-						<!-- END CONSULTA DE CURSOS -->
 					</div>
-					<!-- END CONTAINER CONSULTA SIMPLE -->
-					
-					<!-- START CONTAINER CONSULTA AVANZADA -->
-					<div class="container">
-					
-						<!-- START CONSULTA DE CURSOS AVANZADA -->
-						<div class="panel-heading">
-            				<h4 class="panel-title">
-              					<button type="button" class="btn btn-query btn-default collapsed" data-toggle="collapse" data-target="#consulta_avanzada">
-              					Consulta Avanzada
-              					</button>
-            				</h4>
-          				</div>
-						<div id="consulta_avanzada" class="col-lg-6 collapse">
-							<div class="card">
-								<div class="card-body">
-									<div class="basic-form">
-										<form action="/consultaAvanzadaCurso" method="post">
-											<div class="form-group">
-												<h4>Consulta Avanzada</h4>
-												<label>Nombre</label>
-													<input type="text" name="nombre_curso" class="form-control">
-												<label>Clave</label>
-													<input type="text" name="clave_curso" class="form-control" text="0000">
-												<label>Tipo de Curso</label>
-													<select name="tipos" class="form-control" data-placeholder=" ">
-														<option value="0">Sin definir</option>
-														<option value="1">Curso</option>
-														<option value="2">Diplomado</option>
-														<option value="3">Especialidad</option>
-														<option value="4">Maestría</option>
-														<option value="5">Doctorado</option>
-													</select>
-												<label>Fecha de Inicio</label>
-													<input type="date" class="form-control" name="fecha_inicio_curso_1">
-													<input type="date" class="form-control" name="fecha_inicio_curso_2" disabled required>
-												<label>Fecha de Término</label>
-													<input type="date" class="form-control" name="fecha_fin_curso_1">
-													<input type="date" class="form-control" name="fecha_fin_curso_2" disabled required>
-											</div>
-											<div>
-												<button id="btn-limpiar" type="reset" class="btn btn-default">Limpiar Búsqueda</button>
-												<button id="btn-consultar" type="submit" class="btn btn-default">Consultar</button>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- END CONSULTA DE CURSOS AVANZADA -->
-						
-					</div>
-					<!-- END CONTAINER CONSULTA AVANZADA -->
+					<!-- END CONSULTA DE CURSOS -->
 					
 					<!-- START DERECHOS -->
 					<div class="row">

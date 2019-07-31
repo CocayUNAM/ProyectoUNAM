@@ -32,38 +32,18 @@ public class ConsultaCursoController {
 	}
 	
 	/*
-	 * Consulta Simple de los Cursos.
+	 * Consulta de Cursos.
 	 * @author Derian Estrada
 	 */
-	@RequestMapping(value = "/consultaSimpleCurso", method = RequestMethod.POST)
+	@RequestMapping(value = "/consultaCurso", method = RequestMethod.POST)
 	public ModelAndView consultaSimpleCurso(ModelMap model,HttpServletRequest request) throws ParseException {
-		String fecha_inicio_curso = request.getParameter("fecha_inicio_curso");
-		String fecha_fin_curso = request.getParameter("fecha_fin_curso");
 		String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase().trim();
 		String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 		Integer id_tipo = Integer.parseInt(request.getParameter("tipos_cursos"));
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date fecha_ini, fecha_fin;
 		List<Curso> cursos1, cursos2;
-		
-		if(fecha_inicio_curso != "") {
-			fecha_ini = format.parse(fecha_inicio_curso);
-			cursos1 = curso.findByFechaInicio(fecha_ini);
-			cursos2 = curso.findByFechaInicio(fecha_ini);
-		} else if (fecha_inicio_curso == "" && fecha_fin_curso != ""){
-			fecha_fin = format.parse(fecha_fin_curso);
-			cursos1 = curso.findByFechaFin(fecha_fin);
-			cursos2 = curso.findByFechaFin(fecha_fin);
-		} else if (fecha_inicio_curso != "" && fecha_fin_curso != ""){
-			fecha_ini = format.parse(fecha_inicio_curso);
-			fecha_fin = format.parse(fecha_fin_curso);
-			cursos1 = curso.findByFecha(fecha_ini, fecha_fin);
-			cursos2 = curso.findByFecha(fecha_ini, fecha_fin);
-		} else {
-			cursos1 = curso.findAll();
-			cursos2 = curso.findAll();
-		}
+		cursos1 = curso.findAll();
+		cursos2 = curso.findAll();
 		
 		//Filtrando por tipo de curso
 		if (id_tipo != 0) {
@@ -95,83 +75,6 @@ public class ConsultaCursoController {
 		}
 		
 		if(!cursos2.isEmpty() || cursos2.size() > 0 ) {
-			model.put("cursos", cursos2);
-			return new ModelAndView("ConsultarCurso/muestraListaCurso",model);
-		} else {
-			return new ModelAndView("/Avisos/ErrorBusqueda");
-		}
-	}
-	
-	/*
-	 * Consulta Avanzada de los Cursos.
-	 * @author Derian Estrada
-	 */
-	@RequestMapping(value = "/consultaAvanzadaCurso", method = RequestMethod.POST)
-	public ModelAndView consultaAvanzadaCurso(ModelMap model,HttpServletRequest request) throws ParseException {
-		String fecha_inicio_curso_1 = request.getParameter("fecha_inicio_curso_1");
-		String fecha_inicio_curso_2 = request.getParameter("fecha_inicio_curso_2");
-		String fecha_fin_curso_1 = request.getParameter("fecha_fin_curso_1");
-		String fecha_fin_curso_2 = request.getParameter("fecha_fin_curso_2");
-		String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase().trim();
-		String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
-		Integer id_tipo = Integer.parseInt(request.getParameter("tipos"));
-		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2;
-		List<Curso> cursos1, cursos2;
-		
-		if(fecha_inicio_curso_1 != "" && fecha_fin_curso_1 == "") {
-			fecha_ini_1 = format.parse(fecha_inicio_curso_1);
-			fecha_ini_2 = format.parse(fecha_inicio_curso_2);
-			cursos1 = curso.findByFechaInicio(fecha_ini_1, fecha_ini_2);
-			cursos2 = curso.findByFechaInicio(fecha_ini_1, fecha_ini_2);
-		}else if (fecha_inicio_curso_1 == "" && fecha_fin_curso_1 != ""){
-			fecha_fin_1 = format.parse(fecha_fin_curso_1);
-			fecha_fin_2 = format.parse(fecha_fin_curso_2);
-			cursos1 = curso.findByFechaFin(fecha_fin_1, fecha_fin_2);
-			cursos2 = curso.findByFechaFin(fecha_fin_1, fecha_fin_2);
-		}else if (fecha_inicio_curso_1 != "" && fecha_fin_curso_1 != ""){
-			fecha_ini_1 = format.parse(fecha_inicio_curso_1);
-			fecha_ini_2 = format.parse(fecha_inicio_curso_2);
-			fecha_fin_1 = format.parse(fecha_fin_curso_1);
-			fecha_fin_2 = format.parse(fecha_fin_curso_2);
-			cursos1 = curso.findByFecha(fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2);
-			cursos2 = curso.findByFecha(fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2);
-		}else {
-			cursos1 = curso.findAll();
-			cursos2 = curso.findAll();
-		}
-		
-		//Filtrando por tipo de curso
-		if (id_tipo != 0) {
-			for(Curso c : cursos1) {
-				if(c.getFk_id_tipo_curso().getPk_id_tipo_curso() != id_tipo ) {
-					cursos2.remove(c);
-				}
-			}
-		}
-		
-		//Filtrando por clave de curso
-		if (clave_curso != "") {
-			for(Curso c : cursos1) {
-				String cclave = normalizar(c.getClave()).toUpperCase().trim();
-				if(!cclave.contains(clave_curso)){
-					cursos2.remove(c);
-				}
-			}
-		}
-		
-		//Filtrando por nombre de curso
-		if (nombre_curso != "") {
-			for(Curso c : cursos1) {
-				String cnom = normalizar(c.getNombre()).toUpperCase().trim();
-				if(!cnom.contains(nombre_curso)){
-					cursos2.remove(c);
-				}
-			}
-		}
-		
-		if(!cursos2.isEmpty() || cursos2.size() > 0) {
 			model.put("cursos", cursos2);
 			return new ModelAndView("ConsultarCurso/muestraListaCurso",model);
 		} else {
