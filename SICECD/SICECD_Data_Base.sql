@@ -45,6 +45,7 @@ DROP TABLE IF EXISTS curso_grupos CASCADE;
 DROP TABLE IF EXISTS estado_profesores CASCADE;
 DROP TABLE IF EXISTS grupo_inscripciones CASCADE;
 DROP TABLE IF EXISTS test_class CASCADE;
+DROP TABLE IF EXISTS errores CASCADE;
 
 /*
 Llenado de tablas catalogo
@@ -146,11 +147,11 @@ COMMIT;
 Datos de prueba
 */
 INSERT INTO public.usuario_sys(rfc, password, correo, nombre,  apellido_paterno, apellido_materno, confirmacion, codigo, confirmacioncorreo,codigo_correo,correocambio,codigorecupera, confirmarecupera, fk_id_estatus_usuario_sys, fk_id_perfil_sys) 
-VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'francisco3122151@gmail.com','franki', 'mcs', 'panki', 'false',123,'false',789,'',101,'false',1, 1);--123456789
+VALUES ('AAAA801201SN9', '$2a$10$.PYYPU6zW9cN/lLRbiM3VePaDcKNjfp4tNMcCPJ3/G51dlg9N8jhG', 'yuliana.olvera@cocaytechnologies.com','Yuliana', 'Olvera', 'Osorno', 'false',123,'false',789,'',101,'false',1, 1);--123456789
 COMMIT;
 
 INSERT INTO public.usuario_sys(rfc, nombre, apellido_paterno, password, correo, fk_id_estatus_usuario_sys, fk_id_perfil_sys)
-VALUES ('BBBB801201SN9', 'Usuario', 'Root', '$2a$10$8n2o/aSS96.kisZBBMzdM.BwOryAWdFwFlsjIWFvIkObYJ8Na/2O2', 'benitez@unam.mx', 1, 2);--1234567890
+VALUES ('BBBB801201SN9', 'Usuario', 'Test', '$2a$10$8n2o/aSS96.kisZBBMzdM.BwOryAWdFwFlsjIWFvIkObYJ8Na/2O2', 'benitez@unam.mx', 1, 2);--1234567890
 COMMIT;
 
 INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Raul', 'Lopez', 'Diaz', 'LODR800505MMM', 'raul@unam.mx', 1, 1, 1, 1);
