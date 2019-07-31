@@ -1,8 +1,5 @@
 package com.cocay.sicecd.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,27 +52,6 @@ public class CursosController {
 		String horas = cr.getHoras();
 		
 		String nombre = cr.getNombre();
-		
-		String fInicio = cr.getfInicio();
-		
-		Date fecha = null;
-		try {
-			fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fInicio);
-			curso.setfInicio(fecha);
-		} catch (ParseException e) {
-			e.printStackTrace();
-			curso.setfInicio(null);
-		}  
-		
-		String fTermino = cr.getfTermino();
-		Date fecha2 = null;
-		try {
-			fecha2 = new SimpleDateFormat("yyyy-MM-dd").parse(fTermino);
-			curso.setfTermino(fecha2);
-		} catch (ParseException e) {
-			e.printStackTrace();
-			curso.setfTermino(null);
-		}  
 		
 		curso.setClave(clave);
 		

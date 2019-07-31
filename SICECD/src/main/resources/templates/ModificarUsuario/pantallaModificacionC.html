@@ -102,10 +102,11 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="tipo">Selecciona un tipo <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="tipo">Selecciona un tipo <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <select class="form-control" id="tipo" name="tipo" style="width: 100%;">
                                                     	<option th:value="${curso.fk_id_tipo_curso.pk_id_tipo_curso}" th:text="${curso.fk_id_tipo_curso.nombre}">Tipo definido</option>
+                                                    	<option value="6">Sin definir</option>
                                                         <option value="1">Curso</option>
                                                         <option value="2">Diplomado</option>
                                                         <option value="3">Especialidad</option>
@@ -128,20 +129,6 @@
                                                     <input type="text" class="form-control" id="nombre" name="nombre" th:value="${curso.nombre}">
                                                 </div>
                                             </div>
-                                            
-                                            <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="f_inicio">Fecha de inicio <span class="text-danger"></span></label>
-                                                <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="f_inicio" name="f_inicio" th:text= "${curso.fInicio}" onkeydown="return false">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="f_termino">Fecha de termino (de no cambiar insertar la anterior)<span class="text-danger"></span></label>
-                                                <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="f_termino" name="f_termino" th:text= "${curso.fTermino}" onkeydown="return false">
-                                                </div>
-                                            </div> 
                                             
                                             <div class="form-group">
         										<div class="col-sm-5 col-sm-offset-3">
@@ -223,46 +210,6 @@ $(document).ready(function() {
 			            return true;
 			        }
 			};
-			
-			$.fn.bootstrapValidator.validators.fecha = {
-			        validate: function(validator, $field, options) {
-			            var value = $field.val();
-			            var value2 = $("#f_termino").val();
-			            var value3 = $("#f_inicio").val();
-			            if($('#f_inicio').val().length > 0 && $('#f_termino').val().length > 0){
-				            if (value < value3) {
-				                return false;
-				            }
-			            }
-		
-			            return true;
-			        }
-			};
-			
-			$.fn.bootstrapValidator.validators.fechaI = {
-			        validate: function(validator, $field, options) {
-			            var value = $field.val();
-			            
-			            var varFecha = new Date(value);
-			            
-			            var FechaOrg = new Date(fecha);
-			            var hoy = new Date();
-			            
-			            hoy.setHours(0,0,0,0);
-			            
-			            if($('#f_inicio').val().length > 0){
-				            if(varFecha.toISOString().slice(0,10) != FechaOrg.toISOString().slice(0,10)){
-				            	if (varFecha <= hoy) {
-					                return false;
-					            }
-				            } else {
-				            	return true
-				            }
-			            }
-
-			            return true;
-			        }
-			 };
 		
 			 $('#registrarCur').bootstrapValidator({
 			        feedbackIcons: {
@@ -307,22 +254,6 @@ $(document).ready(function() {
 			        		}
 			        	},
 			        	
-			        	f_termino : {
-			        		validators: {
-			                    fecha : {
-			                    	message: ' La fecha de termino no puede ser menor que la fecha de inicio '
-			                    }
-			        		}
-			        	},
-			        	
-			        	f_inicio : {
-			        		validators : {
-			        			fechaI : {
-			        				message : 'No se admiten fechas pasadas a hoy o revisa que la fecha coincida con la anterior registrada'
-			        			}
-			        		}
-			        	},
-			        	
 			        	tipo : {
 			        		validators : {
 			        			notEmpty : {
@@ -340,8 +271,6 @@ $(document).ready(function() {
 							fk_id_tipo_curso: {pk_id_tipo_curso: $("#tipo").val()},
 							horas : $("#horas").val(),
 							nombre : $("#nombre").val(),
-							fInicio : $("#f_inicio").val(),
-							fTermino: $("#f_termino").val(),
 						}
 						$.ajax({
 							type : "POST",
