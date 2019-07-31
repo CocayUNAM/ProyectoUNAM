@@ -59,6 +59,18 @@ public class Grupo {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "fk_id_grupo",targetEntity=Certificado.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Certificado> certificados = new ArrayList<>();
+	
+	public List<Certificado> getCertificados() {
+		return certificados;
+	}
+
+	public void setCertificados(List<Certificado> certificados) {
+		this.certificados = certificados;
+	}
+
 	public int getPk_id_grupo() {
 		return pk_id_grupo;
 	}

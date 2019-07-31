@@ -210,24 +210,6 @@
 				$.fn.bootstrapValidator.validators.fechaI = {
 				        validate: function(validator, $field, options) {
 				            var value = $field.val();
-				            
-				            var varFecha = new Date(value);
-				            
-				            var FechaOrg = new Date(fecha);
-				            var hoy = new Date();
-				            
-				            hoy.setHours(0,0,0,0);
-				            
-				            if($('#inicio').val().length > 0){
-					            if(varFecha.toISOString().slice(0,10) != FechaOrg.toISOString().slice(0,10)){
-					            	if (varFecha <= hoy) {
-						                return false;
-						            }
-					            } else {
-					            	return true
-					            }
-				            }
-
 				            return true;
 				        }
 				 };
