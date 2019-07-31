@@ -69,5 +69,8 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
     @Query(value = "insert into Curso (clave,nombre) VALUES (:clave,:nombre)", nativeQuery = true)
     @Transactional
     void saveC(@Param("clave") String clave, @Param("nombre") String nombre);
+	
+	@Query("SELECT c FROM Curso c WHERE upper(c.clave) = :clave")
+	Curso findByUniqueClave(@Param("clave") String clave);
 
 }

@@ -1,12 +1,14 @@
 package com.cocay.sicecd.controller;
 
 import com.cocay.sicecd.model.Curso;
+import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Certificado;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Url_ws;
 import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.CursoRep;
+import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.Url_wsRep;
 import com.cocay.sicecd.security.pdf.SeguridadPDF;
@@ -54,21 +56,20 @@ public class ClienteCertificadoController {
 	@Autowired
 	CursoRep bd_curso;
 	@Autowired
+	GrupoRep bd_grupo;
+	@Autowired
 	Logging log;
 	@Autowired
 	Url_wsRep urls;
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	
-	private String aux_obten(Profesor profesor, Curso curso, String URL_RS) throws Exception{
+	private String aux_obten(Profesor profesor, Curso curso, Grupo grupo, String URL_RS) throws Exception{
 		String correo = profesor.getCorreo();
-		String nombre_curso = curso.getNombre();
+		String nombre_curso = curso.getClave()+"|"+grupo.getClave();
 		Certificado cert = new Certificado();
 		cert.setFk_id_curso(curso);
+		cert.setFk_id_grupo(grupo);
 		cert.setFk_id_profesor(profesor);
-		//correo = correo.replaceFirst("@", "%40");
-		System.out.println(correo);
-		//nombre_curso = nombre_curso.replaceAll(" ", "%20");
-		System.out.println(nombre_curso);
 		
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost(URL_RS);
@@ -94,9 +95,8 @@ public class ClienteCertificadoController {
 		}
 		String string_pdf = (String) json.get("bytespdf");
 		byte[] bytearray = java.util.Base64.getDecoder().decode(string_pdf);
-		//String aux = (String) json.get("nombre_archivo");
-		//String na = new String(new String(java.util.Base64.getDecoder().decode(aux),"ISO-8859-1").getBytes("UTF-8"),"UTF-8");
-		String path = RUTA_LOCAL + curso.getNombre() + "/" + curso.getNombre() + "_" + profesor.getPk_id_profesor() + ".pdf";
+		String codigo = curso.getClave() + "|"  + grupo.getClave();
+		String path = RUTA_LOCAL + codigo + "/" + codigo + "_" + profesor.getPk_id_profesor() + ".pdf";
 		File out = new File(path);
 		new File(out.getParent()).mkdirs();
 		try (FileOutputStream os = new FileOutputStream(out)) {
@@ -108,7 +108,7 @@ public class ClienteCertificadoController {
 		}
 		SeguridadPDF spdf = new SeguridadPDF();
 		String nombrec = profesor.getNombre() + " " + profesor.getApellido_paterno() + " " + profesor.getApellido_materno();
-		spdf.cifraPdf(path, nombrec, curso.getNombre());
+		spdf.cifraPdf(path, nombrec, codigo);
 		cert.setTiempo_creado(Long.parseLong((String) json.get("tiempo")));
 		cert.setRuta(path);
 		bd_certificado.save(cert);
@@ -124,13 +124,13 @@ public class ClienteCertificadoController {
 	 * @return Devuelve la ruta en el sistema de archivos si el certificado se
 	 *         obtuvo y se ha guardado en Disco y en la BD.
 	 */
-	public String obtenCertificado(Profesor profesor, Curso curso) throws Exception {
+	public String obtenCertificado(Profesor profesor, Curso curso, Grupo grupo) throws Exception {
 		LinkedList<Url_ws> links = new LinkedList<>(urls.findSimples());
 		if(links.size() == 0) {
 			throw new Exception("No hay urls!");
 		}
 		for(Url_ws u : links) {
-			String resultado = aux_obten(profesor,curso,u.getUrl());
+			String resultado = aux_obten(profesor,curso, grupo, u.getUrl());
 			if(resultado != null) {
 				return resultado;
 			}
@@ -150,7 +150,8 @@ public class ClienteCertificadoController {
 		String nombre_c = request.getParameter("nc");
 		Profesor profr = bd_profesor.findByCorreo(correo);// obtener usuario de base de datos
 		Curso curso = bd_curso.findByNombre(nombre_c);// obtener curso de bd
-		String path = obtenCertificado(profr, curso);
+		Grupo grupo = null;////pon el grupo ++++++++++++++++++++++++++++++++++++++++++
+		String path = obtenCertificado(profr, curso, grupo);
 		if (path != null) {
 			model.addAttribute("mensaje", path);
 		} else {
