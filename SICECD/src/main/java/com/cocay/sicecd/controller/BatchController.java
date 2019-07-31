@@ -93,33 +93,9 @@ public class BatchController {
 	@Autowired
 	SendMailService _email;
 	
-	 private static String UPLOADED_FOLDER = "/Users/juan/Desktop/";
+	String carpeta = System.getProperty("user.dir");
 	
-	@RequestMapping(value = "/runjob", method = RequestMethod.GET)
-	public ModelAndView handle(ModelMap model, HttpServletRequest request) throws Exception {
-		Logger logger = LoggerFactory.getLogger(this.getClass());
-		try {
-			JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis())
-					.toJobParameters();
-			jobLauncher.run(jobCurso, jobParameters);
-		} catch (Exception e) {
-			logger.info(e.getMessage());
-		}
-		return new ModelAndView("/BatchTemplate/consultarProfesor");
-	}
-	
-	@RequestMapping(value = "/jobGrupo", method = RequestMethod.GET)
-	public ModelAndView handleGrupo(ModelMap model, HttpServletRequest request) throws Exception {
-		Logger logger = LoggerFactory.getLogger(this.getClass());
-		try {
-			JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis())
-					.toJobParameters();
-			jobLauncher.run(jobGrupo, jobParameters);
-		} catch (Exception e) {
-			logger.info(e.getMessage());
-		}
-		return new ModelAndView("/BatchTemplate/consultarGrupo");
-	}
+	private String UPLOADED_FOLDER = carpeta + "/folderTemp/";
 	
 	@PostMapping("/consultarCursos") // //new annotation since 4.3
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) throws JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException {
@@ -129,7 +105,13 @@ public class BatchController {
 
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
+            Path ruta = Paths.get(UPLOADED_FOLDER);
+            if(!Files.exists(ruta)) {
+            	Files.createDirectory(ruta);
+            	
+            }
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
             File fileToImport = new File(UPLOADED_FOLDER + file.getOriginalFilename());
           //Launch the Batch Job
             JobExecution jobExecution = jobLauncher.run(jobCurso, new JobParametersBuilder()
@@ -154,8 +136,13 @@ public class BatchController {
 
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
+            Path ruta = Paths.get(UPLOADED_FOLDER);
+            if(!Files.exists(ruta)) {
+            	Files.createDirectory(ruta);
+            	
+            }
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            //Files.write(path, bytes);
+            Files.write(path, bytes);
             File fileToImport = new File(UPLOADED_FOLDER + file.getOriginalFilename());
           //Launch the Batch Job
             JobExecution jobExecution = jobLauncher.run(jobGrupo, new JobParametersBuilder()
@@ -179,8 +166,13 @@ public class BatchController {
 
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
+            Path ruta = Paths.get(UPLOADED_FOLDER);
+            if(!Files.exists(ruta)) {
+            	Files.createDirectory(ruta);
+            	
+            }
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-           // Files.write(path, bytes);
+            Files.write(path, bytes);
             File fileToImport = new File(UPLOADED_FOLDER + file.getOriginalFilename());
           //Launch the Batch Job
             JobExecution jobExecution = jobLauncher.run(jobProfesor, new JobParametersBuilder()
@@ -204,8 +196,13 @@ public class BatchController {
 
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
+            Path ruta = Paths.get(UPLOADED_FOLDER);
+            if(!Files.exists(ruta)) {
+            	Files.createDirectory(ruta);
+            	
+            }
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            //Files.write(path, bytes);
+            Files.write(path, bytes);
             File fileToImport = new File(UPLOADED_FOLDER + file.getOriginalFilename());
           //Launch the Batch Job
             JobExecution jobExecution = jobLauncher.run(jobInscripcion, new JobParametersBuilder()
@@ -220,21 +217,6 @@ public class BatchController {
 
         return new ModelAndView("BatchTemplate/consultarInscripcionBatch");
     }
-	
-//	@RequestMapping(value="/import/file/uploadToDB", method=RequestMethod.POST)
-//    public String create(@RequestParam("file") MultipartFile multipartFile) throws IOException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, JobParametersInvalidException{
-//
-//        //Save multipartFile file in a temporary physical folder
-//        String path = new ClassPathResource("/Users/juan/Desktop/temp").getURL().getPath();//it's assumed you have a folder called tmpuploads in the resources folder
-//        File fileToImport = new File(path + multipartFile.getOriginalFilename());
-//        
-//        //Launch the Batch Job
-//        JobExecution jobExecution = jobLauncher.run(jobCurso, new JobParametersBuilder()
-//                .addString("fullPathFileName", fileToImport.getAbsolutePath())
-//                .toJobParameters());        
-//
-//        return "OK";
-//    }
 	
 	
 	@RequestMapping(value = "/consultarCursos", method = RequestMethod.GET)
@@ -328,15 +310,6 @@ public class BatchController {
 		return new ModelAndView("/CorreosTemplate/AvisosCorreo", model);
 	}
 	
-	@RequestMapping(value = "/EnviarCorreo", method = RequestMethod.GET)
-	public ModelAndView correo(ModelMap model, HttpServletRequest request) {
-		String from="cocayprueba@gmail.com";
-		String to="carlodinhoo@gmail.com";
-		String subject="PruebaCorreo";
-		String body=" FELICIDADES !!!! MEJORA TUS CONOCIMIENTOS E INSCRIBETE A LOS CURSOS QUE TENEMOS PARA TI... ENTRA AL SIGUIENTE LINK PARA MÁS INFORMACIÓN";
-		_email.sendMail(from, to, subject, body);
-		return new ModelAndView("/CorreosTemplate/AvisosCorreo", model);
-	}
 	
 	@RequestMapping(value = "/runExcel", method = RequestMethod.GET)
 	public ModelAndView insertaExcel(ModelMap model, HttpServletRequest request) throws Exception {
