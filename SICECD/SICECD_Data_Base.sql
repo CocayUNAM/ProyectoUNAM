@@ -46,6 +46,14 @@ DROP TABLE IF EXISTS estado_profesores CASCADE;
 DROP TABLE IF EXISTS grupo_inscripciones CASCADE;
 DROP TABLE IF EXISTS test_class CASCADE;
 DROP TABLE IF EXISTS errores CASCADE;
+DROP TABLE IF EXISTS batch_job_execution CASCADE;
+DROP TABLE IF EXISTS batch_job_execution_context CASCADE;
+DROP TABLE IF EXISTS batch_job_execution_params CASCADE;
+DROP TABLE IF EXISTS batch_job_instance CASCADE;
+DROP TABLE IF EXISTS batch_step_execution CASCADE;
+DROP TABLE IF EXISTS batch_step_execution_context CASCADE;
+
+
 
 /*
 Llenado de tablas catalogo
@@ -179,8 +187,6 @@ INSERT INTO public.inscripcion(aprobado, calif, fk_id_grupo, fk_id_profesor) VAL
 INSERT INTO public.inscripcion(aprobado, calif, fk_id_grupo, fk_id_profesor) VALUES (true, 9, 1, 4);
 COMMIT;
 
-
-
 INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Lourdes', 'Diaz', 'Diaz', 'LBDI800505MMM', 'matyap59@hotmail.com', 1, 1, 1, 1);
 INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Maria', 'Diaz', 'Diaz', 'MBDI800505MMM', 'mahalymf@hotmail.com', 1, 1, 1, 1);
 INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Ramiro', 'Diaz', 'Diaz', 'RBDI800505MMM', 'murcielagoblue@yahoo.com.mx', 1, 1, 1, 1);
@@ -189,6 +195,8 @@ INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 6);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 7);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 5);
 COMMIT;
+
+
 
 /*
 Cambio de propietario
@@ -216,6 +224,12 @@ ALTER TABLE public.Log_evento_sys OWNER to "SICECD";
 ALTER TABLE public.certificado OWNER to "SICECD";
 ALTER TABLE public.Tipo_curso OWNER to "SICECD";
 ALTER TABLE public.Estatus_usuario_sys OWNER to "SICECD";
+ALTER TABLE public.batch_job_execution OWNER to "SICECD";
+ALTER TABLE public.batch_job_execution_context OWNER to "SICECD";
+ALTER TABLE public.batch_job_execution_params OWNER to "SICECD";
+ALTER TABLE public.batch_job_instance OWNER to "SICECD";
+ALTER TABLE public.batch_step_execution OWNER to "SICECD";
+ALTER TABLE public.batch_step_execution_context OWNER to "SICECD";
 
 
 /*
