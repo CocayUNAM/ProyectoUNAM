@@ -14,6 +14,7 @@ public interface Usuario_sysRep extends PagingAndSortingRepository<Usuario_sys, 
 	List<Usuario_sys> findByRfc(String name);
 	
 	  boolean existsByRfc(String rfc);
+	  boolean existsByCorreo(String correo);
 	 
 	
 	  @Query(value = "SELECT * FROM Usuario_sys WHERE pk_id_usuario_sys != 1",
