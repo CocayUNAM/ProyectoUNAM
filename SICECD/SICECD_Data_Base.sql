@@ -185,7 +185,7 @@ COMMIT;
 INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Lourdes', 'Diaz', 'Diaz', 'LBDI800505MMM', 'matyap59@hotmail.com', 1, 1, 1, 1);
 INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Maria', 'Diaz', 'Diaz', 'MBDI800505MMM', 'mahalymf@hotmail.com', 1, 1, 1, 1);
 INSERT INTO public.profesor (nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Ramiro', 'Diaz', 'Diaz', 'RBDI800505MMM', 'murcielagoblue@yahoo.com.mx', 1, 1, 1, 1);
-INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin) VALUES (7, 'A004', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00');
+INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin, fk_id_profesor) VALUES (7, 'A004', TIMESTAMP '2019-01-05 00:00:00', TIMESTAMP '2019-05-05 00:00:00', 1);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 6);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 7);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 5);

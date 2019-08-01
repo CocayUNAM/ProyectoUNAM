@@ -1,18 +1,18 @@
 package com.cocay.sicecd.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.dto.InscripcionDto;
@@ -39,11 +39,49 @@ public class InscripcionesController {
 	
 	@Autowired
 	Logging log;
+	
+	@RequestMapping(value = "/registrarInscripcion2", method = RequestMethod.GET)
+	public ModelAndView registrarInscripcion(ModelMap model) {
+		
+		List<Grupo> list_p1 = grupoRep.findAll();
+		List<Profesor> list_p2 = profRep.findAll();
+		
+		List<String> grupos = new ArrayList<String>();
+		List<String> rfcs = new ArrayList<String>();
+		
+		StringBuilder sb1 = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
+		
+		for(Grupo g : list_p1) {
+			grupos.add(g.getClave());
+			sb1.append(g.getClave() + ",");
+		}
+		
+		for(Profesor p : list_p2) {
+			rfcs.add(p.getRfc());
+			sb2.append(p.getRfc() + ",");
+		}
+		
+		String re = sb1.toString();
+		sb1.setLength(re.length() - 1);
+		
+		String rep = sb2.toString();
+		sb2.setLength(rep.length() - 1);
 
-	// Mapeo del html para registrar cursos
-	@RequestMapping(value = "/registrarInscripcion2")
-	public String registrarInscripcion(Model model, HttpServletRequest request) {
-		return "InscripcionesController/registrarInscripcion";
+		InscripcionDto in = new InscripcionDto();
+
+		in.setJsonG(sb1.toString());
+		in.setJsonP(sb2.toString());
+		
+		System.out.println(sb1.toString());
+		System.out.println(sb2.toString());
+		
+		if(!list_p1.isEmpty()) {
+			model.put("datos", in);
+			return new ModelAndView("InscripcionesController/registrarInscripcion", model);
+		} else {
+			return new ModelAndView("/Avisos/ErrorBusqueda");
+		}
 	}
 
 	@RequestMapping(value = "/registrarInscripcion", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,7 +94,7 @@ public class InscripcionesController {
 		
 		String cal = ins.getCalificacion();
 		
-		boolean ap = ins.isAprobado();
+		Boolean ap = ins.isAprobado();
 		
 		List<Grupo> grupop = grupoRep.findByClave(grupo);
 		if (!grupop.isEmpty()) {
