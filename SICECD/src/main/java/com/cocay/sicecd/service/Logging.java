@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.cocay.sicecd.model.Log_sys;
 import com.cocay.sicecd.repo.Log_evento_sysRep;
@@ -28,7 +30,9 @@ public class Logging {
 		Principal principal = request.getUserPrincipal();
 		Log_sys log=new Log_sys();
 		log.setHora(new Date());
-		log.setIp(request.getRemoteAddr());
+		ServletRequestAttributes att = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+		att.getRequest().getRemoteAddr();
+		log.setIp(att.getRequest().getRemoteAddr());
 		if (principal==null) {
 			log.setFk_id_usuario_sys(usuario.findById(1).get());
 		}else {			

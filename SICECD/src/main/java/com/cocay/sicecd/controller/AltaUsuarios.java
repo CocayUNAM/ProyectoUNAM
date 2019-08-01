@@ -74,6 +74,9 @@ public class AltaUsuarios {
 		  if (_usuarioSys.existsByRfc(consulta.getRfc())) { 
 			  return ResponseEntity.ok("El usuario con este rfc ya ha sido agregado"); 
 		 }
+		  if (_usuarioSys.existsByCorreo(consulta.getCorreo())) { 
+			  return ResponseEntity.ok("El usuario con este correo ya ha sido agregado"); 
+		  }
 		 
 		
 		consulta.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Inactivo").get(0));
