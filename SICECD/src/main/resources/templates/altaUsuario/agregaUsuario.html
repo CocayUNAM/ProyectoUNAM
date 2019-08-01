@@ -116,7 +116,7 @@
 												</label>
 												<div class="col-lg-8">
 													<input type="email" class="form-control" id="correo"
-														name="correo" required>
+														name="correo" required maxlength=200>
 												</div>
 											</div>
 											<div class="form-group row">
@@ -125,7 +125,7 @@
 												</label>
 												<div class="col-lg-8">
 													<input type="text" class="form-control" id="nombre"
-														name="nombre" required>
+														name="nombre" required maxlength=200>
 												</div>
 											</div>
 											<div class="form-group row">
@@ -134,7 +134,7 @@
 												</label>
 												<div class="col-lg-8">
 													<input type="text" class="form-control"
-														id="apellidopaterno" name="apellidopaterno" required>
+														id="apellidopaterno" name="apellidopaterno" required maxlength=200>
 												</div>
 											</div>
 
@@ -144,7 +144,7 @@
 												</label>
 												<div class="col-lg-8">
 													<input type="text" class="form-control"
-														id="apellidomaterno" name="apellidomaterno" required>
+														id="apellidomaterno" name="apellidomaterno" required maxlength=200>
 												</div>
 											</div>
 
@@ -240,8 +240,12 @@
     									
     						},
     						error : function(e) {
-    							alert("Error");
-    						},
+    							$('#spin').css("visibility","hidden")
+    							var eleme = $(document.createElement('h4'))
+    				               .attr('id','mensaje').html("A ocurrido un error");
+    							$('#mensaje').replaceWith(eleme);
+    							$("#mensaje").css("visibility","visible")    						
+    							},
     						success : function(respuesta) {
     							$('#spin').css("visibility","hidden")
     							var elem = $(document.createElement('h4'))

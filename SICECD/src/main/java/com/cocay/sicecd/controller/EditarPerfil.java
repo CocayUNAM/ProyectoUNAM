@@ -1,6 +1,9 @@
 package com.cocay.sicecd.controller;
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +35,9 @@ public class EditarPerfil {
 	
 	@Autowired
 	Logging log;
+	
+	@Autowired
+	HttpServletRequest request;
 	
 	private void editarCorreo(Usuario_sys guardado, Usuario_sys consulta) {
 		String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
@@ -72,6 +78,7 @@ public class EditarPerfil {
 		if (!guardado.getRfc().equals(consulta.getRfc())) {
 			cambios += "Rfc de " + guardado.getRfc() + " a " + consulta.getRfc() + "\n";
 			guardado.setRfc(consulta.getRfc());
+
 		}
 		if (!guardado.getNombre().equals(consulta.getNombre())) {
 			cambios += "Nombre de " + guardado.getNombre() + " a " + consulta.getNombre() + "\n";
@@ -112,7 +119,7 @@ public class EditarPerfil {
 			_email.sendMail(frome, toe, subjecte, bodye);
 			_usuarioSys.save(guardado);
 		}
-		log.setTrace(LogTypes.EDITA_USUARIO);
+		log.setTrace(LogTypes.EDITA_USUARIO,null,guardado.getRfc());
 
 		return ResponseEntity.ok("Usuario Editado con exito");
 
