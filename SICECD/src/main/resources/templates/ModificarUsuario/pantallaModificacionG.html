@@ -96,7 +96,7 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="form-group row">
+                                            <div class="form-group row"> 
                                                 <label class="col-lg-4 control-label" for="inicio">Fecha de inicio (de no cambiar insertar la anterior) <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="date" class="form-control" id="inicio" name="inicio" th:text = "${grupo.inicio}" th:value = "${grupo.inicio}" onkeydown="return false">
@@ -110,18 +110,21 @@
                                                 </div>
                                             </div> 
                                             
-                                            
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="curso">Clave del curso<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="curso">Clave del curso<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="curso" name="curso" th:value = "${grupo.curso}">
+                                                    <select class="form-control" id="curso" name="curso" style="width: 100%;">
+                                                    	<option th:value="${grupo.curso}" th:text="${grupo.curso}">Clave definida</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="rfc">RFC del asesor <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="rfc">Clave del asesor<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="rfc" name="rfc" th:value = "${grupo.asesor}">
+                                                    <select class="form-control" id="rfc" name="rfc" style="width: 100%;">
+                                                    	<option th:value="${grupo.asesor}" th:text="${grupo.asesor}">RFC definido</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             
@@ -167,6 +170,27 @@
 				let idu = [[${grupo.identificador}]];
 				
 				let fecha = [[${grupo.inicio}]];
+				
+				var texto = [[${grupo.jsonC}]];
+				
+				var cursos = texto.split(",");
+				
+			    var select = document.getElementById( 'curso' );
+
+			    for( curso in cursos ) {
+			        select.add( new Option( cursos[curso] ) );
+			    };
+			    
+				var rfctext = [[${grupo.jsonP}]];
+				
+				var rfcs = rfctext.split(",");
+				
+			    var select2 = document.getElementById( 'rfc' );
+
+			    for( rfc in rfcs ) {
+			        select2.add( new Option( rfcs[rfc] ) );
+			    };
+
 
 				$.fn.bootstrapValidator.validators.fecha = {
 				        validate: function(validator, $field, options) {
@@ -210,24 +234,6 @@
 				$.fn.bootstrapValidator.validators.fechaI = {
 				        validate: function(validator, $field, options) {
 				            var value = $field.val();
-				            
-				            var varFecha = new Date(value);
-				            
-				            var FechaOrg = new Date(fecha);
-				            var hoy = new Date();
-				            
-				            hoy.setHours(0,0,0,0);
-				            
-				            if($('#inicio').val().length > 0){
-					            if(varFecha.toISOString().slice(0,10) != FechaOrg.toISOString().slice(0,10)){
-					            	if (varFecha <= hoy) {
-						                return false;
-						            }
-					            } else {
-					            	return true
-					            }
-				            }
-
 				            return true;
 				        }
 				 };

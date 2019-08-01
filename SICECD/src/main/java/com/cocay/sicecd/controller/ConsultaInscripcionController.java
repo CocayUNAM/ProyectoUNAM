@@ -67,14 +67,15 @@ public class ConsultaInscripcionController {
 		
 		/* Datos del curso */
 		String clave_curso = request.getParameter("clave_curso").trim();
+		String nombre_curso = request.getParameter("nombre_curso").toUpperCase().trim();
 		Integer id_tipo = Integer.parseInt(request.getParameter("tipos"));
 		
 		/* Datos del grupo */
 		String clave_grupo = request.getParameter("clave_grupo").trim();
 		
 		/* Intervalo de tiempo */
-		String fecha_inicio_1 = request.getParameter("fecha_1");
-		String fecha_inicio_2 = request.getParameter("fecha_2");
+		String fecha_1 = request.getParameter("fecha_1");
+		String fecha_2 = request.getParameter("fecha_2");
 		
 		List<Inscripcion> ins_grupos = new ArrayList<Inscripcion>();
 		List<Inscripcion> ins_profes = new ArrayList<Inscripcion>();
@@ -87,18 +88,21 @@ public class ConsultaInscripcionController {
 		
 		//Se obtienen las inscripciones pertenecientes al grupo buscado
 		if ( clave_grupo != "" ) {
-			ins_grupos = obtenerInsGrupos(clave_grupo);
+			ins_grupos = obtenerInsGrupos(clave_grupo, fecha_1, fecha_2);
 		}
 		
 		//Se obtienen las inscripciones pertenecientes al curso buscado
-		if ( clave_curso != "" || id_tipo != 4 || fecha_inicio_1 != null || fecha_inicio_2 != null) {
-			ins_cursos = obtenerInsCursos(clave_curso, id_tipo, fecha_inicio_1, fecha_inicio_2);
+		if ( clave_curso != "" || nombre_curso != "" || id_tipo != 0 ) {
+			ins_cursos = obtenerInsCursos(clave_curso, nombre_curso, id_tipo);
 		}
 		
 		//Merge entre cursos, grupos y profes
 		List<Inscripcion> inscripciones = obtenerIns(ins_cursos, ins_grupos, ins_profes);
 		
 		if ( inscripciones != null || inscripciones.size() > 0 ) {
+			System.out.println("Grupos: " + ins_grupos.size());
+			System.out.println("Cursos: " + ins_cursos.size());
+			System.out.println("Profes: " + ins_profes.size());
 			model.put("ins", inscripciones);
 			return new ModelAndView("ConsultarInscripcion/muestraListaIns", model);
 		} else {
@@ -161,31 +165,15 @@ public class ConsultaInscripcionController {
 	 * los datos ingresados en la sección de 'Cursos'.
 	 * @param clave_curso
 	 * @param id_tipo
-	 * @param fecha_inicio_1
-	 * @param fecha_inicio_2
 	 * @return una lista de Inscripciones.
 	 * @throws ParseException
 	 */
-	public List<Inscripcion> obtenerInsCursos(String clave_curso, Integer id_tipo, String fecha_inicio_1, String fecha_inicio_2) throws ParseException {
+	public List<Inscripcion> obtenerInsCursos(String clave_curso, String nombre_curso, Integer id_tipo) {
 		List<Inscripcion> ins_cursos = new ArrayList<Inscripcion>();
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date fecha_ini_1, fecha_ini_2;
 		List<Curso> cursos1, cursos2;
 		List<Grupo> grupos = grupo_rep.findAll();
-		
-		if(fecha_inicio_1 != "" && fecha_inicio_2 != "") {
-			fecha_ini_1 = format.parse(fecha_inicio_1);
-			fecha_ini_2 = format.parse(fecha_inicio_2);
-			cursos1 = curso_rep.findByFechaInicio(fecha_ini_1, fecha_ini_2);
-			cursos2 = curso_rep.findByFechaInicio(fecha_ini_1, fecha_ini_2);
-		} else if(fecha_inicio_1 != "" && fecha_inicio_2 == "") {
-			fecha_ini_1 = format.parse(fecha_inicio_1);
-			cursos1 = curso_rep.findByFechaInicio(fecha_ini_1);
-			cursos2 = curso_rep.findByFechaInicio(fecha_ini_1);
-		} else {
-			cursos1 = curso_rep.findAll();
-			cursos2 = curso_rep.findAll();
-		}
+		cursos1 = curso_rep.findAll();
+		cursos2 = curso_rep.findAll();
 		
 		//Filtrando por tipo de curso
 		if (id_tipo != 0) {
@@ -205,6 +193,14 @@ public class ConsultaInscripcionController {
 			}
 		}
 		
+		//Filtrando por clave de curso
+		if (nombre_curso != "") {
+			for(Curso c : cursos1) {
+				if(!c.getClave().contains(nombre_curso)){
+					cursos2.remove(c);
+				}
+			}
+		}
 		
 		//Obteniendo inscripciones
 		for (Curso c : cursos2) {
@@ -222,13 +218,39 @@ public class ConsultaInscripcionController {
 	 * Se busca la lista de inscripciones de acuerdo tomando como parámetros
 	 * los datos ingresados en la sección de 'Grupos'.
 	 * @param clave
+	 * @param fecha_inicio_1
+	 * @param fecha_inicio_2
 	 * @return una lista de Inscripciones.
 	 */
-	public List<Inscripcion> obtenerInsGrupos(String clave) {
+	public List<Inscripcion> obtenerInsGrupos(String clave, String fecha_inicio_1, String fecha_inicio_2) throws ParseException {
 		List<Inscripcion> ins_grupos = new ArrayList<Inscripcion>();
-		List<Grupo> grupos = grupo_rep.findByClave(clave);
+		List<Grupo> grupos1, grupos2;
 		
-		for (Grupo g : grupos) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date fecha_ini_1, fecha_ini_2;
+		
+		if(fecha_inicio_1 != "" && fecha_inicio_2 != "") {
+			fecha_ini_1 = format.parse(fecha_inicio_1);
+			fecha_ini_2 = format.parse(fecha_inicio_2);
+			grupos1 = grupo_rep.findByFechaInicio(fecha_ini_1, fecha_ini_2);
+			grupos2 = grupo_rep.findByFechaInicio(fecha_ini_1, fecha_ini_2);
+		} else {
+			grupos1 = grupo_rep.findAll();
+			grupos2 = grupo_rep.findAll();
+		}
+		
+		if (clave != null) {
+			for(Grupo g : grupos1) {
+				String gclave = normalizar( g.getClave() ).toUpperCase().trim();
+				if(!gclave.contains(clave)){
+					grupos2.remove(g);
+				}
+			}
+		}
+		
+		System.out.println(grupos2.size());
+		
+		for (Grupo g : grupos2) {
 			ins_grupos.addAll(g.getInscripciones());
 		}
 		

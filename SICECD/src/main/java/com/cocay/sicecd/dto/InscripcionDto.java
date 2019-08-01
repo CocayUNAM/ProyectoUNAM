@@ -10,7 +10,11 @@ public class InscripcionDto {
 	
 	String calificacion;
 	
-	boolean aprobado;
+	Boolean aprobado;
+	
+	String jsonG;	
+	
+	String jsonP;
 
 	String calif;
 
@@ -60,6 +64,30 @@ public class InscripcionDto {
 
 	public void setCalif(String calif) {
 		this.calif = calif;
+	}
+
+	public String getJsonG() {
+		return jsonG;
+	}
+
+	public void setJsonG(String jsonG) {
+		this.jsonG = jsonG;
+	}
+
+	public String getJsonP() {
+		return jsonP;
+	}
+
+	public void setJsonP(String jsonP) {
+		this.jsonP = jsonP;
+	}
+
+	public Boolean getAprobado() {
+		return aprobado;
+	}
+
+	public void setAprobado(Boolean aprobado) {
+		this.aprobado = aprobado;
 	}
 	
 }

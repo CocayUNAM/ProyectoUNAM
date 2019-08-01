@@ -2,20 +2,20 @@ package com.cocay.sicecd.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.dto.GrupoDto;
@@ -43,10 +43,48 @@ public class GrupoController {
 	@Autowired
 	Logging log;
 	
-	// Mapeo del html para registrar cursos
-	@RequestMapping(value = "/registrarGrupo2")
-	public String registrarInscripcion(Model model, HttpServletRequest request) {
-		return "GrupoController/registrarGrupo";
+	@RequestMapping(value = "/registrarGrupo2", method = RequestMethod.GET)
+	public ModelAndView registrarInscripcion(ModelMap model) {
+		
+		List<Curso> list_p1 = cursoRep.findAll();
+		List<Profesor> list_p2 = profRep.findAll();
+		
+		List<String> claves = new ArrayList<String>();
+		List<String> rfcs = new ArrayList<String>();
+		
+		StringBuilder sb1 = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
+		
+		for(Curso c : list_p1) {
+			claves.add(c.getClave());
+			sb1.append(c.getClave() + ",");
+		}
+		
+		for(Profesor p : list_p2) {
+			rfcs.add(p.getRfc());
+			sb2.append(p.getRfc() + ",");
+		}
+		
+		String re = sb1.toString();
+		sb1.setLength(re.length() - 1);
+		
+		String rep = sb2.toString();
+		sb2.setLength(rep.length() - 1);
+
+		GrupoDto gp = new GrupoDto();
+
+		gp.setJsonC(sb1.toString());
+		gp.setJsonP(sb2.toString());
+		
+		System.out.println(sb1.toString());
+		System.out.println(sb2.toString());
+		
+		if(!list_p1.isEmpty()) {
+			model.put("datos", gp);
+			return new ModelAndView("GrupoController/registrarGrupo", model);
+		} else {
+			return new ModelAndView("/Avisos/ErrorBusqueda");
+		}
 	}
 	
 	@RequestMapping(value = "/registrarGrupo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

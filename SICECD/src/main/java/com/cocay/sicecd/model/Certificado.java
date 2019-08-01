@@ -36,6 +36,11 @@ public class Certificado {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso")
 	private Curso fk_id_curso;
+	
+	@ManyToOne(targetEntity=Grupo.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinColumn(name = "fk_id_grupo", referencedColumnName="pk_id_grupo")
+	private Grupo fk_id_grupo;
     
 	public int getPk_id_certificado() {
 		return pk_id_certificado;
@@ -67,6 +72,14 @@ public class Certificado {
 
 	public void setFk_id_curso(Curso fk_id_curso) {
 		this.fk_id_curso = fk_id_curso;
+	}
+	
+	public Grupo getFk_id_grupo() {
+		return fk_id_grupo;
+	}
+
+	public void setFk_id_grupo(Grupo fk_id_grupo) {
+		this.fk_id_grupo = fk_id_grupo;
 	}
 
         public long getTiempo_creado() {

@@ -48,15 +48,7 @@ public class ConsultaGrupoController {
 		Date fecha_ini, fecha_fin;
 		List<Grupo> grupos_1, grupos_2;
 		
-		if(fecha_inicio_grupo != "" && fecha_fin_grupo == "") {
-			fecha_ini = format.parse(fecha_inicio_grupo);
-			grupos_1 = grupo.findByFechaInicio(fecha_ini);
-			grupos_2 = grupo.findByFechaInicio(fecha_ini);
-		} else if (fecha_inicio_grupo == "" && fecha_fin_grupo != ""){
-			fecha_fin = format.parse(fecha_fin_grupo);
-			grupos_1 = grupo.findByFechaFin(fecha_fin);
-			grupos_2 = grupo.findByFechaFin(fecha_fin);
-		}else if (fecha_inicio_grupo != "" && fecha_fin_grupo != ""){
+		if (fecha_inicio_grupo != "" && fecha_fin_grupo != ""){
 			fecha_ini = format.parse(fecha_inicio_grupo);
 			fecha_fin = format.parse(fecha_fin_grupo);
 			grupos_1 = grupo.findByFecha(fecha_ini, fecha_fin);

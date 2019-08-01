@@ -60,8 +60,6 @@
 													<th class="th-sm">clave</th>
 	                                                <th class="th-sm">nombre</th>
 	                                                <th class="th-sm">tipo curso</th>
-	                                                <th class="th-sm">fecha inicio</th>
-	                                                <th class="th-sm">fecha termino</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -71,8 +69,6 @@
 														<td class="renglon" th:text="${curso.clave}"></td>
 														<td class="renglon" th:text="${curso.nombre}"></td>
 														<td class="renglon" th:text="${curso.fk_id_tipo_curso.nombre}"></td>
-														<td class="renglon" th:text="${curso.fInicio}"></td>
-														<td class="renglon" th:text="${curso.fTermino}"></td>
 													</tr>
 												</th:block>
 	                                        </tbody>

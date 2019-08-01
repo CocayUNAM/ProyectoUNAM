@@ -1,6 +1,7 @@
 package com.cocay.sicecd.controller;
 
 import com.cocay.sicecd.model.Curso;
+import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Certificado;
@@ -8,6 +9,7 @@ import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Url_ws;
 import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.CursoRep;
+import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 import com.cocay.sicecd.repo.Url_wsRep;
 import com.cocay.sicecd.security.pdf.SeguridadPDF;
@@ -61,10 +63,19 @@ public class CertificadoMasivoController {
 	@Autowired
 	CursoRep bd_curso;
 	@Autowired
+	GrupoRep bd_grupo;
+	@Autowired
 	Logging log;
 	@Autowired
 	Url_wsRep urls;
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+	/**
+	 * Metodo que realiza una peticion a la url especificada, enviando un json con los certificados solicitados
+	 * @param URL_RSM Url del web service.
+	 * @param json relación de certificados.
+	 * @return Un arreglo con la relación de certificados obtenidos y no obtenidos.
+	 * @throws Exception
+	 */
 	private int[] extraccionPorURL(String URL_RSM, JSONObject json) throws Exception {
 		HttpClient client = HttpClients.createDefault();
 		HttpPost post = new HttpPost(URL_RSM);
@@ -170,13 +181,23 @@ public class CertificadoMasivoController {
 		int actual2 = 0;
 		// comienza a mover los pdfs a la ruta elegida
 		for (File f : tmp.listFiles()) {
-			Curso c = bd_curso.findByID(Integer.parseInt(f.getName()));
+			String [] ars = f.getName().split("|");
+			Curso c = bd_curso.findByUniqueClave(ars[0]);
+			String gg = ars[1];//clave del grupo
+			Grupo g = null;//se obtiene el grupo
+			for(Grupo ggg : c.getGrupos()) {
+				if(ggg.getClave().equals(gg)) {
+					g = ggg;
+				}
+			}
+			String codigo = c.getClave() + "|" + g.getClave();//se obtiene el codigo completo
+			//Curso c = bd_curso.findByID(Integer.parseInt(f.getName()));
 			// Curso c = bd_curso.findByNombre(f.getName());
 			JSONObject ar = new JSONObject(json_r.get(f.getName()).toString());
 			for (File f2 : f.listFiles()) {
 				Profesor p = bd_profesor.findByCorreo(f2.getName());
 				for (File f3 : f2.listFiles()) {
-					String pt = RUTA_LOCAL + c.getNombre() + "/" + c.getNombre() + "_" + p.getPk_id_profesor() + ".pdf"; // +
+					String pt = RUTA_LOCAL + codigo + "/" + codigo + "_" + p.getPk_id_profesor() + ".pdf"; // +
 																															// f3.getName();
 					FileInputStream fs = new FileInputStream(f3);
 					File aux = new File(pt);
@@ -192,7 +213,7 @@ public class CertificadoMasivoController {
 					}
 					SeguridadPDF spdf = new SeguridadPDF();
 					String nombrec = p.getNombre() + " " + p.getApellido_paterno() + " " + p.getApellido_materno();
-					spdf.cifraPdf(pt, nombrec, c.getNombre());
+					spdf.cifraPdf(pt, nombrec, codigo);
 					f3.delete();// elimina archivo
 					Certificado cert = bd_certificado.findByRuta(pt);
 					if (cert == null) {
@@ -207,6 +228,7 @@ public class CertificadoMasivoController {
 					long tt = Long.parseLong((String) ar.get(p.getCorreo()));
 					cert.setTiempo_creado(tt);
 					cert.setFk_id_curso(c);
+					cert.setFk_id_grupo(g);
 					cert.setFk_id_profesor(p);
 					bd_certificado.save(cert);
 				}
@@ -220,9 +242,7 @@ public class CertificadoMasivoController {
 	}
 
 	/**
-	 * Metodo que obtiene certificados masivamente para traer nuevos archivos. (Cada
-	 * 2 horas realiza la tarea)
-	 * 
+	 * Metodo que obtiene certificados masivamente para traer nuevos archivos. 
 	 * @throws Exception
 	 */
 	@Scheduled(cron = "0 41 19 * * ?")
@@ -255,13 +275,13 @@ public class CertificadoMasivoController {
 					// int fkc = i.getFk_id_grupo().getFk_id_curso();
 					// Curso caux = bd_curso.findByID(fkc);
 					Curso caux = i.getFk_id_grupo().getFk_id_curso();
+					Grupo gaux = i.getFk_id_grupo();
 					// if(!caux.getNombre().equals("COSDAC 2018")) {
 					// continue;
 					// }
 					System.out.println("**\n" + p.getCorreo() + "\n" + caux.getNombre() + "\n**");
 					json.put("correo" + k, p.getCorreo());
-					json.put("curso" + k, caux.getNombre());
-					json.put("id_curso" + k, caux.getPk_id_curso());
+					json.put("id_curso" + k, caux.getClave() + "|" + gaux.getClave());
 					json.put("tiempo" + k, 0);
 					System.out.println("Se insertaron elementos en el JSON (certificados no presentes)");
 					nuevas++;
@@ -270,10 +290,10 @@ public class CertificadoMasivoController {
 				continue;
 			}
 			for (Certificado c : cert) {
-				System.out.println("**\n" + p.getCorreo() + "\n" + c.getFk_id_curso().getNombre() + "\n**");
+				String codigo = c.getFk_id_curso().getClave() + "|" + c.getFk_id_grupo().getClave();
+				//System.out.println("**\n" + p.getCorreo() + "\n" + c.getFk_id_curso().getNombre() + "\n**");
 				json.put("correo" + k, p.getCorreo());
-				json.put("curso" + k, c.getFk_id_curso().getNombre());
-				json.put("id_curso" + k, c.getFk_id_curso().getPk_id_curso());
+				json.put("id_curso" + k, codigo);
 				json.put("tiempo" + k, c.getTiempo_creado());
 				System.out.println("Se insertaron elementos en el JSON (certificadospresentes)");
 				actual++;

@@ -92,17 +92,21 @@
                                         <form class="form-valide" th:action="@{/AdministracionRegistroManual/registrarInscripcion}" method="POST"
                                         id="registrarIns">
                                         
-                                            <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="grupo">Grupo <span class="text-danger">*</span></label>
+                                        	<div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="grupo">Clave del grupo <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="grupo" name="grupo" th:value="${inscripcion.idGrupo}">
+                                                    <select class="form-control" id="grupo" name="grupo" style="width: 100%;">
+                                                    	<option th:value="${inscripcion.idGrupo}" th:text="${inscripcion.idGrupo}">Clave definida</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="par">participante<span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="par">RFC del participante <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="par" name="par" th:value="${inscripcion.idProfesor}">
+                                                    <select class="form-control" id="par" name="par" style="width: 100%;">
+                                                    	<option th:value="${inscripcion.idProfesor}" th:text="${inscripcion.idProfesor}">RFC definido</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             
@@ -116,7 +120,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 col-form-label" for="ap">aprobado<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                      <input type="checkbox" name="ap" class="checkbox"> Se aprobó el curso<br>
+                                                      <input type="checkbox" name="ap" class="checkbox" th:checked = "${inscripcion.aprobado}"> Se aprobó el curso<br>
                                                 </div>
                                             </div>
                                             
@@ -158,8 +162,29 @@
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
 
 	<script th:inline="javascript">
-$(document).ready(function() {
+	$(document).ready(function() {
 			let idu = [[${inscripcion.identificador}]];
+			
+			var texto = [[${inscripcion.jsonG}]];
+			
+			var grupos = texto.split(",");
+			
+		    var select = document.getElementById( 'grupo' );
+
+		    for( grupo in grupos ) {
+		        select.add( new Option( grupos[grupo] ) );
+		    };
+		    
+			var rfctext = [[${inscripcion.jsonP}]];
+			
+			var rfcs = rfctext.split(",");
+			
+		    var select2 = document.getElementById( 'par' );
+
+		    for( rfc in rfcs ) {
+		        select2.add( new Option( rfcs[rfc] ) );
+		    };
+
 			
 			$.fn.bootstrapValidator.validators.calif = {
 			        validate: function(validator, $field, options) {

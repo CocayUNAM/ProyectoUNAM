@@ -15,6 +15,10 @@ public class GrupoDto {
 	String identificador;
 
 	String idGrupo;
+	
+	String jsonC;
+	
+	String jsonP;
 
 	public String getClave() {
 		return clave;
@@ -70,6 +74,22 @@ public class GrupoDto {
 
 	public void setIdGrupo(String idGrupo) {
 		this.idGrupo = idGrupo;
+	}
+
+	public String getJsonC() {
+		return jsonC;
+	}
+
+	public void setJsonC(String jsonC) {
+		this.jsonC = jsonC;
+	}
+
+	public String getJsonP() {
+		return jsonP;
+	}
+
+	public void setJsonP(String jsonP) {
+		this.jsonP = jsonP;
 	}
 
 }

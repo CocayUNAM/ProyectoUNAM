@@ -42,8 +42,6 @@
                                                 	<th>Tipo de Curso</th>
                                                 	<th>Clave del Curso</th>
                                                     <th>Curso</th>
-                                                    <th>Fecha de inicio</th>
-                                                    <th>Fecha de término</th>
                                                 </tr>
                                             </thead>
                                             <tbody >
@@ -51,8 +49,6 @@
                                                 	<td data-th-text="${curso?.fk_id_tipo_curso?.nombre}">Text ...</td>
                                                 	<td data-th-text="${curso?.clave}">Text ...</td>
                                                 	<td data-th-text="${curso?.nombre}">Text ...</td>
-                                                	<td data-th-text="${#dates.format(curso?.fInicio,'dd-MMM-yyyy')}">Text ...</td>
-                                                	<td data-th-text="${#dates.format(curso?.fTermino,'dd-MMM-yyyy')}">Text ...</td>
                                                 </tr>
                                             </tbody>
                                         </table>

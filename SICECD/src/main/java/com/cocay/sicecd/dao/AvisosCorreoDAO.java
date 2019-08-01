@@ -1,8 +1,12 @@
 package com.cocay.sicecd.dao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -13,10 +17,18 @@ import org.hibernate.SQLQuery;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.dto.FiltroCorreoDTO;
 import com.cocay.sicecd.dto.ProfesorDto;
+import com.cocay.sicecd.model.Usuario_sys;
+import com.cocay.sicecd.repo.Usuario_sysRep;
+import com.cocay.sicecd.service.Logging;
 import com.cocay.sicecd.service.SendMailService;
 
 @SuppressWarnings("deprecation")
@@ -32,21 +44,27 @@ public class AvisosCorreoDAO {
 	@Autowired
 	SendMailService emailSender;
 	
+	
 	public List<ProfesorDto> envioCorreos(List<ProfesorDto> profesorDTO) {
-		List<ProfesorDto> lstProfesores = new ArrayList<ProfesorDto>();
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+        // inside your getSalesUserData() method
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                for (ProfesorDto p : profesorDTO) {
 
-	    lstProfesores = profesorDTO;
-		for (ProfesorDto p : lstProfesores) {
-
-			System.out.print(p.getCorreo());
-			String from="cocayprueba@gmail.com";
-			String to=p.getCorreo();
-			String subject=p.getCdAsunto();
-			String body = p.getCdMensaje();
-		    emailSender.sendMailSender(from, to, subject, body);
-			}
-	  
-		return lstProfesores;
+					System.out.print(p.getCorreo());
+					String from="cocayprueba@gmail.com";
+					String to=p.getCorreo();
+					String subject=p.getCdAsunto();
+					String body = p.getCdMensaje();
+				    emailSender.sendMailSender(from, to, subject, body);
+				}
+            }
+        });
+        
+		
+		return profesorDTO;
 	}
 	
 	
@@ -54,7 +72,7 @@ public class AvisosCorreoDAO {
 	public List<ProfesorDto> filtrosCorreos(FiltroCorreoDTO filtroCorreoDTO){
 		List<ProfesorDto> lstProfesores = new ArrayList<ProfesorDto>();
 		boolean bool = false;
-		String consulta = "SELECT nombres, correo FROM (SELECT \n" + 
+		String consulta = "SELECT DISTINCT nombres, correo FROM (SELECT \n" + 
 				"   PROF.pk_id_profesor idProfesor,\n" +
 				"	PROF.NOMBRE ||' '|| PROF.apellido_paterno ||' '|| PROF.apellido_materno nombres,\n" + 
 				"	PROF.CORREO correo,\n" + 
@@ -136,4 +154,5 @@ public class AvisosCorreoDAO {
 		
 		return lstProfesores;
 	}
+	
 }

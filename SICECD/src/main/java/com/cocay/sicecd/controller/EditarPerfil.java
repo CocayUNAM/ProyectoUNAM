@@ -1,6 +1,9 @@
 package com.cocay.sicecd.controller;
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,9 +36,17 @@ public class EditarPerfil {
 	@Autowired
 	Logging log;
 	
+	@Autowired
+	HttpServletRequest request;
+	
+	@Value("${path_dominio}")
+	String dominio;
+	
+	
+	
 	private void editarCorreo(Usuario_sys guardado, Usuario_sys consulta) {
 		String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
-		String link = "http://localhost:8080/confirmacorreo?codigo=" + codigo + "&usuario="
+		String link = dominio+ "confirmacorreo?codigo=" + codigo + "&usuario="
 				+ guardado.getPk_id_usuario_sys();
 		String from = origen;
 		String to = consulta.getCorreo();
@@ -72,6 +83,7 @@ public class EditarPerfil {
 		if (!guardado.getRfc().equals(consulta.getRfc())) {
 			cambios += "Rfc de " + guardado.getRfc() + " a " + consulta.getRfc() + "\n";
 			guardado.setRfc(consulta.getRfc());
+
 		}
 		if (!guardado.getNombre().equals(consulta.getNombre())) {
 			cambios += "Nombre de " + guardado.getNombre() + " a " + consulta.getNombre() + "\n";
@@ -112,7 +124,7 @@ public class EditarPerfil {
 			_email.sendMail(frome, toe, subjecte, bodye);
 			_usuarioSys.save(guardado);
 		}
-		log.setTrace(LogTypes.EDITA_USUARIO);
+		log.setTrace(LogTypes.EDITA_USUARIO,null,guardado.getRfc());
 
 		return ResponseEntity.ok("Usuario Editado con exito");
 
@@ -135,7 +147,7 @@ public class EditarPerfil {
 		Usuario_sys guardado = _usuarioSys.findByRfc(consulta.getRfc()).get(0);
 		
 		String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
-		String link = "http://localhost:8080/configuracionPass?codigo=" + codigo + "&usuario="
+		String link = dominio+ "configuracionPass?codigo=" + codigo + "&usuario="
 				+ guardado.getPk_id_usuario_sys();
 		String from = origen;
 		String to = guardado.getCorreo();
@@ -158,7 +170,7 @@ public class EditarPerfil {
 	{
 		String codigo=String.valueOf((int) (Math.random() * 1000) + 1);
 		Usuario_sys guardado= _usuarioSys.findByRfc(consulta.getRfc()).get(0);
-		String link="http://localhost:8080/configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
+		String link=dominio+ "configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
 		String from=origen;
 		String to=guardado.getCorreo();
 		String subject="Activación de cuenta";

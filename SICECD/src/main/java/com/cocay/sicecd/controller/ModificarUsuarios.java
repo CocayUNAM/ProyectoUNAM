@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -435,6 +436,32 @@ public class ModificarUsuarios {
 	@GetMapping(value = "/pantallaModificacionI")
 	public ModelAndView formEditarInscripcion(@RequestParam(name = "id") int id) {
 		Inscripcion cambio = insRep.findById(id).get();
+		
+		List<Grupo> list_p1 = grRep.findAll();
+		List<Profesor> list_p2 = proRep.findAll();
+		
+		List<String> grupos = new ArrayList<String>();
+		List<String> rfcs = new ArrayList<String>();
+		
+		StringBuilder sb1 = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
+		
+		for(Grupo g : list_p1) {
+			grupos.add(g.getClave());
+			sb1.append(g.getClave() + ",");
+		}
+		
+		for(Profesor p : list_p2) {
+			rfcs.add(p.getRfc());
+			sb2.append(p.getRfc() + ",");
+		}
+		
+		String re = sb1.toString();
+		sb1.setLength(re.length() - 1);
+		
+		String rep = sb2.toString();
+		sb2.setLength(rep.length() - 1);
+		
 		InscripcionDto insi = new InscripcionDto();
 		
 		insi.setIdentificador(Integer.toString(cambio.getPk_id_inscripcion()));
@@ -446,6 +473,9 @@ public class ModificarUsuarios {
 		insi.setIdGrupo(cambio.getFk_id_grupo().getClave());
 		
 		insi.setIdProfesor(cambio.getFk_id_profesor().getRfc());
+		
+		insi.setJsonG(sb1.toString());
+		insi.setJsonP(sb2.toString());
 		
 		ModelAndView model = new ModelAndView("ModificarUsuario/pantallaModificacionI");
 		model.addObject("inscripcion", insi);
@@ -523,6 +553,31 @@ public class ModificarUsuarios {
 	public ModelAndView formEditarGrupo(@RequestParam(name = "id") int id) {
 		Grupo gr = grRep.findById(id).get();
 		
+		List<Curso> list_p1 = crRep.findAll();
+		List<Profesor> list_p2 = proRep.findAll();
+		
+		List<String> claves = new ArrayList<String>();
+		List<String> rfcs = new ArrayList<String>();
+		
+		StringBuilder sb1 = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
+		
+		for(Curso c : list_p1) {
+			claves.add(c.getClave());
+			sb1.append(c.getClave() + ",");
+		}
+		
+		for(Profesor p : list_p2) {
+			rfcs.add(p.getRfc());
+			sb2.append(p.getRfc() + ",");
+		}
+		
+		String re = sb1.toString();
+		sb1.setLength(re.length() - 1);
+		
+		String rep = sb2.toString();
+		sb2.setLength(rep.length() - 1);
+		
 		GrupoDto gdto = new GrupoDto();
 		
 		gdto.setIdentificador(Integer.toString(gr.getPk_id_grupo()));
@@ -532,6 +587,9 @@ public class ModificarUsuarios {
 		gdto.setAsesor(gr.getFk_id_profesor().getRfc());
 		
 		gdto.setCurso(gr.getFk_id_curso().getClave());
+
+		gdto.setJsonC(sb1.toString());
+		gdto.setJsonP(sb2.toString());
 		
 		if(gr.getFecha_inicio() != null) {
 			gdto.setInicio(gr.getFecha_inicio().toString());
@@ -570,26 +628,20 @@ public class ModificarUsuarios {
 					e.printStackTrace();
 				}  
 				mod.setFecha_inicio(fecha);
-			} else {
-				Date fecha = null;
-				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getInicio());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}  
-				mod.setFecha_inicio(fecha);
-			}
+			} 
 		} else {
-			if (!mod.getFecha_inicio().toString().equals(grp.getInicio())) {
-				cambios += "Fecha de inicio de " + mod.getFecha_inicio().toString() + " a " + grp.getInicio()
-				+ "\n";
-				Date fecha = null;
-				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getInicio());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}  
-				mod.setFecha_inicio(fecha);
+			if(grp.getInicio() != null) {
+				if (!mod.getFecha_inicio().toString().equals(grp.getInicio())) {
+					cambios += "Fecha de inicio de " + mod.getFecha_inicio().toString() + " a " + grp.getInicio()
+					+ "\n";
+					Date fecha = null;
+					try {
+						fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getInicio());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}  
+					mod.setFecha_inicio(fecha);
+				}
 			}
 		} 
 		
@@ -602,26 +654,20 @@ public class ModificarUsuarios {
 					e.printStackTrace();
 				}  
 				mod.setFecha_fin(fecha);
-			} else {
-				Date fecha = null;
-				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getTermino());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}  
-				mod.setFecha_fin(fecha);
-			}
+			} 
 		} else {
-			if (!mod.getFecha_fin().toString().equals(grp.getTermino())) {
-				cambios += "Fecha de termino de " + mod.getFecha_fin().toString() + " a " + grp.getTermino()
-				+ "\n";
-				Date fecha = null;
-				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getTermino());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				} 
-				mod.setFecha_fin(fecha);
+			if(grp.getTermino() != null) {
+				if (!mod.getFecha_fin().toString().equals(grp.getTermino())) {
+					cambios += "Fecha de termino de " + mod.getFecha_fin().toString() + " a " + grp.getTermino()
+					+ "\n";
+					Date fecha = null;
+					try {
+						fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getTermino());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					} 
+					mod.setFecha_fin(fecha);
+				}
 			}
 		}
 		
@@ -715,46 +761,6 @@ public class ModificarUsuarios {
 			mod.setNombre(cr.getNombre());
 		}
 		
-		if(mod.getfInicio() == null) {
-			if(cr.getfInicio() != null) {
-				Calendar calendario = Calendar.getInstance();
-				calendario.setTime(cr.getfInicio());
-				calendario.add(Calendar.DAY_OF_YEAR, 1);
-				mod.setfInicio(calendario.getTime());
-			} else {
-				mod.setfInicio(cr.getfInicio());
-			}
-		} else {
-			if (!mod.getfInicio().equals(cr.getfInicio())) {
-				cambios += "Fecha de inicio de " + mod.getfInicio() + " a " + cr.getfInicio()
-				+ "\n";
-				Calendar calendario = Calendar.getInstance();
-				calendario.setTime(cr.getfInicio());
-				calendario.add(Calendar.DAY_OF_YEAR, 1);
-				mod.setfInicio(calendario.getTime());
-			}
-		} 
-		
-		if(mod.getfTermino() == null) {
-			if(cr.getfTermino() != null) {
-				Calendar calendario = Calendar.getInstance();
-				calendario.setTime(cr.getfTermino());
-				calendario.add(Calendar.DAY_OF_YEAR, 1);
-				mod.setfTermino(calendario.getTime());
-			} else {
-				mod.setfTermino(cr.getfTermino());
-			}
-		} else {
-			if (!mod.getfTermino().equals(cr.getfTermino())) {
-				cambios += "Fecha de termino de " + mod.getfTermino() + " a " + cr.getfTermino()
-				+ "\n";
-				Calendar calendario = Calendar.getInstance();
-				calendario.setTime(cr.getfTermino());
-				calendario.add(Calendar.DAY_OF_YEAR, 1);
-				mod.setfTermino(calendario.getTime());
-			}
-		}
-		
 		System.out.println(cambios);
 		
 		log.setTrace(LogTypes.MODIFICAR_CURSO);
@@ -840,13 +846,15 @@ public class ModificarUsuarios {
 		if(mod.getFechaNac() == null) {
 			mod.setFechaNac(profesor.getFechaNac());
 		} else {
-			if (!mod.getFechaNac().equals(profesor.getFechaNac())) {
-				cambios += "Fecha de termino de " + mod.getFechaNac() + " a " + profesor.getFechaNac()
-				+ "\n";
-				Calendar calendario = Calendar.getInstance();
-				calendario.setTime(profesor.getFechaNac());
-				calendario.add(Calendar.DAY_OF_YEAR, 1);
-				mod.setFechaNac(calendario.getTime());
+			if(profesor.getFechaNac() != null) {
+				if (!mod.getFechaNac().equals(profesor.getFechaNac())) {
+					cambios += "Fecha de termino de " + mod.getFechaNac() + " a " + profesor.getFechaNac()
+					+ "\n";
+					Calendar calendario = Calendar.getInstance();
+					calendario.setTime(profesor.getFechaNac());
+					calendario.add(Calendar.DAY_OF_YEAR, 1);
+					mod.setFechaNac(calendario.getTime());
+				}
 			}
 		}
 		
