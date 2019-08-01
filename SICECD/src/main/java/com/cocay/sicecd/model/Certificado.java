@@ -37,7 +37,7 @@ public class Certificado {
 	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso")
 	private Curso fk_id_curso;
 	
-	@ManyToOne(targetEntity=Curso.class)
+	@ManyToOne(targetEntity=Grupo.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_grupo", referencedColumnName="fk_id_grupo")
 	private Grupo fk_id_grupo;
