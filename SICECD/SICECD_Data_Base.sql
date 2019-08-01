@@ -59,8 +59,9 @@ INSERT INTO public.estatus_usuario_sys(nombre) VALUES ('Inactivo');
 INSERT INTO public.tipo_curso(nombre) VALUES ('Curso');
 INSERT INTO public.tipo_curso(nombre) VALUES ('Diplomado');
 INSERT INTO public.tipo_curso(nombre) VALUES ('Especialidad');
-insert into public.tipo_curso(nombre) values('Maestria');
-insert into public.tipo_curso(nombre) values('Doctorado');
+INSERT INTO public.tipo_curso(nombre) values('Maestria');
+INSERT INTO public.tipo_curso(nombre) values('Doctorado');
+INSERT INTO public.tipo_curso(nombre) VALUES ('Sin definir');
 
 INSERT INTO public.turno(nombre) VALUES ('Matutino');
 INSERT INTO public.turno(nombre) VALUES ('Vepertino');

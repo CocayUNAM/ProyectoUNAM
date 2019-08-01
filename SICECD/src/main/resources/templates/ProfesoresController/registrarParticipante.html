@@ -190,7 +190,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="cilo">Ciudad o localidad<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="cilo" name="cilo" placeholder="Introduce Ciudad o localidad.">
+                                                    <input type="text" class="form-control" id="cilo" name="cilo" placeholder="Introduce Ciudad o localidad, primera letra mayuscula.">
                                                 </div>
                                             </div>
                                             
@@ -208,7 +208,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="plantel">Plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="plantel" name="plantel" placeholder="Introduce tu plantel.">
+                                                    <input type="text" class="form-control" id="plantel" name="plantel" placeholder="Introduce tu plantel, primera letra mayuscula.">
                                                 </div>
                                             </div>
                                             
@@ -227,7 +227,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="cplantel">Clave plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="cplantel" name="cplantel" placeholder="Introduce la clave del plantel ejemplo: A001">
+                                                    <input type="text" class="form-control" id="cplantel" name="cplantel" placeholder="Introduce la clave del plantel">
                                                 </div>
                                             </div>
                                             
@@ -347,7 +347,7 @@
 			            var value = $field.val();
 
 			            if($('#cilo').val().length > 0){
-				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)()@!:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -361,7 +361,7 @@
 			            var value = $field.val();
 
 			            if($('#ocupacion').val().length > 0){
-				            if (value.search(/[a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[a-zA-Z][^#&<>°¬|""~;$^%{}?()/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -375,7 +375,7 @@
 			            var value = $field.val();
 
 			            if($('#plantel').val().length > 0){
-				            if (value.search(/[A-Z][a-zA-Z][^<>°¬|""~;$^%{}?/*@!¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?()/*@!¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -424,12 +424,12 @@
 			        }
 			};
 			
-			$.fn.bootstrapValidator.validators.clave = {
+			$.fn.bootstrapValidator.validators.cplantel = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-						
+
 			            if($('#cplantel').val().length > 0){
-				            if (value.search(/[A-Z][0-9][^#&<>""~;$^%{}°¬|?/*\(\)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[^#&<>°¬|""~;$^%{}?()/*@!¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -492,7 +492,7 @@
 		                    },
 		        	
 		                    notEmpty: {
-		                        message: ' El rfc no puede estar vacia '
+		                        message: ' El rfc no puede estar vacio '
 		                    }
 		        	
 		        		}
@@ -529,8 +529,8 @@
 		        	
 		        	cplantel : {
 		        		validators : {
-		        			clave : {
-		        				message : 'Verifica que sea una clave valida, como la del ejemplo'
+		        			cplantel : {
+		        				message : 'Verifica que sea una clave valida, sin caracteres especiales'
 		        			}
 		        		}
 		        	},
@@ -597,7 +597,7 @@
 						error : function(e) {
 							$('#spin').css("visibility","hidden")
 							var elem = $(document.createElement('h4'))
-							               .attr('id','mensaje').html("Error: RFC de asesor ya habia sido registrado");
+							               .attr('id','mensaje').html("Error: RFC de participante ya habia sido registrado");
 							$('#mensaje').replaceWith(elem);
 							$("#mensaje").css("color","red");
 							$("#limpiar").css("visibility","hidden");

@@ -347,7 +347,7 @@ $(document).ready(function() {
 			            var value = $field.val();
 
 			            if($('#cilo').val().length > 0){
-				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)()@!:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -361,7 +361,7 @@ $(document).ready(function() {
 			            var value = $field.val();
 
 			            if($('#ocupacion').val().length > 0){
-				            if (value.search(/[a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[a-zA-Z][^#&<>°¬|""~;$^%{}?()/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -375,7 +375,21 @@ $(document).ready(function() {
 			            var value = $field.val();
 
 			            if($('#plantel').val().length > 0){
-				            if (value.search(/[A-Z][a-zA-Z][^<>°¬|""~;$^%{}?/*@!¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?()/*@!¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				                return false;
+				            }
+			            }
+
+			            return true;
+			        }
+			};
+			
+			$.fn.bootstrapValidator.validators.cplantel = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+
+			            if($('#cplantel').val().length > 0){
+				            if (value.search(/[^#&<>°¬|""~;$^%{}?()/*@!¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -423,21 +437,6 @@ $(document).ready(function() {
 			            return true;
 			        }
 			};
-			
-			$.fn.bootstrapValidator.validators.clave = {
-			        validate: function(validator, $field, options) {
-			            var value = $field.val();
-						
-			            if($('#cplantel').val().length > 0){
-				            if (value.search(/[A-Z][0-9][^#&<>""~;$^%{}°¬|?/*\(\)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
-				                return false;
-				            }
-			            }
-
-			            return true;
-			        }
-			};
-
 			
 			$('#registrarprofesor').bootstrapValidator({
 		        feedbackIcons: {
@@ -493,7 +492,7 @@ $(document).ready(function() {
 		                    },
 		        	
 		                    notEmpty: {
-		                        message: ' La fecha no puede estar vacia '
+		                        message: ' El rfc no puede ir vacia '
 		                    }
 		        	
 		        		}
@@ -530,8 +529,8 @@ $(document).ready(function() {
 		        	
 		        	cplantel : {
 		        		validators : {
-		        			clave : {
-		        				message : 'Verifica que sea una clave valida, como la del ejemplo'
+		        			cplantel : {
+		        				message : 'Verifica que sea una clave valida, sin caracteres especiales'
 		        			}
 		        		}
 		        	},
@@ -598,7 +597,7 @@ $(document).ready(function() {
 						error : function(e) {
 							$('#spin').css("visibility","hidden")
 							var elem = $(document.createElement('h4'))
-							               .attr('id','mensaje').html("Error: RFC de asesor ya habia sido registrado");
+							               .attr('id','mensaje').html("Error: RFC de participante ya habia sido registrado");
 							$('#mensaje').replaceWith(elem);
 							$("#mensaje").css("color","red");
 							$("#limpiar").css("visibility","hidden");

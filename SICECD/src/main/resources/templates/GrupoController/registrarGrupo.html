@@ -176,14 +176,6 @@
 			            
 			            if($('#inicio').val().length > 0 && $('#termino').val().length > 0){
 			            	
-							var varFecha = new Date(value);
-							
-							console.log(varFecha.getTime())
-				            
-				            if(isNaN(varFecha.getTime())){
-				            	return false;
-				            }
-			            	
 				            if (value < value3) {
 				                return false;
 				            }
@@ -220,28 +212,9 @@
 			$.fn.bootstrapValidator.validators.fechaI = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-			            
-			            console.log(value)
-			            
-			            var hoy = new Date();
-			            
-			            hoy.setHours(0,0,0,0);
-			            
-			            if($('#inicio').val().length > 0){
-			            	var varFecha = new Date(value);
-				            
-				            if(isNaN(varFecha.getTime())){
-				            	return false;
-				            }
-			            	
-				            if (varFecha <= hoy) {
-				                return false;
-				            }
-			            }
-
 			            return true;
 			        }
-			    };
+			};
 			
 			$('#registrarGrupo').bootstrapValidator({
 		        feedbackIcons: {

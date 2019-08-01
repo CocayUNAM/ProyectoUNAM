@@ -570,26 +570,20 @@ public class ModificarUsuarios {
 					e.printStackTrace();
 				}  
 				mod.setFecha_inicio(fecha);
-			} else {
-				Date fecha = null;
-				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getInicio());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}  
-				mod.setFecha_inicio(fecha);
-			}
+			} 
 		} else {
-			if (!mod.getFecha_inicio().toString().equals(grp.getInicio())) {
-				cambios += "Fecha de inicio de " + mod.getFecha_inicio().toString() + " a " + grp.getInicio()
-				+ "\n";
-				Date fecha = null;
-				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getInicio());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}  
-				mod.setFecha_inicio(fecha);
+			if(grp.getInicio() != null) {
+				if (!mod.getFecha_inicio().toString().equals(grp.getInicio())) {
+					cambios += "Fecha de inicio de " + mod.getFecha_inicio().toString() + " a " + grp.getInicio()
+					+ "\n";
+					Date fecha = null;
+					try {
+						fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getInicio());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}  
+					mod.setFecha_inicio(fecha);
+				}
 			}
 		} 
 		
@@ -602,26 +596,20 @@ public class ModificarUsuarios {
 					e.printStackTrace();
 				}  
 				mod.setFecha_fin(fecha);
-			} else {
-				Date fecha = null;
-				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getTermino());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}  
-				mod.setFecha_fin(fecha);
-			}
+			} 
 		} else {
-			if (!mod.getFecha_fin().toString().equals(grp.getTermino())) {
-				cambios += "Fecha de termino de " + mod.getFecha_fin().toString() + " a " + grp.getTermino()
-				+ "\n";
-				Date fecha = null;
-				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getTermino());
-				} catch (ParseException e) {
-					e.printStackTrace();
-				} 
-				mod.setFecha_fin(fecha);
+			if(grp.getTermino() != null) {
+				if (!mod.getFecha_fin().toString().equals(grp.getTermino())) {
+					cambios += "Fecha de termino de " + mod.getFecha_fin().toString() + " a " + grp.getTermino()
+					+ "\n";
+					Date fecha = null;
+					try {
+						fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getTermino());
+					} catch (ParseException e) {
+						e.printStackTrace();
+					} 
+					mod.setFecha_fin(fecha);
+				}
 			}
 		}
 		
@@ -715,46 +703,6 @@ public class ModificarUsuarios {
 			mod.setNombre(cr.getNombre());
 		}
 		
-		if(mod.getfInicio() == null) {
-			if(cr.getfInicio() != null) {
-				Calendar calendario = Calendar.getInstance();
-				calendario.setTime(cr.getfInicio());
-				calendario.add(Calendar.DAY_OF_YEAR, 1);
-				mod.setfInicio(calendario.getTime());
-			} else {
-				mod.setfInicio(cr.getfInicio());
-			}
-		} else {
-			if (!mod.getfInicio().equals(cr.getfInicio())) {
-				cambios += "Fecha de inicio de " + mod.getfInicio() + " a " + cr.getfInicio()
-				+ "\n";
-				Calendar calendario = Calendar.getInstance();
-				calendario.setTime(cr.getfInicio());
-				calendario.add(Calendar.DAY_OF_YEAR, 1);
-				mod.setfInicio(calendario.getTime());
-			}
-		} 
-		
-		if(mod.getfTermino() == null) {
-			if(cr.getfTermino() != null) {
-				Calendar calendario = Calendar.getInstance();
-				calendario.setTime(cr.getfTermino());
-				calendario.add(Calendar.DAY_OF_YEAR, 1);
-				mod.setfTermino(calendario.getTime());
-			} else {
-				mod.setfTermino(cr.getfTermino());
-			}
-		} else {
-			if (!mod.getfTermino().equals(cr.getfTermino())) {
-				cambios += "Fecha de termino de " + mod.getfTermino() + " a " + cr.getfTermino()
-				+ "\n";
-				Calendar calendario = Calendar.getInstance();
-				calendario.setTime(cr.getfTermino());
-				calendario.add(Calendar.DAY_OF_YEAR, 1);
-				mod.setfTermino(calendario.getTime());
-			}
-		}
-		
 		System.out.println(cambios);
 		
 		log.setTrace(LogTypes.MODIFICAR_CURSO);
@@ -840,13 +788,15 @@ public class ModificarUsuarios {
 		if(mod.getFechaNac() == null) {
 			mod.setFechaNac(profesor.getFechaNac());
 		} else {
-			if (!mod.getFechaNac().equals(profesor.getFechaNac())) {
-				cambios += "Fecha de termino de " + mod.getFechaNac() + " a " + profesor.getFechaNac()
-				+ "\n";
-				Calendar calendario = Calendar.getInstance();
-				calendario.setTime(profesor.getFechaNac());
-				calendario.add(Calendar.DAY_OF_YEAR, 1);
-				mod.setFechaNac(calendario.getTime());
+			if(profesor.getFechaNac() != null) {
+				if (!mod.getFechaNac().equals(profesor.getFechaNac())) {
+					cambios += "Fecha de termino de " + mod.getFechaNac() + " a " + profesor.getFechaNac()
+					+ "\n";
+					Calendar calendario = Calendar.getInstance();
+					calendario.setTime(profesor.getFechaNac());
+					calendario.add(Calendar.DAY_OF_YEAR, 1);
+					mod.setFechaNac(calendario.getTime());
+				}
 			}
 		}
 		
