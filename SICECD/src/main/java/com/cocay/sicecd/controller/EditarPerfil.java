@@ -39,9 +39,14 @@ public class EditarPerfil {
 	@Autowired
 	HttpServletRequest request;
 	
+	@Value("${path_dominio}")
+	String dominio;
+	
+	
+	
 	private void editarCorreo(Usuario_sys guardado, Usuario_sys consulta) {
 		String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
-		String link = "http://localhost:8080/confirmacorreo?codigo=" + codigo + "&usuario="
+		String link = dominio+ "confirmacorreo?codigo=" + codigo + "&usuario="
 				+ guardado.getPk_id_usuario_sys();
 		String from = origen;
 		String to = consulta.getCorreo();
@@ -142,7 +147,7 @@ public class EditarPerfil {
 		Usuario_sys guardado = _usuarioSys.findByRfc(consulta.getRfc()).get(0);
 		
 		String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
-		String link = "http://localhost:8080/configuracionPass?codigo=" + codigo + "&usuario="
+		String link = dominio+ "configuracionPass?codigo=" + codigo + "&usuario="
 				+ guardado.getPk_id_usuario_sys();
 		String from = origen;
 		String to = guardado.getCorreo();
@@ -165,7 +170,7 @@ public class EditarPerfil {
 	{
 		String codigo=String.valueOf((int) (Math.random() * 1000) + 1);
 		Usuario_sys guardado= _usuarioSys.findByRfc(consulta.getRfc()).get(0);
-		String link="http://localhost:8080/configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
+		String link=dominio+ "configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
 		String from=origen;
 		String to=guardado.getCorreo();
 		String subject="Activación de cuenta";

@@ -54,9 +54,12 @@ public class AltaUsuarios {
 	Logging log;
 	
 	
+	@Value("${path_dominio}")
+	String dominio;
 	
 	@Value("spring.mail.username")
 	String origen;
+	
 	
 
 	
@@ -87,7 +90,7 @@ public class AltaUsuarios {
 		consulta.setCodigo(codigo);
 		_usuarioSys.save(consulta);
 		Usuario_sys guardado= _usuarioSys.findByRfc(consulta.getRfc()).get(0);
-		String link="http://localhost:8080/configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
+		String link=dominio + "configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
 		String from=origen;
 		String to=consulta.getCorreo();
 		String subject="Activación de cuenta";
