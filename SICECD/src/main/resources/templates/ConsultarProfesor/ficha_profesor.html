@@ -139,7 +139,7 @@
 													<td>Profesor</td>
 													<td data-th-text="${ins?.fk_id_grupo?.fk_id_curso?.fk_id_tipo_curso?.nombre}">Tipo de curso</td>
 													<td data-th-text="${ins?.fk_id_grupo?.fk_id_curso?.nombre}">Curso</td>
-													<td data-th-text="${ins?.fk_id_grupo?.clave}">Grupo</td>
+													<td data-th-text="${#strings.defaultString(ins?.fk_id_grupo?.clave, ' ')}">Grupo</td>
 													<td data-th-text="${#dates.format(ins?.fk_id_grupo?.fk_id_curso?.fInicio,'dd-MMM-yyyy')}">Text ...</td>
 													<td data-th-text="${#dates.format(ins?.fk_id_grupo?.fk_id_curso?.fTermino,'dd-MMM-yyyy')}">Text ...</td>
 													<td data-th-text="${ins?.calif}">Calificación</td>

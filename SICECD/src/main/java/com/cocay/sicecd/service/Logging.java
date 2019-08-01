@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.cocay.sicecd.model.Log_sys;
 import com.cocay.sicecd.repo.Log_evento_sysRep;
@@ -28,6 +30,11 @@ public class Logging {
 		Principal principal = request.getUserPrincipal();
 		Log_sys log=new Log_sys();
 		log.setHora(new Date());
+		/*
+		 * ServletRequestAttributes att = (ServletRequestAttributes)
+		 * RequestContextHolder.currentRequestAttributes();
+		 * att.getRequest().getRemoteAddr();
+		 */
 		log.setIp(request.getRemoteAddr());
 		if (principal==null) {
 			log.setFk_id_usuario_sys(usuario.findById(1).get());
@@ -44,6 +51,23 @@ public class Logging {
 
 	}
 
+	
+	public void setTrace(String action, String comentario ,String rfc) {
+		Log_sys log=new Log_sys();
+		log.setHora(new Date());
+		ServletRequestAttributes att = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+		att.getRequest().getRemoteAddr();
+		log.setIp(request.getRemoteAddr());
+		
+			log.setFk_id_usuario_sys(usuario.findByRfc(rfc).get(0));
+		
+		log.setFk_id_log_evento_sys(evento.findById(action).get());
+
+		if (comentario!=null){
+			log.setComentario(comentario);
+		}
+		logr.save(log);
+	}
 
 
 	public void setTrace(String action) {

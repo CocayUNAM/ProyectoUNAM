@@ -40,7 +40,6 @@
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th>Nombre</th>
-                                                    <th>Apellido Paterno</th>
                                                     <th>Correo</th>
                                                     <th>RFC</th>
                                                     <th>Grado de Estudios</th>
@@ -51,10 +50,7 @@
                                             <tbody>
                                                 <tr data-th-each="profesor : ${profesores}">
                                                 	<td class="prof_option">
-                                                		<a th:text="${profesor?.nombre}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Nombre</a>
-                                                	</td>
-                                                	<td class="prof_option">
-                                                		<a th:text="${profesor?.apellido_paterno}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Apellido Paterno</a>
+                                                		<a th:text="${#strings.concat(profesor?.nombre, ' ', profesor?.apellido_paterno, ' ', profesor?.apellido_materno)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Nombre</a>
                                                 	</td>
                                                 	<td class="prof_option">
                                                 		<a th:text="${profesor?.correo}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Correo</a>

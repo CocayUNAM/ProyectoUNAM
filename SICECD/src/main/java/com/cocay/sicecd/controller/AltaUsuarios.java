@@ -54,9 +54,12 @@ public class AltaUsuarios {
 	Logging log;
 	
 	
+	@Value("${path_dominio}")
+	String dominio;
 	
 	@Value("spring.mail.username")
 	String origen;
+	
 	
 
 	
@@ -74,6 +77,9 @@ public class AltaUsuarios {
 		  if (_usuarioSys.existsByRfc(consulta.getRfc())) { 
 			  return ResponseEntity.ok("El usuario con este rfc ya ha sido agregado"); 
 		 }
+		  if (_usuarioSys.existsByCorreo(consulta.getCorreo())) { 
+			  return ResponseEntity.ok("El usuario con este correo ya ha sido agregado"); 
+		  }
 		 
 		
 		consulta.setFk_id_estatus_usuario_sys(estatusSys.findByNombre("Inactivo").get(0));
@@ -84,7 +90,7 @@ public class AltaUsuarios {
 		consulta.setCodigo(codigo);
 		_usuarioSys.save(consulta);
 		Usuario_sys guardado= _usuarioSys.findByRfc(consulta.getRfc()).get(0);
-		String link="http://localhost:8080/configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
+		String link=dominio + "configuracionPass?codigo="+codigo+"&usuario="+guardado.getPk_id_usuario_sys();
 		String from=origen;
 		String to=consulta.getCorreo();
 		String subject="Activación de cuenta";

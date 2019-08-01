@@ -22,6 +22,9 @@ public class RecuperaContrasena {
 @Value("spring.mail.username")
 String origen;
 
+@Value("${path_dominio}")
+String dominio;
+
 @Autowired
 Logging log;
 
@@ -33,7 +36,7 @@ Logging log;
 		}else {
 			Usuario_sys guardado=_usuarioSys.findByRfc(consulta.getRfc()).get(0);
 			String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
-			String link = "http://localhost:8080/configuracionPass?codigo=" + codigo + "&usuario="
+			String link = dominio + "configuracionPass?codigo=" + codigo + "&usuario="
 					+ guardado.getPk_id_usuario_sys();
 			String from = origen;
 			String to = guardado.getCorreo();

@@ -51,6 +51,12 @@ public class Curso {
 	@Column(name = "stTabla", nullable = true)
 	Integer stTabla;
 
+	@ManyToOne(targetEntity=Grupo.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinColumn(name = "fk_id_grupo",referencedColumnName="pk_id_grupo",insertable = true, updatable = true)
+	Grupo fk_id_grupo;
+	
+	
 	@ManyToOne(targetEntity=Tipo_curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "fk_id_tipo_curso", referencedColumnName="pk_id_tipo_curso")
