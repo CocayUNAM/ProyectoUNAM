@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -435,6 +436,32 @@ public class ModificarUsuarios {
 	@GetMapping(value = "/pantallaModificacionI")
 	public ModelAndView formEditarInscripcion(@RequestParam(name = "id") int id) {
 		Inscripcion cambio = insRep.findById(id).get();
+		
+		List<Grupo> list_p1 = grRep.findAll();
+		List<Profesor> list_p2 = proRep.findAll();
+		
+		List<String> grupos = new ArrayList<String>();
+		List<String> rfcs = new ArrayList<String>();
+		
+		StringBuilder sb1 = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
+		
+		for(Grupo g : list_p1) {
+			grupos.add(g.getClave());
+			sb1.append(g.getClave() + ",");
+		}
+		
+		for(Profesor p : list_p2) {
+			rfcs.add(p.getRfc());
+			sb2.append(p.getRfc() + ",");
+		}
+		
+		String re = sb1.toString();
+		sb1.setLength(re.length() - 1);
+		
+		String rep = sb2.toString();
+		sb2.setLength(rep.length() - 1);
+		
 		InscripcionDto insi = new InscripcionDto();
 		
 		insi.setIdentificador(Integer.toString(cambio.getPk_id_inscripcion()));
@@ -446,6 +473,9 @@ public class ModificarUsuarios {
 		insi.setIdGrupo(cambio.getFk_id_grupo().getClave());
 		
 		insi.setIdProfesor(cambio.getFk_id_profesor().getRfc());
+		
+		insi.setJsonG(sb1.toString());
+		insi.setJsonP(sb2.toString());
 		
 		ModelAndView model = new ModelAndView("ModificarUsuario/pantallaModificacionI");
 		model.addObject("inscripcion", insi);
@@ -523,6 +553,31 @@ public class ModificarUsuarios {
 	public ModelAndView formEditarGrupo(@RequestParam(name = "id") int id) {
 		Grupo gr = grRep.findById(id).get();
 		
+		List<Curso> list_p1 = crRep.findAll();
+		List<Profesor> list_p2 = proRep.findAll();
+		
+		List<String> claves = new ArrayList<String>();
+		List<String> rfcs = new ArrayList<String>();
+		
+		StringBuilder sb1 = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
+		
+		for(Curso c : list_p1) {
+			claves.add(c.getClave());
+			sb1.append(c.getClave() + ",");
+		}
+		
+		for(Profesor p : list_p2) {
+			rfcs.add(p.getRfc());
+			sb2.append(p.getRfc() + ",");
+		}
+		
+		String re = sb1.toString();
+		sb1.setLength(re.length() - 1);
+		
+		String rep = sb2.toString();
+		sb2.setLength(rep.length() - 1);
+		
 		GrupoDto gdto = new GrupoDto();
 		
 		gdto.setIdentificador(Integer.toString(gr.getPk_id_grupo()));
@@ -532,6 +587,9 @@ public class ModificarUsuarios {
 		gdto.setAsesor(gr.getFk_id_profesor().getRfc());
 		
 		gdto.setCurso(gr.getFk_id_curso().getClave());
+
+		gdto.setJsonC(sb1.toString());
+		gdto.setJsonP(sb2.toString());
 		
 		if(gr.getFecha_inicio() != null) {
 			gdto.setInicio(gr.getFecha_inicio().toString());

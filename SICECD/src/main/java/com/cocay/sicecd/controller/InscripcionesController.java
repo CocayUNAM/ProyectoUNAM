@@ -73,9 +73,6 @@ public class InscripcionesController {
 		in.setJsonG(sb1.toString());
 		in.setJsonP(sb2.toString());
 		
-		System.out.println(sb1.toString());
-		System.out.println(sb2.toString());
-		
 		if(!list_p1.isEmpty()) {
 			model.put("datos", in);
 			return new ModelAndView("InscripcionesController/registrarInscripcion", model);
