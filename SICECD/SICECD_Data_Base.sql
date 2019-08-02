@@ -166,6 +166,10 @@ INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, cor
 INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Maria', 'Martinez', 'Ordaz', 'MAOM800505MMM', 'maria@unam.mx', 1, 1, 1, 1);
 INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Irma', 'Villa', 'Salinas', 'VISI800505MMM', 'irma@unam.mx', 1, 1, 1, 1);
 INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, correo, fk_id_estado, id_genero, fk_id_turno, fk_id_grado_profesor) VALUES ('Gerardo', 'Gutierrez', 'Pliego', 'GUPG800505MMM', 'gerardo@unam.mx', 1, 1, 1, 1);
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, curp, correo) VALUES ('ELENA', 'SOTO', 'RUBIO', 'SORE770909', 'SORE770909MCHTBL07', 'elesoru9@hotmail.com');
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, curp, correo) VALUES ('JORGE ALBERTO', 'NARVAEZ', 'MENDEZ', 'NAMJ770523', 'NAMJ770523HQTRNR07', 'georgenarvaez@hotmail.com');
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, curp, correo) VALUES ('JORGE JULIAN', 'REPRIETO', 'RODRIGUEZ', 'RERJ841118', 'RERJ841118HSRPDR03', 'jorgereprietorodriguez@gmail.com');
+INSERT INTO public.profesor(nombre, apellido_paterno, apellido_materno, rfc, curp, correo) VALUES ('ALEJANDRO', 'SANCHEZ', 'RODRIGUEZ', 'SARA710731', 'SARA710731HDFNDL06', 'alex_epoem@hotmail.com');
 COMMIT;
 
 INSERT INTO public.curso(clave, nombre, fk_id_tipo_curso, horas) VALUES ('A001', 'Biologia 1', 1, 40);
@@ -195,8 +199,15 @@ INSERT INTO public.grupo(fk_id_curso, clave, fecha_inicio, fecha_fin, fk_id_prof
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 6);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 7);
 INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (4, 5);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (2, 8);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (2, 9);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (2, 10);
+INSERT INTO public.inscripcion(fk_id_grupo, fk_id_profesor) VALUES (2, 11);
 COMMIT;
 
+INSERT INTO public.url_ws(activa, url, varios) VALUES(false, 'http://127.0.0.1/mod/simplecertificate/wscertificado.php', false);
+INSERT INTO public.url_ws(activa, url, varios) VALUES(false, 'http://127.0.0.1/mod/simplecertificate/wscertificados.php', true);
+COMMIT;
 
 
 /*
