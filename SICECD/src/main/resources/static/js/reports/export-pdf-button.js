@@ -18,7 +18,11 @@ function tableToJs(table) {
         var rowData = {};
 
         for (var j=0; j<tableRow.cells.length; j++) {
-            rowData[ headers[j] ] = tableRow.cells[j].innerHTML;
+        	if (!tableRow.cells[j].innerHTML) {
+        		rowData[headers[j]] = "No Disponible";
+        	} else {
+        		rowData[headers[j]] = tableRow.cells[j].innerHTML;
+        	}
         }
 
         data.push(rowData);
@@ -32,6 +36,7 @@ function tableToJs(table) {
  */
 function ReportePDF() {
 	var nombre = $('#nombre')[0].innerHTML;
+	var escolaridad = $('#escolaridad')[0].innerHTML;
 	var f = new Date();
 	var date = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear()
 	var archivo = "Historial_" + nombre + "_" + date + ".pdf";
@@ -43,11 +48,12 @@ function ReportePDF() {
 		second_row: 210,
 		third_row: 240,
 		fourth_row: 270,
-		fifth_row: 300,
+		fifth_row: 310,
+		sixth_row: 340,
 		//Posición de columnas
-		first_column: 30,
-		second_column: 150,
-		third_column: 380,
+		first_column: 20,
+		second_column: 120,
+		third_column: 350,
 		fourth_column: 450,
 		//
 		width: 520
@@ -59,12 +65,12 @@ function ReportePDF() {
 	pdf.setFontType("bold");
 	pdf.setFontSize(16);
 	pdf.setTextColor("#000");
-	pdf.text(margins.first_column, 60, "SICECD\n\nHistorial de " + nombre);
+	pdf.text(margins.first_column, 60, "SICECD\n\nHistorial de " + nombre + " (" + escolaridad + ")");
 	
 	pdf.setFontSize(11);
 	pdf.setTextColor("#17202A");
-	/* Start Apartado de CURP */
 	
+	/* Start Apartado de CURP */
 	pdf.setFontType("bold");
 	pdf.text(margins.first_column, margins.first_row, "CURP: ");
 	pdf.setFontType("normal");
@@ -78,19 +84,19 @@ function ReportePDF() {
 	pdf.text(margins.fourth_column, margins.first_row, $('#rfc_info')[0].innerHTML);
 	/* End Apartado de RFC */
 	
-	/* Start Apartado de Grado de Estudios */
+	/* Start Apartado de Género */
 	pdf.setFontType("bold");
-	pdf.text(margins.first_column, margins.second_row, "Grado de Estudios: ");
+	pdf.text(margins.first_column, margins.second_row, "Género: ");
 	pdf.setFontType("normal");
-	pdf.text(margins.second_column, margins.second_row, $('#escolaridad_info')[0].innerHTML)
-	/* End Apartado de Grado de Estudios */
+	pdf.text(margins.second_column,margins.second_row, $('#genero_info')[0].innerHTML);
+	/* End Apartado de Género */
 	
-	/* Start Apartado de Turno */
+	/* Start Apartado de Fecha Nacimiento */
 	pdf.setFontType("bold");
-	pdf.text(margins.third_column, margins.second_row, "Turno: ");
+	pdf.text(margins.third_column, margins.second_row, "Fecha Nac.: ");
 	pdf.setFontType("normal");
-	pdf.text(margins.fourth_column, margins.second_row, $('#turno_info')[0].innerHTML);
-	/* End Apartado de Turno */
+	pdf.text(margins.fourth_column, margins.second_row, $('#fecha_nac_info')[0].innerHTML);
+	/* End Apartado de Fecha Nacimiento */
 	
 	/* Start Apartado de Correo */
 	pdf.setFontType("bold");
@@ -113,41 +119,56 @@ function ReportePDF() {
 	pdf.text(margins.second_column, margins.fourth_row, $('#localidad_info')[0].innerHTML);
 	/* End Apartado de Localidad */
 	
+	/* Start Apartado de Plantel */
+	pdf.setFontType("bold");
+	pdf.text(margins.first_column, margins.fifth_row, "Plantel (Clave): ");
+	pdf.setFontType("normal");
+	var plantel = $('#plantel_info')[0].innerHTML + "(" + $('#clave_plantel_info')[0].innerHTML + ")"
+	pdf.text(margins.second_column,margins.fifth_row, $('#plantel_info')[0].innerHTML);
+	/* End Apartado de Plantel */
+	
+	/* Start Apartado de Turno */
+	pdf.setFontType("bold");
+	pdf.text(margins.third_column, margins.fifth_row, "Turno: ");
+	pdf.setFontType("normal");
+	pdf.text(margins.fourth_column, margins.fifth_row, $('#turno_info')[0].innerHTML);
+	/* End Apartado de Turno */
+	
 	/* Start Apartado de Inscripciones */
 	var historial = tableToJs($('#tabla_inscripciones').get(0));
 	$.each(historial, function(i, row){
 		$.each(row, function(j,cell){
 			
 			if (i==0 && j==0) {
-				pdf.cell(margins.first_column, margins.fifth_row, 50, tam.cell_height, "Rol", i);	
+				pdf.cell(margins.first_column, margins.sixth_row, 50, tam.cell_height, "Rol", i);	
 			}else if (i==0 && j==1){
-				pdf.cell(margins.first_column, margins.fifth_row, 80, tam.cell_height, "Tipo de Curso", i);
+				pdf.cell(margins.first_column, margins.sixth_row, 80, tam.cell_height, "Tipo de Curso", i);
 			}else if (i==0 && j==2) {
-				pdf.cell(margins.first_column, margins.fifth_row, 120, tam.cell_height, "Curso", i);
+				pdf.cell(margins.first_column, margins.sixth_row, 120, tam.cell_height, "Curso", i);
 			}else if (i==0 && j==3 ) {
-				pdf.cell(margins.first_column, margins.fifth_row, 40, tam.cell_height, "Grupo", i);
+				pdf.cell(margins.first_column, margins.sixth_row, 40, tam.cell_height, "Grupo", i);
 			}else if (i==0 && j==4){
-				pdf.cell(margins.first_column, margins.fifth_row, 90, tam.cell_height, "Fecha de Inicio", i);
+				pdf.cell(margins.first_column, margins.sixth_row, 90, tam.cell_height, "Fecha de Inicio", i);
 			}else if (i==0 && j==5){
-				pdf.cell(margins.first_column, margins.fifth_row, 100, tam.cell_height, "Fecha de Término", i);
+				pdf.cell(margins.first_column, margins.sixth_row, 100, tam.cell_height, "Fecha de Término", i);
 			}else if (i==0 && j==6) {
-				pdf.cell(margins.first_column, margins.fifth_row, 60, tam.cell_height, "Calificación", i);
+				pdf.cell(margins.first_column, margins.sixth_row, 80, tam.cell_height, "Calificación", i);
 			}
 			
 			if (j=="rol") {
-				pdf.cell(margins.first_column, margins.fifth_row, 50, tam.cell_height, cell, i);	
+				pdf.cell(margins.first_column, margins.sixth_row, 50, tam.cell_height, cell, i);
 			}else if (j=="tipodecurso"){
-				pdf.cell(margins.first_column, margins.fifth_row, 80, tam.cell_height, cell, i);
+				pdf.cell(margins.first_column, margins.sixth_row, 80, tam.cell_height, cell, i);
 			}else if (j=="curso") {
-				pdf.cell(margins.first_column, margins.fifth_row, 120, tam.cell_height, cell, i);
+				pdf.cell(margins.first_column, margins.sixth_row, 120, tam.cell_height, cell, i);
 			}else if (j=="grupo") {
-				pdf.cell(margins.first_column, margins.fifth_row, 40, tam.cell_height, cell, i);
+				pdf.cell(margins.first_column, margins.sixth_row, 40, tam.cell_height, cell, i);
 			}else if (j=="fechadeinicio"){
-				pdf.cell(margins.first_column, margins.fifth_row, 90, tam.cell_height, cell, i);
+				pdf.cell(margins.first_column, margins.sixth_row, 90, tam.cell_height, cell, i);
 			}else if (j=="fechadetérmino"){
-				pdf.cell(margins.first_column, margins.fifth_row, 100, tam.cell_height, cell, i);
+				pdf.cell(margins.first_column, margins.sixth_row, 100, tam.cell_height, cell, i);
 			}else if (j=="calificación") {
-				pdf.cell(margins.first_column, margins.fifth_row, 60, tam.cell_height, cell, i);
+				pdf.cell(margins.first_column, margins.sixth_row, 80, tam.cell_height, cell, i);
 			}
 		});
 	});

@@ -78,7 +78,14 @@
 							
 								<!-- START DATOS DEL PROFESOR -->
 								<div class="form-group">
-									<h3 class="card-title" th:text="${nombre} + ' ' + ${apellido_paterno} + ' ' + ${apellido_materno} " id="nombre"></h3>
+									<div class="row">
+										<div class="col-sm-3">
+											<h2 class="card-title font-weight-bold" th:text="${nombre} + ' ' + ${apellido_paterno} + ' ' + ${apellido_materno}" id="nombre"></h2>
+										</div>
+										<div class="col-sm-3">
+											<h4 class="card-title font-weight-light" th:text="${escolaridad}" id="escolaridad"></h4>
+										</div>
+									</div>
 								</div>
 								
 								<div class="card-body">
@@ -88,24 +95,33 @@
 										<div class="col-sm-3"><p class="font-weight-bold">RFC: </p></div>
 										<div class="col-sm-3"><p class="font-weight-light" th:text="${rfc}" id="rfc_info">No disponible</p></div>
 									</div>
-								
+									
 									<div class="row">
-										<div class="col-sm-3"><p class="font-weight-bold">Escolaridad: </p></div>
-										<div class="col-sm-3"><p class="font-weight-light" th:text="${escolaridad}" id="escolaridad_info">No disponible</p></div>
-										<div class="col-sm-3"><p class="font-weight-bold">Turno: </p></div>
-										<div class="col-sm-3"><p class="font-weight-light" th:text="${turno}" id="turno_info">No disponible</p></div>
+										<div class="col-sm-3"><p class="font-weight-bold">Género: </p></div>
+										<div class="col-sm-3"><p class="font-weight-light" th:text="${genero}" id="genero_info">No disponible</p></div>
+										<div class="col-sm-3"><p class="font-weight-bold">Fecha de Nacimiento: </p></div>
+										<div class="col-sm-3"><p class="font-weight-light" th:text="${fecha_nac}" id="fecha_nac_info">No disponible</p></div>
 									</div>
-								
+									
 									<div class="row">
 										<div class="col-sm-3"><p class="font-weight-bold">Correo: </p></div>
 										<div class="col-sm-3"><p class="font-weight-light" th:text="${correo}" id="correo_info">No disponible</p></div>
 										<div class="col-sm-3"><p class="font-weight-bold">Teléfono: </p></div>
 										<div class="col-sm-3"><p class="font-weight-light" th:text="${telefono}" id="telefono_info">No disponible</p></div>
 									</div>
-								
+									
 									<div class="row">
 										<div class="col-sm-3"><p class="font-weight-bold">Localidad: </p></div>
 										<div class="col-sm-3"><p class="font-weight-light" th:text="${localidad}" id="localidad_info">No disponible</p></div>
+									</div>
+									
+									<div class="row">
+										<div class="col-sm-2"><p class="font-weight-bold">Plantel: </p></div>
+										<div class="col-sm-2"><p class="font-weight-light" th:text="${plantel}" id="plantel_info">No disponible</p></div>
+										<div class="col-sm-2"><p class="font-weight-bold">Clave: </p></div>
+										<div class="col-sm-2"><p class="font-weight-light" th:text="${clave_plantel}" id="clave_plantel_info">No disponible</p></div>
+										<div class="col-sm-2"><p class="font-weight-bold">Turno: </p></div>
+										<div class="col-sm-2"><p class="font-weight-light" th:text="${turno}" id="turno_info">No disponible</p></div>
 									</div>
 								</div>
 								<!-- END DATOS DEL PROFESOR -->
@@ -131,17 +147,17 @@
 													<td data-th-text="${grupo?.fk_id_curso?.fk_id_tipo_curso?.nombre}">Tipo de curso</td>
 													<td data-th-text="${grupo?.fk_id_curso?.nombre}">Curso</td>
 													<td data-th-text="${grupo?.clave}">Grupo</td>
-													<td data-th-text="${#dates.format(grupo?.fk_id_curso?.fInicio,'dd-MMM-yyyy')}">Text ...</td>
-													<td data-th-text="${#dates.format(grupo?.fk_id_curso?.fTermino,'dd-MMM-yyyy')}">Text ...</td>
+													<td data-th-text="${#dates.format(grupo?.fecha_inicio,'dd MMMM yyyy')}">Text ...</td>
+													<td data-th-text="${#dates.format(grupo?.fecha_fin,'dd MMMM yyyy')}">Text ...</td>
 													<td>-----</td>
 												</tr>
 												<tr data-th-each="ins : ${ins}">
 													<td>Profesor</td>
 													<td data-th-text="${ins?.fk_id_grupo?.fk_id_curso?.fk_id_tipo_curso?.nombre}">Tipo de curso</td>
 													<td data-th-text="${ins?.fk_id_grupo?.fk_id_curso?.nombre}">Curso</td>
-													<td data-th-text="${#strings.defaultString(ins?.fk_id_grupo?.clave, ' ')}">Grupo</td>
-													<td data-th-text="${#dates.format(ins?.fk_id_grupo?.fk_id_curso?.fInicio,'dd-MMM-yyyy')}">Text ...</td>
-													<td data-th-text="${#dates.format(ins?.fk_id_grupo?.fk_id_curso?.fTermino,'dd-MMM-yyyy')}">Text ...</td>
+													<td data-th-text="${ins?.fk_id_grupo?.clave}">Grupo</td>
+													<td data-th-text="${#dates.format(ins?.fk_id_grupo?.fecha_inicio,'dd MMMM yyyy')}">Text ...</td>
+													<td data-th-text="${#dates.format(ins?.fk_id_grupo?.fecha_fin,'dd MMMM yyyy')}">Text ...</td>
 													<td data-th-text="${ins?.calif}">Calificación</td>
 												</tr>
 											</tbody>
@@ -192,24 +208,61 @@
 		/*<![CDATA[*/ var apmat = [[${apellido_materno}]]; /*]]>*/
 		/*<![CDATA[*/ var curp = [[${curp}]]; /*]]>*/
 		/*<![CDATA[*/ var rfc = [[${rfc}]]; /*]]>*/
+		/*<![CDATA[*/ var genero = [[${genero}]]; /*]]>*/
+		/*<![CDATA[*/ var fecha_nac = [[${fecha_nac}]]; /*]]>*/
+		/*<![CDATA[*/ var plantel = [[${plantel}]]; /*]]>*/
+		/*<![CDATA[*/ var clave_plantel = [[${clave_plantel}]]; /*]]>*/
 		/*<![CDATA[*/ var escolaridad = [[${escolaridad}]]; /*]]>*/
 		/*<![CDATA[*/ var turno = [[${turno}]]; /*]]>*/
 		/*<![CDATA[*/ var correo = [[${correo}]]; /*]]>*/
 		/*<![CDATA[*/ var telefono = [[${telefono}]]; /*]]>*/
 		/*<![CDATA[*/ var localidad = [[${localidad}]]; /*]]>*/
+		
+		if (apmat == null) {
+			apmat = "";
+		}
+		
+		if (curp == null) {
+			curp = "";
+		}
+		
+		if (fecha_nac == null) {
+			fecha_nac = "";
+		}
+		
+		if (plantel == null) {
+			plantel = "";
+		}
+		
+		if (clave_plantel == null) {
+			clave_plantel = "";
+		}
+		
+		if (correo == null) {
+			correo = "";
+		}
+		
+		if (telefono == null) {
+			telefono = "";
+		}
+		
 		var f = new Date();
 		var date = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear()
 		var archivo = "Historial_"+nombre + "-" + appat +"_" + date + ".xls";
 		
 		var file = new Blob(
 				["\ufeff","<p>Historial - " + $('#nombre').html()+"</p>",
-					"<p>CURP: "+curp+"<br>",
+					"<p>Grado de Estudios: "+escolaridad+"<br>",
+					"CURP: "+curp+" " + "<br>",
 					"RFC: "+rfc+"<br>",
-					"Grado de Estudios: "+escolaridad+"<br>",
-					"Turno: "+turno+"<br>",
+					"Género: "+genero+"<br>",
+					"Fecha Nac: "+fecha_nac+"<br>",
 					"Correo: "+correo+"<br>",
 					"Telefono: "+telefono+"<br>",
 					"Localidad: "+localidad+"</p>",
+					"Plantel: "+plantel+"<br>",
+					"Clave: "+clave_plantel+"<br>",
+					"Turno: "+turno+"</p>",
 					$('#ins_profesor').html()],
 				{type:"application/vnd.ms-excel"});
 		var url = URL.createObjectURL(file);
@@ -225,11 +278,43 @@
 		/*<![CDATA[*/ var apmat = [[${apellido_materno}]]; /*]]>*/
 		/*<![CDATA[*/ var curp = [[${curp}]]; /*]]>*/
 		/*<![CDATA[*/ var rfc = [[${rfc}]]; /*]]>*/
+		/*<![CDATA[*/ var genero = [[${genero}]]; /*]]>*/
+		/*<![CDATA[*/ var fecha_nac = [[${fecha_nac}]]; /*]]>*/
+		/*<![CDATA[*/ var plantel = [[${plantel}]]; /*]]>*/
+		/*<![CDATA[*/ var clave_plantel = [[${clave_plantel}]]; /*]]>*/
 		/*<![CDATA[*/ var escolaridad = [[${escolaridad}]]; /*]]>*/
 		/*<![CDATA[*/ var turno = [[${turno}]]; /*]]>*/
 		/*<![CDATA[*/ var correo = [[${correo}]]; /*]]>*/
 		/*<![CDATA[*/ var telefono = [[${telefono}]]; /*]]>*/
 		/*<![CDATA[*/ var localidad = [[${localidad}]]; /*]]>*/
+		
+		if (apmat == null) {
+			apmat = "";
+		}
+		
+		if (curp == null) {
+			curp = "";
+		}
+		
+		if (fecha_nac == null) {
+			fecha_nac = "";
+		}
+		
+		if (plantel == null) {
+			plantel = "";
+		}
+		
+		if (clave_plantel == null) {
+			clave_plantel = "";
+		}
+		
+		if (correo == null) {
+			correo = "";
+		}
+		
+		if (telefono == null) {
+			telefono = "";
+		}
 		
 		var f = new Date();
 		var date = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear()
@@ -251,10 +336,13 @@
 		var file = new Blob(
 				["\ufeff",
 					"Historial - " + nombre + " " + appat + " " + apmat + "\n\n",
+					"Grado de Estudios:," + escolaridad + "\n",
 					"CURP:," + curp + ", , ," + "RFC:,"+ rfc + "\n",
-					"Grado de Estudios:," + escolaridad + ", , ," + "Turno:,"+ turno + "\n",
+					"Genero:," + genero + ", , ," + "Fecha de Nacimiento:,"+ fecha_nac + "\n",
 					"Correo:," + correo + ", , ," + "Teléfono:,"+ telefono + "\n",
-					"Localidad:, "+ localidad + "\n\n",
+					"Localidad:, "+ localidad + "\n",
+					"Plantel:," + plantel + ", , ," + "Clave del Plantel:,"+ clave_plantel + "\n",
+					"Turno:,"+ turno + "\n\n",
 					historial.join("\n")],
 				{type:"text/csv"});
 		var url = URL.createObjectURL(file);
