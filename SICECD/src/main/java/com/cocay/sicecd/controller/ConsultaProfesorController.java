@@ -1,6 +1,7 @@
 package com.cocay.sicecd.controller;
 
 import java.text.Normalizer;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -176,12 +177,20 @@ public class ConsultaProfesorController {
 		
 		model.addAttribute("nombre", p.getNombre());
 		model.addAttribute("apellido_paterno", p.getApellido_paterno());
+		model.addAttribute("apellido_materno", p.getApellido_materno());
 		
-		if (p.getApellido_materno() == null) { 
-			model.addAttribute("apellido_materno", "");
+		model.addAttribute("genero", p.getGenero().getGenero());
+		
+		if (p.getFechaNac() == null) {
+			model.addAttribute("fecha_nac", "");
 		} else {
-			model.addAttribute("apellido_materno", p.getApellido_materno());
+			SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
+			model.addAttribute("fecha_nac", formatter.format(p.getFechaNac()));
 		}
+		
+		//model.addAttribute("fecha_nac", p.getFechaNac());
+		model.addAttribute("planel", p.getPlantel());
+		model.addAttribute("clave_plantel", p.getClave_plantel());
 		
 		model.addAttribute("curp", p.getCurp());
 		model.addAttribute("correo", p.getCorreo());
