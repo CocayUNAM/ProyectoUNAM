@@ -142,9 +142,6 @@ public class ModificarUsuarios {
 		if(cambio.getCurp_doc() != null) {
 			prof.setCurp_doc(cambio.getCurp_doc());
 		}
-
-		
-		
 		prof.setEstado(Integer.toString(cambio.getFk_id_estado().getPk_id_estado()));
 		
 		prof.setNombreEstado(cambio.getFk_id_estado().getNombre());
