@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -62,7 +61,8 @@ public class Curso {
 	@JoinColumn(name = "fk_id_tipo_curso", referencedColumnName="pk_id_tipo_curso")
 	Tipo_curso fk_id_tipo_curso;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "fk_id_curso",targetEntity=Grupo.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Grupo> grupos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "fk_id_curso",targetEntity=Certificado.class)

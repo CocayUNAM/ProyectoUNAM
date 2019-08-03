@@ -144,9 +144,9 @@ public class CertificadoMasivoController {
 			tmp.mkdirs();
 		}
 		try {
-			ZipFile zpf = zpf = new ZipFile(out, Charset.forName("Cp437"));
+			ZipFile zpf = new ZipFile(out, Charset.forName("Cp437"));
 
-			Enumeration e = zpf.entries();
+			Enumeration<? extends ZipEntry> e = zpf.entries();
 			ZipEntry ze;
 			// System.out.println("PASE");
 			while (e.hasMoreElements()) {
@@ -167,6 +167,7 @@ public class CertificadoMasivoController {
 				bos.close();
 				bis.close();
 			}
+			zpf.close();
 		} catch (java.util.zip.ZipException zx) {
 			LOGGER.error("Zip file is empty!");
 			//System.out.println("Zip file is empty!");
@@ -181,7 +182,7 @@ public class CertificadoMasivoController {
 		int actual2 = 0;
 		// comienza a mover los pdfs a la ruta elegida
 		for (File f : tmp.listFiles()) {
-			String [] ars = f.getName().split("|");
+			String [] ars = f.getName().split("_");
 			Curso c = bd_curso.findByUniqueClave(ars[0]);
 			String gg = ars[1];//clave del grupo
 			Grupo g = null;//se obtiene el grupo
@@ -190,7 +191,7 @@ public class CertificadoMasivoController {
 					g = ggg;
 				}
 			}
-			String codigo = c.getClave() + "|" + g.getClave();//se obtiene el codigo completo
+			String codigo = c.getClave() + "_" + g.getClave();//se obtiene el codigo completo
 			//Curso c = bd_curso.findByID(Integer.parseInt(f.getName()));
 			// Curso c = bd_curso.findByNombre(f.getName());
 			JSONObject ar = new JSONObject(json_r.get(f.getName()).toString());
@@ -231,6 +232,7 @@ public class CertificadoMasivoController {
 					cert.setFk_id_grupo(g);
 					cert.setFk_id_profesor(p);
 					bd_certificado.save(cert);
+					fs.close();
 				}
 				f2.delete();// elimina directorio (usuario)
 			}
@@ -245,7 +247,7 @@ public class CertificadoMasivoController {
 	 * Metodo que obtiene certificados masivamente para traer nuevos archivos. 
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 41 19 * * ?")
+	@Scheduled(cron = "0 37 04 * * ?")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		LinkedList<Url_ws> links = new LinkedList<>(urls.findVarios());
 		if (links.size() == 0) {
@@ -281,7 +283,7 @@ public class CertificadoMasivoController {
 					// }
 					System.out.println("**\n" + p.getCorreo() + "\n" + caux.getNombre() + "\n**");
 					json.put("correo" + k, p.getCorreo());
-					json.put("id_curso" + k, caux.getClave() + "|" + gaux.getClave());
+					json.put("id_curso" + k, caux.getClave() + "_" + gaux.getClave());
 					json.put("tiempo" + k, 0);
 					System.out.println("Se insertaron elementos en el JSON (certificados no presentes)");
 					nuevas++;
@@ -290,7 +292,7 @@ public class CertificadoMasivoController {
 				continue;
 			}
 			for (Certificado c : cert) {
-				String codigo = c.getFk_id_curso().getClave() + "|" + c.getFk_id_grupo().getClave();
+				String codigo = c.getFk_id_curso().getClave() + "_" + c.getFk_id_grupo().getClave();
 				//System.out.println("**\n" + p.getCorreo() + "\n" + c.getFk_id_curso().getNombre() + "\n**");
 				json.put("correo" + k, p.getCorreo());
 				json.put("id_curso" + k, codigo);
