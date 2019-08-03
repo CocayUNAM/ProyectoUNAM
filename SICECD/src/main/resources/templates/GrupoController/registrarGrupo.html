@@ -99,7 +99,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="clave">Clave <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="clave" name="clave" placeholder="Ejemplo: A001" required>
+                                                    <input type="text" class="form-control" id="clave" name="clave" placeholder="Ejemplo: A001" maxlength = "8" required>
                                                 </div>
                                             </div>
                                             
@@ -126,9 +126,11 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="asesor">RFC del asesor <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="asesor">RFC del asesor <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="form-control" id="asesor" name="asesor" style="width: 100%;"></select>
+                                                    <select class="form-control" id="asesor" name="asesor" style="width: 100%;">
+                                                    	<option value = "Sin definir">Sin definir</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             
@@ -184,10 +186,19 @@
 			
 			var rfcs = rfctext.split(",");
 			
+			var nc = "[[${datos.jsonNombres}]]";
+			
+			var ncs = nc.split(",");
+			
+			console.log(ncs);
+			
 		    var select2 = document.getElementById( 'asesor' );
-
+				
+		    i = 0;
+		    
 		    for( rfc in rfcs ) {
-		        select2.add( new Option( rfcs[rfc] ) );
+		        select2.add( new Option(ncs[i] + " " + rfcs[rfc], rfcs[rfc]) );
+		        i = i + 1;
 		    };
 			
 			$.fn.bootstrapValidator.validators.fecha = {
@@ -221,11 +232,6 @@
 			$.fn.bootstrapValidator.validators.rfc = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-
-			            if (value.search(/^([A-Z\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$/) < 0) {
-			                return false;
-			            }
-
 			            return true;
 			        }
 			};
@@ -247,7 +253,7 @@
 		        	clave: {
 		                validators: {
 		                    clave: {
-		                        message: ' Verifica que el formato sea como el del ejemplo '
+		                        message: ' Verifica que el formato sea como el del ejemplo y no mayor a 8 caracteres '
 		                    }, 
 		                    
 		                    notEmpty: {

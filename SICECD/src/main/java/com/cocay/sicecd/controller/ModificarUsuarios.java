@@ -91,7 +91,7 @@ public class ModificarUsuarios {
 		List<Profesor> list_p1 = proRep.findAll();
 		
 		//Se filtran a los participantes de los asesores
-		list_p1 = list_p1.stream().filter(x -> x.getFechaNac() == null).collect(Collectors.toList());
+		list_p1 = list_p1.stream().filter(x -> x.getFk_id_estado().getPk_id_estado() != 33).collect(Collectors.toList());
 		
 		if(!list_p1.isEmpty()) {
 			model.put("profesores", list_p1);
@@ -131,6 +131,10 @@ public class ModificarUsuarios {
 			prof.setcPlantel(cambio.getClave_plantel());
 		}
 		
+		if(cambio.getFechaNac() != null) {
+			prof.setfNacimiento(cambio.getFechaNac().toString().substring(0, 10));
+		} 
+		
 		if(cambio.getCurp() != null) {
 			prof.setCurp(cambio.getCurp());
 		}
@@ -138,13 +142,15 @@ public class ModificarUsuarios {
 		if(cambio.getCurp_doc() != null) {
 			prof.setCurp_doc(cambio.getCurp_doc());
 		}
+
+		
 		
 		prof.setEstado(Integer.toString(cambio.getFk_id_estado().getPk_id_estado()));
 		
 		prof.setNombreEstado(cambio.getFk_id_estado().getNombre());
 		
 		if(cambio.getFechaNac() != null) {
-			prof.setfNacimiento(cambio.getFechaNac().toString());
+			prof.setfNacimiento(cambio.getFechaNac().toString().substring(0, 10));
 		}
 		
 		prof.setGenero(Integer.toString(cambio.getGenero().getPk_id_genero()));
@@ -314,22 +320,32 @@ public class ModificarUsuarios {
 			mod.setFk_id_turno(turn);
 		}
 		
-		if(constancia != null) {
-            String originalName = constancia.getOriginalFilename();
-            if(mod.getCertificado_doc() == null) {
-                mod.setCertificado_doc(originalName);
-            }else {
-                if(!mod.getCertificado_doc().equals(originalName)) {
-                	File here = new File(".");
-                	String rutaActual = here.getAbsolutePath().replace(".", ""); 
-                	String rutaR = rutaActual.replace("\\", "/") + ruta.replace("./", "") + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getCertificado_doc();
-                    File archivo_anterior = new File(rutaR);
-                    archivo_anterior.delete();
-                }
-            }
-            saveConstancia(constancia, mod);
-            mod.setCertificado_doc(originalName);
-        }
+		if(mod.getFechaNac() == null) {
+			String fechaSt = profesor.getfNacimiento();
+			Date fecha = null;
+			try {
+				fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			mod.setFechaNac(fecha);
+		} else {
+			if(profesor.getfNacimiento() != null) {
+				String fechaSt = profesor.getfNacimiento();
+				Date fecha = null;
+				try {
+					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				if (!mod.getFechaNac().equals(fecha)) {
+					Calendar calendario = Calendar.getInstance();
+					calendario.setTime(fecha);
+					calendario.add(Calendar.DAY_OF_YEAR, 1);
+					mod.setFechaNac(calendario.getTime());
+				}
+			}
+		}
 		
 		if(comprobante != null) {
             String originalName2 = comprobante.getOriginalFilename();
@@ -446,6 +462,8 @@ public class ModificarUsuarios {
 		StringBuilder sb1 = new StringBuilder();
 		StringBuilder sb2 = new StringBuilder();
 		
+		StringBuilder nc = new StringBuilder();
+		
 		for(Grupo g : list_p1) {
 			grupos.add(g.getClave());
 			sb1.append(g.getClave() + ",");
@@ -456,11 +474,19 @@ public class ModificarUsuarios {
 			sb2.append(p.getRfc() + ",");
 		}
 		
+		for(Profesor p : list_p2) {
+			nc.append(p.getApellido_paterno() + " " +  p.getApellido_materno() + " " + p.getNombre() + ",");
+			rfcs.add(nc.toString());
+		}
+		
 		String re = sb1.toString();
 		sb1.setLength(re.length() - 1);
 		
 		String rep = sb2.toString();
 		sb2.setLength(rep.length() - 1);
+		
+		String nombresc = nc.toString();
+		nc.setLength(nombresc.length() - 1);
 		
 		InscripcionDto insi = new InscripcionDto();
 		
@@ -476,6 +502,7 @@ public class ModificarUsuarios {
 		
 		insi.setJsonG(sb1.toString());
 		insi.setJsonP(sb2.toString());
+		insi.setJsonNombres(nc.toString());
 		
 		ModelAndView model = new ModelAndView("ModificarUsuario/pantallaModificacionI");
 		model.addObject("inscripcion", insi);
@@ -540,9 +567,62 @@ public class ModificarUsuarios {
 	public ModelAndView consultarGrupos(ModelMap model) {
 		List<Grupo> list_p1 = grRep.findAll();
 		
-		if(!list_p1.isEmpty()) {
+		List<GrupoDto> lista = new ArrayList<>();
+		
+		for(Grupo g : list_p1) {
+			Integer id = g.getPk_id_grupo();
 			
-			model.put("grupos", list_p1);
+			String clave = g.getClave();
+			
+			String fi = null;
+			if(g.getFecha_fin() != null) {
+				fi = g.getFecha_fin().toString().substring(0, 10);
+			}
+			
+			String ft = null;
+			if(g.getFecha_fin() != null) {
+				ft = g.getFecha_fin().toString().substring(0, 10);
+			}
+			
+			String cc = g.getFk_id_curso().getClave();
+			
+			String cm = g.getFk_id_curso().getNombre();
+			
+			String rfc = "Sin definir";
+			String nombre = null;
+			String apaterno = null;
+			if(g.getFk_id_profesor() != null) {
+				rfc= g.getFk_id_profesor().getRfc();
+				nombre = g.getFk_id_profesor().getNombre();
+				apaterno = g.getFk_id_profesor().getApellido_paterno();
+			}
+
+			GrupoDto nm = new GrupoDto();
+			
+			nm.setIdGrupo(id.toString());
+			
+			nm.setClave(clave);
+			
+			nm.setInicio(fi);
+			
+			nm.setTermino(ft);
+			
+			nm.setCurso(cm);
+			
+			nm.setClaveCurso(cc);
+			
+			nm.setAsesor(rfc);
+			
+			nm.setAnombre(nombre);
+			
+			nm.setApaterno(apaterno);
+			
+			lista.add(nm);
+		}
+		
+		if(!lista.isEmpty()) {
+			
+			model.put("grupos", lista);
 			return new ModelAndView("ModificarUsuario/listaGrupos", model);
 		} else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
@@ -550,8 +630,8 @@ public class ModificarUsuarios {
 	}
 	
 	@GetMapping(value = "/pantallaModificacionG")
-	public ModelAndView formEditarGrupo(@RequestParam(name = "id") int id) {
-		Grupo gr = grRep.findById(id).get();
+	public ModelAndView formEditarGrupo(@RequestParam(name = "id") String id) {
+		Grupo gr = grRep.findById(Integer.parseInt(id)).get();
 		
 		List<Curso> list_p1 = crRep.findAll();
 		List<Profesor> list_p2 = proRep.findAll();
@@ -561,6 +641,8 @@ public class ModificarUsuarios {
 		
 		StringBuilder sb1 = new StringBuilder();
 		StringBuilder sb2 = new StringBuilder();
+		
+		StringBuilder nc = new StringBuilder();
 		
 		for(Curso c : list_p1) {
 			claves.add(c.getClave());
@@ -572,31 +654,44 @@ public class ModificarUsuarios {
 			sb2.append(p.getRfc() + ",");
 		}
 		
+		for(Profesor p : list_p2) {
+			nc.append(p.getApellido_paterno() + " " +  p.getApellido_materno() + " " + p.getNombre() + ",");
+			rfcs.add(nc.toString());
+		}
+		
 		String re = sb1.toString();
 		sb1.setLength(re.length() - 1);
 		
 		String rep = sb2.toString();
 		sb2.setLength(rep.length() - 1);
 		
+		String nombresc = nc.toString();
+		nc.setLength(nombresc.length() - 1);
+		
 		GrupoDto gdto = new GrupoDto();
 		
 		gdto.setIdentificador(Integer.toString(gr.getPk_id_grupo()));
 		
 		gdto.setClave(gr.getClave());
-		
-		gdto.setAsesor(gr.getFk_id_profesor().getRfc());
+			
+		if(gr.getFk_id_profesor() != null) {
+			gdto.setAsesor(gr.getFk_id_profesor().getRfc());
+		} else {
+			gdto.setAsesor("Sin definir");
+		} 
 		
 		gdto.setCurso(gr.getFk_id_curso().getClave());
 
 		gdto.setJsonC(sb1.toString());
 		gdto.setJsonP(sb2.toString());
+		gdto.setJsonNombres(nc.toString());
 		
 		if(gr.getFecha_inicio() != null) {
-			gdto.setInicio(gr.getFecha_inicio().toString());
+			gdto.setInicio(gr.getFecha_inicio().toString().substring(0, 10));
 		}
 		
 		if(gr.getFecha_fin() != null) {
-			gdto.setTermino(gr.getFecha_fin().toString());
+			gdto.setTermino(gr.getFecha_fin().toString().substring(0, 10));
 		}
 		
 		ModelAndView model = new ModelAndView("ModificarUsuario/pantallaModificacionG");
@@ -620,7 +715,7 @@ public class ModificarUsuarios {
 		}
 		
 		if(mod.getFecha_inicio() == null) {
-			if(grp.getInicio() != null) {
+			if(grp.getInicio() != "") {
 				Date fecha = null;
 				try {
 					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getInicio());
@@ -630,7 +725,7 @@ public class ModificarUsuarios {
 				mod.setFecha_inicio(fecha);
 			} 
 		} else {
-			if(grp.getInicio() != null) {
+			if(grp.getInicio() != "") {
 				if (!mod.getFecha_inicio().toString().equals(grp.getInicio())) {
 					cambios += "Fecha de inicio de " + mod.getFecha_inicio().toString() + " a " + grp.getInicio()
 					+ "\n";
@@ -646,7 +741,7 @@ public class ModificarUsuarios {
 		} 
 		
 		if(mod.getFecha_fin() == null) {
-			if(grp.getTermino() != null) {
+			if(grp.getTermino() != "") {
 				Date fecha = null;
 				try {
 					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getTermino());
@@ -656,7 +751,7 @@ public class ModificarUsuarios {
 				mod.setFecha_fin(fecha);
 			} 
 		} else {
-			if(grp.getTermino() != null) {
+			if(grp.getTermino() != "") {
 				if (!mod.getFecha_fin().toString().equals(grp.getTermino())) {
 					cambios += "Fecha de termino de " + mod.getFecha_fin().toString() + " a " + grp.getTermino()
 					+ "\n";
@@ -672,14 +767,19 @@ public class ModificarUsuarios {
 		}
 		
 		Profesor pro = proRep.findByRfc(grp.getAsesor());
-		
-		if(pro != null) {
-			if (!mod.getFk_id_profesor().getRfc().equals(grp.getAsesor())) {
+				
+		if(pro!=null) {
+			if(mod.getFk_id_profesor() != null) {
+				if (!mod.getFk_id_profesor().getRfc().equals(grp.getAsesor())) {
+					mod.setFk_id_profesor(pro);
+				}
+			} else {
 				mod.setFk_id_profesor(pro);
 			}
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN)
-		            .body("¡Profesor no encontrado!");
+		} 
+		
+		if(grp.getAsesor().contains("Sin definir")) {
+			mod.setFk_id_profesor(null);
 		}
 		
 		Curso cur = crRep.findByClave(grp.getCurso()).get(0);
@@ -688,9 +788,6 @@ public class ModificarUsuarios {
 			if (!mod.getFk_id_curso().getClave().equals(grp.getCurso())) {
 				mod.setFk_id_curso(cur);
 			}  
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN)
-		            .body("¡Curso no encontrado!");
 		}
 
 		System.out.println(cambios);
@@ -793,8 +890,29 @@ public class ModificarUsuarios {
 	@GetMapping(value = "/pantallaModificacionA")
 	public ModelAndView formEditarAsesor(@RequestParam(name = "rfc") String rfc) {
 		Profesor cambio = (proRep.findByRfc(rfc));
+		
+		ProfesorDto pdt = new ProfesorDto();
+		
+		pdt.setaMaterno(cambio.getApellido_materno());
+		
+		pdt.setaPaterno(cambio.getApellido_paterno());
+		
+		pdt.setNombres(cambio.getNombre());
+		
+		pdt.setCorreo(cambio.getCorreo());
+		
+		if(cambio.getFechaNac() != null) {
+			pdt.setfNacimiento(cambio.getFechaNac().toString().substring(0, 10));
+		} 
+		
+		pdt.setGenero(cambio.getGenero().toString());
+		
+		pdt.setIdProfesor(cambio.getPk_id_profesor());
+		
+		pdt.setRfc(cambio.getRfc());
+		
 		ModelAndView model = new ModelAndView("ModificarUsuario/pantallaModificacionA");
-		model.addObject("asesor", cambio);
+		model.addObject("asesor", pdt);
 		return model;
 	}
 	

@@ -19,6 +19,14 @@ public class GrupoDto {
 	String jsonC;
 	
 	String jsonP;
+	
+	String jsonNombres;
+	
+	String claveCurso;
+	
+	String anombre;
+	
+	String apaterno;
 
 	public String getClave() {
 		return clave;
@@ -90,6 +98,38 @@ public class GrupoDto {
 
 	public void setJsonP(String jsonP) {
 		this.jsonP = jsonP;
+	}
+
+	public String getJsonNombres() {
+		return jsonNombres;
+	}
+
+	public void setJsonNombres(String jsonNombres) {
+		this.jsonNombres = jsonNombres;
+	}
+
+	public String getClaveCurso() {
+		return claveCurso;
+	}
+
+	public void setClaveCurso(String claveCurso) {
+		this.claveCurso = claveCurso;
+	}
+
+	public String getAnombre() {
+		return anombre;
+	}
+
+	public void setAnombre(String anombre) {
+		this.anombre = anombre;
+	}
+
+	public String getApaterno() {
+		return apaterno;
+	}
+
+	public void setApaterno(String apaterno) {
+		this.apaterno = apaterno;
 	}
 
 }

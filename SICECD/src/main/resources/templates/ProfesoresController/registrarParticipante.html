@@ -100,42 +100,49 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="apaterno">Apellido paterno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="apaterno" name="apaterno" placeholder="Introduce apellido paterno" required>
+                                                    <input type="text" class="form-control" id="apaterno" name="apaterno" placeholder="Introduce apellido paterno" maxlength = "250" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="amaterno">Apellido materno<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Introduce apellido materno">
+                                                    <input type="text" class="form-control" id="amaterno" name="amaterno" placeholder="Introduce apellido materno" maxlength = "250">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="nombres">Nombre(s)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Introduce nombre(s)" required>
+                                                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Introduce nombre(s)" maxlength = "250" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="nac">Fecha de nacimiento<span class="text-danger"></span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="date" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa" onkeydown="return false">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="curp">CURP<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="curp" name="curp" placeholder="Introduce CURP">
+                                                    <input type="text" class="form-control" id="curp" name="curp" placeholder="Introduce CURP" maxlength = "18">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="rfc">RFC <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC" required>
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC" maxlength = "13" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="correo">Correo electronico<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Introduce correo.">
+                                                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Introduce correo." maxlength = "200">
                                                 </div>
                                             </div>
                                             
@@ -150,7 +157,7 @@
                                                 <label class="col-lg-4 control-label" for="estado">Estado <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="estado" name="estado" style="width: 100%;" required>
-                                                    	<option value="33">Sin definir</option>
+                                                    	<option value="34">Sin definir</option>
                                                         <option value="1">Aguascalientes</option>
 														<option value="2">Baja California</option>
 														<option value="3">Baja California Sur</option>
@@ -190,7 +197,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="cilo">Ciudad o localidad<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="cilo" name="cilo" placeholder="Introduce Ciudad o localidad, primera letra mayuscula.">
+                                                    <input type="text" class="form-control" id="cilo" name="cilo" placeholder="Introduce Ciudad o localidad, primera letra mayuscula." maxlength = "250">
                                                 </div>
                                             </div>
                                             
@@ -208,7 +215,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="plantel">Plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="plantel" name="plantel" placeholder="Introduce tu plantel, primera letra mayuscula.">
+                                                    <input type="text" class="form-control" id="plantel" name="plantel" placeholder="Introduce tu plantel, primera letra mayuscula." maxlength = "250">
                                                 </div>
                                             </div>
                                             
@@ -227,7 +234,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="cplantel">Clave plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="cplantel" name="cplantel" placeholder="Introduce la clave del plantel">
+                                                    <input type="text" class="form-control" id="cplantel" name="cplantel" placeholder="Introduce la clave del plantel" maxlength = "20">
                                                 </div>
                                             </div>
                                             
@@ -247,7 +254,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="ocupacion">Ocupacion<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="ocupacion" name="ocupacion" placeholder="Introduce la ocupacion actual.">
+                                                    <input type="text" class="form-control" id="ocupacion" name="ocupacion" placeholder="Introduce la ocupacion actual." maxlength = "250">
                                                 </div>
                                             </div>
                                             
@@ -356,6 +363,27 @@
 			        }
 			};
 			
+			$.fn.bootstrapValidator.validators.fecha = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+			            var hoy = new Date();
+			            
+			            var varFecha = new Date(value);
+		            			            
+			            hoy.setHours(0,0,0,0);
+						
+			            if($('#nac').val().length > 0){
+			  
+				            if (varFecha >= hoy) {
+				                return false;
+				            }
+				            
+			            }
+
+			            return true;
+			        }
+			};
+			
 			$.fn.bootstrapValidator.validators.ocupacion = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
@@ -415,7 +443,7 @@
 			            var value = $field.val();
 						
 			            if($('#tel').val().length > 0){
-				            if (value.length != 10) {
+				            if (value.length != 8) {
 				                return false;
 				            }
 			            }
@@ -452,7 +480,7 @@
 		                    },
 		        
 		        			nombre: {
-		        				message: ' Verfica que sea un apellido valido '
+		        				message: ' Verfica que sea un apellido valido y de no mas de 250 caracteres'
 		        			}
 		                }
 		            },
@@ -460,7 +488,7 @@
 		            amaterno: {
 		                validators: {
 		        			amaterno: {
-		        				message: ' Verfica que sea un apellido valido '
+		        				message: ' Verfica que sea un apellido valido y de no mas de 250 caracteres '
 		        			}
 		                }
 		            },
@@ -472,7 +500,7 @@
 		                    },
 		                    
 		                    nombre: {
-		                    	message: ' Verifica que sea un nombre valido '
+		                    	message: ' Verifica que sea un nombre valido y de no mas de 250 caracteres '
 		                    }
 		        		}
 		        	},
@@ -505,7 +533,7 @@
 		                    },
 		        	
 		        			telefono: {
-		        				message: ' Verifica que la longitud sea de 10 numeros '
+		        				message: ' Verifica que la longitud sea de 8 numeros '
 		        			}
 		        	
 		        		}
@@ -514,7 +542,7 @@
 		        	cilo : {
 		        		validators : {
 		        			cilo: {
-		        				message : 'Verifica que sea un nombre de entidad valido'
+		        				message : 'Verifica que sea un nombre de entidad valido y de no mas de 250 caracteres'
 		        			}
 		        		}
 		        	}, 
@@ -522,7 +550,7 @@
 		        	plantel : {
 		        		validators : {
 		        			plantel : {
-		        				message : 'Verifica que sea un nombre de plantel valido'
+		        				message : 'Verifica que sea un nombre de plantel valido y de no mas de 250 caracteres'
 		        			}
 		        		}
 		        	},
@@ -530,7 +558,7 @@
 		        	cplantel : {
 		        		validators : {
 		        			cplantel : {
-		        				message : 'Verifica que sea una clave valida, sin caracteres especiales'
+		        				message : 'Verifica que sea una clave valida, sin caracteres especiales y de no mas de 20 caracteres '
 		        			}
 		        		}
 		        	},
@@ -538,12 +566,18 @@
 		        	ocupacion : {
 		        		validators : {
 		        			ocupacion : {
-		        				message : 'Verifica que no contenga caracteres especiales'
+		        				message : 'Verifica que no contenga caracteres especiales y de no mas de 250 caracteres '
+		        			}
+		        		}
+		        	},
+		        	
+		        	nac : {
+		        		validators :{
+		        			fecha : {
+		        				message : 'No se aceptan fechas futuras, revisa que sea una fecha valida'
 		        			}
 		        		}
 		        	}
-		        	
-		            
 		        }
 		    }).on('success.form.bv', function(eve) {
 	            eve.preventDefault();
@@ -564,6 +598,7 @@
 	            formData.append('cPlantel', $("#cplantel").val());
 	            formData.append('grado', $("#grado").val());
 	            formData.append('ocupacion', $("#ocupacion").val());
+	            formData.append('fNacimiento', $("#nac").val());
 	            
 	            if( document.getElementById("constancia").files.length != 0 ){
 	            	formData.append('constancia', $("#constancia")[0].files[0]); 

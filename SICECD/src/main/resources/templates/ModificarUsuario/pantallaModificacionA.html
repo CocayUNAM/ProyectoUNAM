@@ -96,28 +96,28 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="apellidopaterno">Apellido paterno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="apellidopaterno" name="apellidopaterno" th:value="${asesor.apellido_paterno}" required>
+                                                    <input type="text" class="form-control" id="apellidopaterno" name="apellidopaterno" th:value="${asesor.aPaterno}" maxlength = "250" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="apellidomaterno">Apellido materno<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno" th:value="${asesor.apellido_materno}">
+                                                    <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno" th:value="${asesor.aMaterno}" maxlength = "250">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="nombre">Nombre(s)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${asesor.nombre}" required>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${asesor.nombres}" maxlength = "250" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="fnac">Fecha de nacimiento (de no cambiar insertar la anterior)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="fnac" name="fnac" th:text="${asesor.fechaNac}" onkeydown="return false">
+                                                    <input type="date" class="form-control" id="fnac" name="fnac" th:value="${asesor.fNacimiento}" onkeydown="return false">
                                                 </div>
                                             </div>
                                             
@@ -132,14 +132,14 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="correo">Correo electronico<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="email" class="form-control" id="correo" name="correo" th:value="${asesor.correo}">
+                                                    <input type="email" class="form-control" id="correo" name="correo" th:value="${asesor.correo}" maxlength = "200">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="rfc">RFC <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="rfc" name="rfc" th:value="${asesor.rfc}">
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" th:value="${asesor.rfc}" maxlength = "13">
                                                 </div>
                                             </div>
                                             
@@ -181,9 +181,9 @@
 	<script th:inline="javascript">
 	$(document).ready(function() {
 		
-			let idu = [[${asesor.pk_id_profesor}]];
+			let idu = [[${asesor.idProfesor}]];
 			
-			let fecha = [[${asesor.fechaNac}]];
+			let fecha = [[${asesor.fNacimiento}]];
 
 			document.getElementById("fnac").value  = fecha;
 
@@ -246,7 +246,7 @@
 			            var value = $field.val();
 						
 			            if($('#tel').val().length > 0){
-				            if (value.length != 10) {
+				            if (value.length != 8) {
 				                return false;
 				            }
 			            }
@@ -313,7 +313,7 @@
 		                    },
 		        	
 		        			telefono: {
-		        				message: ' Verifica que la longitud sea de 10 numeros '
+		        				message: ' Verifica que la longitud sea de 8 numeros '
 		        			}
 		        	
 		        		}
@@ -326,7 +326,7 @@
 		                    },
 		        	
 		                    notEmpty: {
-		                        message: ' La fecha no puede estar vacia '
+		                        message: ' El rfc no puede estar vacio '
 		                    }
 		        	
 		        		}
@@ -339,8 +339,6 @@
 		        			}
 		        		}
 		        	}
-		        	
-		        	
 		        }
 		    }).on('success.form.bv', function(eve) {
 	            eve.preventDefault();

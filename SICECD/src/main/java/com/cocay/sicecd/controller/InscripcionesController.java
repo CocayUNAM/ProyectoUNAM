@@ -51,6 +51,7 @@ public class InscripcionesController {
 		
 		StringBuilder sb1 = new StringBuilder();
 		StringBuilder sb2 = new StringBuilder();
+		StringBuilder nc = new StringBuilder();
 		
 		for(Grupo g : list_p1) {
 			grupos.add(g.getClave());
@@ -62,16 +63,25 @@ public class InscripcionesController {
 			sb2.append(p.getRfc() + ",");
 		}
 		
+		for(Profesor p : list_p2) {
+			nc.append(p.getApellido_paterno() + " " +  p.getApellido_materno() + " " + p.getNombre() + ",");
+			rfcs.add(nc.toString());
+		}
+		
 		String re = sb1.toString();
 		sb1.setLength(re.length() - 1);
 		
 		String rep = sb2.toString();
 		sb2.setLength(rep.length() - 1);
+		
+		String nombresc = nc.toString();
+		nc.setLength(nombresc.length() - 1);
 
 		InscripcionDto in = new InscripcionDto();
 
 		in.setJsonG(sb1.toString());
 		in.setJsonP(sb2.toString());
+		in.setJsonNombres(nc.toString());
 		
 		if(!list_p1.isEmpty()) {
 			model.put("datos", in);

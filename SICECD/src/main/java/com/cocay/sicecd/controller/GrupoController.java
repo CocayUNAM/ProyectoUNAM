@@ -55,6 +55,8 @@ public class GrupoController {
 		StringBuilder sb1 = new StringBuilder();
 		StringBuilder sb2 = new StringBuilder();
 		
+		StringBuilder nc = new StringBuilder();
+		
 		for(Curso c : list_p1) {
 			claves.add(c.getClave());
 			sb1.append(c.getClave() + ",");
@@ -65,19 +67,25 @@ public class GrupoController {
 			sb2.append(p.getRfc() + ",");
 		}
 		
+		for(Profesor p : list_p2) {
+			nc.append(p.getApellido_paterno() + " " +  p.getApellido_materno() + " " + p.getNombre() + ",");
+			rfcs.add(nc.toString());
+		}
+		
 		String re = sb1.toString();
 		sb1.setLength(re.length() - 1);
 		
 		String rep = sb2.toString();
 		sb2.setLength(rep.length() - 1);
+		
+		String nombresc = nc.toString();
+		nc.setLength(nombresc.length() - 1);
 
 		GrupoDto gp = new GrupoDto();
 
 		gp.setJsonC(sb1.toString());
 		gp.setJsonP(sb2.toString());
-		
-		System.out.println(sb1.toString());
-		System.out.println(sb2.toString());
+		gp.setJsonNombres(nc.toString());
 		
 		if(!list_p1.isEmpty()) {
 			model.put("datos", gp);
@@ -103,22 +111,27 @@ public class GrupoController {
 		String fTermino = gr.getTermino();
 		
 		Date fechaI = null;
-		try {
-			fechaI = new SimpleDateFormat("yyyy-MM-dd").parse(fInicio);
-			grupo.setFecha_inicio(fechaI);
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-			grupo.setFecha_inicio(null);
+		
+		if(fInicio != "") {
+			try {
+				fechaI = new SimpleDateFormat("yyyy-MM-dd").parse(fInicio);
+				grupo.setFecha_inicio(fechaI);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+				grupo.setFecha_inicio(null);
+			}
 		}
 		
 		Date fechaT = null;
-		try {
-			fechaT = new SimpleDateFormat("yyyy-MM-dd").parse(fTermino);
-			grupo.setFecha_fin(fechaT);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			grupo.setFecha_fin(null);
+		if(fTermino != "") {
+			try {
+				fechaT = new SimpleDateFormat("yyyy-MM-dd").parse(fTermino);
+				grupo.setFecha_fin(fechaT);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				grupo.setFecha_fin(null);
+			}
 		}
 		
 		grupo.setClave(clave);
@@ -131,14 +144,16 @@ public class GrupoController {
 		            .body("¡Curso no encontrado!");
 		}
 		
-		Profesor profe = profRep.findByRfc(asesor);
-		if(profe != null) {
-			grupo.setFk_id_profesor(profe);
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN)
-		            .body("¡Asesor no encontrado!");
+		System.out.println(asesor);
+		if(!asesor.contains("Sin definir")) {
+			Profesor profe = profRep.findByRfc(asesor);
+			if(profe != null) {
+				grupo.setFk_id_profesor(profe);
+			} else {
+				return ResponseEntity.status(HttpStatus.FORBIDDEN)
+			            .body("¡Asesor no encontrado!");
+			}
 		}
-		
 		log.setTrace(LogTypes.REGISTRAR_GRUPO);
 
 		grupoRep.save(grupo);

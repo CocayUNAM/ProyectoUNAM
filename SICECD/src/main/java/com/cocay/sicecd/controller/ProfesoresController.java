@@ -121,7 +121,7 @@ public class ProfesoresController {
 		
 		Optional<Turno> trn = tRep.findById(4);
 		
-		Optional<Genero> gen = gRep.findById(3);
+		Optional<Genero> gen = gRep.findById(Integer.parseInt(prof.getGenero()));
 		
 		Optional<Grado_profesor> gr = gpRep.findById(5);
 		
@@ -210,6 +210,16 @@ public class ProfesoresController {
 					saveConstancia(curp_pdf);
 					profe.setCurp_doc(originalName4);
 				}
+				
+				String fechaSt = prof.getfNacimiento();
+				Date fecha = null;
+				try {
+					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
+					profe.setFechaNac(fecha);
+				} catch (ParseException e) {
+					e.printStackTrace();
+					profe.setFechaNac(null);
+				}  
 				
 //				/*base*/
 				Integer estado = Integer.parseInt(prof.getEstado());

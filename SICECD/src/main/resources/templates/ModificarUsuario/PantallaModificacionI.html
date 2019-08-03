@@ -113,7 +113,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="cal">calificacion<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="cal" name="cal" th:value="${inscripcion.calificacion}">
+                                                    <input type="text" class="form-control" id="cal" name="cal" th:value="${inscripcion.calificacion}" maxlength = "3">
                                                 </div>
                                             </div>
                                             
@@ -179,22 +179,24 @@
 			
 			var rfcs = rfctext.split(",");
 			
+			var nc = [[${inscripcion.jsonNombres}]];
+			
+			var ncs = nc.split(",");
+			
 		    var select2 = document.getElementById( 'par' );
 
+		    i = 0;
 		    for( rfc in rfcs ) {
-		        select2.add( new Option( rfcs[rfc] ) );
+		        select2.add( new Option(ncs[i] + " " + rfcs[rfc], rfcs[rfc] ) );
+		        i = i + 1;
 		    };
 
 			
 			$.fn.bootstrapValidator.validators.calif = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-
-			            if (value.length > 2) {
-			                return false;
-			            }
 			            
-			            if(value > 10){
+			            if(value > 100){
 			            	return false;
 			            }
 
@@ -238,13 +240,9 @@
 		        			digits: {
 		                        message: ' Utiliza solo numeros '
 		                    },
-		        	
-		                    notEmpty: {
-		                        message: ' La calificacion no puede estar vacia '
-		                    },
 		                    
 		                    calif : {
-		                    	message: ' Calificacion de 1 a 10 '
+		                    	message: ' Calificacion de 0 a 100 '
 		                    }
 		        	
 		        		}

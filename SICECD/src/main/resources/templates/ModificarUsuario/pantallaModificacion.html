@@ -94,42 +94,49 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="apellidopaterno">Apellido paterno<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="apellidopaterno" name="apellidopaterno" th:value="${profesor.aPaterno}" required>
+                                                    <input type="text" class="form-control" id="apellidopaterno" name="apellidopaterno" th:value="${profesor.aPaterno}" maxlength = "250" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="apellidomaterno">Apellido materno<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno" th:value="${profesor.aMaterno}">
+                                                    <input type="text" class="form-control" id="apellidomaterno" name="apellidomaterno" th:value="${profesor.aMaterno}" maxlength = "250">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="nombre">Nombre(s)<span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${profesor.nombres}" required>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${profesor.nombres}" maxlength = "250" required>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-4 control-label" for="nac">Fecha de nacimiento <span class="text-danger">*</span></label>
+                                                <div class="col-lg-8">
+                                                    <input type="date" class="form-control" id="nac" name="fnac" th:value="${profesor.fNacimiento}" onkeydown="return false">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="curp">CURP<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="curp" name="curp" th:value="${profesor.curp}">
+                                                    <input type="text" class="form-control" id="curp" name="curp" th:value="${profesor.curp}" maxlength = "18">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="rfc">RFC <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="rfc" name="rfc" th:value="${profesor.rfc}" required>
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" th:value="${profesor.rfc}" maxlength = "13" required>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="correo">Correo electronico<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="email" class="form-control" id="correo" name="correo" th:value="${profesor.correo}">
+                                                    <input type="email" class="form-control" id="correo" name="correo" th:value="${profesor.correo}" maxlength = "200">
                                                 </div>
                                             </div>
                                             
@@ -184,14 +191,14 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="cilo">Ciudad o localidad<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="cilo" name="cilo" th:value="${profesor.cilo}">
+                                                    <input type="text" class="form-control" id="cilo" name="cilo" th:value="${profesor.cilo}" maxlength = "250">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="plantel">Plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="plantel" name="plantel" th:value="${profesor.plantel}">
+                                                    <input type="text" class="form-control" id="plantel" name="plantel" th:value="${profesor.plantel}" maxlength = "250">
                                                 </div>
                                             </div>
                                             
@@ -210,7 +217,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="cplantel">Clave plantel<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="cplantel" name="cplantel" th:value="${profesor.cPlantel}">
+                                                    <input type="text" class="form-control" id="cplantel" name="cplantel" th:value="${profesor.cPlantel}" maxlength = "20">
                                                 </div>
                                             </div>
                                             
@@ -230,7 +237,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="ocupacion">Ocupacion<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="ocupacion" name="ocupacion" th:value="${profesor.ocupacion}">
+                                                    <input type="text" class="form-control" id="ocupacion" name="ocupacion" th:value="${profesor.ocupacion}" maxlength = "250">
                                                 </div>
                                             </div>
                                             
@@ -398,6 +405,27 @@ $(document).ready(function() {
 			        }
 			};
 			
+			$.fn.bootstrapValidator.validators.fecha = {
+			        validate: function(validator, $field, options) {
+			            var value = $field.val();
+			            var hoy = new Date();
+			            
+			            var varFecha = new Date(value);
+		            			            
+			            hoy.setHours(0,0,0,0);
+						
+			            if($('#nac').val().length > 0){
+			  
+				            if (varFecha >= hoy) {
+				                return false;
+				            }
+				            
+			            }
+
+			            return true;
+			        }
+			};
+			
 			$.fn.bootstrapValidator.validators.curp = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
@@ -429,7 +457,7 @@ $(document).ready(function() {
 			            var value = $field.val();
 						
 			            if($('#tel').val().length > 0){
-				            if (value.length != 10) {
+				            if (value.length != 8) {
 				                return false;
 				            }
 			            }
@@ -505,7 +533,7 @@ $(document).ready(function() {
 		                    },
 		        	
 		        			telefono: {
-		        				message: ' Verifica que la longitud sea de 10 numeros '
+		        				message: ' Verifica que la longitud sea de 8 numeros '
 		        			}
 		        	
 		        		}
@@ -514,7 +542,7 @@ $(document).ready(function() {
 		        	cilo : {
 		        		validators : {
 		        			cilo: {
-		        				message : 'Verifica que sea un nombre de entidad valido'
+		        				message : 'Verifica que sea un nombre de entidad valido '
 		        			}
 		        		}
 		        	}, 
@@ -522,7 +550,7 @@ $(document).ready(function() {
 		        	plantel : {
 		        		validators : {
 		        			plantel : {
-		        				message : 'Verifica que sea un nombre de plantel valido'
+		        				message : 'Verifica que sea un nombre de plantel valido '
 		        			}
 		        		}
 		        	},
@@ -530,7 +558,7 @@ $(document).ready(function() {
 		        	cplantel : {
 		        		validators : {
 		        			cplantel : {
-		        				message : 'Verifica que sea una clave valida, sin caracteres especiales'
+		        				message : 'Verifica que sea una clave valida, sin caracteres especiales '
 		        			}
 		        		}
 		        	},
@@ -538,11 +566,18 @@ $(document).ready(function() {
 		        	ocupacion : {
 		        		validators : {
 		        			ocupacion : {
-		        				message : 'Verifica que no contenga caracteres especiales'
+		        				message : 'Verifica que no contenga caracteres especiales '
+		        			}
+		        		}
+		        	},
+		        	
+		        	nac : {
+		        		validators :{
+		        			fecha : {
+		        				message : 'No se aceptan fechas futuras, revisa que sea una fecha valida'
 		        			}
 		        		}
 		        	}
-		            
 		        }
 		    }).on('success.form.bv', function(eve) {
 	            eve.preventDefault();
@@ -564,6 +599,7 @@ $(document).ready(function() {
 	            formData.append('cPlantel', $("#cplantel").val());
 	            formData.append('grado', $("#grado").val());
 	            formData.append('ocupacion', $("#ocupacion").val());
+	            formData.append('fNacimiento', $("#nac").val());
 	            
 	            if( document.getElementById("constancia").files.length != 0 ){
                     formData.append('constancia', $("#constancia")[0].files[0]); 

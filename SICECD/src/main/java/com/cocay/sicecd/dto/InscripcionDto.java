@@ -17,6 +17,8 @@ public class InscripcionDto {
 	String jsonP;
 
 	String calif;
+	
+	String jsonNombres;
 
 	public String getIdGrupo() {
 		return idGrupo;
@@ -89,5 +91,12 @@ public class InscripcionDto {
 	public void setAprobado(Boolean aprobado) {
 		this.aprobado = aprobado;
 	}
-	
+
+	public String getJsonNombres() {
+		return jsonNombres;
+	}
+
+	public void setJsonNombres(String jsonNombres) {
+		this.jsonNombres = jsonNombres;
+	}
 }

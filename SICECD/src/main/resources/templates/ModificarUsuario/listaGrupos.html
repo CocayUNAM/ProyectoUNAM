@@ -62,19 +62,23 @@
 													<th class="th-sm">fecha fin</th>
 	                                                <th class="th-sm">curso</th>
 	                                                <th class="th-sm">clave curso</th>
-	                                                <th class="th-sm">rfc del profesor</th>
+	                                                <th class="th-sm">rfc de asesor</th>
+	                                                <th class="th-sm">nombre de asesor</th>
+	                                                <th class="th-sm">apellido paterno de asesor</th>
 												</tr>
 											</thead>
 											<tbody>
 	                                           	<th:block th:each="grupo : ${grupos}">
 													<tr>
-														<td class="renglon" th:text="${grupo.pk_id_grupo}"></td>	
+														<td class="renglon" th:text="${grupo.idGrupo}"></td>	
 														<td class="renglon" th:text="${grupo.clave}"></td>
-														<td class="renglon" th:text="${grupo.fecha_inicio}"></td>
-														<td class="renglon" th:text="${grupo.fecha_fin}"></td>
-														<td class="renglon" th:text="${grupo.fk_id_curso.nombre}"></td>
-														<td class="renglon" th:text="${grupo.fk_id_curso.clave}"></td>
-														<td class="renglon" th:text="${grupo.fk_id_profesor.rfc}"></td>
+														<td class="renglon" th:text="${grupo.inicio}"></td>
+														<td class="renglon" th:text="${grupo.termino}"></td>
+														<td class="renglon" th:text="${grupo.curso}"></td>
+														<td class="renglon" th:text="${grupo.claveCurso}"></td>
+														<td class="renglon" th:text="${grupo.asesor}"></td>
+														<td class="renglon" th:text="${grupo.anombre}"></td>
+														<td class="renglon" th:text="${grupo.apaterno}"></td>
 													</tr>
 												</th:block>
 	                                        </tbody>

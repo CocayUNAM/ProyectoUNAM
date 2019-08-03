@@ -97,7 +97,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="clave">Clave <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="clave" name="clave" th:value="${curso.clave}">		
+                                                    <input type="text" class="form-control" id="clave" name="clave" th:value="${curso.clave}" maxlength = "8">		
                                                 </div>
                                             </div>
                                             
@@ -126,7 +126,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="nombre">Nombre <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${curso.nombre}">
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${curso.nombre}" maxlength = "150">
                                                 </div>
                                             </div>
                                             
@@ -180,7 +180,6 @@ $(document).ready(function() {
 			            if (value.search(/[A-Z][0-9][^#&<>""~;$^%{}°¬|?/*\(\)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 			                return false;
 			            }
-		
 			            return true;
 			        }
 			};
