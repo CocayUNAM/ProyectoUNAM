@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,8 @@ public class ConsultaGrupoController {
 	@Autowired
 	CursoRep curso;
 	
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+	
 	@RequestMapping(value = "/consultaGrupo", method = RequestMethod.GET)
 	public String consultaCurso(Model model) {
 		return "ConsultarGrupo/consultaGrupo";
@@ -39,49 +43,56 @@ public class ConsultaGrupoController {
 	 */
 	@RequestMapping(value = "/consultaSimpleGrupo", method = RequestMethod.POST)
 	public ModelAndView consultaSimpleGrupo(ModelMap model,HttpServletRequest request) throws ParseException {
-		String fecha_inicio_grupo = request.getParameter("fecha_inicio_grupo");
-		String fecha_fin_grupo = request.getParameter("fecha_fin_grupo");
-		String clave_grupo = request.getParameter("clave_grupo").toUpperCase().trim();
-		String curso_grupo = request.getParameter("curso_grupo").toUpperCase().trim();
+		try {
+			String fecha_inicio_grupo = request.getParameter("fecha_inicio_grupo");
+			String fecha_fin_grupo = request.getParameter("fecha_fin_grupo");
+			String clave_grupo = request.getParameter("clave_grupo").toUpperCase().trim();
+			String curso_grupo = request.getParameter("curso_grupo").toUpperCase().trim();
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date fecha_ini, fecha_fin;
-		List<Grupo> grupos_1, grupos_2;
-		
-		if (fecha_inicio_grupo != "" && fecha_fin_grupo != ""){
-			fecha_ini = format.parse(fecha_inicio_grupo);
-			fecha_fin = format.parse(fecha_fin_grupo);
-			grupos_1 = grupo.findByFecha(fecha_ini, fecha_fin);
-			grupos_2 = grupo.findByFecha(fecha_ini, fecha_fin);
-		}else {
-			grupos_1 = grupo.findAll();
-			grupos_2 = grupo.findAll();
-		}
-		
-		//Filtrando por clave de grupo
-		if (clave_grupo != null) {
-			for(Grupo g : grupos_1) {
-				String gclave = normalizar( g.getClave() ).toUpperCase().trim();
-				if(!gclave.contains(clave_grupo)){
-					grupos_2.remove(g);
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date fecha_ini, fecha_fin;
+			List<Grupo> grupos_1, grupos_2;
+			
+			if (fecha_inicio_grupo != "" && fecha_fin_grupo != ""){
+				fecha_ini = format.parse(fecha_inicio_grupo);
+				fecha_fin = format.parse(fecha_fin_grupo);
+				grupos_1 = grupo.findByFecha(fecha_ini, fecha_fin);
+				grupos_2 = grupo.findByFecha(fecha_ini, fecha_fin);
+			}else {
+				grupos_1 = grupo.findAll();
+				grupos_2 = grupo.findAll();
+			}
+			
+			//Filtrando por clave de grupo
+			if (clave_grupo != null) {
+				for(Grupo g : grupos_1) {
+					String gclave = normalizar( g.getClave() ).toUpperCase().trim();
+					if(!gclave.contains(clave_grupo)){
+						grupos_2.remove(g);
+					}
 				}
 			}
-		}
 		
-		//Filtrando por clave de curso
-		if (curso_grupo != null) {
-			for(Grupo g : grupos_1) {
-				String gclave = normalizar( g.getFk_id_curso().getClave() ).toUpperCase().trim();
-				if( !gclave.contains(curso_grupo) ) {
-					grupos_2.remove(g);
+			//Filtrando por clave de curso
+			if (curso_grupo != null) {
+				for(Grupo g : grupos_1) {
+					String gclave = normalizar( g.getFk_id_curso().getClave() ).toUpperCase().trim();
+					if( !gclave.contains(curso_grupo) ) {
+						grupos_2.remove(g);
+					}
 				}
 			}
-		}
 		
-		if(!grupos_2.isEmpty() || grupos_2.size() > 0) {
-			model.put("grupos", grupos_2);
-			return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
-		} else {
+			if(!grupos_2.isEmpty() || grupos_2.size() > 0) {
+				model.put("grupos", grupos_2);
+				return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
+			} else {
+				model.addAttribute("mensaje", "Tu búsqueda no arrojo ningún resultado");
+				return new ModelAndView("/Avisos/ErrorBusqueda");
+			}
+		} catch (NullPointerException e) {
+			LOGGER.error("En la Tabla Grupo se encuentra una columna con todos sus datos con valor " + e.getMessage() + " que provoca el error.");
+			model.addAttribute("mensaje", "¡Lo sentimos!\nEn nuestra base de datos no tenemos datos con el cual comparar la información que ingresaste");
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
@@ -92,68 +103,79 @@ public class ConsultaGrupoController {
 	 */
 	@RequestMapping(value = "/consultaAvanzadaGrupo", method = RequestMethod.POST)
 	public ModelAndView consultaAvanzadaGrupo(ModelMap model,HttpServletRequest request) throws ParseException {
-		String fecha_inicio_grupo_1 = request.getParameter("fecha_inicio_grupo_1");
-		String fecha_inicio_grupo_2 = request.getParameter("fecha_inicio_grupo_2");
-		String fecha_fin_grupo_1 = request.getParameter("fecha_fin_grupo_1");
-		String fecha_fin_grupo_2 = request.getParameter("fecha_fin_grupo_2");
-		String clave_grupo = request.getParameter("clave_grupo").toUpperCase().trim();
-		String curso_grupo = request.getParameter("curso_grupo").toUpperCase().trim();
+		try {
+			String fecha_inicio_grupo_1 = request.getParameter("fecha_inicio_grupo_1");
+			String fecha_inicio_grupo_2 = request.getParameter("fecha_inicio_grupo_2");
+			String fecha_fin_grupo_1 = request.getParameter("fecha_fin_grupo_1");
+			String fecha_fin_grupo_2 = request.getParameter("fecha_fin_grupo_2");
+			String clave_grupo = request.getParameter("clave_grupo").toUpperCase().trim();
+			String curso_grupo = request.getParameter("curso_grupo").toUpperCase().trim();
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2;
-		List<Grupo> grupos_1, grupos_2;
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2;
+			List<Grupo> grupos_1, grupos_2;
 		
-		if(fecha_inicio_grupo_1 != "" && fecha_fin_grupo_1 == "") {
-			fecha_ini_1 = format.parse(fecha_inicio_grupo_1);
-			fecha_ini_2 = format.parse(fecha_inicio_grupo_2);
-			grupos_1 = grupo.findByFechaInicio(fecha_ini_1, fecha_ini_2);
-			grupos_2 = grupo.findByFechaInicio(fecha_ini_1, fecha_ini_2);
-		}else if (fecha_inicio_grupo_1 == "" && fecha_fin_grupo_1 != ""){
-			fecha_fin_1 = format.parse(fecha_fin_grupo_1);
-			fecha_fin_2 = format.parse(fecha_fin_grupo_2);
-			grupos_1 = grupo.findByFechaFin(fecha_fin_1, fecha_fin_2);
-			grupos_2 = grupo.findByFechaFin(fecha_fin_1, fecha_fin_2);
-		}else if (fecha_inicio_grupo_1 != "" && fecha_fin_grupo_1 != ""){
-			fecha_ini_1 = format.parse(fecha_inicio_grupo_1);
-			fecha_ini_2 = format.parse(fecha_inicio_grupo_2);
-			fecha_fin_1 = format.parse(fecha_fin_grupo_1);
-			fecha_fin_2 = format.parse(fecha_fin_grupo_2);
-			grupos_1 = grupo.findByFecha(fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2);
-			grupos_2 = grupo.findByFecha(fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2);
-		}else {
-			grupos_1 = grupo.findAll();
-			grupos_2 = grupo.findAll();
-		}
+			if(fecha_inicio_grupo_1 != "" && fecha_fin_grupo_1 == "") {
+				fecha_ini_1 = format.parse(fecha_inicio_grupo_1);
+				fecha_ini_2 = format.parse(fecha_inicio_grupo_2);
+				grupos_1 = grupo.findByFechaInicio(fecha_ini_1, fecha_ini_2);
+				grupos_2 = grupo.findByFechaInicio(fecha_ini_1, fecha_ini_2);
+			}else if (fecha_inicio_grupo_1 == "" && fecha_fin_grupo_1 != ""){
+				fecha_fin_1 = format.parse(fecha_fin_grupo_1);
+				fecha_fin_2 = format.parse(fecha_fin_grupo_2);
+				grupos_1 = grupo.findByFechaFin(fecha_fin_1, fecha_fin_2);
+				grupos_2 = grupo.findByFechaFin(fecha_fin_1, fecha_fin_2);
+			}else if (fecha_inicio_grupo_1 != "" && fecha_fin_grupo_1 != ""){
+				fecha_ini_1 = format.parse(fecha_inicio_grupo_1);
+				fecha_ini_2 = format.parse(fecha_inicio_grupo_2);
+				fecha_fin_1 = format.parse(fecha_fin_grupo_1);
+				fecha_fin_2 = format.parse(fecha_fin_grupo_2);
+				grupos_1 = grupo.findByFecha(fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2);
+				grupos_2 = grupo.findByFecha(fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2);
+			}else {
+				grupos_1 = grupo.findAll();
+				grupos_2 = grupo.findAll();
+			}
 		
-		//Filtrando por clave de grupo
-		if (clave_grupo != null) {
-			for(Grupo g : grupos_1) {
-				String gclave = normalizar( g.getClave() ).toUpperCase().trim();
-				if(!gclave.contains(clave_grupo)){
-					grupos_2.remove(g);
+			//Filtrando por clave de grupo
+			if (clave_grupo != null) {
+				for(Grupo g : grupos_1) {
+					String gclave = normalizar( g.getClave() ).toUpperCase().trim();
+					if(!gclave.contains(clave_grupo)){
+						grupos_2.remove(g);
+					}
 				}
 			}
-		}
 		
-		//Filtrando por clave de curso
-		if (curso_grupo != null) {
-			for(Grupo g : grupos_1) {
-				String gclave = normalizar( g.getFk_id_curso().getClave() ).toUpperCase().trim();
-				if( !gclave.contains(curso_grupo) ) {
-					grupos_2.remove(g);
+			//Filtrando por clave de curso
+			if (curso_grupo != null) {
+				for(Grupo g : grupos_1) {
+					String gclave = normalizar( g.getFk_id_curso().getClave() ).toUpperCase().trim();
+					if( !gclave.contains(curso_grupo) ) {
+						grupos_2.remove(g);
+					}
 				}
 			}
-		}
 		
-		if(!grupos_2.isEmpty() || grupos_2.size() > 0) {
-			model.put("grupos", grupos_2);
-			return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
-		} else {
+			if(!grupos_2.isEmpty() || grupos_2.size() > 0) {
+				model.put("grupos", grupos_2);
+				return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
+			} else {
+				model.addAttribute("mensaje", "Tu búsqueda no arrojo ningún resultado");
+				return new ModelAndView("/Avisos/ErrorBusqueda");
+			}
+		} catch (NullPointerException e) {
+			LOGGER.error("En la Tabla Grupo se encuentra una columna con todos sus datos con valor " + e.getMessage() + " que provoca el error.");
+			model.addAttribute("mensaje", "¡Lo sentimos!\nEn nuestra base de datos no tenemos datos con el cual comparar la información que ingresaste");
 			return new ModelAndView("/Avisos/ErrorBusqueda");
 		}
 	}
 	
 	public String normalizar(String src) {
+		if(src == null) {
+			return "";
+		}
+		
         return Normalizer
                 .normalize(src , Normalizer.Form.NFD)
                 .replaceAll("[^\\p{ASCII}]" , "");
