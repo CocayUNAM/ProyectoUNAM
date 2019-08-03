@@ -65,7 +65,7 @@ public class ClienteCertificadoController {
 	
 	private String aux_obten(Profesor profesor, Curso curso, Grupo grupo, String URL_RS) throws Exception{
 		String correo = profesor.getCorreo();
-		String nombre_curso = curso.getClave()+"|"+grupo.getClave();
+		String nombre_curso = curso.getClave()+"_"+grupo.getClave();
 		Certificado cert = new Certificado();
 		cert.setFk_id_curso(curso);
 		cert.setFk_id_grupo(grupo);
@@ -95,7 +95,7 @@ public class ClienteCertificadoController {
 		}
 		String string_pdf = (String) json.get("bytespdf");
 		byte[] bytearray = java.util.Base64.getDecoder().decode(string_pdf);
-		String codigo = curso.getClave() + "|"  + grupo.getClave();
+		String codigo = curso.getClave() + "_"  + grupo.getClave();
 		String path = RUTA_LOCAL + codigo + "/" + codigo + "_" + profesor.getPk_id_profesor() + ".pdf";
 		File out = new File(path);
 		new File(out.getParent()).mkdirs();
@@ -138,20 +138,31 @@ public class ClienteCertificadoController {
 		log.setTrace(LogTypes.EXTRACCION_CONSTANCIAS_NUEVAS, "0 constancias nuevas extraídas de 1 solicitadas");
 		return null;
 	}
-
+	//funcion de prueba
 	@RequestMapping(value = "/certificado", method = RequestMethod.GET)
 	public String muestra(Model model) {
 		return "Certificado/certificado";
 	}
-
+	//funcion de prueba
 	@RequestMapping(value = "/certificadoRes", method = RequestMethod.GET)
 	public String procesaCertificado(Model model, HttpServletRequest request) throws Exception {
-		String correo = request.getParameter("correo");
-		String nombre_c = request.getParameter("nc");
-		Profesor profr = bd_profesor.findByCorreo(correo);// obtener usuario de base de datos
-		Curso curso = bd_curso.findByNombre(nombre_c);// obtener curso de bd
-		Grupo grupo = null;////pon el grupo ++++++++++++++++++++++++++++++++++++++++++
-		String path = obtenCertificado(profr, curso, grupo);
+		//String correo = request.getParameter("correo");
+		Profesor profesor = bd_profesor.findByCorreo("georgenarvaez@hotmail.com");//poner correo
+		Curso curso = null;
+		for( Curso c : bd_curso.findAll()) {
+			if(c.getClave().equals("00A")) {//poner clave
+				curso = c;
+				break;
+			}
+		}
+		Grupo grupo = null;
+		for(Grupo g : bd_grupo.findAll()) {
+			if(g.getClave().equals("00A")) {//poner clave
+				grupo = g;
+				break;
+			}
+		}
+		String path = obtenCertificado(profesor,curso,grupo);
 		if (path != null) {
 			model.addAttribute("mensaje", path);
 		} else {
