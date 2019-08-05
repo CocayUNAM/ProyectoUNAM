@@ -171,16 +171,30 @@ public class ConsultaProfesorController {
                 .replaceAll("[^\\p{ASCII}]" , "");
     }
 	
+	/**
+	 * Muestra en pantalla la información de un profesor.
+	 * @param id_profesor
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/ficha_profesor", method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView fichaProfesor(@RequestParam("id") int id_profesor, ModelMap model) {
 		Profesor p = profesorRep.findByID(id_profesor);
 		List<Grupo> grupos = grupoRep.findByIdAsesor(p.getPk_id_profesor());
 		
-		model.addAttribute("nombre", p.getNombre());
-		model.addAttribute("apellido_paterno", p.getApellido_paterno());
-		model.addAttribute("apellido_materno", p.getApellido_materno());
+		String nombre = formatoCadena(p.getNombre(), 1);
+		String apellido_paterno = formatoCadena(p.getApellido_paterno(), 1);
+		String apellido_materno = formatoCadena(p.getApellido_materno(), 1);
 		
-		model.addAttribute("genero", p.getGenero().getGenero());
+		model.addAttribute("nombre", nombre);
+		model.addAttribute("apellido_paterno", apellido_paterno);
+		model.addAttribute("apellido_materno", apellido_materno);
+		
+		if (p.getGenero() == null) {
+			model.addAttribute("genero", "");
+		} else {
+			model.addAttribute("genero", p.getGenero().getGenero());
+		}
 		
 		if (p.getFechaNac() == null) {
 			model.addAttribute("fecha_nac", "");
@@ -189,29 +203,65 @@ public class ConsultaProfesorController {
 			model.addAttribute("fecha_nac", formatter.format(p.getFechaNac()));
 		}
 		
-		//model.addAttribute("fecha_nac", p.getFechaNac());
-		model.addAttribute("planel", p.getPlantel());
-		model.addAttribute("clave_plantel", p.getClave_plantel());
+		String plantel = formatoCadena(p.getPlantel(), 1);
+		model.addAttribute("planel", plantel);
+		model.addAttribute("clave_plantel", formatoCadena(p.getClave_plantel(), 1));
 		
-		model.addAttribute("curp", p.getCurp());
-		model.addAttribute("correo", p.getCorreo());
+		model.addAttribute("curp", formatoCadena(p.getCurp(), 2));
+		model.addAttribute("correo", formatoCadena(p.getCorreo(), 3));
 		model.addAttribute("telefono", p.getTelefono());
 		
 		String localidad = "";
 		
-		if (p.getCiudad_localidad() == null) {
+		if (p.getCiudad_localidad() == null && p.getFk_id_estado() == null) {
+			localidad = "";
+		} else if (p.getCiudad_localidad() == null && p.getFk_id_estado() != null) {
 			localidad =  p.getFk_id_estado().getNombre();
+		} else if (p.getCiudad_localidad() != null && p.getFk_id_estado() == null) {
+			localidad = formatoCadena(p.getCiudad_localidad(), 1);
 		} else {
-			localidad = p.getCiudad_localidad() + ", " + p.getFk_id_estado().getNombre();
+			localidad = formatoCadena(p.getCiudad_localidad(), 1) + ", " + p.getFk_id_estado().getNombre();
 		}
 		
 		model.addAttribute("localidad", localidad);
-		model.addAttribute("rfc", p.getRfc());
-		model.addAttribute("escolaridad", p.getFk_id_grado_profesor().getNombre());
-		model.addAttribute("turno", p.getFk_id_turno().getNombre());
+		model.addAttribute("rfc", formatoCadena(p.getRfc(), 2));
+		
+		if (p.getFk_id_grado_profesor() == null) {
+			model.addAttribute("escolaridad", "");
+		} else {
+			model.addAttribute("escolaridad", p.getFk_id_grado_profesor().getNombre());
+		}
+		
+		if (p.getFk_id_turno() == null) {
+			model.addAttribute("turno", "");
+		} else {
+			model.addAttribute("turno", p.getFk_id_turno().getNombre());
+		}
 		
 		model.put("grupo", grupos);
 		model.put("ins", p.getInscripciones());
 		return new ModelAndView("/ConsultarProfesor/ficha_profesor");
+	}
+	
+	public String formatoCadena (String cadena, int tipo) {
+		String oracion = "";
+		
+		if (cadena == null) {
+			return oracion;
+		}
+		
+		switch (tipo) {
+			case 1:
+				oracion = cadena.substring(0,1).toUpperCase() + cadena.substring(1).toLowerCase();
+				break;
+			case 2:
+				oracion = cadena.toUpperCase();
+				break;
+			case 3:
+				oracion = cadena.toLowerCase();
+				break;
+		}
+		
+		return oracion;
 	}
 }

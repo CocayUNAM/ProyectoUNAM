@@ -50,13 +50,13 @@
                                             <tbody>
                                                 <tr data-th-each="profesor : ${profesores}">
                                                 	<td class="prof_option">
-                                                		<a th:text="${#strings.concat(profesor?.nombre, ' ', profesor?.apellido_paterno, ' ', profesor?.apellido_materno)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Nombre</a>
+                                                		<a th:text="${#strings.concat(#strings.capitalize(#strings.toLowerCase(profesor?.nombre)), ' ', #strings.capitalize(#strings.toLowerCase(profesor?.apellido_paterno)), ' ', #strings.capitalize(#strings.toLowerCase(profesor?.apellido_materno)))}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Nombre</a>
                                                 	</td>
                                                 	<td class="prof_option">
-                                                		<a th:text="${profesor?.correo}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Correo</a>
+                                                		<a th:text="${#strings.toLowerCase(profesor?.correo)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Correo</a>
                                                 	</td>
                                                 	<td class="prof_option">
-                                                		<a th:text="${profesor?.rfc}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">RFC</a>
+                                                		<a th:text="${#strings.toUpperCase(profesor?.rfc)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">RFC</a>
                                                 	</td>
                                                 	<td>
                                                 		<a th:text="${profesor?.fk_id_grado_profesor?.nombre}">Grado de Estudios</a>

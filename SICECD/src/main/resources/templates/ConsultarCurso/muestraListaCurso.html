@@ -47,8 +47,8 @@
                                             <tbody >
                                                 <tr data-th-each="curso : ${cursos}">
                                                 	<td data-th-text="${curso?.fk_id_tipo_curso?.nombre}">Text ...</td>
-                                                	<td data-th-text="${curso?.clave}">Text ...</td>
-                                                	<td data-th-text="${curso?.nombre}">Text ...</td>
+                                                	<td data-th-text="${#strings.toUpperCase(curso?.clave)}">Text ...</td>
+                                                	<td data-th-text="${#strings.capitalize(#strings.toLowerCase(curso?.nombre))}">Text ...</td>
                                                 </tr>
                                             </tbody>
                                         </table>
