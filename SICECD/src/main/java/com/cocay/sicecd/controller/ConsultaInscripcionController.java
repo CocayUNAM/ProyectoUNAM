@@ -87,7 +87,7 @@ public class ConsultaInscripcionController {
 		}
 		
 		//Se obtienen las inscripciones pertenecientes al grupo buscado
-		if ( clave_grupo != "" ) {
+		if ( clave_grupo != "" || fecha_1 != "" || fecha_2 != "" ) {
 			ins_grupos = obtenerInsGrupos(clave_grupo, fecha_1, fecha_2);
 		}
 		
@@ -229,6 +229,7 @@ public class ConsultaInscripcionController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha_ini_1, fecha_ini_2;
 		
+		//Filtrando por Fecha de Inicio
 		if(fecha_inicio_1 != "" && fecha_inicio_2 != "") {
 			fecha_ini_1 = format.parse(fecha_inicio_1);
 			fecha_ini_2 = format.parse(fecha_inicio_2);
@@ -239,6 +240,7 @@ public class ConsultaInscripcionController {
 			grupos2 = grupo_rep.findAll();
 		}
 		
+		//Filtrando por Clave de Grupo
 		if (clave != null) {
 			for(Grupo g : grupos1) {
 				String gclave = normalizar( g.getClave() ).toUpperCase().trim();
@@ -247,8 +249,6 @@ public class ConsultaInscripcionController {
 				}
 			}
 		}
-		
-		System.out.println(grupos2.size());
 		
 		for (Grupo g : grupos2) {
 			ins_grupos.addAll(g.getInscripciones());
