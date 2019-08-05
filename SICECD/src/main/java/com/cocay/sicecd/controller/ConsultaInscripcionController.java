@@ -66,12 +66,12 @@ public class ConsultaInscripcionController {
 		Integer id_turno = Integer.parseInt(request.getParameter("turno"));
 		
 		/* Datos del curso */
-		String clave_curso = request.getParameter("clave_curso").trim();
-		String nombre_curso = request.getParameter("nombre_curso").toUpperCase().trim();
+		String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase().trim();
+		String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 		Integer id_tipo = Integer.parseInt(request.getParameter("tipos"));
 		
 		/* Datos del grupo */
-		String clave_grupo = request.getParameter("clave_grupo").trim();
+		String clave_grupo = request.getParameter("clave_grupo").toUpperCase().trim();
 		
 		/* Intervalo de tiempo */
 		String fecha_1 = request.getParameter("fecha_1");
@@ -187,16 +187,18 @@ public class ConsultaInscripcionController {
 		//Filtrando por clave de curso
 		if (clave_curso != "") {
 			for(Curso c : cursos1) {
-				if(!c.getClave().contains(clave_curso)){
+				String cclave = normalizar(c.getClave()).toUpperCase().trim();
+				if(!cclave.contains(clave_curso)){
 					cursos2.remove(c);
 				}
 			}
 		}
 		
-		//Filtrando por clave de curso
+		//Filtrando por nombre de curso
 		if (nombre_curso != "") {
 			for(Curso c : cursos1) {
-				if(!c.getClave().contains(nombre_curso)){
+				String cnom = normalizar(c.getNombre()).toUpperCase().trim();
+				if(!cnom.contains(nombre_curso)){
 					cursos2.remove(c);
 				}
 			}
