@@ -344,6 +344,23 @@ public class ModificarUsuarios {
 			}
 		}
 		
+		if(constancia != null) {
+            String originalName2 = constancia.getOriginalFilename();
+            if(mod.getCertificado_doc() == null) {
+                mod.setCertificado_doc(originalName2);
+            }else {
+                if(!mod.getCertificado_doc().equals(originalName2)) {
+                	File here = new File(".");
+                	String rutaActual = here.getAbsolutePath().replace(".", ""); 
+                	String rutaR = rutaActual.replace("\\", "/") + ruta.replace("./", "") + Integer.toString(mod.getPk_id_profesor()) + "/" + mod.getCertificado_doc();
+                    File archivo_anterior = new File(rutaR);
+                    archivo_anterior.delete();
+                }
+            }
+            saveConstancia(constancia, mod);
+            mod.setCertificado_doc(originalName2);
+        }
+		
 		if(comprobante != null) {
             String originalName2 = comprobante.getOriginalFilename();
             if(mod.getComprobante_doc() == null) {

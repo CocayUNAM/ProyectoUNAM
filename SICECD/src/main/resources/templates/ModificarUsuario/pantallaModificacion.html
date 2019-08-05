@@ -152,6 +152,7 @@
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="estado" name="estado" style="width: 100%;" required>
                                                     	<option th:value="${profesor.estado}" th:text ="${profesor.nombreEstado}" >Estado definido</option>
+                                                    	<option value="34">No definido</option>
                                                         <option value="1">Aguascalientes</option>
 														<option value="2">Baja California</option>
 														<option value="3">Baja California Sur</option>
@@ -311,8 +312,6 @@
 $(document).ready(function() {
 	
 			let idu = [[${profesor.idProfesor}]];
-			
-			console.log(idu);
 		
 			//cambio de correo
 			let cor=$("#correo").val();
@@ -320,8 +319,6 @@ $(document).ready(function() {
 			    cor=$("#correo").val();
 			    
 			});
-			
-			console.log(cor);
 	
 			$.fn.bootstrapValidator.validators.nombre = {
 			        validate: function(validator, $field, options) {
@@ -694,7 +691,9 @@ $(document).ready(function() {
 	                validator = $form.data('bootstrapValidator');
 	        });
 
-
+			$("#limpiar").click(function(event) {
+				location.reload();
+			});
 
 
 		});

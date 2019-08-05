@@ -236,6 +236,13 @@
 				$.fn.bootstrapValidator.validators.fechaI = {
 				        validate: function(validator, $field, options) {
 				            var value = $field.val();
+				            var value3 = $("#termino").val();
+				            
+				            if($('#termino').val().length > 0){
+				            	if(value > value3){
+				            		return false;
+				            	}
+				            }
 				            return true;
 				        }
 				 };
@@ -262,7 +269,7 @@
 			            termino: {
 			                validators: {
 			        			fecha: {
-			        				message: ' La fecha de termino no puede ser menor que la fecha de inicio y revisa que la fecha de inicio no este vacia'
+			        				message: ' La fecha de termino no puede ser menor que la fecha de inicio '
 			        			}
 			                }
 			            },
@@ -294,7 +301,7 @@
 			            inicio : {
 			        		validators : {
 			        			fechaI : {
-			        				message: ' no son validas fechas anteriores a hoy '
+			        				message: ' revisa que la fecha de inicio no sea mayor que la de termino '
 			        			}
 			        		}
 			        	}
@@ -350,7 +357,11 @@
 		            
 		            var $form     = $(eve.target),
 		                validator = $form.data('bootstrapValidator');
-		        });			
+		        });		
+				
+				$("#limpiar").click(function(event) {
+					location.reload();
+				});
 		});
 	</script>
 </body>

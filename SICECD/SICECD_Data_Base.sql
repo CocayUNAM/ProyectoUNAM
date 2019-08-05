@@ -119,7 +119,7 @@ INSERT INTO public.estado(nombre) VALUES ('Veracruz');
 INSERT INTO public.estado(nombre) VALUES ('Yucatán');
 INSERT INTO public.estado(nombre) VALUES ('Zacatecas');
 INSERT INTO public.estado(nombre) VALUES ('Sin definir');
-INSERT INTO public.estado(nombre) VALUES ('Sin definirP');
+INSERT INTO public.estado(nombre) VALUES ('No definido');
 COMMIT;
 
 INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('WLIN00', 'Login exitoso');
