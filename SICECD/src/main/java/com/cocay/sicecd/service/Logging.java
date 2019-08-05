@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -25,28 +26,37 @@ public class Logging {
 	Log_sysRep logr;
 	@Autowired
 	Log_evento_sysRep evento;
+	@Value("{host}")
+	String host;
+	
+	
 
 	public void logtrace(String action, String comentario){
-		Principal principal = request.getUserPrincipal();
+		
 		Log_sys log=new Log_sys();
-		log.setHora(new Date());
-		/*
-		 * ServletRequestAttributes att = (ServletRequestAttributes)
-		 * RequestContextHolder.currentRequestAttributes();
-		 * att.getRequest().getRemoteAddr();
-		 */
-		log.setIp(request.getRemoteAddr());
-		if (principal==null) {
-			log.setFk_id_usuario_sys(usuario.findById(1).get());
-		}else {			
-			log.setFk_id_usuario_sys(usuario.findByRfc(principal.getName()).get(0));
-		}
-		log.setFk_id_log_evento_sys(evento.findById(action).get());
+		if (request!=null) {
+			Principal principal = request.getUserPrincipal();
+			log.setHora(new Date());
+			log.setIp(request.getRemoteAddr());
+			if (principal==null) {
+				log.setFk_id_usuario_sys(usuario.findById(1).get());
+			}else {			
+				log.setFk_id_usuario_sys(usuario.findByRfc(principal.getName()).get(0));
+			}
+			log.setFk_id_log_evento_sys(evento.findById(action).get());
 
-		if (comentario!=null){
-			log.setComentario(comentario);
+			if (comentario!=null){
+				log.setComentario(comentario);
+			}
+			
+		}else {
+			log.setHora(new Date());
+			log.setIp(host);
+			log.setFk_id_usuario_sys(usuario.findById(1).get());
 		}
 		logr.save(log);
+		
+
 
 
 	}
