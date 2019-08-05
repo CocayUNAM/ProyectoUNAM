@@ -20,6 +20,7 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.nio.file.Paths;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -126,11 +127,13 @@ public class CertificadoMasivoController {
 
 		byte[] bytearray = java.util.Base64.getDecoder().decode(mns);
 		String path = RUTA_LOCAL + "certificados.zip";
-		File tempdir = new File(RUTA_LOCAL);
+		File tempdir = Paths.get(RUTA_LOCAL).normalize().toFile();
 		if (!tempdir.exists()) {
 			tempdir.mkdirs();
 		}
+		String pathF="", pathOut="", pathAux="";
 		File out = new File(path);
+		pathOut=out.getAbsolutePath();
 		try (FileOutputStream os = new FileOutputStream(out)) {
 			os.write(bytearray);
 			System.out.println("Archivo escrito!");
@@ -139,13 +142,13 @@ public class CertificadoMasivoController {
 			System.out.println(e);
 		}
 		byte[] buffer = new byte[1024];
-		File tmp = new File(TEMP_ZIP);
+		File tmp = Paths.get(TEMP_ZIP).normalize().toFile();
 		if (!tmp.exists()) {
 			tmp.mkdirs();
 		}
 		try {
 			ZipFile zpf = new ZipFile(out, Charset.forName("Cp437"));
-
+			
 			Enumeration<? extends ZipEntry> e = zpf.entries();
 			ZipEntry ze;
 			// System.out.println("PASE");
@@ -170,10 +173,14 @@ public class CertificadoMasivoController {
 			zpf.close();
 		} catch (java.util.zip.ZipException zx) {
 			LOGGER.error("Zip file is empty!");
+			out=null;
+			delete(pathOut);
 			//System.out.println("Zip file is empty!");
 			return new int[] { 0, 0 };
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
+			out=null;
+			delete(pathOut);
 			//System.out.println(e);
 			//e.printStackTrace();
 			return new int[] { 0, 0 };
@@ -204,7 +211,9 @@ public class CertificadoMasivoController {
 					File aux = new File(pt);
 					new File(aux.getParent()).mkdirs();
 					if (aux.exists()) {
-						aux.delete();
+						pathAux=aux.getAbsolutePath();
+						aux=null;
+						delete(pathAux);
 					}
 					try (FileOutputStream os = new FileOutputStream(aux)) {
 						os.write(fs.readAllBytes());
@@ -215,7 +224,7 @@ public class CertificadoMasivoController {
 					SeguridadPDF spdf = new SeguridadPDF();
 					String nombrec = p.getNombre() + " " + p.getApellido_paterno() + " " + p.getApellido_materno();
 					spdf.cifraPdf(pt, nombrec, codigo);
-					f3.delete();// elimina archivo
+					f3=null;// elimina archivo
 					Certificado cert = bd_certificado.findByRuta(pt);
 					if (cert == null) {
 						System.out.println("insertando nuevo certificado!");
@@ -234,20 +243,40 @@ public class CertificadoMasivoController {
 					bd_certificado.save(cert);
 					fs.close();
 				}
-				f2.delete();// elimina directorio (usuario)
+				
+				f2=null;// elimina directorio (usuario)
 			}
-			f.delete();// elimina directorio padre (curso)
+			pathF=f.getAbsolutePath();
+			f=null;// elimina directorio padre (curso)
 		}
-		out.delete();// elimina zip
+		out=null;// elimina zip
 		/**/
+		
+		delete(pathF);
+		delete(pathOut);
+		   	
 		return new int[] { nuevas2, actual2 };
+	}
+	
+	private void delete(String path) {
+		if(path==null || path.equals("")) {
+			return;
+		}
+		File f = new File(path);
+		if (f.isDirectory()) {
+			for (File c : f.listFiles())
+				delete(c.getAbsolutePath());
+		}
+		if (!f.delete()) {
+			LOGGER.error("Error deleting: "+f.getAbsolutePath());
+		}   
 	}
 
 	/**
 	 * Metodo que obtiene certificados masivamente para traer nuevos archivos. 
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 37 04 * * ?")
+	@Scheduled(cron = "0 55 13 * * ?")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		LinkedList<Url_ws> links = new LinkedList<>(urls.findVarios());
 		if (links.size() == 0) {

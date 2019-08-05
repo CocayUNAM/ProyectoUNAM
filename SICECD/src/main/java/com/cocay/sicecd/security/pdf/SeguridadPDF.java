@@ -27,6 +27,8 @@ public class SeguridadPDF {
 		}else{
 			System.out.println("Rename failed");
 		}
+		oldfile=null;
+		newfile=null;
 	}
 	/**
 	 * Metodo que obtiene un arreglo de bytes dado un usuario y un propietario
@@ -57,11 +59,28 @@ public class SeguridadPDF {
     	WriterProperties props = new WriterProperties()
     	        .setStandardEncryption(encodedhash,encodedhash, EncryptionConstants.ALLOW_PRINTING,
     	                EncryptionConstants.ENCRYPTION_AES_128 | EncryptionConstants.DO_NOT_ENCRYPT_METADATA);
-    	PdfWriter writer = new PdfWriter(new FileOutputStream(src), props);
+    	FileOutputStream fileOS = new FileOutputStream(src);
+    	PdfWriter writer = new PdfWriter(fileOS, props);
     	PdfDocument pdfDoc = new PdfDocument(reader, writer);
+    	/*
+    	reader.setCloseStream(true);
+    	pdfDoc.setCloseReader(true);
+    	pdfDoc.setCloseWriter(true);
+    	pdfDoc.setFlushUnusedObjects(true);
+    	//*/
     	pdfDoc.close();
+    	fileOS.flush();
+    	writer.close();
+    	fileOS.close();
     	reader.close();
-    	new File(src.substring(0,src.length()-4) + "_ax.pdf").delete();
+    	fileOS=null;
+    	writer=null;
+    	reader=null;
+    	pdfDoc=null;
+    	File oldFile = new File(src.substring(0,src.length()-4) + "_ax.pdf");
+    	if(!oldFile.delete()) {
+    		oldFile.deleteOnExit();
+    	}
 	}
 	/**
 	 * Metodo que quita una contrasenia a un pdf.
@@ -78,6 +97,9 @@ public class SeguridadPDF {
         PdfDocument pdfDoc = new PdfDocument(reader, new PdfWriter(src));
         System.out.println(new String(reader.computeUserPassword()));
         pdfDoc.close();
+    	pdfDoc=null;
+    	reader.close();
+    	reader=null;
         new File(src.substring(0,src.length()-4) + "_ax.pdf").delete();
 	}
 }
