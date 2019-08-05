@@ -156,7 +156,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="estado">Estado <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="estado" name="estado" style="width: 100%;" required>
+                                                    <select class="js-select2 form-control" id="estado" name="estado" style="width: 100%;">
                                                     	<option value="34">Sin definir</option>
                                                         <option value="1">Aguascalientes</option>
 														<option value="2">Baja California</option>
@@ -204,7 +204,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="genero">Selecciona género <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="genero" name="genero" style="width: 100%;" required>
+                                                    <select class="js-select2 form-control" id="genero" name="genero" style="width: 100%;">
                                                         <option value="3">Sin definir</option>
                                                         <option value="1">Masculino</option>
                                                         <option value="2">Femenino</option>
@@ -222,7 +222,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="turno">Selecciona turno <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;" required>
+                                                    <select class="js-select2 form-control" id="turno" name="turno" style="width: 100%;">
                                                         <option value = "4">Sin definir</option>
                                                         <option value="1">Matutino</option>
                                                         <option value="2">Vespertino</option>
@@ -241,7 +241,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="grado">Ultimo grado de estudios <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <select class="js-select2 form-control" id="grado" name="grado" style="width: 100%;" required>
+                                                    <select class="js-select2 form-control" id="grado" name="grado" style="width: 100%;">
                                                         <option value="5">Sin definir</option>
                                                         <option value="1">Lic.</option>
                                                         <option value="2">Esp.</option>
@@ -289,7 +289,7 @@
                                             <div class="form-group">
         										<div class="col-sm-5 col-sm-offset-3">
 		                                           <button type="submit" class="btn btn-default"
-		                                           data-toggle="modal" data-target="#exampleModal">Capturar</button>
+		                                           data-toggle="modal" data-target="#exampleModal" disabled="disabled">Capturar</button>
                                              	</div>
     										</div>
                                             
@@ -322,6 +322,20 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
     <script>
 		$(document).ready(function() {
+			
+			$('input').filter('[required]:visible').each(function() {
+				  if ( $(this).val() === '' )
+					  var elem = $(document.createElement('h4'))
+								               .attr('id','mensaje').html("Error : faltan rellenar campos obligatorios");
+					  $('#mensaje').replaceWith(elem);
+					  $("#mensaje").css("color","red");
+					  $("#mensaje").css("visibility","visible");
+					  $('#spin').css("visibility","hidden");
+					  $("#volver").css("visibility","hidden");
+					  $("#limpiar").css("visibility","hidden");
+					  $("#revisar").css("visibility","visible");
+					  $("#mensaje").css("visibility","visible");
+			});
 			
 			$.fn.bootstrapValidator.validators.nombre = {
 			        validate: function(validator, $field, options) {
