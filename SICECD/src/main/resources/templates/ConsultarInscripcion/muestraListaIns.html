@@ -47,7 +47,7 @@
                                                 	<th>Grado de Estudios</th>
                                                     <th>RFC</th>
                                                     <th>Calificación</th>
-                                                    <th>Constancia</th>
+                                                    <th>Certificado</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -60,7 +60,12 @@
 													<td data-th-text="${ins?.fk_id_profesor?.fk_id_grado_profesor?.nombre}">Text ...</td>
                                                 	<td data-th-text="${#strings.toUpperCase(ins?.fk_id_profesor?.rfc)}">Text ...</td>
                                                 	<td data-th-text="${ins?.calif}">Text ...</td>
-                                                	<td th:href="@{/certificados(id=${@profContr.getCertificado(ins.fk_id_profesor.pk_id_profesor, ins.fk_id_grupo.fk_id_curso.pk_id_curso, ins.fk_id_grupo.pk_id_grupo)})}" target="_blank" >No Disponible</td>
+                                                	<td th:if="${controller.existeCertificado(ins.fk_id_profesor.pk_id_profesor, ins.fk_id_grupo.fk_id_curso.pk_id_curso, ins.fk_id_grupo.pk_id_grupo)}">
+                                                		<a th:href="@{/descargas(id=${controller.getCertificado(ins.fk_id_profesor.pk_id_profesor, ins.fk_id_grupo.fk_id_curso.pk_id_curso, ins.fk_id_grupo.pk_id_grupo)}, tipo='certificadoqr')}" target="_blank" >Descargar</a>
+                                                	</td>
+                                                	<td th:unless="${controller.existeCertificado(ins.fk_id_profesor.pk_id_profesor, ins.fk_id_grupo.fk_id_curso.pk_id_curso, ins.fk_id_grupo.pk_id_grupo)}">
+                                                		<a>Descargar</a>
+                                                	</td>
                                                 </tr>
                                             </tbody>
                                         </table>

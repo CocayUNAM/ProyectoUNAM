@@ -32,7 +32,7 @@ import com.cocay.sicecd.repo.ProfesorRep;
 @Controller
 public class ConsultaInscripcionController {
 	@Autowired
-	ConsultaInscripcionController profContr;
+	ConsultaInscripcionController controller;
 	
 	@Autowired
 	InscripcionRep ins_rep;
@@ -109,7 +109,7 @@ public class ConsultaInscripcionController {
 		
 		if ( inscripciones != null || inscripciones.size() > 0 ) {
 			model.put("ins", inscripciones);
-			model.put("profContr", profContr);
+			model.put("controller", controller);
 			return new ModelAndView("ConsultarInscripcion/muestraListaIns", model);
 		} else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
@@ -355,12 +355,19 @@ public class ConsultaInscripcionController {
                 .replaceAll("[^\\p{ASCII}]" , "");
     }
 	
-	public int getCertificado (String id_profesor, String id_curso, String id_grupo) {
-		Integer id_prof = Integer.parseInt(id_profesor);
-		Integer id_curs = Integer.parseInt(id_curso);
-		Integer id_grup = Integer.parseInt(id_grupo);
-		
-		Certificado certificado = certRep.findCertificado(id_prof, id_curs, id_grup);
+	public int getCertificado (Integer id_profesor, Integer id_curso, Integer id_grupo) {
+		Certificado certificado = certRep.findCertificado(id_profesor, id_curso, id_grupo);
 		return certificado.getPk_id_certificado();
+	}
+	
+	public boolean existeCertificado (Integer id_profesor, Integer id_curso, Integer id_grupo) {
+		boolean res = false;
+		Certificado certificado = certRep.findCertificado(id_profesor, id_curso, id_grupo);
+		
+		if (certificado != null) {
+			res = true;
+		}
+		
+		return res;
 	}
 }
