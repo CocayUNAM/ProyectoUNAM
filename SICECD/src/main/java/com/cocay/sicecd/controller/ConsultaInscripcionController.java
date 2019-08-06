@@ -359,4 +359,15 @@ public class ConsultaInscripcionController {
 		Certificado certificado = certRep.findCertificado(id_profesor, id_curso, id_grupo);
 		return certificado.getPk_id_certificado();
 	}
+	
+	public boolean existeCertificado (Integer id_profesor, Integer id_curso, Integer id_grupo) {
+		boolean res = false;
+		Certificado certificado = certRep.findCertificado(id_profesor, id_curso, id_grupo);
+		
+		if (certificado != null) {
+			res = true;
+		}
+		
+		return res;
+	}
 }
