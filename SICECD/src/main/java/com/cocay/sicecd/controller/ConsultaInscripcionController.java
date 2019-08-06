@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cocay.sicecd.model.Certificado;
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
@@ -29,6 +31,9 @@ import com.cocay.sicecd.repo.ProfesorRep;
 
 @Controller
 public class ConsultaInscripcionController {
+	@Autowired
+	ConsultaInscripcionController profContr;
+	
 	@Autowired
 	InscripcionRep ins_rep;
 	
@@ -40,6 +45,9 @@ public class ConsultaInscripcionController {
 	
 	@Autowired
 	GrupoRep grupo_rep;
+	
+	@Autowired
+	CertificadoRep certRep;
 	
 	@RequestMapping(value = "/consultaInscripcion", method = RequestMethod.GET)
 	public String consultaCurso(Model model) {
@@ -100,10 +108,8 @@ public class ConsultaInscripcionController {
 		List<Inscripcion> inscripciones = obtenerIns(ins_cursos, ins_grupos, ins_profes);
 		
 		if ( inscripciones != null || inscripciones.size() > 0 ) {
-			System.out.println("Grupos: " + ins_grupos.size());
-			System.out.println("Cursos: " + ins_cursos.size());
-			System.out.println("Profes: " + ins_profes.size());
 			model.put("ins", inscripciones);
+			model.put("profContr", profContr);
 			return new ModelAndView("ConsultarInscripcion/muestraListaIns", model);
 		} else {
 			return new ModelAndView("/Avisos/ErrorBusqueda");
@@ -348,4 +354,13 @@ public class ConsultaInscripcionController {
                 .normalize(src , Normalizer.Form.NFD)
                 .replaceAll("[^\\p{ASCII}]" , "");
     }
+	
+	public int getCertificado (String id_profesor, String id_curso, String id_grupo) {
+		Integer id_prof = Integer.parseInt(id_profesor);
+		Integer id_curs = Integer.parseInt(id_curso);
+		Integer id_grup = Integer.parseInt(id_grupo);
+		
+		Certificado certificado = certRep.findCertificado(id_prof, id_curs, id_grup);
+		return certificado.getPk_id_certificado();
+	}
 }

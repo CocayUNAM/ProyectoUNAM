@@ -56,16 +56,13 @@
 										</a>
 									</div>
 									<div class="dt-buttons col-sm-8">
-										<a id="BtnDownloadCURP" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#CURP">
+										<a id="BtnDownloadCURP" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='curp')}" target="_blank">
 											<span>CURP</span>
 										</a>
-										<a id="BtnDownloadRFC" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#RFC">
+										<a id="BtnDownloadRFC" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='rfc')}" target="_blank">
 											<span>RFC</span>
 										</a>
-										<a id="BtnDownloadCertificado" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#Certificado">
-											<span>Certificado</span>
-										</a>
-										<a id="BtnDownloadCompDoc" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" href="#ComprobanteDomicilio">
+										<a id="BtnDownloadCompDoc" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='comprobante')}" target="_blank">
 											<span>Comprobante de Domicilio</span>
 										</a>
 									</div>
@@ -141,6 +138,7 @@
 													<th>Fecha de Inicio</th>
 													<th>Fecha de Término</th>
 													<th>Calificación</th>
+													<th>Constancia</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -152,6 +150,7 @@
 													<td data-th-text="${#dates.format(grupo?.fecha_inicio,'dd MMMM yyyy')}">Text ...</td>
 													<td data-th-text="${#dates.format(grupo?.fecha_fin,'dd MMMM yyyy')}">Text ...</td>
 													<td>-----</td>
+													<td>-----</td>
 												</tr>
 												<tr data-th-each="ins : ${ins}">
 													<td>Profesor</td>
@@ -161,6 +160,7 @@
 													<td data-th-text="${#dates.format(ins?.fk_id_grupo?.fecha_inicio,'dd MMMM yyyy')}">Text ...</td>
 													<td data-th-text="${#dates.format(ins?.fk_id_grupo?.fecha_fin,'dd MMMM yyyy')}">Text ...</td>
 													<td data-th-text="${ins?.calif}">Calificación</td>
+													<td>No Disponible</td>
 												</tr>
 											</tbody>
 										</table>

@@ -18,14 +18,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cocay.sicecd.model.Certificado;
 import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.repo.CertificadoRep;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 
 @Controller
 public class ConsultaProfesorController {
-
 	@Autowired
 	ProfesorRep profesorRep;
 	
@@ -186,6 +187,7 @@ public class ConsultaProfesorController {
 		String apellido_paterno = formatoCadena(p.getApellido_paterno(), 1);
 		String apellido_materno = formatoCadena(p.getApellido_materno(), 1);
 		
+		model.addAttribute("id_profesor", p.getPk_id_profesor());
 		model.addAttribute("nombre", nombre);
 		model.addAttribute("apellido_paterno", apellido_paterno);
 		model.addAttribute("apellido_materno", apellido_materno);
