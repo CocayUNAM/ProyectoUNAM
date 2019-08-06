@@ -259,19 +259,31 @@ public class CertificadoMasivoController {
 	}
 	
 	private void delete(String path) {
+		delete(path, "");
+	}
+	
+	private void delete(String path, String prefix) {
 		if(path==null || path.equals("")) {
 			return;
 		}
 		File f = new File(path);
 		if (f.isDirectory()) {
 			for (File c : f.listFiles())
-				delete(c.getAbsolutePath());
+				delete(c.getAbsolutePath(), prefix);
 		}
-		if (!f.delete()) {
-			LOGGER.error("Error deleting: "+f.getAbsolutePath());
-		}   
+		if (f.getAbsolutePath().endsWith(prefix)) {
+			if(!f.delete()) {
+				LOGGER.error("Error deleting: "+f.getAbsolutePath());
+			}
+		}
 	}
 
+	@Scheduled(cron = "0 57 13 * * ?")
+	public void deleteBach() throws Exception {
+		LOGGER.debug("Batch Clean:  PDF Temporary Files");
+		delete(RUTA_LOCAL, "_ax.pdf");
+	}
+	
 	/**
 	 * Metodo que obtiene certificados masivamente para traer nuevos archivos. 
 	 * @throws Exception
