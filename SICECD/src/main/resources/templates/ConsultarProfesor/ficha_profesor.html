@@ -138,7 +138,7 @@
 													<th>Fecha de Inicio</th>
 													<th>Fecha de Término</th>
 													<th>Calificación</th>
-													<th>Constancia</th>
+													<th>Certificado</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -149,8 +149,8 @@
 													<td data-th-text="${grupo?.clave}">Grupo</td>
 													<td data-th-text="${#dates.format(grupo?.fecha_inicio,'dd MMMM yyyy')}">Text ...</td>
 													<td data-th-text="${#dates.format(grupo?.fecha_fin,'dd MMMM yyyy')}">Text ...</td>
-													<td>-----</td>
-													<td>-----</td>
+													<td>----------</td>
+													<td>----------</td>
 												</tr>
 												<tr data-th-each="ins : ${ins}">
 													<td>Profesor</td>
@@ -160,7 +160,12 @@
 													<td data-th-text="${#dates.format(ins?.fk_id_grupo?.fecha_inicio,'dd MMMM yyyy')}">Text ...</td>
 													<td data-th-text="${#dates.format(ins?.fk_id_grupo?.fecha_fin,'dd MMMM yyyy')}">Text ...</td>
 													<td data-th-text="${ins?.calif}">Calificación</td>
-													<td>No Disponible</td>
+													<td th:if="${controller.existeCertificado(id_profesor, ins.fk_id_grupo.fk_id_curso.pk_id_curso, ins.fk_id_grupo.pk_id_grupo)}">
+                                                		<a th:href="@{/descargas(id=${controller.getCertificado(id_profesor, ins.fk_id_grupo.fk_id_curso.pk_id_curso, ins.fk_id_grupo.pk_id_grupo)}, tipo='certificadoqr')}" target="_blank" >Descargar</a>
+                                                	</td>
+                                                	<td th:unless="${controller.existeCertificado(id_profesor, ins.fk_id_grupo.fk_id_curso.pk_id_curso, ins.fk_id_grupo.pk_id_grupo)}">
+                                                		<a>Descargar</a>
+                                                	</td>
 												</tr>
 											</tbody>
 										</table>
@@ -204,7 +209,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 	<script src="/js/reports/export-pdf-button.js"></script>
 	<script th:inline="javascript">
-	$("#BtnExportExcel").click(function(e) {
+	$("#BtnExportExcel").click(function(e, tabla) {
 		/*<![CDATA[*/ var nombre = [[${nombre}]]; /*]]>*/
 		/*<![CDATA[*/ var appat = [[${apellido_paterno}]]; /*]]>*/
 		/*<![CDATA[*/ var apmat = [[${apellido_materno}]]; /*]]>*/
@@ -252,6 +257,13 @@
 		var date = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear()
 		var archivo = "Historial_"+nombre + "-" + appat +"_" + date + ".xls";
 		
+		var clone = $("#tabla_inscripciones").clone();
+		var trs = clone.find('tr');
+        $.each(trs, function(i, tr) {
+          $(tr).find('td:eq(7)').remove(); 
+        });
+        var htmlExport = clone.prop('outerHTML');
+		
 		var file = new Blob(
 				["\ufeff","<p>Historial - " + $('#nombre').html()+"</p>",
 					"<p>Grado de Estudios: "+escolaridad+"<br>",
@@ -265,7 +277,7 @@
 					"Plantel: "+plantel+"<br>",
 					"Clave: "+clave_plantel+"<br>",
 					"Turno: "+turno+"</p>",
-					$('#ins_profesor').html()],
+					htmlExport],
 				{type:"application/vnd.ms-excel"});
 		var url = URL.createObjectURL(file);
 		var a = $("<a />", {
@@ -325,7 +337,7 @@
 		var historial = [];
 		var rows = document.querySelectorAll("table tr");
 		
-		for (var i = 0; i < rows.length; i++){
+		for (var i = 0; i < rows.length-1; i++){
 			var row = [], cols = rows[i].querySelectorAll("td, th");
 			
 			for (var j = 0; j < cols.length; j++) {

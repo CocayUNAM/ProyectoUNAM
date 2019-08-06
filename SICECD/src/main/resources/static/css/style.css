@@ -2714,9 +2714,6 @@ tbody tr td {
   font-family: 'Roboto', sans-serif;
   color: #868e96;
 }
-tbody tr td:last-child {
-  text-align: right;
-}
 .table > tbody > tr > td,
 .table > tbody > tr > th,
 .table > tfoot > tr > td,

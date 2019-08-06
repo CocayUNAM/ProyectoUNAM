@@ -27,11 +27,18 @@ import com.cocay.sicecd.repo.ProfesorRep;
 
 @Controller
 public class ConsultaProfesorController {
+	
+	@Autowired
+	ConsultaProfesorController controller;
+	
 	@Autowired
 	ProfesorRep profesorRep;
 	
 	@Autowired
 	GrupoRep grupoRep;
+	
+	@Autowired
+	CertificadoRep certRep;
 	
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
@@ -242,6 +249,7 @@ public class ConsultaProfesorController {
 		
 		model.put("grupo", grupos);
 		model.put("ins", p.getInscripciones());
+		model.put("controller", controller);
 		return new ModelAndView("/ConsultarProfesor/ficha_profesor");
 	}
 	
@@ -265,5 +273,21 @@ public class ConsultaProfesorController {
 		}
 		
 		return oracion;
+	}
+	
+	public int getCertificado (Integer id_profesor, Integer id_curso, Integer id_grupo) {
+		Certificado certificado = certRep.findCertificado(id_profesor, id_curso, id_grupo);
+		return certificado.getPk_id_certificado();
+	}
+	
+	public boolean existeCertificado (Integer id_profesor, Integer id_curso, Integer id_grupo) {
+		boolean res = false;
+		Certificado certificado = certRep.findCertificado(id_profesor, id_curso, id_grupo);
+		
+		if (certificado != null) {
+			res = true;
+		}
+		
+		return res;
 	}
 }

@@ -31,6 +31,7 @@ import com.cocay.sicecd.repo.ProfesorRep;
 
 @Controller
 public class ConsultaInscripcionController {
+	
 	@Autowired
 	ConsultaInscripcionController controller;
 	
