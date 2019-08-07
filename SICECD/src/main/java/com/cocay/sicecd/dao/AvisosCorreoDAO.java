@@ -1,5 +1,6 @@
 package com.cocay.sicecd.dao;
 
+import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,7 @@ public class AvisosCorreoDAO {
 					String subject=p.getCdAsunto();
 					String body = p.getCdMensaje();
 				    emailSender.sendMailSender(from, to, subject, body);
+				    System.out.println(Thread.currentThread().getName());
 				}
             }
         });

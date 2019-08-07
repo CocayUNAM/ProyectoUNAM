@@ -118,8 +118,8 @@ public class BatchController {
             		.addLong("time", System.currentTimeMillis())
                     .addString("fullPathFileName", fileToImport.getAbsolutePath())
                     .toJobParameters()); 
-
-
+            
+            fileToImport.delete();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -150,7 +150,7 @@ public class BatchController {
                     .addString("fullPathFileName", fileToImport.getAbsolutePath())
                     .toJobParameters()); 
 
-
+            fileToImport.delete();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -180,7 +180,7 @@ public class BatchController {
                     .addString("fullPathFileName", fileToImport.getAbsolutePath())
                     .toJobParameters()); 
 
-
+            fileToImport.delete();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -210,7 +210,7 @@ public class BatchController {
                     .addString("fullPathFileName", fileToImport.getAbsolutePath())
                     .toJobParameters()); 
 
-
+            fileToImport.delete();
         } catch (IOException e) {
             e.printStackTrace();
         }

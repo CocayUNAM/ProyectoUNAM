@@ -36,10 +36,10 @@ public class Grupo {
 	Date fecha_fin;
 
 	@Column(name = "tempCurso", nullable = true)
-	private Integer tempCurso;
+	private String tempCurso;
 	
 	@Column(name = "tempProfesor", nullable = true)
-	private Integer tempProfesor;
+	private String tempProfesor;
 	
 	@Column(name = "stTabla", nullable = true)
 	Integer stTabla;
@@ -136,22 +136,6 @@ public class Grupo {
 		this.fk_id_profesor = fk_id_profesor;
 	}
 
-	public Integer getTempCurso() {
-		return tempCurso;
-	}
-
-	public void setTempCurso(Integer tempCurso) {
-		this.tempCurso = tempCurso;
-	}
-
-	public Integer getTempProfesor() {
-		return tempProfesor;
-	}
-
-	public void setTempProfesor(Integer tempProfesor) {
-		this.tempProfesor = tempProfesor;
-	}
-
 	public Integer getStTabla() {
 		return stTabla;
 	}
@@ -159,4 +143,22 @@ public class Grupo {
 	public void setStTabla(Integer stTabla) {
 		this.stTabla = stTabla;
 	}
+
+	public String getTempCurso() {
+		return tempCurso;
+	}
+
+	public void setTempCurso(String tempCurso) {
+		this.tempCurso = tempCurso;
+	}
+
+	public String getTempProfesor() {
+		return tempProfesor;
+	}
+
+	public void setTempProfesor(String tempProfesor) {
+		this.tempProfesor = tempProfesor;
+	}
+	
+	
 }

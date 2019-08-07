@@ -73,7 +73,7 @@ public class BatchConfig  {
         reader.setLinesToSkip(1);
         reader.setLineMapper(new DefaultLineMapper<Curso>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-            	setNames(new String[] {"clave", "nombre", "temp", "horas"});
+            	setNames(new String[] {"clave", "nombre", "temp", "horas", "tempGrupo"});
             }});
             setFieldSetMapper(new BeanWrapperFieldSetMapper<Curso>() {{
                 setTargetType(Curso.class);
@@ -153,8 +153,8 @@ public class BatchConfig  {
 	public Step stepGrupo(ItemReader<Grupo> importReader) {
 		return stepBuilderFactory.get("stepGrupo").<Grupo, Grupo>chunk(2)
 				.reader(importReader)
-				.faultTolerant()
-				.skipPolicy(fileVerificationSkipper())
+//				.faultTolerant()
+//				.skipPolicy(fileVerificationSkipper())
 				.processor(new ProcessorGrupo()).writer(new WriterGrupo(grupoRep)).build();
 	}
 	

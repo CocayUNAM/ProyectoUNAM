@@ -47,6 +47,9 @@ public class Curso {
 	@Column(name = "temp", nullable = true)
 	public Integer temp;
 	
+	@Column(name = "tempGrupo", nullable = true)
+	public Integer tempGrupo;
+	
 	@Column(name = "stTabla", nullable = true)
 	Integer stTabla;
 
@@ -165,5 +168,22 @@ public class Curso {
 	public void setStTabla(Integer stTabla) {
 		this.stTabla = stTabla;
 	}
+
+	public Integer getTempGrupo() {
+		return tempGrupo;
+	}
+
+	public void setTempGrupo(Integer tempGrupo) {
+		this.tempGrupo = tempGrupo;
+	}
+
+	public Grupo getFk_id_grupo() {
+		return fk_id_grupo;
+	}
+
+	public void setFk_id_grupo(Grupo fk_id_grupo) {
+		this.fk_id_grupo = fk_id_grupo;
+	}
+	
 	
 }

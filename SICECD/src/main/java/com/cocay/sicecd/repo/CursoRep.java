@@ -59,5 +59,6 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	
 	@Query("SELECT c FROM Curso c WHERE upper(c.clave) = :clave")
 	Curso findByUniqueClave(@Param("clave") String clave);
+	
 
 }
