@@ -213,6 +213,7 @@ public class ConsultaProfesorController {
 		}
 		
 		String plantel = formatoCadena(p.getPlantel(), 1);
+		System.out.println("Plantel: " + plantel);
 		model.addAttribute("planel", plantel);
 		model.addAttribute("clave_plantel", formatoCadena(p.getClave_plantel(), 1));
 		
@@ -260,6 +261,10 @@ public class ConsultaProfesorController {
 			return oracion;
 		}
 		
+		if (cadena.length() < 2) {
+			return cadena;
+		}
+		
 		switch (tipo) {
 			case 1:
 				oracion = cadena.substring(0,1).toUpperCase() + cadena.substring(1).toLowerCase();
@@ -286,6 +291,28 @@ public class ConsultaProfesorController {
 		
 		if (certificado != null) {
 			res = true;
+		}
+		
+		return res;
+	}
+	
+	public boolean existeDocumento(Integer id_profesor, Integer tipo) {
+		boolean res = false;
+		Profesor profesor = profesorRep.findByID(id_profesor);
+		
+		switch (tipo) {
+		case 1:
+			if (profesor.getCurp_doc() != null)
+				res = true;
+			break;
+		case 2:
+			if (profesor.getRfc_doc() != null)
+				res = true;
+			break;
+		case 3:
+			if (profesor.getComprobante_doc() != null)
+				res = true;
+			break;
 		}
 		
 		return res;

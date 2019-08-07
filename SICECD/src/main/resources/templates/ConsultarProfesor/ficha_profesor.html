@@ -56,15 +56,26 @@
 										</a>
 									</div>
 									<div class="dt-buttons col-sm-8">
-										<a id="BtnDownloadCURP" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='curp')}" target="_blank">
-											<span>CURP</span>
-										</a>
+										<div th:if="${controller.existeDocumento(id_profesor, 1)}">
+											<a class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='curp')}" target="_blank">
+											CURP
+											</a>
+										</div>
+										<div th:unless="${controller.existeDocumento(id_profesor, 1)}">
+											<a class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export">
+											CURP
+											</a>
+										</div>
+										<div>
 										<a id="BtnDownloadRFC" class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='rfc')}" target="_blank">
-											<span>RFC</span>
+											RFC
 										</a>
+										</div>
+										<div>
 										<a id="BtnDownloadCompDoc" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='comprobante')}" target="_blank">
-											<span>Comprobante de Domicilio</span>
+											Comprobante de Domicilio
 										</a>
+										</div>
 									</div>
 								</div>
 							</div>
