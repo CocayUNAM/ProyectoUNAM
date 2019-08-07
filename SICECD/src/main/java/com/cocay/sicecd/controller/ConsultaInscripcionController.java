@@ -356,11 +356,26 @@ public class ConsultaInscripcionController {
                 .replaceAll("[^\\p{ASCII}]" , "");
     }
 	
+	/**
+	 * Obtiene el id de un certificado de un profesor que haya aprobado un curso.
+	 * @param id_profesor
+	 * @param id_curso
+	 * @param id_grupo
+	 * @return el id del certificado.
+	 */
 	public int getCertificado (Integer id_profesor, Integer id_curso, Integer id_grupo) {
 		Certificado certificado = certRep.findCertificado(id_profesor, id_curso, id_grupo);
 		return certificado.getPk_id_certificado();
 	}
 	
+	/**
+	 * Buscara si existe un certificado de un profesor que haya aprobado un curso
+	 * @param id_profesor
+	 * @param id_curso
+	 * @param id_grupo
+	 * @return true si el certificado existe.
+	 * 			false en otro caso.
+	 */
 	public boolean existeCertificado (Integer id_profesor, Integer id_curso, Integer id_grupo) {
 		boolean res = false;
 		Certificado certificado = certRep.findCertificado(id_profesor, id_curso, id_grupo);
@@ -370,5 +385,29 @@ public class ConsultaInscripcionController {
 		}
 		
 		return res;
+	}
+	
+	/**
+	 * Le aplica un formato al nombre de un profesor para que cada letra
+	 * inicial de su nombre y apellidos sea mayúscula y el resto minúsculas 
+	 * @param cadena
+	 * @return
+	 */
+	public String formatoNombre (String profesor) {
+		String nombre = "";
+		
+		if (profesor == null) {
+			return nombre;
+		}
+		
+		String[] cadenas = profesor.split(" ");
+		
+		for(int i = 0; i < cadenas.length-1; i++) {
+			nombre+= cadenas[i].substring(0,1).toUpperCase() + cadenas[i].substring(1).toLowerCase() + " ";
+		}
+				
+		nombre+= cadenas[cadenas.length-1].substring(0,1).toUpperCase() + cadenas[cadenas.length-1].substring(1).toLowerCase();
+		
+		return nombre;
 	}
 }

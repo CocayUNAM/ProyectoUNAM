@@ -1,10 +1,11 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>SICCED - Profesores</title>
+    <title>SICECD - Profesores</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -19,7 +20,6 @@
     <link href="/css/lib/helper.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
 </head>
-
 <body>
 <div th:replace="/includes/head.html :: head_div1" />
 <div th:replace="/includes/head.html :: head_div2" />
@@ -49,13 +49,13 @@
                                             </thead>
                                             <tbody>
                                                 <tr data-th-each="profesor : ${profesores}">
-                                                	<td class="prof_option">
-                                                		<a th:text="${#strings.concat(#strings.capitalize(#strings.toLowerCase(profesor?.nombre)), ' ', #strings.capitalize(#strings.toLowerCase(profesor?.apellido_paterno)), ' ', #strings.capitalize(#strings.toLowerCase(profesor?.apellido_materno)))}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Nombre</a>
+                                                	<td>
+                                                		<a th:text="${controller.formatoCadena(#strings.concat(profesor?.nombre, ' ', profesor?.apellido_paterno, ' ', profesor?.apellido_materno), 1)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Nombre</a>
                                                 	</td>
-                                                	<td class="prof_option">
+                                                	<td>
                                                 		<a th:text="${#strings.toLowerCase(profesor?.correo)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Correo</a>
                                                 	</td>
-                                                	<td class="prof_option">
+                                                	<td>
                                                 		<a th:text="${#strings.toUpperCase(profesor?.rfc)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">RFC</a>
                                                 	</td>
                                                 	<td>
@@ -70,7 +70,6 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        
                                     </div>
                                 </div>
                             </div>

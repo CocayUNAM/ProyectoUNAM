@@ -156,6 +156,7 @@ public class ConsultaProfesorController {
 		
 			if(!list_p2.isEmpty() || list_p2.size() > 0) {
 				model.put("profesores", list_p2);
+				model.put("controller", controller);
 				return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
 			} else {
 				model.addAttribute("mensaje", "Tu búsqueda no arrojo ningún resultado");
@@ -213,7 +214,6 @@ public class ConsultaProfesorController {
 		}
 		
 		String plantel = formatoCadena(p.getPlantel(), 1);
-		System.out.println("Plantel: " + plantel);
 		model.addAttribute("planel", plantel);
 		model.addAttribute("clave_plantel", formatoCadena(p.getClave_plantel(), 1));
 		
@@ -267,7 +267,12 @@ public class ConsultaProfesorController {
 		
 		switch (tipo) {
 			case 1:
-				oracion = cadena.substring(0,1).toUpperCase() + cadena.substring(1).toLowerCase();
+				String[] cadenas = cadena.split(" ");
+				for(int i = 0; i < cadenas.length-1; i++) {
+					oracion+= cadenas[i].substring(0,1).toUpperCase() + cadenas[i].substring(1).toLowerCase() + " ";
+				}
+				
+				oracion+= cadenas[cadenas.length-1].substring(0,1).toUpperCase() + cadenas[cadenas.length-1].substring(1).toLowerCase();
 				break;
 			case 2:
 				oracion = cadena.toUpperCase();
@@ -280,11 +285,26 @@ public class ConsultaProfesorController {
 		return oracion;
 	}
 	
+	/**
+	 * Obtiene el id de un certificado de un profesor que haya aprobado un curso.
+	 * @param id_profesor
+	 * @param id_curso
+	 * @param id_grupo
+	 * @return el id del certificado.
+	 */
 	public int getCertificado (Integer id_profesor, Integer id_curso, Integer id_grupo) {
 		Certificado certificado = certRep.findCertificado(id_profesor, id_curso, id_grupo);
 		return certificado.getPk_id_certificado();
 	}
 	
+	/**
+	 * Buscara si existe un certificado de un profesor que haya aprobado un curso
+	 * @param id_profesor
+	 * @param id_curso
+	 * @param id_grupo
+	 * @return true si el certificado existe.
+	 * 			false en otro caso.
+	 */
 	public boolean existeCertificado (Integer id_profesor, Integer id_curso, Integer id_grupo) {
 		boolean res = false;
 		Certificado certificado = certRep.findCertificado(id_profesor, id_curso, id_grupo);
@@ -296,6 +316,14 @@ public class ConsultaProfesorController {
 		return res;
 	}
 	
+	/**
+	 * Buscara un documento de un profesor en la base de datos.
+	 * El documento que buscara será: CURP, RFC o Comprobante de Domicilio.
+	 * @param id_profesor el profesor del cual se buscará el documento.
+	 * @param tipo el documento que se está buscando.
+	 * @return true si el documento existe.
+	 * 			false en otro caso.
+	 */
 	public boolean existeDocumento(Integer id_profesor, Integer tipo) {
 		boolean res = false;
 		Profesor profesor = profesorRep.findByID(id_profesor);

@@ -29,6 +29,8 @@ public class ConsultaGrupoController {
 	GrupoRep grupo;
 	@Autowired
 	CursoRep curso;
+	@Autowired
+	ConsultaGrupoController controller;
 	
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	
@@ -85,6 +87,7 @@ public class ConsultaGrupoController {
 		
 			if(!grupos_2.isEmpty() || grupos_2.size() > 0) {
 				model.put("grupos", grupos_2);
+				model.put("controller", controller);
 				return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
 			} else {
 				model.addAttribute("mensaje", "Tu búsqueda no arrojo ningún resultado");
@@ -159,6 +162,7 @@ public class ConsultaGrupoController {
 		
 			if(!grupos_2.isEmpty() || grupos_2.size() > 0) {
 				model.put("grupos", grupos_2);
+				model.put("controller", controller);
 				return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
 			} else {
 				model.addAttribute("mensaje", "Tu búsqueda no arrojo ningún resultado");
@@ -180,4 +184,28 @@ public class ConsultaGrupoController {
                 .normalize(src , Normalizer.Form.NFD)
                 .replaceAll("[^\\p{ASCII}]" , "");
     }
+	
+	/**
+	 * Le aplica un formato al nombre de un profesor para que cada letra
+	 * inicial de su nombre y apellidos sea mayúscula y el resto minúsculas 
+	 * @param cadena
+	 * @return
+	 */
+	public String formatoNombre (String profesor) {
+		String nombre = "";
+		
+		if (profesor == null) {
+			return nombre;
+		}
+		
+		String[] cadenas = profesor.split(" ");
+		
+		for(int i = 0; i < cadenas.length-1; i++) {
+			nombre+= cadenas[i].substring(0,1).toUpperCase() + cadenas[i].substring(1).toLowerCase() + " ";
+		}
+				
+		nombre+= cadenas[cadenas.length-1].substring(0,1).toUpperCase() + cadenas[cadenas.length-1].substring(1).toLowerCase();
+		
+		return nombre;
+	}
 }
