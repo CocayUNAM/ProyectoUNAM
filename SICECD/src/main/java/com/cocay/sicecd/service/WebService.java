@@ -18,11 +18,13 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.model.Url_ws_curso;
 import com.cocay.sicecd.model.Url_ws_inscripcion;
 import com.cocay.sicecd.model.Url_ws_profesor;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.repo.Url_ws_cursoRep;
 import com.cocay.sicecd.repo.Url_ws_inscripcionRep;
 import com.cocay.sicecd.repo.Url_ws_profesorRep;
 
@@ -46,6 +48,8 @@ public class WebService {
 	InscripcionRep inscripcionRep;
 	@Autowired
 	Url_ws_profesorRep urls;
+	@Autowired
+	Url_ws_cursoRep urls_curso;
 	@Autowired
 	Url_ws_inscripcionRep urls_inscripcion;
 	@Autowired
@@ -79,8 +83,8 @@ public class WebService {
 	 * inmediatamente. Si la segunda tarea aún se está ejecutando, la llamada
 	 * bloquea el subproceso actual hasta que se calcula el valor.
 	 */
-	@Scheduled(cron = "30 * * * * *")
-	public void run() {
+	//@Scheduled(cron = "30 * * * * *")
+	/*public void run() {
 		ExecutorService executor = Executors.newFixedThreadPool(3);
 
 		// Tenemos listas las tareas()
@@ -116,7 +120,7 @@ public class WebService {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	public void get_Profesores() {
 
 		LinkedList<Url_ws_profesor> links = new LinkedList<>(urls.findVarios());
@@ -131,6 +135,27 @@ public class WebService {
 			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
 			System.out.println(json);
 			insert_update_Profesor(json);
+			// log.setTrace(LogTypes.ACTUALIZAR_PROFESOR,"Se agrego un profesor");
+			// log.setTrace(LogTypes.AGREGAR_PROFESOR,"Se actualizo un profesor");
+
+		}
+
+	}
+	@Scheduled(cron = "30 * * * * *")
+	public void get_Curso() {
+
+		LinkedList<Url_ws_curso> links = new LinkedList<>(urls_curso.findVarios());
+
+		if (links.size() == 0) {
+			LOGGER.debug("No hay urls para el proceso obtener Cursos");
+			return;
+		}
+
+		for (Url_ws_curso url : links) {
+			System.out.println("Se conecto" + url.getUrl());
+			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
+			System.out.println(json);
+			insert_Course(json);
 			// log.setTrace(LogTypes.ACTUALIZAR_PROFESOR,"Se agrego un profesor");
 			// log.setTrace(LogTypes.AGREGAR_PROFESOR,"Se actualizo un profesor");
 
@@ -154,10 +179,27 @@ public class WebService {
 			// log.setTrace(LogTypes.AGREGAR_PROFESOR);
 		}
 	}
+	
+	
+	
+	public void insert_Course(String jSonResultString) {
+		JSONArray arr = new JSONArray(jSonResultString);
+		for (int i = 0; i< arr.length(); i++) {
+			JSONObject jsonProductObject = arr.getJSONObject(i);
+			String nombre_curso = jsonProductObject.getString("shortname");
+			String id_grupo = jsonProductObject.getString("idnumber");
+			String[]claves=separaNombreCurso(id_grupo);
+			String clave_curso = claves[0]; 
+			String clave_grupo = claves[1]; 
+			System.out.println(clave_curso);
+			System.out.println(clave_grupo);
+
+		}
+	}
 
 	public void insert_Grade(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
-		for (int i = 0; 0 < 2; i++) {
+		for (int i = 0; 0 < arr.length(); i++) {
 			JSONObject jsonProductObject = arr.getJSONObject(i);
 			String calificacion = jsonProductObject.getString("grade");
 			String nombre_curso = jsonProductObject.getString("shortname");
@@ -273,6 +315,13 @@ public class WebService {
 		return apellidos;
 	}
 
+
+	private static String[] separaNombreCurso(String s) {
+		String[] parts = s.split("_");
+		return parts;
+	}
+	
+	
 	/*
 	 * Método privado para la clase WebService Cuenta los espacios
 	 * 
