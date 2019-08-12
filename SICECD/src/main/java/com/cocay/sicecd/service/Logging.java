@@ -26,7 +26,7 @@ public class Logging {
 	Log_sysRep logr;
 	@Autowired
 	Log_evento_sysRep evento;
-	@Value("{host}")
+	@Value("${host}")
 	String host;
 	
 	
@@ -34,31 +34,29 @@ public class Logging {
 	public void logtrace(String action, String comentario){
 		
 		Log_sys log=new Log_sys();
+		try {
+			request.getUserPrincipal();
+		}catch(Exception ex) {
+			request=null;
+		}
 		if (request!=null) {
 			Principal principal = request.getUserPrincipal();
-			log.setHora(new Date());
 			log.setIp(request.getRemoteAddr());
 			if (principal==null) {
 				log.setFk_id_usuario_sys(usuario.findById(1).get());
 			}else {			
 				log.setFk_id_usuario_sys(usuario.findByRfc(principal.getName()).get(0));
-			}
-			log.setFk_id_log_evento_sys(evento.findById(action).get());
-
-			if (comentario!=null){
-				log.setComentario(comentario);
-			}
-			
+			}			
 		}else {
-			log.setHora(new Date());
 			log.setIp(host);
 			log.setFk_id_usuario_sys(usuario.findById(1).get());
 		}
+		log.setHora(new Date());
+		log.setFk_id_log_evento_sys(evento.findById(action).get());
+		if (comentario!=null){
+			log.setComentario(comentario);
+		}
 		logr.save(log);
-		
-
-
-
 	}
 
 	

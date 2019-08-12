@@ -288,12 +288,13 @@ public class CertificadoMasivoController {
 	 * Metodo que obtiene certificados masivamente para traer nuevos archivos. 
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 55 13 * * ?")
+	@Scheduled(cron = "0 58 15 * * ?")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		LinkedList<Url_ws> links = new LinkedList<>(urls.findVarios());
 		if (links.size() == 0) {
 			LOGGER.debug("No hay urls!");
-			throw new Exception("No hay urls!");
+			//throw new Exception("No hay urls!");
+			return;
 		}
 		JSONObject json = new JSONObject();
 		LinkedList<Profesor> profesores = new LinkedList<>(bd_profesor.findAll());
