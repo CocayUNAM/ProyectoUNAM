@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -37,6 +38,7 @@ import com.cocay.sicecd.dto.InscripcionDto;
 import com.cocay.sicecd.dto.ProfesorDto;
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Estado;
+import com.cocay.sicecd.model.Genero;
 import com.cocay.sicecd.model.Grado_profesor;
 import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Inscripcion;
@@ -44,6 +46,7 @@ import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Turno;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.EstadoRep;
+import com.cocay.sicecd.repo.GeneroRep;
 import com.cocay.sicecd.repo.Grado_profesorRep;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
@@ -69,6 +72,9 @@ public class ModificarUsuarios {
 	CursoRep crRep;
 	
 	@Autowired
+	GeneroRep genRep;
+	
+	@Autowired
 	EstadoRep stRep;
 	
 	@Autowired
@@ -91,6 +97,35 @@ public class ModificarUsuarios {
 		List<Profesor> list_p1 = proRep.findAll();
 		
 		//Se filtran a los participantes de los asesores
+		for(Profesor p : list_p1) {
+			if(p.getFk_id_estado() == null) {
+				Optional<Estado> estado = stRep.findById(34);
+				Estado defa = estado.get(); 
+				p.setFk_id_estado(defa);
+				proRep.save(p);
+			}
+			
+			if(p.getFk_id_grado_profesor() == null) {
+				Optional<Grado_profesor> gd = gpRep.findById(5);
+				Grado_profesor gdp = gd.get(); 
+				p.setFk_id_grado_profesor(gdp);
+				proRep.save(p);
+			}
+			
+			if(p.getFk_id_turno() == null) {
+				Optional<Turno> tr = tnRep.findById(4);
+				Turno tur = tr.get(); 
+				p.setFk_id_turno(tur);
+				proRep.save(p);
+			}
+			
+			if(p.getGenero() == null) {
+				Optional<Genero> g = genRep.findById(3);
+				Genero gen = g.get(); 
+				p.setGenero(gen);
+				proRep.save(p);
+			}
+		}
 		list_p1 = list_p1.stream().filter(x -> x.getFk_id_estado().getPk_id_estado() != 33).collect(Collectors.toList());
 		
 		if(!list_p1.isEmpty()) {
@@ -890,8 +925,39 @@ public class ModificarUsuarios {
 	public ModelAndView consultarAsesores(ModelMap model) {
 		List<Profesor> list_p1 = proRep.findAll();
 		
+		//Se filtran a los participantes de los asesores
+		for(Profesor p : list_p1) {
+			if(p.getFk_id_estado() == null) {
+				Optional<Estado> estado = stRep.findById(34);
+				Estado defa = estado.get(); 
+				p.setFk_id_estado(defa);
+				proRep.save(p);
+			}
+			if(p.getFk_id_grado_profesor() == null) {
+				Optional<Grado_profesor> gd = gpRep.findById(5);
+				Grado_profesor gdp = gd.get(); 
+				p.setFk_id_grado_profesor(gdp);
+				proRep.save(p);
+			}
+			
+			if(p.getFk_id_turno() == null) {
+				Optional<Turno> tr = tnRep.findById(4);
+				Turno tur = tr.get(); 
+				p.setFk_id_turno(tur);
+				proRep.save(p);
+			}
+			
+			if(p.getGenero() == null) {
+				Optional<Genero> g = genRep.findById(3);
+				Genero gen = g.get(); 
+				p.setGenero(gen);
+				proRep.save(p);
+			}
+		}
+		
 		//Se filtran todos los profesores que no tengan fecha de nacimiento
 		list_p1 = list_p1.stream().filter(x -> x.getFk_id_estado().getPk_id_estado() == 33).collect(Collectors.toList());
+		
 		
 		if(!list_p1.isEmpty()) {
 			model.put("asesores", list_p1);
