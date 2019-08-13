@@ -362,4 +362,7 @@ public class Profesor {
 		this.stTabla = stTabla;
 	}
 	
+	public String toString() {
+		return "Nombre:"+nombre+", Apellido Paterno:"+apellido_paterno+", Apellido Materno:"+apellido_materno+", RFC: "+rfc;
+	}
 }

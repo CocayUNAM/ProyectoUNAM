@@ -1,5 +1,6 @@
 package com.cocay.sicecd.config;
 
+import org.hibernate.exception.DataException;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -18,6 +19,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.retry.ExhaustedRetryException;
 
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
@@ -186,6 +189,10 @@ public class BatchConfig  {
 		return stepBuilderFactory.get("stepProfesor").<Profesor, Profesor>chunk(2)
 				.reader(importReader)
 				.faultTolerant()
+				.skip(ExhaustedRetryException.class)
+				.skip(DataIntegrityViolationException.class)
+				.skip(DataException.class)
+				.skipLimit(100000)
 				.skipPolicy(fileVerificationSkipper())
 				.processor(new ProcessorProfesor()).writer(new WriterProfesor(profesorRep)).build();
 	}

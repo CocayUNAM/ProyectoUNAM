@@ -37,6 +37,8 @@ public class ProcessorProfesor implements ItemProcessor<Profesor, Profesor> {
         profesor.setGenero(genero);
         profesor.setStTabla(1);
         
+        System.out.println(profesor.toString());
+        
         System.out.println("Objeto convertido a profesor ");
         
         return profesor;
