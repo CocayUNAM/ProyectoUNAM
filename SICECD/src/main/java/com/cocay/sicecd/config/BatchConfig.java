@@ -96,6 +96,10 @@ public class BatchConfig  {
 		return stepBuilderFactory.get("step1").<Curso, Curso>chunk(2)
 				.reader(importReader)
 				.faultTolerant()
+				.skip(ExhaustedRetryException.class)
+				.skip(DataIntegrityViolationException.class)
+				.skip(DataException.class)
+				.skipLimit(100000)
 				.skipPolicy(fileVerificationSkipper())
 				.processor(new ProcessorCurso()).writer(new WriterCurso(cursoRep)).build();
 	}
@@ -156,8 +160,12 @@ public class BatchConfig  {
 	public Step stepGrupo(ItemReader<Grupo> importReader) {
 		return stepBuilderFactory.get("stepGrupo").<Grupo, Grupo>chunk(2)
 				.reader(importReader)
-//				.faultTolerant()
-//				.skipPolicy(fileVerificationSkipper())
+				.faultTolerant()
+				.skip(ExhaustedRetryException.class)
+				.skip(DataIntegrityViolationException.class)
+				.skip(DataException.class)
+				.skipLimit(100000)
+				.skipPolicy(fileVerificationSkipper())
 				.processor(new ProcessorGrupo()).writer(new WriterGrupo(grupoRep)).build();
 	}
 	
@@ -225,6 +233,10 @@ public class BatchConfig  {
 		return stepBuilderFactory.get("stepInscripcion").<Inscripcion, Inscripcion>chunk(2)
 				.reader(importReader)
 				.faultTolerant()
+				.skip(ExhaustedRetryException.class)
+				.skip(DataIntegrityViolationException.class)
+				.skip(DataException.class)
+				.skipLimit(100000)
 				.skipPolicy(fileVerificationSkipper())
 				.processor(new ProcessorInscripcion()).writer(new WriterInscripcion(inscripcionRep)).build();
 	}
