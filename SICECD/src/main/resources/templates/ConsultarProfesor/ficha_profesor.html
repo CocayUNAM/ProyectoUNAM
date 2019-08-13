@@ -75,7 +75,7 @@
 										</td>
 										<!-- Botón Descargar RFC -->
 										<td th:if="${controller.existeDocumento(id_profesor, 2)}">
-											<a id="BtnDownloadRFC" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='curp')}" target="_blank">
+											<a id="BtnDownloadRFC" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='rfc')}" target="_blank">
 												RFC
 											</a>
 										</td>
@@ -86,7 +86,7 @@
 										</td>
 										<!-- Botón Descargar Comprobante de Domicilio -->
 										<td th:if="${controller.existeDocumento(id_profesor, 3)}">
-											<a id="BtnDownloadCompDoc" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='curp')}" target="_blank">
+											<a id="BtnDownloadCompDoc" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='comprobante')}" target="_blank">
 												Comprobante de Domicilio
 											</a>
 										</td>
