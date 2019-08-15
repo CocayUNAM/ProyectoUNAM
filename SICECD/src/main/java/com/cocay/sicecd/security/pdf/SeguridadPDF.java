@@ -69,7 +69,7 @@ public class SeguridadPDF {
     	pdfDoc.setFlushUnusedObjects(true);
     	//*/
     	pdfDoc.close();
-    	fileOS.flush();
+    	//fileOS.flush();
     	writer.close();
     	fileOS.close();
     	reader.close();
