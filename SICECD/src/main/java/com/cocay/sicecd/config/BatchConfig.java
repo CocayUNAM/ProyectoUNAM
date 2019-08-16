@@ -104,35 +104,6 @@ public class BatchConfig  {
 				.processor(new ProcessorCurso()).writer(new WriterCurso(cursoRep)).build();
 	}
 	
-//	@Bean
-//	public Job jobCurso() {
-//		return jobBuilderFactory.get("jobCurso").incrementer(new RunIdIncrementer())
-//				.flow(step1()).end().build();
-//	}
-//
-//	@Bean
-//	public Step step1() {
-//		return stepBuilderFactory.get("step1").<Curso, Curso>chunk(2)
-//				.reader(ReaderCurso.reader("curso-data.csv"))
-//				.faultTolerant()
-//				.skipPolicy(fileVerificationSkipper())
-//				.processor(new ProcessorCurso()).writer(new WriterCurso(cursoRep)).build();
-//	}
-//	
-//	@Bean
-//	public Job jobGrupo() {
-//		return jobBuilderFactory.get("jobGrupo").incrementer(new RunIdIncrementer())
-//				.flow(stepGrupo()).end().build();
-//	}
-//
-//	@Bean
-//	public Step stepGrupo() {
-//		return stepBuilderFactory.get("stepGrupo").<Grupo, Grupo>chunk(2)
-//				.reader(ReaderGrupo.reader("grupo-data.csv"))
-//				.processor(new ProcessorGrupo()).writer(new WriterGrupo(grupoRep)).build();
-//	}
-	
-	
     @Bean
     @StepScope
     public FlatFileItemReader<Grupo> importReaderGrupo(@Value("#{jobParameters[fullPathFileName]}") String pathToFile) {

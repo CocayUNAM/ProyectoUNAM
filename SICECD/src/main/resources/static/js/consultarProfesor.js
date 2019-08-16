@@ -1,3 +1,8 @@
+var url_local = window.location.href;
+var arr = url_local.split("/");
+var fin = arr[0]+"//"+arr[2];
+
+
 var conteo = "999999";
 $(document).ready(function(){
 	llenarTabla();
@@ -17,7 +22,7 @@ function llenarTabla(){
 		checkboxHeader: false,
 //		data: [],
 		sidePagination: 'server',
-		url: "http://localhost:8080/rest/CargaBatchService/lstProfesores",
+		url: fin+"/rest/CargaBatchService/lstProfesores",
 		queryParams: 'queryParams',
 		responseHandler : "responseHandler",	
 		formatShowingRows: function (pageFrom, pageTo, totalRows) {
@@ -68,7 +73,7 @@ function llenarTablaErrores(){
 		checkboxHeader: false,
 //		data: [],
 		sidePagination: 'server',
-		url: "http://localhost:8080/rest/CargaBatchService/lstErrores",
+		url: fin+"/rest/CargaBatchService/lstErrores",
 		queryParams: 'queryParams',
 		responseHandler : "responseHandler",	
 		formatShowingRows: function (pageFrom, pageTo, totalRows) {
@@ -91,7 +96,7 @@ function llenarTablaErrores(){
 
 function limpiarErrores(){
 	return $.ajax({
-		url: "http://localhost:8080/rest/CargaBatchService/lstLimpiar",
+		url: fin+"/rest/CargaBatchService/lstLimpiar",
 		type : 'POST',
 		contentType: 'application/json',
 		dataType: 'JSON',
@@ -108,7 +113,7 @@ function btnLimpiar(){
 
 function limpiarTabla(Profesor){
 	return $.ajax({
-		url: "http://localhost:8080/rest/CargaBatchService/limpiarTabla/"+Profesor,
+		url: fin+"/rest/CargaBatchService/limpiarTabla/"+Profesor,
 		type : 'GET',
 		async: false
 	});

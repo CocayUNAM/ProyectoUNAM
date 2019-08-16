@@ -1,3 +1,7 @@
+var url_local = window.location.href;
+var arr = url_local.split("/");
+var fin = arr[0]+"//"+arr[2];
+
 $(document).ready(function(){
 	llenarTablaInscripcion();
 	llenarTablaErrores();
@@ -16,7 +20,7 @@ function llenarTablaInscripcion(){
 		checkboxHeader: false,
 //		data: [],
 		sidePagination: 'server',
-		url: "http://localhost:8080/rest/CargaBatchService/lstInscripciones",
+		url: fin+"/rest/CargaBatchService/lstInscripciones",
 		queryParams: 'queryParams',
 		responseHandler : "responseHandler",	
 		formatShowingRows: function (pageFrom, pageTo, totalRows) {
@@ -67,7 +71,7 @@ function llenarTablaErrores(){
 		checkboxHeader: false,
 //		data: [],
 		sidePagination: 'server',
-		url: "http://localhost:8080/rest/CargaBatchService/lstErrores",
+		url: fin+"/rest/CargaBatchService/lstErrores",
 		queryParams: 'queryParams',
 		responseHandler : "responseHandler",	
 		formatShowingRows: function (pageFrom, pageTo, totalRows) {
@@ -90,7 +94,7 @@ function llenarTablaErrores(){
 
 function limpiarErrores(){
 	return $.ajax({
-		url: "http://localhost:8080/rest/CargaBatchService/lstLimpiar",
+		url: fin+"/rest/CargaBatchService/lstLimpiar",
 		type : 'POST',
 		contentType: 'application/json',
 		dataType: 'JSON',
@@ -117,7 +121,7 @@ function formatterCalificacion(value, row, index){
 
 function limpiarTabla(Inscripcion){
 	return $.ajax({
-		url: "http://localhost:8080/rest/CargaBatchService/limpiarTabla/"+Inscripcion,
+		url: fin+"/rest/CargaBatchService/limpiarTabla/"+Inscripcion,
 		type : 'GET',
 		async: false
 	});
