@@ -2,6 +2,9 @@ var stCurso = 0;
 var stProfesor = 0;
 var stInscripcion = 0;
 
+var arr = url_local.split("/");
+var fin = arr[0]+"//"+arr[2];
+
 $(document).ready(function(){
 	llenadoCorreos();
 });
@@ -164,7 +167,7 @@ function filtroCorreo(){
 
 function filtrosCorreos(filtros){
 	return $.ajax({
-		url: "http://localhost:8080/rest/CorreoService/filtrosCorreos",
+		url: fin +"/rest/CorreoService/filtrosCorreos",
 		type : 'POST',
 		contentType: 'application/json',
 		dataType: 'JSON',
@@ -175,7 +178,7 @@ function filtrosCorreos(filtros){
 
 function enviarComentario(comentario){
 	return $.ajax({
-		url: "http://localhost:8080/rest/CorreoService/enviarComentario",
+		url: fin+"/rest/CorreoService/enviarComentario",
 		type : 'POST',
 		contentType: 'application/json',
 		dataType: 'JSON',
@@ -186,7 +189,7 @@ function enviarComentario(comentario){
 
 function enviarSeleccionados(lstCorreos){
 	return $.ajax({
-		url: "http://localhost:8080/rest/CorreoService/enviarCorreosSeleccionados",
+		url: fin+"/rest/CorreoService/enviarCorreosSeleccionados",
 		type : 'POST',
 		contentType: 'application/json',
 		dataType: 'JSON',

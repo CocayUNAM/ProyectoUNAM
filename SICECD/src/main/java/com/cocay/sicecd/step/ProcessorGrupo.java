@@ -19,9 +19,6 @@ public class ProcessorGrupo implements ItemProcessor<Grupo, Grupo> {
 
 	private static final Logger log = LoggerFactory.getLogger(ProcessorGrupo.class);
 	
-	//Curso curso = new Curso();
-	
-	//Profesor profesor = new Profesor();
 	
 	@Autowired
 	CursoRep cursoRep;
@@ -35,12 +32,22 @@ public class ProcessorGrupo implements ItemProcessor<Grupo, Grupo> {
 		String cdProfesor = grupo.getTempProfesor();
 		System.out.println(cdCurso);
 		System.out.println(cdProfesor);
+		
+		/*
+		 * Marca error Null
+		 */
+		try {
+			Profesor profesor = profesorRep.findByRfc(cdProfesor);
+		}catch (NullPointerException e) {
+			System.out.print("nulo");
+		}
+		
 		Curso curso = cursoRep.findByUniqueClave(cdCurso);
-		Profesor profesor = profesorRep.findByRfc(cdProfesor);
-//		curso.setPk_id_curso(cdCurso);
-//		profesor.setPk_id_profesor(cdProfesor);
+		
+		
+		
 		grupo.setFk_id_curso(curso);
-		grupo.setFk_id_profesor(profesor);
+//		grupo.setFk_id_profesor(profesor);
 		grupo.setStTabla(1);
         
         System.out.println("Objeto convertido a grupo ");

@@ -34,7 +34,7 @@ public class Curso {
 	String nombre;
 
 	@Column(name = "horas", nullable = true)
-	int horas;
+	Integer horas;
 	
 	@Column(name = "f_inicio", nullable = true)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

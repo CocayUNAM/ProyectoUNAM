@@ -96,38 +96,13 @@ public class BatchConfig  {
 		return stepBuilderFactory.get("step1").<Curso, Curso>chunk(2)
 				.reader(importReader)
 				.faultTolerant()
+				.skip(ExhaustedRetryException.class)
+				.skip(DataIntegrityViolationException.class)
+				.skip(DataException.class)
+				.skipLimit(100000)
 				.skipPolicy(fileVerificationSkipper())
 				.processor(new ProcessorCurso()).writer(new WriterCurso(cursoRep)).build();
 	}
-	
-//	@Bean
-//	public Job jobCurso() {
-//		return jobBuilderFactory.get("jobCurso").incrementer(new RunIdIncrementer())
-//				.flow(step1()).end().build();
-//	}
-//
-//	@Bean
-//	public Step step1() {
-//		return stepBuilderFactory.get("step1").<Curso, Curso>chunk(2)
-//				.reader(ReaderCurso.reader("curso-data.csv"))
-//				.faultTolerant()
-//				.skipPolicy(fileVerificationSkipper())
-//				.processor(new ProcessorCurso()).writer(new WriterCurso(cursoRep)).build();
-//	}
-//	
-//	@Bean
-//	public Job jobGrupo() {
-//		return jobBuilderFactory.get("jobGrupo").incrementer(new RunIdIncrementer())
-//				.flow(stepGrupo()).end().build();
-//	}
-//
-//	@Bean
-//	public Step stepGrupo() {
-//		return stepBuilderFactory.get("stepGrupo").<Grupo, Grupo>chunk(2)
-//				.reader(ReaderGrupo.reader("grupo-data.csv"))
-//				.processor(new ProcessorGrupo()).writer(new WriterGrupo(grupoRep)).build();
-//	}
-	
 	
     @Bean
     @StepScope
@@ -156,8 +131,12 @@ public class BatchConfig  {
 	public Step stepGrupo(ItemReader<Grupo> importReader) {
 		return stepBuilderFactory.get("stepGrupo").<Grupo, Grupo>chunk(2)
 				.reader(importReader)
-//				.faultTolerant()
-//				.skipPolicy(fileVerificationSkipper())
+				.faultTolerant()
+				.skip(ExhaustedRetryException.class)
+				.skip(DataIntegrityViolationException.class)
+				.skip(DataException.class)
+				.skipLimit(100000)
+				.skipPolicy(fileVerificationSkipper())
 				.processor(new ProcessorGrupo()).writer(new WriterGrupo(grupoRep)).build();
 	}
 	
@@ -225,6 +204,10 @@ public class BatchConfig  {
 		return stepBuilderFactory.get("stepInscripcion").<Inscripcion, Inscripcion>chunk(2)
 				.reader(importReader)
 				.faultTolerant()
+				.skip(ExhaustedRetryException.class)
+				.skip(DataIntegrityViolationException.class)
+				.skip(DataException.class)
+				.skipLimit(100000)
 				.skipPolicy(fileVerificationSkipper())
 				.processor(new ProcessorInscripcion()).writer(new WriterInscripcion(inscripcionRep)).build();
 	}

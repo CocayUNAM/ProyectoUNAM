@@ -17,10 +17,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import com.cocay.sicecd.model.Curso;
+import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Url_ws_curso;
 import com.cocay.sicecd.model.Url_ws_inscripcion;
 import com.cocay.sicecd.model.Url_ws_profesor;
+import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.ProfesorRep;
@@ -44,6 +48,8 @@ public class WebService {
 	ProfesorRep profesor;
 	@Autowired
 	GrupoRep grupo_rep;
+	@Autowired
+	CursoRep curso_rep;
 	@Autowired
 	InscripcionRep inscripcionRep;
 	@Autowired
@@ -83,44 +89,39 @@ public class WebService {
 	 * inmediatamente. Si la segunda tarea aún se está ejecutando, la llamada
 	 * bloquea el subproceso actual hasta que se calcula el valor.
 	 */
-	//@Scheduled(cron = "30 * * * * *")
-	/*public void run() {
-		ExecutorService executor = Executors.newFixedThreadPool(3);
-
-		// Tenemos listas las tareas()
-		Future<ReturnTypeOne> first = executor.submit(new Callable<ReturnTypeOne>() {
-			@Override
-			public ReturnTypeOne call() throws Exception {
-				get_Profesores();
-				return null;
-			}
-		});
-		Future<ReturnTypeTwo> second = executor.submit(new Callable<ReturnTypeTwo>() {
-			@Override
-			public ReturnTypeTwo call() throws Exception {
-				get_Calificaciones();
-				return null;
-			}
-		});
-		Future<ReturnTypeThree> third = executor.submit(new Callable<ReturnTypeThree>() {
-			@Override
-			public ReturnTypeThree call() throws Exception {
-				get_Profesores();
-				return null;
-			}
-		});
-		// Obtenemos resultados
-		try {
-			ReturnTypeOne firstValue = first.get();
-			ReturnTypeTwo secondValue = second.get();
-			ReturnTypeThree thirdValue = third.get();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
-	}
-*/
+	 @Scheduled(cron = "30 * * * * *")
+	
+	  public void run() { ExecutorService executor =
+	  Executors.newFixedThreadPool(3);
+	  
+	  // Tenemos listas las tareas() 
+	  Future<ReturnTypeOne> first =
+	  executor.submit(new Callable<ReturnTypeOne>() {
+	  
+	  @Override public ReturnTypeOne call() throws Exception { 
+	  get_Profesores();
+	  return null; } }); Future<ReturnTypeTwo> second = executor.submit(new
+	  Callable<ReturnTypeTwo>() {
+	  
+	  @Override public ReturnTypeTwo call() throws Exception {
+	  get_Calificaciones(); 
+	  return null; } }); 
+	  Future<ReturnTypeThree> third = executor.submit(new Callable<ReturnTypeThree>() {
+	  
+	  @Override public ReturnTypeThree call() throws Exception { 
+	  get_Curso();
+	  return null; } }); 
+	  
+	  
+	  // Obtenemos resultados 
+	  try { 
+		  ReturnTypeOne firstValue =first.get(); 
+		  ReturnTypeTwo secondValue = second.get(); 
+		  ReturnTypeThree thirdValue = third.get(); 
+		  } catch (InterruptedException e) {
+	  e.printStackTrace(); } catch (ExecutionException e) { e.printStackTrace(); }
+	  }
+	 
 	public void get_Profesores() {
 
 		LinkedList<Url_ws_profesor> links = new LinkedList<>(urls.findVarios());
@@ -141,7 +142,8 @@ public class WebService {
 		}
 
 	}
-	@Scheduled(cron = "30 * * * * *")
+
+	
 	public void get_Curso() {
 
 		LinkedList<Url_ws_curso> links = new LinkedList<>(urls_curso.findVarios());
@@ -179,18 +181,41 @@ public class WebService {
 			// log.setTrace(LogTypes.AGREGAR_PROFESOR);
 		}
 	}
-	
-	
-	
+
 	public void insert_Course(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
-		for (int i = 0; i< arr.length(); i++) {
+		for (int i = 0; i < arr.length(); i++) {
 			JSONObject jsonProductObject = arr.getJSONObject(i);
 			String nombre_curso = jsonProductObject.getString("shortname");
 			String id_grupo = jsonProductObject.getString("idnumber");
-			String[]claves=separaNombreCurso(id_grupo);
-			String clave_curso = claves[0]; 
-			String clave_grupo = claves[1]; 
+			String[] claves = separaNombreCurso(id_grupo);
+			String clave_curso = claves[0];
+			String clave_grupo = claves[1];
+			Curso exits = curso_rep.findByUniqueClaveCurso(clave_curso);
+			Grupo exits_group = grupo_rep.findByUniqueClaveGrupo(clave_grupo);
+
+			if (exits == null) {
+				curso_rep.saveC(clave_curso);
+
+			}else if (!clave_curso.equals(exits.getClave())) {
+				curso_rep.saveC(clave_curso);
+			} else {
+
+				LOGGER.debug("Ya existe el curso");
+				return;
+			}
+			
+			if (exits_group == null) {
+				grupo_rep.saveC(clave_grupo);
+
+			}else if (!clave_grupo.equals(exits_group.getClave())) {
+				grupo_rep.saveC(clave_grupo);
+			} else {
+
+				LOGGER.debug("Ya existe el grupo");
+				return;
+			}
+
 			System.out.println(clave_curso);
 			System.out.println(clave_grupo);
 
@@ -251,7 +276,8 @@ public class WebService {
 				profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, email, institucion, ciudad, 1, 1, 1,
 						1);
 
-			} else if (curp.equals(exits.getCurp())) {
+			}
+			else if (curp.equals(exits.getCurp())) {
 				// Se guardan profesores
 				// Algunos valores se guardan por default ya que no se tienen todos los datos
 				// disponibles en Moodle
@@ -315,13 +341,11 @@ public class WebService {
 		return apellidos;
 	}
 
-
 	private static String[] separaNombreCurso(String s) {
 		String[] parts = s.split("_");
 		return parts;
 	}
-	
-	
+
 	/*
 	 * Método privado para la clase WebService Cuenta los espacios
 	 * 

@@ -221,9 +221,11 @@ public class CertificadoMasivoController {
 						LOGGER.error(e.getMessage());
 						System.out.println(e);
 					}
+					/***
 					SeguridadPDF spdf = new SeguridadPDF();
 					String nombrec = p.getNombre() + " " + p.getApellido_paterno() + " " + p.getApellido_materno();
 					spdf.cifraPdf(pt, nombrec, codigo);
+					/***/
 					f3=null;// elimina archivo
 					Certificado cert = bd_certificado.findByRuta(pt);
 					if (cert == null) {
@@ -278,7 +280,7 @@ public class CertificadoMasivoController {
 		}
 	}
 
-	@Scheduled(cron = "0 57 13 * * ?")
+	@Scheduled(cron = "${ws.scheduleClean}")
 	public void deleteBach() throws Exception {
 		LOGGER.debug("Batch Clean:  PDF Temporary Files");
 		delete(RUTA_LOCAL, "_ax.pdf");
@@ -288,7 +290,7 @@ public class CertificadoMasivoController {
 	 * Metodo que obtiene certificados masivamente para traer nuevos archivos. 
 	 * @throws Exception
 	 */
-	@Scheduled(cron = "0 58 15 * * ?")
+	@Scheduled(cron = "${ws.scheduleTransfer}")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		LinkedList<Url_ws> links = new LinkedList<>(urls.findVarios());
 		if (links.size() == 0) {
