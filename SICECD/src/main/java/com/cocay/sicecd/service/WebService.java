@@ -17,10 +17,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Url_ws_curso;
 import com.cocay.sicecd.model.Url_ws_inscripcion;
 import com.cocay.sicecd.model.Url_ws_profesor;
+import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.ProfesorRep;
@@ -44,6 +47,8 @@ public class WebService {
 	ProfesorRep profesor;
 	@Autowired
 	GrupoRep grupo_rep;
+	@Autowired
+	CursoRep curso_rep;
 	@Autowired
 	InscripcionRep inscripcionRep;
 	@Autowired
@@ -190,7 +195,18 @@ public class WebService {
 			String id_grupo = jsonProductObject.getString("idnumber");
 			String[]claves=separaNombreCurso(id_grupo);
 			String clave_curso = claves[0]; 
-			String clave_grupo = claves[1]; 
+			String clave_grupo = claves[1];
+			Curso exits = curso_rep.findByUniqueClave(clave_curso);
+			//Grupo exits_group= grupo_rep;
+			if (exits==null) {
+				curso_rep.saveC(clave_curso);
+				
+				
+			} else {
+				
+				LOGGER.debug("Ya existe el curso");
+				return;
+			}
 			System.out.println(clave_curso);
 			System.out.println(clave_grupo);
 
