@@ -43,6 +43,7 @@ import com.cocay.sicecd.model.Grado_profesor;
 import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.model.Profesor;
+import com.cocay.sicecd.model.Tipo_curso;
 import com.cocay.sicecd.model.Turno;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.EstadoRep;
@@ -51,6 +52,7 @@ import com.cocay.sicecd.repo.Grado_profesorRep;
 import com.cocay.sicecd.repo.GrupoRep;
 import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.ProfesorRep;
+import com.cocay.sicecd.repo.Tipo_cursoRep;
 import com.cocay.sicecd.repo.TurnoRep;
 import com.cocay.sicecd.service.Logging;
 
@@ -79,6 +81,9 @@ public class ModificarUsuarios {
 	
 	@Autowired
 	Grado_profesorRep gpRep;
+	
+	@Autowired
+	Tipo_cursoRep tcRep;
 	
 	@Autowired
 	TurnoRep tnRep;
@@ -856,6 +861,15 @@ public class ModificarUsuarios {
 	@RequestMapping(value = "/listaCursos", method = RequestMethod.GET)
 	public ModelAndView consultarCursos(ModelMap model) {
 		List<Curso> list_p1 = crRep.findAll();
+		
+		for(Curso c : list_p1) {
+			if(c.getFk_id_tipo_curso() == null) {
+				Optional<Tipo_curso> tp = tcRep.findById(6);
+				Tipo_curso tpc = tp.get(); 
+				c.setFk_id_tipo_curso(tpc);
+				crRep.save(c);
+			}
+		}
 		
 		if(!list_p1.isEmpty()) {
 			

@@ -113,7 +113,7 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="nac">Fecha de nacimiento <span class="text-danger">*</span></label>
+                                                <label class="col-lg-4 control-label" for="nac">Fecha de nacimiento <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="date" class="form-control" id="nac" name="nac" th:value="${profesor.fNacimiento}" onkeydown="return false">
                                                 </div>
@@ -243,34 +243,25 @@
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="constancia">constancia pdf<span class="text-danger"></span></label>
-                                                <div class="col-lg-8">
-                                                    <input type="file" name="constancia" accept="application/pdf" id="constancia" th:text= "${profesor.certificado_doc}"/>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="comprobante">comprobante de domicilio en pdf<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="comprobante">Comprobante de domicilio en pdf<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="file" name="comprobante" accept="application/pdf" id="comprobante" th:text="${profesor.comprobante_doc}"/>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="rfcpdf">rfc en pdf<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="rfcpdf">RFC en pdf<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="file" name="rfcpdf" accept="application/pdf" id="rfcpdf" th:text="${profesor.rfc_doc}"/>
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
-                                                <label class="col-lg-4 control-label" for="curppdf">curp en pdf<span class="text-danger"></span></label>
+                                                <label class="col-lg-4 control-label" for="curppdf">CURP en pdf<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <input type="file" name="curppdf" accept="application/pdf" id="curppdf" th:text = "${profesor.curp_doc}"/>
                                                 </div>
                                             </div>
-                                            
- 
                                             
                                             <div class="form-group">
         										<div class="col-sm-5 col-sm-offset-3">
@@ -597,19 +588,6 @@ $(document).ready(function() {
 	            formData.append('grado', $("#grado").val());
 	            formData.append('ocupacion', $("#ocupacion").val());
 	            formData.append('fNacimiento', $("#nac").val());
-	            
-	            var cta = document.getElementById("constancia");
-
-	            cta.onchange = function() {
-	                if(this.files[0].size > 10485760){
-	                   alert("Maximo 10MB!");
-	                   this.value = "";
-	                };
-	            };
-	            
-	            if( document.getElementById("constancia").files.length != 0 ){
-                    formData.append('constancia', $("#constancia")[0].files[0]); 
-                }
 	            
 	            var cmb = document.getElementById("comprobante");
 
