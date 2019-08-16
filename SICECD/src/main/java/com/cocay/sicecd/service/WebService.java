@@ -89,29 +89,39 @@ public class WebService {
 	 * inmediatamente. Si la segunda tarea aún se está ejecutando, la llamada
 	 * bloquea el subproceso actual hasta que se calcula el valor.
 	 */
-	// @Scheduled(cron = "30 * * * * *")
-	/*
-	 * public void run() { ExecutorService executor =
-	 * Executors.newFixedThreadPool(3);
-	 * 
-	 * // Tenemos listas las tareas() Future<ReturnTypeOne> first =
-	 * executor.submit(new Callable<ReturnTypeOne>() {
-	 * 
-	 * @Override public ReturnTypeOne call() throws Exception { get_Profesores();
-	 * return null; } }); Future<ReturnTypeTwo> second = executor.submit(new
-	 * Callable<ReturnTypeTwo>() {
-	 * 
-	 * @Override public ReturnTypeTwo call() throws Exception {
-	 * get_Calificaciones(); return null; } }); Future<ReturnTypeThree> third =
-	 * executor.submit(new Callable<ReturnTypeThree>() {
-	 * 
-	 * @Override public ReturnTypeThree call() throws Exception { get_Profesores();
-	 * return null; } }); // Obtenemos resultados try { ReturnTypeOne firstValue =
-	 * first.get(); ReturnTypeTwo secondValue = second.get(); ReturnTypeThree
-	 * thirdValue = third.get(); } catch (InterruptedException e) {
-	 * e.printStackTrace(); } catch (ExecutionException e) { e.printStackTrace(); }
-	 * }
-	 */
+	 @Scheduled(cron = "30 * * * * *")
+	
+	  public void run() { ExecutorService executor =
+	  Executors.newFixedThreadPool(3);
+	  
+	  // Tenemos listas las tareas() 
+	  Future<ReturnTypeOne> first =
+	  executor.submit(new Callable<ReturnTypeOne>() {
+	  
+	  @Override public ReturnTypeOne call() throws Exception { 
+	  get_Profesores();
+	  return null; } }); Future<ReturnTypeTwo> second = executor.submit(new
+	  Callable<ReturnTypeTwo>() {
+	  
+	  @Override public ReturnTypeTwo call() throws Exception {
+	  get_Calificaciones(); 
+	  return null; } }); 
+	  Future<ReturnTypeThree> third = executor.submit(new Callable<ReturnTypeThree>() {
+	  
+	  @Override public ReturnTypeThree call() throws Exception { 
+	  get_Curso();
+	  return null; } }); 
+	  
+	  
+	  // Obtenemos resultados 
+	  try { 
+		  ReturnTypeOne firstValue =first.get(); 
+		  ReturnTypeTwo secondValue = second.get(); 
+		  ReturnTypeThree thirdValue = third.get(); 
+		  } catch (InterruptedException e) {
+	  e.printStackTrace(); } catch (ExecutionException e) { e.printStackTrace(); }
+	  }
+	 
 	public void get_Profesores() {
 
 		LinkedList<Url_ws_profesor> links = new LinkedList<>(urls.findVarios());
@@ -133,7 +143,7 @@ public class WebService {
 
 	}
 
-	@Scheduled(cron = "30 * * * * *")
+	
 	public void get_Curso() {
 
 		LinkedList<Url_ws_curso> links = new LinkedList<>(urls_curso.findVarios());
@@ -266,7 +276,8 @@ public class WebService {
 				profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, email, institucion, ciudad, 1, 1, 1,
 						1);
 
-			} else if (curp.equals(exits.getCurp())) {
+			}
+			else if (curp.equals(exits.getCurp())) {
 				// Se guardan profesores
 				// Algunos valores se guardan por default ya que no se tienen todos los datos
 				// disponibles en Moodle
