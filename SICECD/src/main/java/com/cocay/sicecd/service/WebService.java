@@ -19,6 +19,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.cocay.sicecd.model.Curso;
+import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Url_ws_curso;
 import com.cocay.sicecd.model.Url_ws_inscripcion;
@@ -197,7 +198,10 @@ public class WebService {
 			String clave_curso = claves[0]; 
 			String clave_grupo = claves[1];
 			Curso exits = curso_rep.findByUniqueClave(clave_curso);
-			//Grupo exits_group= grupo_rep;
+			
+			
+			Grupo exits_group= grupo_rep.findByUniqueClave(clave_grupo);
+			
 			if (exits==null) {
 				curso_rep.saveC(clave_curso);
 				
