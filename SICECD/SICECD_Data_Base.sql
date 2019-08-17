@@ -212,6 +212,10 @@ INSERT INTO public.url_ws(activa, url, varios) VALUES(false, 'http://127.0.0.1/m
 INSERT INTO public.url_ws(activa, url, varios) VALUES(false, 'http://127.0.0.1/mod/simplecertificate/wscertificados.php', true);
 COMMIT;
 
+INSERT INTO public.url_ws_curso(activa, nombre, url) VALUES(false, 'Moodle Test 1', 'http://127.0.0.1/WB/api/users/courses.php');
+INSERT INTO public.url_ws_inscripcion(activa, nombre, url) VALUES(false, 'Moodle Test 1', 'http://127.0.0.1/WB/api/users/grades.php');
+INSERT INTO public.url_ws_profesor(activa, nombre, url) VALUES(false, 'Moodle Test 1', 'http://127.0.0.1/WB/api/users/read.php');
+COMMIT;
 
 /*
 Cambio de propietario
