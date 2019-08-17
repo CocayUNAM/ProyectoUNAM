@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
@@ -42,7 +43,7 @@ import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Component
+@Service 
 
 @PropertySource(ignoreResourceNotFound = true, value = "classpath:application.properties")
 public class WebService {
@@ -145,7 +146,7 @@ public class WebService {
 
 	}
 	 
-
+	//@Scheduled(cron = "10 * * * * *")
 	public void get_Curso() {
 
 		LinkedList<Url_ws_curso> links = new LinkedList<>(urls_curso.findVarios());
@@ -166,7 +167,7 @@ public class WebService {
 		}
 
 	}
-	@Scheduled(cron = "30 * * * * *")
+	//@Scheduled(cron = "30 * * * * *")
 	public void get_Calificaciones() {
 
 		LinkedList<Url_ws_inscripcion> links = new LinkedList<>(urls_inscripcion.findVarios());
@@ -198,29 +199,15 @@ public class WebService {
 
 			if (exits == null) {
 				curso_rep.saveC(clave_curso);
-
-			}else if (!clave_curso.equals(exits.getClave())) {
-				curso_rep.saveC(clave_curso);
 			} else {
-
-				LOGGER.debug("Ya existe el curso");
-				return;
+				LOGGER.debug("Ya existe el curso");				
 			}
 			
 			if (exits_group == null) {
 				grupo_rep.saveC(clave_grupo);
-
-			}else if (!clave_grupo.equals(exits_group.getClave())) {
-				grupo_rep.saveC(clave_grupo);
-			} else {
-
+			}else {
 				LOGGER.debug("Ya existe el grupo");
-				return;
 			}
-
-			System.out.println(clave_curso);
-			System.out.println(clave_grupo);
-
 		}
 	}
 
@@ -243,6 +230,7 @@ public class WebService {
 			//AQUI EMPIEZA EL ERROR
 			Inscripcion grupo =inscripcionRep.findIDGroup(clave_grupo);
 			//Me da null
+			
 			grupo.getFk_id_grupo();
 			
 			//inscripcionRep.saveI(id_grupo, exits.getPk_id_profesor(), calificacion, aprobado);
