@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
+import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Url_ws_curso;
 import com.cocay.sicecd.model.Url_ws_inscripcion;
@@ -89,7 +91,7 @@ public class WebService {
 	 * inmediatamente. Si la segunda tarea aún se está ejecutando, la llamada
 	 * bloquea el subproceso actual hasta que se calcula el valor.
 	 */
-	 @Scheduled(cron = "30 * * * * *")
+	/* @Scheduled(cron = "30 * * * * *")
 	
 	  public void run() { ExecutorService executor =
 	  Executors.newFixedThreadPool(3);
@@ -120,8 +122,8 @@ public class WebService {
 		  ReturnTypeThree thirdValue = third.get(); 
 		  } catch (InterruptedException e) {
 	  e.printStackTrace(); } catch (ExecutionException e) { e.printStackTrace(); }
-	  }
-	 
+	  }*/
+
 	public void get_Profesores() {
 
 		LinkedList<Url_ws_profesor> links = new LinkedList<>(urls.findVarios());
@@ -142,8 +144,8 @@ public class WebService {
 		}
 
 	}
+	 
 
-	
 	public void get_Curso() {
 
 		LinkedList<Url_ws_curso> links = new LinkedList<>(urls_curso.findVarios());
@@ -164,7 +166,7 @@ public class WebService {
 		}
 
 	}
-
+	@Scheduled(cron = "30 * * * * *")
 	public void get_Calificaciones() {
 
 		LinkedList<Url_ws_inscripcion> links = new LinkedList<>(urls_inscripcion.findVarios());
@@ -224,26 +226,33 @@ public class WebService {
 
 	public void insert_Grade(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
-		for (int i = 0; 0 < arr.length(); i++) {
+		for (int i = 0; i < arr.length(); i++) {
 			JSONObject jsonProductObject = arr.getJSONObject(i);
 			String calificacion = jsonProductObject.getString("grade");
 			String nombre_curso = jsonProductObject.getString("shortname");
 			String curp = jsonProductObject.getString("username");
-			int id_grupo = jsonProductObject.getInt("idnumber");
+			String id_grupo = jsonProductObject.getString("idnumber");
 			double result = Double.parseDouble(calificacion);
 			boolean aprobado = aprobadoCalificacion(result);
-			Profesor exits = profesor.findByCurp(curp);
-			System.out.println(calificacion);
-			System.out.println(curp);
+			//Profesor exits = profesor.findByCurp(curp);
+			String[] claves = separaNombreCurso(id_grupo);
+			String clave_curso = claves[0];
+			String clave_grupo = claves[1];
+			System.out.println(clave_grupo);
+			
+			//AQUI EMPIEZA EL ERROR
+			Inscripcion grupo =inscripcionRep.findIDGroup(clave_grupo);
+			//Me da null
+			grupo.getFk_id_grupo();
+			
+			//inscripcionRep.saveI(id_grupo, exits.getPk_id_profesor(), calificacion, aprobado);
 
-			inscripcionRep.saveI(id_grupo, exits.getPk_id_profesor(), calificacion, aprobado);
-
-			if (curp.equals(exits.getCurp())) {
-
+			/*if (curp.equals(exits.getCurp())) {
+				inscripcionRep.saveI(grupo, exits.getPk_id_profesor(), calificacion, aprobado);
 			} else {
 				LOGGER.debug("No existe el profesor , por lo que la califcación no puede ser asignada");
 				return;
-			}
+			}*/
 
 		}
 	}
@@ -277,7 +286,12 @@ public class WebService {
 						1);
 
 			}
-			else if (curp.equals(exits.getCurp())) {
+			if(!curp.equals(exits.getCurp())) {
+				profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, email, institucion, ciudad, 1, 1, 1,
+						1);
+
+				
+			}else if (curp.equals(exits.getCurp())) {
 				// Se guardan profesores
 				// Algunos valores se guardan por default ya que no se tienen todos los datos
 				// disponibles en Moodle
