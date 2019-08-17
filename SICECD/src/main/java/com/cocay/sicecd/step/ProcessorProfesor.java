@@ -3,33 +3,48 @@ package com.cocay.sicecd.step;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cocay.sicecd.model.Estado;
 import com.cocay.sicecd.model.Genero;
 import com.cocay.sicecd.model.Grado_profesor;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.model.Turno;
+import com.cocay.sicecd.repo.EstadoRep;
+import com.cocay.sicecd.repo.GeneroRep;
+import com.cocay.sicecd.repo.Grado_profesorRep;
+import com.cocay.sicecd.repo.TurnoRep;
 
+@Service
 public class ProcessorProfesor implements ItemProcessor<Profesor, Profesor> {
 
 	private static final Logger log = LoggerFactory.getLogger(ProcessorProfesor.class);
 	
-	Estado estado = new Estado();
-	Turno turno = new Turno();
-	Genero genero = new Genero();
-	Grado_profesor gradoP = new Grado_profesor();
+	@Autowired
+	EstadoRep estadoRep;
+	
+	@Autowired
+	TurnoRep turnoRep;
+	
+	@Autowired
+	GeneroRep generoRep;
+	
+	@Autowired
+	Grado_profesorRep gradoProfesor;
 	
 	@Override
     public Profesor process(Profesor profesor) throws Exception {
-        int cdEstado = profesor.getTempEstado();
-        int cdTurno = profesor.getTempTurno();
-        int cdGenero = profesor.getTempGenero();
-        int cdGrado = profesor.getTempGradoP();
+        String cdEstado = profesor.getTempEstado();
+        String cdTurno = profesor.getTempTurno();
+        String cdGenero = profesor.getTempGenero();
+        String cdGrado = profesor.getTempGradoP();
         
-        estado.setPk_id_estado(cdEstado);
-        turno.setPk_id_turno(cdTurno);
-        genero.setPk_id_genero(cdGenero);
-        gradoP.setPk_id_grado_profesor(cdGrado);
+        Estado estado = estadoRep.findByNombreEstado(cdEstado);
+    	Turno turno = turnoRep.findByNombreTurno(cdTurno);
+    	Genero genero = generoRep.findByNombreGenero(cdGenero);
+    	Grado_profesor gradoP = gradoProfesor.findByNombreGrado(cdGrado);
+
         
         profesor.setFk_id_estado(estado);
         profesor.setFk_id_turno(turno);

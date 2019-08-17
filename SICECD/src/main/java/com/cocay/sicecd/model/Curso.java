@@ -48,7 +48,10 @@ public class Curso {
 	public Integer temp;
 	
 	@Column(name = "tempGrupo", nullable = true)
-	public Integer tempGrupo;
+	public String tempGrupo;
+	
+	@Column(name = "tempTipoCurso", nullable = true)
+	public String tempTipoCurso;
 	
 	@Column(name = "stTabla", nullable = true)
 	Integer stTabla;
@@ -169,14 +172,6 @@ public class Curso {
 		this.stTabla = stTabla;
 	}
 
-	public Integer getTempGrupo() {
-		return tempGrupo;
-	}
-
-	public void setTempGrupo(Integer tempGrupo) {
-		this.tempGrupo = tempGrupo;
-	}
-
 	public Grupo getFk_id_grupo() {
 		return fk_id_grupo;
 	}
@@ -184,6 +179,27 @@ public class Curso {
 	public void setFk_id_grupo(Grupo fk_id_grupo) {
 		this.fk_id_grupo = fk_id_grupo;
 	}
+
+	public String getTempGrupo() {
+		return tempGrupo;
+	}
+
+	public void setTempGrupo(String tempGrupo) {
+		this.tempGrupo = tempGrupo;
+	}
+
+	public String getTempTipoCurso() {
+		return tempTipoCurso;
+	}
+
+	public void setTempTipoCurso(String tempTipoCurso) {
+		this.tempTipoCurso = tempTipoCurso;
+	}
+
+	public void setHoras(Integer horas) {
+		this.horas = horas;
+	}
+	
 	
 	
 }

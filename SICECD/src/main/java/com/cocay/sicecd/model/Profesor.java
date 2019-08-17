@@ -77,16 +77,16 @@ public class Profesor {
 	String clave_plantel;
 	
 	@Column(name = "tempEstado", nullable = true)
-	Integer tempEstado;
+	String tempEstado;
 	
 	@Column(name = "tempGenero", nullable = true)
-	Integer tempGenero;
+	String tempGenero;
 	
 	@Column(name = "tempTurno", nullable = true)
-	Integer tempTurno;
+	String tempTurno;
 	
 	@Column(name = "tempGradoP", nullable = true)
-	Integer tempGradoP;
+	String tempGradoP;
 	
 	@Column(name = "stTabla", nullable = true)
 	Integer stTabla;
@@ -321,38 +321,6 @@ public class Profesor {
 	public void setCertificado_doc(String certificado_doc) {
 		this.certificado_doc = certificado_doc;
 	}
-	
-	public Integer getTempEstado() {
-		return tempEstado;
-	}
-
-	public void setTempEstado(Integer tempEstado) {
-		this.tempEstado = tempEstado;
-	}
-
-	public Integer getTempGenero() {
-		return tempGenero;
-	}
-
-	public void setTempGenero(Integer tempGenero) {
-		this.tempGenero = tempGenero;
-	}
-
-	public Integer getTempTurno() {
-		return tempTurno;
-	}
-
-	public void setTempTurno(Integer tempTurno) {
-		this.tempTurno = tempTurno;
-	}
-
-	public Integer getTempGradoP() {
-		return tempGradoP;
-	}
-
-	public void setTempGradoP(Integer tempGradoP) {
-		this.tempGradoP = tempGradoP;
-	}
 
 	public Integer getStTabla() {
 		return stTabla;
@@ -362,6 +330,40 @@ public class Profesor {
 		this.stTabla = stTabla;
 	}
 	
+	
+	
+	public String getTempEstado() {
+		return tempEstado;
+	}
+
+	public void setTempEstado(String tempEstado) {
+		this.tempEstado = tempEstado;
+	}
+
+	public String getTempGenero() {
+		return tempGenero;
+	}
+
+	public void setTempGenero(String tempGenero) {
+		this.tempGenero = tempGenero;
+	}
+
+	public String getTempTurno() {
+		return tempTurno;
+	}
+
+	public void setTempTurno(String tempTurno) {
+		this.tempTurno = tempTurno;
+	}
+
+	public String getTempGradoP() {
+		return tempGradoP;
+	}
+
+	public void setTempGradoP(String tempGradoP) {
+		this.tempGradoP = tempGradoP;
+	}
+
 	public String toString() {
 		return "Nombre:"+nombre+", Apellido Paterno:"+apellido_paterno+", Apellido Materno:"+apellido_materno+", RFC: "+rfc;
 	}

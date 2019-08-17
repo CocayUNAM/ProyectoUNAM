@@ -178,8 +178,8 @@ public class CargaBatchServiceDAO {
 		
 		String consulta = "SELECT pk_id_inscripcion, idGrupo, idProfesor, calif FROM (\n" + 
 				"	SELECT pk_id_inscripcion,\n" +
-				"				fk_id_grupo idGrupo,\n" + 
-				"				fk_id_profesor idProfesor,\n" + 
+				"				temp_grupo idGrupo,\n" + 
+				"				temp_profesor idProfesor,\n" + 
 				"				calif\n" + 
 				"				FROM inscripcion \n"+
 				"               WHERE st_Tabla = 1) foo";

@@ -140,7 +140,6 @@ public class WebService {
 
 		if (links.size() == 0) {
 			LOGGER.debug("No hay urls para el proceso obtener Profesores");
-			return;
 		}
 
 		for (Url_ws_profesor url : links) {
@@ -161,7 +160,6 @@ public class WebService {
 
 		if (links.size() == 0) {
 			LOGGER.debug("No hay urls para el proceso obtener Cursos");
-			return;
 		}
 
 		for (Url_ws_curso url : links) {
@@ -219,7 +217,6 @@ public class WebService {
 
 			} else {
 				LOGGER.debug("Ya existe el grupo");
-				return;
 			}
 
 		}

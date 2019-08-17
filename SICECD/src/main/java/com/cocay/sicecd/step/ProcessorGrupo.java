@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
@@ -15,6 +16,7 @@ import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 
+@Service
 public class ProcessorGrupo implements ItemProcessor<Grupo, Grupo> {
 
 	private static final Logger log = LoggerFactory.getLogger(ProcessorGrupo.class);
@@ -36,18 +38,14 @@ public class ProcessorGrupo implements ItemProcessor<Grupo, Grupo> {
 		/*
 		 * Marca error Null
 		 */
-		try {
-			Profesor profesor = profesorRep.findByRfc(cdProfesor);
-		}catch (NullPointerException e) {
-			System.out.print("nulo");
-		}
+		Profesor profesor = profesorRep.findByRfc(cdProfesor);
 		
 		Curso curso = cursoRep.findByUniqueClave(cdCurso);
 		
 		
 		
 		grupo.setFk_id_curso(curso);
-//		grupo.setFk_id_profesor(profesor);
+		grupo.setFk_id_profesor(profesor);
 		grupo.setStTabla(1);
         
         System.out.println("Objeto convertido a grupo ");

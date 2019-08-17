@@ -28,10 +28,10 @@ public class Inscripcion {
 	Boolean aprobado;
 
 	@Column(name = "tempGrupo", nullable = true)
-	Integer tempGrupo;
+	String tempGrupo;
 	
 	@Column(name = "tempProfesor", nullable = true)
-	Integer tempProfesor;
+	String tempProfesor;
 	
 	@Column(name = "stTabla", nullable = true)
 	Integer stTabla;
@@ -85,22 +85,6 @@ public class Inscripcion {
 	public void setAprobado(Boolean aprobado) {
 		this.aprobado = aprobado;
 	}
-	
-	public Integer getTempGrupo() {
-		return tempGrupo;
-	}
-
-	public void setTempGrupo(Integer tempGrupo) {
-		this.tempGrupo = tempGrupo;
-	}
-
-	public Integer getTempProfesor() {
-		return tempProfesor;
-	}
-
-	public void setTempProfesor(Integer tempProfesor) {
-		this.tempProfesor = tempProfesor;
-	}
 
 	public Integer getStTabla() {
 		return stTabla;
@@ -116,6 +100,22 @@ public class Inscripcion {
 
 	public void setCalif2(Integer calif2) {
 		this.calif2 = calif2;
+	}
+
+	public String getTempGrupo() {
+		return tempGrupo;
+	}
+
+	public void setTempGrupo(String tempGrupo) {
+		this.tempGrupo = tempGrupo;
+	}
+
+	public String getTempProfesor() {
+		return tempProfesor;
+	}
+
+	public void setTempProfesor(String tempProfesor) {
+		this.tempProfesor = tempProfesor;
 	}
 
 	

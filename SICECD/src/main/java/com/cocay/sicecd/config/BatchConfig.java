@@ -63,6 +63,18 @@ public class BatchConfig  {
 	@Autowired
 	private InscripcionBatchRep inscripcionRep;
 	
+	@Autowired
+	private ProcessorGrupo processorGrupo;
+	
+	@Autowired
+	private ProcessorCurso processorCurso;
+	
+	@Autowired
+	private ProcessorInscripcion processorInscripcion;
+	
+	@Autowired
+	private ProcessorProfesor processorProfesor;
+	
 	@Bean
 	public SkipPolicy fileVerificationSkipper() {
 		return new VerificacionArchivo();
@@ -76,7 +88,7 @@ public class BatchConfig  {
         reader.setLinesToSkip(1);
         reader.setLineMapper(new DefaultLineMapper<Curso>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-            	setNames(new String[] {"clave", "nombre", "temp", "horas", "tempGrupo"});
+            	setNames(new String[] {"clave", "nombre", "tempTipoCurso", "tempGrupo", "horas"});
             }});
             setFieldSetMapper(new BeanWrapperFieldSetMapper<Curso>() {{
                 setTargetType(Curso.class);
@@ -101,7 +113,7 @@ public class BatchConfig  {
 				.skip(DataException.class)
 				.skipLimit(100000)
 				.skipPolicy(fileVerificationSkipper())
-				.processor(new ProcessorCurso()).writer(new WriterCurso(cursoRep)).build();
+				.processor(processorCurso).writer(new WriterCurso(cursoRep)).build();
 	}
 	
     @Bean
@@ -137,7 +149,7 @@ public class BatchConfig  {
 				.skip(DataException.class)
 				.skipLimit(100000)
 				.skipPolicy(fileVerificationSkipper())
-				.processor(new ProcessorGrupo()).writer(new WriterGrupo(grupoRep)).build();
+				.processor(processorGrupo).writer(new WriterGrupo(grupoRep)).build();
 	}
 	
 	@Bean
@@ -173,7 +185,7 @@ public class BatchConfig  {
 				.skip(DataException.class)
 				.skipLimit(100000)
 				.skipPolicy(fileVerificationSkipper())
-				.processor(new ProcessorProfesor()).writer(new WriterProfesor(profesorRep)).build();
+				.processor(processorProfesor).writer(new WriterProfesor(profesorRep)).build();
 	}
 	
 	@Bean
@@ -209,6 +221,6 @@ public class BatchConfig  {
 				.skip(DataException.class)
 				.skipLimit(100000)
 				.skipPolicy(fileVerificationSkipper())
-				.processor(new ProcessorInscripcion()).writer(new WriterInscripcion(inscripcionRep)).build();
+				.processor(processorInscripcion).writer(new WriterInscripcion(inscripcionRep)).build();
 	}
 }
