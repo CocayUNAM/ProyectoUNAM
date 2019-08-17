@@ -43,7 +43,7 @@ import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Service 
+@Service
 
 @PropertySource(ignoreResourceNotFound = true, value = "classpath:application.properties")
 public class WebService {
@@ -92,38 +92,47 @@ public class WebService {
 	 * inmediatamente. Si la segunda tarea aún se está ejecutando, la llamada
 	 * bloquea el subproceso actual hasta que se calcula el valor.
 	 */
-	/* @Scheduled(cron = "30 * * * * *")
-	
-	  public void run() { ExecutorService executor =
-	  Executors.newFixedThreadPool(3);
-	  
-	  // Tenemos listas las tareas() 
-	  Future<ReturnTypeOne> first =
-	  executor.submit(new Callable<ReturnTypeOne>() {
-	  
-	  @Override public ReturnTypeOne call() throws Exception { 
-	  get_Profesores();
-	  return null; } }); Future<ReturnTypeTwo> second = executor.submit(new
-	  Callable<ReturnTypeTwo>() {
-	  
-	  @Override public ReturnTypeTwo call() throws Exception {
-	  get_Calificaciones(); 
-	  return null; } }); 
-	  Future<ReturnTypeThree> third = executor.submit(new Callable<ReturnTypeThree>() {
-	  
-	  @Override public ReturnTypeThree call() throws Exception { 
-	  get_Curso();
-	  return null; } }); 
-	  
-	  
-	  // Obtenemos resultados 
-	  try { 
-		  ReturnTypeOne firstValue =first.get(); 
-		  ReturnTypeTwo secondValue = second.get(); 
-		  ReturnTypeThree thirdValue = third.get(); 
-		  } catch (InterruptedException e) {
-	  e.printStackTrace(); } catch (ExecutionException e) { e.printStackTrace(); }
-	  }*/
+	@Scheduled(cron = "30 * * * * *")
+	public void run() {
+		ExecutorService executor = Executors.newFixedThreadPool(3);
+
+		// Tenemos listas las tareas()
+		Future<ReturnTypeOne> first = executor.submit(new Callable<ReturnTypeOne>() {
+
+			@Override
+			public ReturnTypeOne call() throws Exception {
+				get_Profesores();
+				return null;
+			}
+		});
+		Future<ReturnTypeTwo> second = executor.submit(new Callable<ReturnTypeTwo>() {
+
+			@Override
+			public ReturnTypeTwo call() throws Exception {
+				get_Calificaciones();
+				return null;
+			}
+		});
+		Future<ReturnTypeThree> third = executor.submit(new Callable<ReturnTypeThree>() {
+
+			@Override
+			public ReturnTypeThree call() throws Exception {
+				get_Curso();
+				return null;
+			}
+		});
+
+		// Obtenemos resultados
+		try {
+			ReturnTypeOne firstValue = first.get();
+			ReturnTypeTwo secondValue = second.get();
+			ReturnTypeThree thirdValue = third.get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void get_Profesores() {
 
@@ -145,8 +154,7 @@ public class WebService {
 		}
 
 	}
-	 
-	//@Scheduled(cron = "10 * * * * *")
+
 	public void get_Curso() {
 
 		LinkedList<Url_ws_curso> links = new LinkedList<>(urls_curso.findVarios());
@@ -167,7 +175,7 @@ public class WebService {
 		}
 
 	}
-	//@Scheduled(cron = "30 * * * * *")
+
 	public void get_Calificaciones() {
 
 		LinkedList<Url_ws_inscripcion> links = new LinkedList<>(urls_inscripcion.findVarios());
@@ -200,12 +208,12 @@ public class WebService {
 			if (exits == null) {
 				curso_rep.saveC(clave_curso);
 			} else {
-				LOGGER.debug("Ya existe el curso");				
+				LOGGER.debug("Ya existe el curso");
 			}
-			
+
 			if (exits_group == null) {
 				grupo_rep.saveC(clave_grupo);
-			}else {
+			} else {
 				LOGGER.debug("Ya existe el grupo");
 			}
 		}
@@ -221,26 +229,19 @@ public class WebService {
 			String id_grupo = jsonProductObject.getString("idnumber");
 			double result = Double.parseDouble(calificacion);
 			boolean aprobado = aprobadoCalificacion(result);
-			//Profesor exits = profesor.findByCurp(curp);
+			Profesor exits = profesor.findByCurp(curp);
 			String[] claves = separaNombreCurso(id_grupo);
 			String clave_curso = claves[0];
 			String clave_grupo = claves[1];
 			System.out.println(clave_grupo);
-			
-			//AQUI EMPIEZA EL ERROR
-			Inscripcion grupo =inscripcionRep.findIDGroup(clave_grupo);
-			//Me da null
-			
-			grupo.getFk_id_grupo();
-			
-			//inscripcionRep.saveI(id_grupo, exits.getPk_id_profesor(), calificacion, aprobado);
 
-			/*if (curp.equals(exits.getCurp())) {
-				inscripcionRep.saveI(grupo, exits.getPk_id_profesor(), calificacion, aprobado);
+			Inscripcion grupo = inscripcionRep.findIDGroup(clave_grupo);
+			if (grupo == null) {
+				LOGGER.debug("No existe el curso");
 			} else {
-				LOGGER.debug("No existe el profesor , por lo que la califcación no puede ser asignada");
-				return;
-			}*/
+				inscripcionRep.saveI(grupo.getFk_id_grupo().getPk_id_grupo(), exits.getPk_id_profesor(), calificacion,
+						aprobado);
+			}
 
 		}
 	}
@@ -274,12 +275,11 @@ public class WebService {
 						1);
 
 			}
-			if(!curp.equals(exits.getCurp())) {
+			if (!curp.equals(exits.getCurp())) {
 				profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, email, institucion, ciudad, 1, 1, 1,
 						1);
 
-				
-			}else if (curp.equals(exits.getCurp())) {
+			} else if (curp.equals(exits.getCurp())) {
 				// Se guardan profesores
 				// Algunos valores se guardan por default ya que no se tienen todos los datos
 				// disponibles en Moodle
