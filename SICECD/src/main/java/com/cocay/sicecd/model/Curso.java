@@ -36,14 +36,6 @@ public class Curso {
 	@Column(name = "horas", nullable = true)
 	Integer horas;
 	
-	@Column(name = "f_inicio", nullable = true)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	Date fInicio;
-	
-	@Column(name = "f_termino", nullable = true)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	Date fTermino;
-
 	@Column(name = "temp", nullable = true)
 	public Integer temp;
 	
@@ -138,22 +130,6 @@ public class Curso {
 
 	public void setCertificados(List<Certificado> certificados) {
 		this.certificados = certificados;
-	}
-
-	public Date getfInicio() {
-		return fInicio;
-	}
-
-	public void setfInicio(Date fInicio) {
-		this.fInicio = fInicio;
-	}
-
-	public Date getfTermino() {
-		return fTermino;
-	}
-
-	public void setfTermino(Date fTermino) {
-		this.fTermino = fTermino;
 	}
 
 	public Integer getTemp() {

@@ -204,7 +204,8 @@ public class WebService {
 			Grupo exits_group = grupo_rep.findByUniqueClaveGrupo(clave_grupo);
 
 			if (exits == null) {
-				curso_rep.saveC(clave_curso);
+				curso_rep.saveC(clave_curso, nombre_curso);
+				exits = curso_rep.findByUniqueClaveCurso(clave_curso);
 
 			} else {
 
@@ -213,7 +214,7 @@ public class WebService {
 			}
 
 			if (exits_group == null) {
-				grupo_rep.saveC(clave_grupo);
+				grupo_rep.saveC(clave_grupo, exits.getPk_id_curso());
 
 			} else {
 				LOGGER.debug("Ya existe el grupo");
@@ -227,7 +228,6 @@ public class WebService {
 		for (int i = 0; i < arr.length(); i++) {
 			JSONObject jsonProductObject = arr.getJSONObject(i);
 			String calificacion = jsonProductObject.getString("grade");
-			String nombre_curso = jsonProductObject.getString("shortname");
 			String curp = jsonProductObject.getString("username");
 			String id_grupo = jsonProductObject.getString("idnumber");
 			double result = Double.parseDouble(calificacion);
@@ -238,12 +238,24 @@ public class WebService {
 			String clave_grupo = claves[1];
 			System.out.println(clave_grupo);
 
-			Inscripcion grupo = inscripcionRep.findIDGroup(clave_grupo);
-			if (grupo == null) {
+			Curso curso = curso_rep.findByUniqueClaveCurso(clave_curso);
+			if(curso == null) {
 				LOGGER.debug("No existe el curso");
-			} else {
-				inscripcionRep.saveI(grupo.getFk_id_grupo().getPk_id_grupo(), exits.getPk_id_profesor(), calificacion,
-						aprobado);
+			}else {
+				Grupo grupo = grupo_rep.findByClaveGrupoIdCurso(clave_grupo, curso);
+				if (grupo == null) {
+					LOGGER.debug("No existe el grupo");
+				} else {
+					if(exits==null) {
+						LOGGER.debug("No existe el profesor");
+					}else {
+						if(calificacion.length()>3) {
+							calificacion = calificacion.substring(0, 3);
+							calificacion = calificacion.replace(".", "");
+						}
+						inscripcionRep.saveI(grupo.getPk_id_grupo(), exits.getPk_id_profesor(), calificacion, aprobado);
+					}
+				}
 			}
 
 		}
@@ -257,13 +269,19 @@ public class WebService {
 		for (int i = 0; i < arr.length(); i++) {
 
 			JSONObject jsonProductObject = arr.getJSONObject(i);
-			String curp = jsonProductObject.getString("username");
+			String curp = jsonProductObject.getString("username").toUpperCase();
 			String nombre = jsonProductObject.getString("firstname");
 			String apellidos = jsonProductObject.getString("lastname");
 			String email = jsonProductObject.getString("email");
 			String institucion = jsonProductObject.getString("institution");
 			String ciudad = jsonProductObject.getString("city");
 			String calificacion = jsonProductObject.getString("grade");
+			String rfc;
+			if(curp.length()>10) {
+				rfc = curp.substring(0, 10);
+			}else {
+				rfc = curp;
+			}
 			ArrayList<String> completos = separaApellidos(apellidos);
 			if (!completos.isEmpty()) {
 				apellido_paterno = completos.get(0);
@@ -274,7 +292,7 @@ public class WebService {
 			// Considerando que nuestra base de datos ya esta poblada se hace esta condicion
 			// en caso de que no mandara un null
 			if (exits == null) {
-				profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, email, institucion, ciudad, 1, 1, 1,
+				profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, rfc, email, institucion, ciudad, 1, 1, 1,
 						1);
 
 			} else if (curp.equals(exits.getCurp())) {

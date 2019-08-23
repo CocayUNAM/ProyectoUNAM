@@ -81,8 +81,8 @@ public class AvisosCorreoDAO {
 				"	CUR.CLAVE CLAVE,\n" + 
 				"	CUR.NOMBRE NOMBRE,\n" + 
 				"	CUR.FK_ID_TIPO_CURSO FK_ID_TIPO_CURSO,\n" + 
-				"	CUR.F_INICIO F_INICIO,\n" + 
-				"	CUR.F_TERMINO F_TERMINO,\n" + 
+				"	GRP.FECHA_INICIO F_INICIO,\n" + 
+				"	GRP.FECHA_TERMINO F_TERMINO,\n" + 
 				"	PROF.rfc rfc,\n" + 
 				"	PROF.fk_id_estado fk_id_estado,\n" + 
 				"	PROF.fk_id_turno fk_id_turno,\n" + 
@@ -110,12 +110,12 @@ public class AvisosCorreoDAO {
 			}
 			
 			if(filtroCorreoDTO.getfInicio() != null && !filtroCorreoDTO.getfInicio().equals("")) {
-				consulta += (bool ? " OR " : " " )+" TO_CHAR( F_INICIO, 'YYYY-MM-DD') = '"+filtroCorreoDTO.getfInicio()+"'";
+				consulta += (bool ? " OR " : " " )+" TO_CHAR( FECHA_INICIO, 'YYYY-MM-DD') = '"+filtroCorreoDTO.getfInicio()+"'";
 				bool = true;
 			}
 			
 			if(filtroCorreoDTO.getfTermino() != null && !filtroCorreoDTO.getfTermino().equals("")) {
-				consulta +=  (bool ? " OR " : " " )+" TO_CHAR( F_TERMINO, 'YYYY-MM-DD') = '"+filtroCorreoDTO.getfTermino()+"'";
+				consulta +=  (bool ? " OR " : " " )+" TO_CHAR( FECHA_TERMINO, 'YYYY-MM-DD') = '"+filtroCorreoDTO.getfTermino()+"'";
 				bool = true;
 			}
 			

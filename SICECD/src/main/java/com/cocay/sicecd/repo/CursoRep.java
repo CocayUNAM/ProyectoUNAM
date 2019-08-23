@@ -31,20 +31,6 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	@Query("SELECT c FROM Curso c WHERE upper(c.clave) LIKE CONCAT('%',:clave,'%')")
 	List<Curso> findByClave(@Param("clave") String clave);
 	
-	/*
-	 * @author Derian Estrada
-	 * Consultas Simples por Fecha
-	 */
-	@Query(value = "SELECT * FROM Curso WHERE f_inicio = :fecha_ini", nativeQuery = true)
-	List<Curso> findByFechaInicio(@Param("fecha_ini") Date fecha_ini);
-	
-	/*
-	 * @author Derian Estrada
-	 * Consultas Avanzadas por Fecha
-	 */
-	@Query(value = "SELECT * FROM Curso WHERE f_inicio >= :fecha_ini_1 AND f_inicio <= :fecha_ini_2", nativeQuery = true)
-	List<Curso> findByFechaInicio(@Param("fecha_ini_1") Date fecha_ini_1, @Param("fecha_ini_2") Date fecha_ini_2);
-	
 	@Query(value="SELECT * FROM Curso", nativeQuery = true)
 	List<Curso> loadAllCursos();
 	
@@ -53,9 +39,9 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	 * 
 	 */
 	@Modifying
-    @Query(value = "insert into Curso (clave) VALUES (:clave)", nativeQuery = true)
+    @Query(value = "insert into Curso (clave, nombre) VALUES (:clave, :nombre)", nativeQuery = true)
     @Transactional
-    void saveC(@Param("clave") String clave);
+    void saveC(@Param("clave") String clave, @Param("nombre") String nombre);
 	
 	@Query("SELECT c FROM Curso c WHERE upper(c.clave) = :clave")
 	Curso findByUniqueClave(@Param("clave") String clave);

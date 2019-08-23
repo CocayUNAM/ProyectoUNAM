@@ -84,13 +84,11 @@ public class CargaBatchServiceDAO {
 	public List<CursoDto> lstCursos(Integer limit, Integer offset, String search, String name, String order) throws Exception {
 		List<CursoDto> lstCursos = new ArrayList<CursoDto>();
 		
-		String consulta = "SELECT idCurso, clave, nombre, horas, fInicio, fTermino FROM (\n" + 
+		String consulta = "SELECT idCurso, clave, nombre, horas FROM (\n" + 
 				"	SELECT pk_id_curso idCurso,\n" + 
 				"				clave,\n" + 
 				"				nombre,\n" + 
-				"				horas,\n" + 
-				"				f_inicio fInicio,\n" + 
-				"				f_termino fTermino\n" + 
+				"				horas\n" +  
 				"				FROM Curso \n"+
 				"				WHERE st_Tabla = 1) foo";
 		

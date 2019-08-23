@@ -29,17 +29,17 @@ public class Certificado {
 	
 	@ManyToOne(targetEntity=Profesor.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor")
+	@JoinColumn(name = "fk_id_profesor",referencedColumnName="pk_id_profesor", nullable = false)
 	private Profesor fk_id_profesor;
 	
 	@ManyToOne(targetEntity=Curso.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso")
+	@JoinColumn(name = "fk_id_curso", referencedColumnName="pk_id_curso", nullable = false)
 	private Curso fk_id_curso;
 	
 	@ManyToOne(targetEntity=Grupo.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_grupo", referencedColumnName="pk_id_grupo")
+	@JoinColumn(name = "fk_id_grupo", referencedColumnName="pk_id_grupo", nullable = false)
 	private Grupo fk_id_grupo;
     
 	public int getPk_id_certificado() {
