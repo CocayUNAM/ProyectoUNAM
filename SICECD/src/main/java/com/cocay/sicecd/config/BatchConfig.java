@@ -196,7 +196,8 @@ public class BatchConfig  {
         reader.setLinesToSkip(1);
         reader.setLineMapper(new DefaultLineMapper<Inscripcion>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-            	setNames(new String[] {"tempGrupo", "tempProfesor", "calif2"});
+            	setNames(new String[] {"tempGrupo", "tempCurso", "tempProfesor", "calif"});
+            	setStrict(false);
             }});
             setFieldSetMapper(new BeanWrapperFieldSetMapper<Inscripcion>() {{
                 setTargetType(Inscripcion.class);

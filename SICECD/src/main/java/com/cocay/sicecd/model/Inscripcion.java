@@ -30,14 +30,14 @@ public class Inscripcion {
 	@Column(name = "tempGrupo", nullable = true)
 	String tempGrupo;
 	
+	@Column(name = "tempCurso", nullable = true)
+	String tempCurso;
+	
 	@Column(name = "tempProfesor", nullable = true)
 	String tempProfesor;
 	
 	@Column(name = "stTabla", nullable = true)
 	Integer stTabla;
-	
-	@Column(name = "calif2", nullable = true)
-	Integer calif2;
 	
 	@ManyToOne(targetEntity=Grupo.class)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -94,14 +94,6 @@ public class Inscripcion {
 		this.stTabla = stTabla;
 	}
 
-	public Integer getCalif2() {
-		return calif2;
-	}
-
-	public void setCalif2(Integer calif2) {
-		this.calif2 = calif2;
-	}
-
 	public String getTempGrupo() {
 		return tempGrupo;
 	}
@@ -118,6 +110,12 @@ public class Inscripcion {
 		this.tempProfesor = tempProfesor;
 	}
 
-	
+	public String getTempCurso() {
+		return tempCurso;
+	}
+
+	public void setTempCurso(String tempCurso) {
+		this.tempCurso = tempCurso;
+	}
 
 }

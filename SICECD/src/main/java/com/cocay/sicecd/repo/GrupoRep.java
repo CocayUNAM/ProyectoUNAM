@@ -69,13 +69,6 @@ public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
     @Query(value = "insert into Grupo (clave, fk_id_curso) VALUES (:clave, :fk_id_curso)", nativeQuery = true)
     @Transactional
     void saveC(@Param("clave") String clave, @Param("fk_id_curso") Integer fk_id_curso);
-
-	
-	@Query("SELECT c FROM Grupo c WHERE upper(c.clave) = :clave")
-	Grupo findByUniqueClaveGrupo(@Param("clave") String clave);
-	
-	@Query("SELECT g FROM Grupo g WHERE upper(g.clave) = :clave")
-	Grupo findByClaveGrupo(@Param("clave") String clave);
 	
 	@Query("SELECT g FROM Grupo g WHERE upper(g.clave) = :clave AND g.fk_id_curso = :curso")
 	Grupo findByClaveGrupoIdCurso(@Param("clave") String clave, @Param("curso") Curso curso);

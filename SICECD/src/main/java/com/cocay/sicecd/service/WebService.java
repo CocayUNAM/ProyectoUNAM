@@ -36,6 +36,7 @@ import com.cocay.sicecd.repo.Url_ws_inscripcionRep;
 import com.cocay.sicecd.repo.Url_ws_profesorRep;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -92,8 +93,10 @@ public class WebService {
 	 * inmediatamente. Si la segunda tarea aún se está ejecutando, la llamada
 	 * bloquea el subproceso actual hasta que se calcula el valor.
 	 */
-	@Scheduled(cron = "30 * * * * *")
+	@Scheduled(cron = "${ws.scheduleImportData}")
 	public void run() {
+		final CountDownLatch cdl1 = new CountDownLatch(1);
+	    final CountDownLatch cdl2 = new CountDownLatch(1);
 		ExecutorService executor = Executors.newFixedThreadPool(3);
 
 		// Tenemos listas las tareas()
@@ -101,7 +104,10 @@ public class WebService {
 
 			@Override
 			public ReturnTypeOne call() throws Exception {
+				LOGGER.info("Start Thread WS One");
 				get_Profesores();
+				cdl1.countDown();
+				LOGGER.info("Finish Thread WS One");
 				return null;
 			}
 		});
@@ -109,7 +115,10 @@ public class WebService {
 
 			@Override
 			public ReturnTypeTwo call() throws Exception {
-				get_Calificaciones();
+				LOGGER.info("Start Thread WS Second");
+				get_Curso();
+				cdl2.countDown();
+				LOGGER.info("Finish Thread WS Second");
 				return null;
 			}
 		});
@@ -117,7 +126,15 @@ public class WebService {
 
 			@Override
 			public ReturnTypeThree call() throws Exception {
-				get_Curso();
+				try {
+	                cdl1.await();
+	                cdl2.await();
+	            } catch (InterruptedException e) {
+	                e.printStackTrace();
+	            }
+				LOGGER.info("Start Thread WS Three");
+				get_Calificaciones();
+				LOGGER.info("Finish Thread WS Three");
 				return null;
 			}
 		});
@@ -201,7 +218,6 @@ public class WebService {
 			String clave_curso = claves[0];
 			String clave_grupo = claves[1];
 			Curso exits = curso_rep.findByUniqueClaveCurso(clave_curso);
-			Grupo exits_group = grupo_rep.findByUniqueClaveGrupo(clave_grupo);
 
 			if (exits == null) {
 				curso_rep.saveC(clave_curso, nombre_curso);
@@ -213,6 +229,8 @@ public class WebService {
 
 			}
 
+
+			Grupo exits_group = grupo_rep.findByClaveGrupoIdCurso(clave_grupo, exits);
 			if (exits_group == null) {
 				grupo_rep.saveC(clave_grupo, exits.getPk_id_curso());
 
