@@ -95,7 +95,7 @@ public class AltaUsuarios {
 		String to=consulta.getCorreo();
 		String subject="Activación de cuenta";
 		String body="Hola da clic al siguiente  link \n" + 
-				link+ "\npara activar tu cuenta y configurar una nueva contraseña.";
+				link+ "\npara activar tu cuenta y configurar una nueva contrase&ntilde;a.";
 		_email.sendMail(from, to, subject, body);
 		log.setTrace(LogTypes.ALTA_USUARIO);
 

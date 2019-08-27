@@ -152,12 +152,12 @@ public class EditarPerfil {
 		String from = origen;
 		String to = guardado.getCorreo();
 		String subject = "Recupera Contraseña";
-		String body = "Hola da clic al siguiente  link \n" + link + "\nrecuperar tu contraseña.";
+		String body = "Hola da clic al siguiente  link \n" + link + "\nrecuperar tu contrase&ntilde;a.";
 		_email.sendMail(from, to, subject, body);
 		guardado.setCodigorecupera(codigo);
 		guardado.setConfirmarecupera("true");
 		_usuarioSys.save(guardado);
-		log.setTrace(LogTypes.RECUPERA_CONTRASEÑA);
+		log.setTrace(LogTypes.RECUPERA_PASSWORD);
 
 		return ResponseEntity.ok("Correo reenviado");
 	}
@@ -175,7 +175,7 @@ public class EditarPerfil {
 		String to=guardado.getCorreo();
 		String subject="Activación de cuenta";
 		String body="Hola da clic al siguiente  link \n" + 
-				link+ "\npara activar tu cuenta y configurar una nueva contraseña.";
+				link+ "\npara activar tu cuenta y configurar una nueva contrase&ntilde;a.";
 		_email.sendMail(from, to, subject, body);
 		guardado.setConfirmacion("true");
 		guardado.setCodigo(codigo);

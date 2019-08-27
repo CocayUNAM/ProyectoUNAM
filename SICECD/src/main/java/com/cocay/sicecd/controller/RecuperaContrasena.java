@@ -40,7 +40,7 @@ Logging log;
 					+ guardado.getPk_id_usuario_sys();
 			String from = origen;
 			String to = guardado.getCorreo();
-			String subject = "Recuperacion de contraseña";
+			String subject = "Recuperacion de contrase&ntilde;a";
 			String body = "Hola da clic al siguiente  link \n" + link + "\npara confirmar tu correo.";
 			_email.sendMail(from, to, subject, body);
 			guardado.setCodigorecupera(codigo);
@@ -49,7 +49,7 @@ Logging log;
 			String correoo=guardado.getCorreo();
 			mensaje="Se ha enviado un link a "+correoo.substring(0,3)+"*****"+correoo.substring(correoo.length()-3,correoo.length());
 		}
-		log.setTrace(LogTypes.RECUPERA_CONTRASEÑA);
+		log.setTrace(LogTypes.RECUPERA_PASSWORD);
 
 		return ResponseEntity.ok(mensaje);
 		

@@ -78,7 +78,7 @@ public final class LogTypes {
 	/* Acción de exportar una consulta de grupos*/
 	public static final String ACTIVA_USUARIO = "ACUS00";
 	/* Acción de exportar una consulta de grupos*/
-	public static final String RECUPERA_CONTRASEÑA = "RECO00";
+	public static final String RECUPERA_PASSWORD = "RECO00";
 	/* Acción de exportar una consulta de grupos*/
 	public static final String EDITA_USUARIO= "EDUS00";
 	/* Acción de exportar una consulta de grupos*/
