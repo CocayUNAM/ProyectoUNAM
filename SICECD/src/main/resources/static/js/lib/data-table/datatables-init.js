@@ -17,9 +17,7 @@
     $('#bootstrap-data-table-export').DataTable({
         dom: 'lBfrtip',
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        buttons: [
-            'csv', 'excel', 'pdf'
-        ]
+        buttons: ['csv', 'excel', 'pdf']
     });
 	
 	$('#row-select').DataTable( {
