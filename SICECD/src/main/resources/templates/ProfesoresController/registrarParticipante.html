@@ -128,14 +128,14 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="curp">CURP<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="curp" name="curp" placeholder="Introduce CURP" maxlength = "18">
+                                                    <input type="text" class="form-control" id="curp" name="curp" placeholder="Introduce CURP en mayusculas" maxlength = "18">
                                                 </div>
                                             </div>
                                             
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="rfc">RFC <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC" maxlength = "13" required>
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC en mayusculas" maxlength = "13" required>
                                                 </div>
                                             </div>
                                             
@@ -149,7 +149,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="tel">Telefono<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="tel" class="form-control" id="tel" name="tel" placeholder="Introduce telefono.">
+                                                    <input type="tel" class="form-control" id="tel" name="tel" placeholder="Introduce telefono, 10 digitos.">
                                                 </div>
                                             </div>
                                             
@@ -334,7 +334,7 @@
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
 
-			            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+			            if (value.search(/[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 			                return false;
 			            }
 
@@ -347,7 +347,7 @@
 			            var value = $field.val();
 
 			            if($('#amaterno').val().length > 0){
-				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -361,7 +361,7 @@
 			            var value = $field.val();
 
 			            if($('#cilo').val().length > 0){
-				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)()@!:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)()@!:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -410,7 +410,7 @@
 			            var value = $field.val();
 
 			            if($('#plantel').val().length > 0){
-				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?()/*@!¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-][a-zA-Z][^#&<>°¬|""~;$^%{}?()/*@!¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -450,7 +450,7 @@
 			            var value = $field.val();
 						
 			            if($('#tel').val().length > 0){
-				            if (value.length != 8) {
+				            if (value.length != 10) {
 				                return false;
 				            }
 			            }
@@ -523,7 +523,7 @@
 		        	rfc : {
 		        		validators: {
 		        			rfc: {
-		                        message: ' Verifica que el rfc sea correcto '
+		                        message: ' Verifica que el rfc sea correcto (Esté en mayusculas, longitud de 13 caracteres.)'
 		                    },
 		        	
 		                    notEmpty: {
@@ -540,7 +540,7 @@
 		                    },
 		        	
 		        			telefono: {
-		        				message: ' Verifica que la longitud sea de 8 numeros '
+		        				message: ' Verifica que la longitud sea de 10 numeros '
 		        			}
 		        	
 		        		}
@@ -666,18 +666,36 @@
 							$("#limpiar").css("visibility","hidden");
 							$("#volver").css("visibility","hidden");
 							$("#revisar").css("visibility","visible");
+							$("#mensaje").css("position","absolute");
+							$("#mensaje").css("left","35px");
 							$("#mensaje").css("visibility","visible");
 						},
 						success : function(respuesta) {
-							$('#spin').css("visibility","hidden")
-							var elem = $(document.createElement('h4'))
-							               .attr('id','mensaje').html(respuesta.message);
-							$('#mensaje').replaceWith(elem);
-							$("#mensaje").css("color","green");
-							$("#revisar").css("visibility","hidden");
-							$("#limpiar").css("visibility","visible");
-							$("#volver").css("visibility","visible");
-							$("#mensaje").css("visibility","visible");
+							if(respuesta.message == "Error: ¡Curp ya registrado!"){
+								$('#spin').css("visibility","hidden")
+								var elem = $(document.createElement('h4'))
+					               .attr('id','mensaje').html(respuesta.message);
+								$('#mensaje').replaceWith(elem);
+								$("#mensaje").css("color","red");
+								$("#limpiar").css("visibility","hidden");
+								$("#volver").css("visibility","hidden");
+								$("#revisar").css("visibility","visible");
+								$("#mensaje").css("position","absolute");
+								$("#mensaje").css("left","50px");
+								$("#mensaje").css("visibility","visible");
+							} else{
+								$('#spin').css("visibility","hidden")
+								var elem = $(document.createElement('h4'))
+								               .attr('id','mensaje').html(respuesta.message);
+								$('#mensaje').replaceWith(elem);
+								$("#mensaje").css("color","green");
+								$("#revisar").css("visibility","hidden");
+								$("#limpiar").css("visibility","visible");
+								$("#volver").css("visibility","visible");
+								$("#mensaje").css("position","absolute");
+								$("#mensaje").css("left","65px");
+								$("#mensaje").css("visibility","visible");	
+							}
 						}
 					});
 	            
