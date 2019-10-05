@@ -120,8 +120,14 @@ public class EditarPerfil {
 		String subjecte = "Edicion de Perfil";
 		String bodye = "Hola se han echo una serie de cambios en tu perfil\n" + cambios;
 
+
 		if (!cambios.equals("")) {
-			_email.sendMail(frome, toe, subjecte, bodye);
+			try {
+				_email.sendMail(frome, toe, subjecte, bodye);
+				}
+				catch(Exception e) {
+					return ResponseEntity.ok("Ha oucrrido un error al enviar el correo, verifica tu conexion."); 
+				}
 			_usuarioSys.save(guardado);
 		}
 		log.setTrace(LogTypes.EDITA_USUARIO,null,guardado.getRfc());
@@ -153,7 +159,12 @@ public class EditarPerfil {
 		String to = guardado.getCorreo();
 		String subject = "Recupera Contraseña";
 		String body = "Hola da clic al siguiente  link \n" + link + "\nrecuperar tu contrase&ntilde;a.";
-		_email.sendMail(from, to, subject, body);
+		try {
+			_email.sendMail(from, to, subject, body);
+			}
+			catch(Exception e) {
+				return ResponseEntity.ok("Ha oucrrido un error al enviar el correo, verifica que la direccion sea valida, o tu conexion."); 
+			}		
 		guardado.setCodigorecupera(codigo);
 		guardado.setConfirmarecupera("true");
 		_usuarioSys.save(guardado);
@@ -176,7 +187,12 @@ public class EditarPerfil {
 		String subject="Activación de cuenta";
 		String body="Hola da clic al siguiente  link \n" + 
 				link+ "\npara activar tu cuenta y configurar una nueva contrase&ntilde;a.";
-		_email.sendMail(from, to, subject, body);
+		try {
+			_email.sendMail(from, to, subject, body);
+			}
+			catch(Exception e) {
+				return ResponseEntity.ok("Ha oucrrido un error al enviar el correo, verifica tu conexion."); 
+			}		
 		guardado.setConfirmacion("true");
 		guardado.setCodigo(codigo);
 		_usuarioSys.save(guardado);

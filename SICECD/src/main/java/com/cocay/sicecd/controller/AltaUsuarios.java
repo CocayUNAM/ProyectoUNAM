@@ -96,7 +96,13 @@ public class AltaUsuarios {
 		String subject="Activación de cuenta";
 		String body="Hola da clic al siguiente  link \n" + 
 				link+ "\npara activar tu cuenta y configurar una nueva contrase&ntilde;a.";
-		_email.sendMail(from, to, subject, body);
+		
+		try {
+			_email.sendMail(from, to, subject, body);
+			}
+			catch(Exception e) {
+				return ResponseEntity.ok("Ha oucrrido un error al enviar el correo, verifica que la direccion sea valida, o tu conexion."); 
+			}
 		log.setTrace(LogTypes.ALTA_USUARIO);
 
 		return ResponseEntity.ok("Usuario Agregado con exito");
