@@ -172,6 +172,27 @@ public class ProfesoresController {
 				System.out.println("nombre: " + nombres);
 				
 				String curp = prof.getCurp();
+				profe.setCurp(curp);
+				
+				List<Profesor> alt = profRep.findHigherID();
+				
+				Profesor ultProfe = new Profesor();
+				
+				if(!alt.isEmpty()) {
+					ultProfe = profRep.findHigherID().get(0);
+				} else {
+					ultProfe.setPk_id_profesor(0);
+				}
+				
+				Integer idPath = ultProfe.getPk_id_profesor() + 1;
+				
+				if(curp.equals("")) {
+					profe.setCurp("No definido" + idPath);
+				}
+				
+				if(profRep.findByCurp(curp) != null) {
+					return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"Error: ¡Curp ya registrado!\",\"path\":\"/AdministracionProfesores/registrarParticipante\"}");
+				}
 				
 				System.out.println("El curp: " + curp);
 				
@@ -250,8 +271,6 @@ public class ProfesoresController {
 				profe.setApellido_materno(amaterno);
 				
 				profe.setNombre(nombres);
-				
-				profe.setCurp(curp);
 				
 				profe.setRfc(rfc);
 				
