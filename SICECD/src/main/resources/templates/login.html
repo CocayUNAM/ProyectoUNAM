@@ -25,6 +25,12 @@ a {
 }
 #mensaje {
 	visibility: hidden;
+	
+
+}
+
+#logEnvia:hover{
+	background-color: #87CEFA;
 }
 
 
@@ -49,7 +55,7 @@ a {
 	<form method="POST" th:action="@{/login}" class="login">
 		<input type="text" placeholder="username" name="username"><br>
 		<input type="password" placeholder="password" name="password"><br>
-		<input type="submit" value="Login">
+		<input type="submit" value="Login" id="logEnvia">
 		<div id="error" th:if="${param.error}">Invalid username or
 			password.</div>
 		<div th:if="${param.logout}">You have been logged out.</div>
@@ -83,10 +89,10 @@ a {
 					<form id="cambio">
 						<div class="form-group">
 							<label for="recipient-name" class="col-form-label">RFC:</label> <input
-								type="text" class="form-control" id="rfc" name="rfc"><br>
+								type="text" class="form-control" id="rfc" name="rfc" maxlength="13" style="text-transform: uppercase;"><br>
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary" id="envia">Enviar</button>
+							<button type="submit" class="btn btn-primary" id="envia" >Enviar</button>
 						</div>
 					</form>
 				</div>
@@ -122,7 +128,7 @@ a {
 	<script type="text/javascript">
     $("#cambio").validate({
         event: "blur", rules: { 'rfc': "required" },
-        messages: { 'rfc': "Por favor el rfc" },
+        messages: { 'rfc': "Por favor ingrese el rfc" },
         errorElement: "label",
         submitHandler: function (form) {
 						console.log("envia");
@@ -153,7 +159,7 @@ a {
                                        .attr('id','mensaje').html(respuesta);
                         $('#mensaje').replaceWith(elem);
                         $("#mensaje").css("visibility","visible");
-                        $('#envia').css("visibility","hidden")
+                        //$('#envia').css("visibility","hidden")
                         
                     }
                 });

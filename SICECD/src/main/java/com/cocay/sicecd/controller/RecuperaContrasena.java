@@ -42,7 +42,13 @@ Logging log;
 			String to = guardado.getCorreo();
 			String subject = "Recuperacion de contrase&ntilde;a";
 			String body = "Hola da clic al siguiente  link \n" + link + "\npara confirmar tu correo.";
-			_email.sendMail(from, to, subject, body);
+			
+			try {
+				_email.sendMail(from, to, subject, body);
+				}
+				catch(Exception e) {
+					return ResponseEntity.ok("Ha oucrrido un error al enviar el correo, verifica tu conexion."); 
+				}
 			guardado.setCodigorecupera(codigo);
 			guardado.setConfirmarecupera("true");
 			_usuarioSys.save(guardado);
