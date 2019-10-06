@@ -402,7 +402,7 @@ span.badge {
   background-image: none;
   background: #ffffff;
   color: #373757;
-  border-color: #e7e7e7;
+  border-color: #878787;
   margin-right: 10px;
   padding: 7px 20px;
   border-radius: 0px;
@@ -543,6 +543,70 @@ a.dt-button.active:not(.disabled) {
   border-color: #252525;
   color: #252525;
 }
+
+/*==================================================*/
+.btn-back {
+	background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #878787;
+  box-shadow: none;
+  color: #373757;
+  padding: 8px 30px;
+  margin-top: 10px;
+  margin-right: 30px;
+  margin-left: 20px;
+}
+.btn-back:hover:not(.disabled),
+.btn-back:focus,
+.btn-back.active {
+  background-image: none;
+  background: #5873fe;
+  color: #ffffff;
+}
+button.btn-back:hover:not(.disabled),
+div.btn-back:hover:not(.disabled),
+a.btn-back:hover:not(.disabled) {
+  background-color: #5873fe;
+  background-image: none;
+  border: 1px solid #5873fe;
+  box-shadow: none;
+  color: #ffffff;
+}
+button.btn-back:focus:not(.disabled),
+div.btn-back:focus:not(.disabled),
+a.btn-back:focus:not(.disabled) {
+  background-color: #5873fe;
+  background-image: none;
+  border: 1px solid #5873fe;
+  box-shadow: none;
+  color: #ffffff;
+}
+button.btn-back:active:hover:not(.disabled):not(.disabled),
+button.btn-back.active:hover:not(.disabled):not(.disabled),
+div.btn-back:active:hover:not(.disabled):not(.disabled),
+div.btn-back.active:hover:not(.disabled):not(.disabled),
+a.btn-back:active:hover:not(.disabled):not(.disabled),
+a.btn-back.active:hover:not(.disabled):not(.disabled) {
+  background-color: #5873fe;
+  background-image: none;
+  border: 1px solid #5873fe;
+  box-shadow: none;
+  color: #ffffff;
+}
+button.btn-back:active:not(.disabled),
+button.btn-back.active:not(.disabled),
+div.btn-back:active:not(.disabled),
+div.btn-back.active:not(.disabled),
+a.btn-back:active:not(.disabled),
+a.btn-back.active:not(.disabled) {
+  background-color: #5873fe;
+  background-image: none;
+  border: 1px solid #5873fe;
+  box-shadow: none;
+  color: #ffffff;
+}
+/*==================================================*/
+
 .btn-default {
   background: #878787;
   border-color: #878787;
