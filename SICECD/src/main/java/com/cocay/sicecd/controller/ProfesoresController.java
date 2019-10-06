@@ -188,10 +188,10 @@ public class ProfesoresController {
 				
 				if(curp.equals("")) {
 					profe.setCurp("No definido" + idPath);
-				}
-				
-				if(profRep.findByCurp(curp) != null) {
-					return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"Error: ¡Curp ya registrado!\",\"path\":\"/AdministracionProfesores/registrarParticipante\"}");
+				} else {
+					if(profRep.findByCurp(curp) != null) {
+						return ResponseEntity.ok("{\"status\":200,\"success \":\"Ok\",\"message\":\"Error: ¡Curp ya registrado!\",\"path\":\"/AdministracionProfesores/registrarParticipante\"}");
+					}
 				}
 				
 				System.out.println("El curp: " + curp);

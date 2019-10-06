@@ -200,7 +200,7 @@
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
 
-			            if (value.search(/[A-Z][a-zA-Z][^#&<>""~;$^%{}°¬|?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+			            if (value.search(/[ A-ZäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-][a-zA-Z][^#&<>""~;$^%{}°¬|?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 			                return false;
 			            }
 
@@ -232,7 +232,7 @@
 			            var value = $field.val();
 
 			            if($('#apellidomaterno').val().length > 0){
-				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[ A-ZäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -246,7 +246,7 @@
 			            var value = $field.val();
 						
 			            if($('#tel').val().length > 0){
-				            if (value.length != 8) {
+				            if (value.length != 10) {
 				                return false;
 				            }
 			            }
@@ -313,7 +313,7 @@
 		                    },
 		        	
 		        			telefono: {
-		        				message: ' Verifica que la longitud sea de 8 numeros '
+		        				message: ' Verifica que la longitud sea de 10 numeros '
 		        			}
 		        	
 		        		}
@@ -322,7 +322,7 @@
 		        	rfc : {
 		        		validators: {
 		        			rfc: {
-		                        message: ' Verifica que el rfc sea correcto '
+		                        message: ' Verifica que el rfc sea correcto (Esté en mayusculas, de 13 caracteres.)'
 		                    },
 		        	
 		                    notEmpty: {

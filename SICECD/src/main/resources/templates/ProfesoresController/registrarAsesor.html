@@ -141,7 +141,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="tel">Telefono<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="tel" class="form-control" id="tel" name="tel" placeholder="Introduce telefono.">
+                                                    <input type="tel" class="form-control" id="tel" name="tel" placeholder="Introduce telefono. (10 digitos)">
                                                 </div>
                                             </div>
                                             
@@ -156,7 +156,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="rfc">RFC <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC" maxlength = "13" required>
+                                                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="Introduce el RFC en mayusculas" maxlength = "13" required>
                                                 </div>
                                             </div>
                                             
@@ -214,7 +214,7 @@
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
 
-			            if (value.search(/[A-Z][a-zA-Z][^#&<>""~;$^%{}°¬|?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+			            if (value.search(/[ A-ZäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-][a-zA-Z][^#&<>""~;$^%{}°¬|?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 			                return false;
 			            }
 
@@ -248,7 +248,7 @@
 			            var value = $field.val();
 
 			            if($('#amaterno').val().length > 0){
-				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value.search(/[ A-ZäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-][a-zA-Z][^#&<>°¬|""~;$^%{}?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
 				                return false;
 				            }
 			            }
@@ -262,7 +262,7 @@
 			            var value = $field.val();
 						
 			            if($('#tel').val().length > 0){
-				            if (value.length != 8) {
+				            if (value.length != 10) {
 				                return false;
 				            }
 			            }
@@ -329,7 +329,7 @@
 		                    },
 		        	
 		        			telefono: {
-		        				message: ' Verifica que la longitud sea de 8 numeros '
+		        				message: ' Verifica que la longitud sea de 10 numeros '
 		        			}
 		        	
 		        		}
@@ -338,7 +338,7 @@
 		        	rfc : {
 		        		validators: {
 		        			rfc: {
-		                        message: ' Verifica que el RFC sea correcto '
+		                        message: ' Verifica que el RFC sea correcto. (Esté en mayusculas, longitud de 13 caracteres.) '
 		                    },
 		        	
 		                    notEmpty: {

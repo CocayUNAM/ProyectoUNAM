@@ -127,7 +127,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="nombre">Nombre <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Agregue el nombre del curso" maxlength = "150" required>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Agregue el nombre del curso, primera letra en mayuscula" maxlength = "150" required>
                                                 </div>
                                             </div>
                                                                                         
@@ -212,7 +212,7 @@
 				        validate: function(validator, $field, options) {
 				            var value = $field.val();
 
-				            if (value.search(/[A-Z][a-zA-Z][^#&<>°¬|""~;$^%{}\(\)?/*(0-9)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {				
+				            if (value.search(/[ A-ZäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-][a-zA-Z][^#&<>°¬|""~;$^%{}?/*@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {				
 				                return false;
 				            }
 
@@ -259,7 +259,7 @@
 				                    },
 				                    
 				                    nombre: {
-				                    	message: ' Verifica que sea un nombre valido '
+				                    	message: ' Verifica que sea un nombre valido (Primera letra en mayuscula) '
 				                    }
 				        		}
 				        	},

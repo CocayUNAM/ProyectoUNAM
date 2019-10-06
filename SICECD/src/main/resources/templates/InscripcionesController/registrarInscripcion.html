@@ -304,15 +304,27 @@
 							$("#mensaje").css("visibility","visible");
 						},
 						success : function(respuesta, status) {
-							$('#spin').css("visibility","hidden")
-							var elem = $(document.createElement('h4'))
-							               .attr('id','mensaje').html(respuesta.message);
-							$('#mensaje').replaceWith(elem);
-							$("#mensaje").css("color","green");
-							$("#revisar").css("visibility","hidden");
-							$("#limpiar").css("visibility","visible");
-							$("#volver").css("visibility","visible");
-							$("#mensaje").css("visibility","visible");
+							if(respuesta.message == "¡El participante ya había sido registrado con este grupo!"){
+								$('#spin').css("visibility","hidden")
+								var elem = $(document.createElement('h4'))
+								               .attr('id','mensaje').html("Error : El participante ya había sido registrado con este grupo");
+								$('#mensaje').replaceWith(elem);
+								$("#mensaje").css("color","red");
+								$("#limpiar").css("visibility","hidden");
+								$("#volver").css("visibility","hidden");
+								$("#revisar").css("visibility","visible");
+								$("#mensaje").css("visibility","visible");
+							} else{
+								$('#spin').css("visibility","hidden")
+								var elem = $(document.createElement('h4'))
+								               .attr('id','mensaje').html(respuesta.message);
+								$('#mensaje').replaceWith(elem);
+								$("#mensaje").css("color","green");
+								$("#revisar").css("visibility","hidden");
+								$("#limpiar").css("visibility","visible");
+								$("#volver").css("visibility","visible");
+								$("#mensaje").css("visibility","visible");
+							}
 						}
 					});
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -96,28 +95,30 @@ public class InscripcionesController {
 		Inscripcion inst = new Inscripcion();
 
 		String grupo = ins.getIdGrupo();
+		List<Grupo> grupop = grupoRep.findByClave(grupo);
 
 		String par = ins.getIdProfesor();
+		Profesor profe = profRep.findByRfc(par);
 		
 		String cal = ins.getCalificacion();
 		
 		Boolean ap = ins.isAprobado();
 		
-		List<Grupo> grupop = grupoRep.findByClave(grupo);
-		if (!grupop.isEmpty()) {
-			inst.setFk_id_grupo(grupop.get(0));
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN)
-		            .body("¡Grupo no encontrado!");
+		ArrayList<String> rfcs = new ArrayList<String>();
+		
+		for(Grupo g : grupop) {
+			rfcs.add(g.getFk_id_profesor().getRfc());
 		}
-
-		Profesor profe = profRep.findByRfc(par);
-		if (profe != null) {
-			inst.setFk_id_profesor(profe);
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN)
-		            .body("¡Profesor no encontrado!");
+		
+		if(rfcs.contains(profe.getRfc())) {
+			System.out.println("Sí lo contengo! es:");
+			System.out.println(profe.getRfc());
+			return ResponseEntity.ok("{\"message\":\"¡El participante ya había sido registrado con este grupo!\"}");
 		}
+		
+		inst.setFk_id_grupo(grupop.get(0));
+		
+		inst.setFk_id_profesor(profe);
 		
 		inst.setCalif(cal);
 		

@@ -266,12 +266,19 @@ public class ModificarUsuarios {
 			+ "\n";
 			mod.setCurp(profesor.getCurp());
 		} else {
+			Profesor repetido = proRep.findByCurp(profesor.getCurp());
+			if(repetido != null && mod.getRfc() != repetido.getRfc()) {
+				return ResponseEntity.ok("Error: curp ya registrada");
+			}
+			
 			if (!mod.getCurp().equals(profesor.getCurp())) {
 				cambios += "Curp de " + mod.getCurp() + " a " + profesor.getCurp()
 						+ "\n";
 				mod.setCurp(profesor.getCurp());
 			}
 		}
+		
+		
 		
 		if (!mod.getCorreo().equals(profesor.getCorreo())) {
 			cambios += "Correo de " + mod.getCorreo() + " a " + profesor.getCorreo()
@@ -590,7 +597,23 @@ public class ModificarUsuarios {
 		            .body("¡Grupo no encontrado!");
 		}
 		
+		String grupo = ins.getIdGrupo();
+		
+		List<Grupo> grupop = grRep.findByClave(grupo);
+		
+		ArrayList<String> rfcs = new ArrayList<String>();
+		
+		for(Grupo g : grupop) {
+			rfcs.add(g.getFk_id_profesor().getRfc());
+		}
+		
 		Profesor pro = proRep.findByRfc(ins.getIdProfesor());
+		
+		if(rfcs.contains(pro.getRfc())) {
+			System.out.println("Sí lo contengo! es:");
+			System.out.println(pro.getRfc());
+			return ResponseEntity.ok("Error : El participante ya habia sido registrado con este grupo");
+		}
 		
 		if(pro != null) {
 			if (!mod.getFk_id_profesor().getNombre().equals(ins.getIdProfesor())) {
