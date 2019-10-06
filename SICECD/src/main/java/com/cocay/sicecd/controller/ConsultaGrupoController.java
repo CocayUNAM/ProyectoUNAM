@@ -194,7 +194,7 @@ public class ConsultaGrupoController {
 	public String formatoNombre (String profesor) {
 		String nombre = "";
 		
-		if (profesor == null) {
+		if (profesor.isBlank()) {
 			return nombre;
 		}
 		

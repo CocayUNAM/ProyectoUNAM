@@ -396,7 +396,7 @@ public class ConsultaInscripcionController {
 	public String formatoNombre (String profesor) {
 		String nombre = "";
 		
-		if (profesor == null) {
+		if (profesor.isBlank()) {
 			return nombre;
 		}
 		
