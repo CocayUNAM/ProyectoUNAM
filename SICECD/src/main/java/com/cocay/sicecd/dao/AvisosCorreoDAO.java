@@ -82,7 +82,7 @@ public class AvisosCorreoDAO {
 				"	CUR.NOMBRE NOMBRE,\n" + 
 				"	CUR.FK_ID_TIPO_CURSO FK_ID_TIPO_CURSO,\n" + 
 				"	GRP.FECHA_INICIO F_INICIO,\n" + 
-				"	GRP.FECHA_TERMINO F_TERMINO,\n" + 
+				"	GRP.fecha_fin,\n" + 
 				"	PROF.rfc rfc,\n" + 
 				"	PROF.fk_id_estado fk_id_estado,\n" + 
 				"	PROF.fk_id_turno fk_id_turno,\n" + 
@@ -115,7 +115,7 @@ public class AvisosCorreoDAO {
 			}
 			
 			if(filtroCorreoDTO.getfTermino() != null && !filtroCorreoDTO.getfTermino().equals("")) {
-				consulta +=  (bool ? " OR " : " " )+" TO_CHAR( FECHA_TERMINO, 'YYYY-MM-DD') = '"+filtroCorreoDTO.getfTermino()+"'";
+				consulta +=  (bool ? " OR " : " " )+" TO_CHAR( fecha_fin, 'YYYY-MM-DD') = '"+filtroCorreoDTO.getfTermino()+"'";
 				bool = true;
 			}
 			
