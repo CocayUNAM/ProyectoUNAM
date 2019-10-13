@@ -1,5 +1,8 @@
 package com.cocay.sicecd.step;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -12,6 +15,7 @@ import com.cocay.sicecd.model.Inscripcion;
 import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.CursoRep;
 import com.cocay.sicecd.repo.GrupoRep;
+import com.cocay.sicecd.repo.InscripcionRep;
 import com.cocay.sicecd.repo.ProfesorRep;
 
 @Service
@@ -27,6 +31,12 @@ public class ProcessorInscripcion implements ItemProcessor<Inscripcion, Inscripc
 	
 	@Autowired
 	CursoRep cursoRep;
+	
+	@Autowired
+	InscripcionRep inscripcionRep;
+	
+	@Autowired
+	private EntityManager em;
 	
 	@Override
     public Inscripcion process(Inscripcion inscripcion) throws Exception {
@@ -44,8 +54,21 @@ public class ProcessorInscripcion implements ItemProcessor<Inscripcion, Inscripc
         inscripcion.setFk_id_profesor(profesor);
         inscripcion.setStTabla(1);
         
-        System.out.println("Objeto convertido a inscripcion ");
+        Inscripcion ins = inscripcionRep.findByP(cdProfesor);
         
-        return inscripcion;
+        if(ins != null) {
+        	if(!ins.getTempGrupo().equals(cdGrupo)) {
+        		return inscripcion;
+        	}else {
+        		String mensaje = "Error en la tabla Inscripcion, Profesor con rfc: "+cdProfesor+" ya inscrito en el grupo: "+cdGrupo;
+    			String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
+    			Query query = em.createNativeQuery(consulta);
+    			query.executeUpdate();
+    			return null;
+        	}
+        }else {
+        	return inscripcion;
+        }
+        
     }
 }

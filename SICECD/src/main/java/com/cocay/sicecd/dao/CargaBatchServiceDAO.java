@@ -106,8 +106,6 @@ public class CargaBatchServiceDAO {
 		.addScalar("clave", StringType.INSTANCE)
 		.addScalar("nombre", StringType.INSTANCE)
 		.addScalar("horas", StringType.INSTANCE)
-		.addScalar("fInicio", StringType.INSTANCE)
-		.addScalar("fTermino", StringType.INSTANCE)
 		.setResultTransformer(Transformers.aliasToBean(CursoDto.class));
 		query.setFirstResult(offset);
 		query.setMaxResults(limit);

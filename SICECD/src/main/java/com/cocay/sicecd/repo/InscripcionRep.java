@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Inscripcion;
+import com.cocay.sicecd.model.Profesor;
 
 @Repository
 public interface InscripcionRep extends PagingAndSortingRepository<Inscripcion, Integer>{
@@ -31,4 +32,8 @@ public interface InscripcionRep extends PagingAndSortingRepository<Inscripcion, 
 	
 	@Query("select  u.fk_id_grupo from Inscripcion u inner join u.fk_id_grupo ar where ar.clave =:clave")
 	Inscripcion findIDGroup(@Param("clave")String clave);
+	
+	@Query("SELECT i FROM Inscripcion i where i.tempProfesor = :tempProfesor ")
+	Inscripcion findByP(@Param("tempProfesor")String tempProfesor);
+	
 }

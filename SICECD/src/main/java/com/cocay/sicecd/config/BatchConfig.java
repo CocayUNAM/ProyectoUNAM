@@ -88,7 +88,7 @@ public class BatchConfig  {
         reader.setLinesToSkip(1);
         reader.setLineMapper(new DefaultLineMapper<Curso>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-            	setNames(new String[] {"clave", "nombre", "tempTipoCurso", "tempGrupo", "horas"});
+            	setNames(new String[] {"clave", "nombre", "tempTipoCurso", "horas"});
             }});
             setFieldSetMapper(new BeanWrapperFieldSetMapper<Curso>() {{
                 setTargetType(Curso.class);

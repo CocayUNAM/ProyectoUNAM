@@ -1,7 +1,7 @@
 var stCurso = 0;
 var stProfesor = 0;
 var stInscripcion = 0;
-
+var url_local = window.location.href;
 var arr = url_local.split("/");
 var fin = arr[0]+"//"+arr[2];
 
