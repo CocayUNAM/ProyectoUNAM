@@ -29,6 +29,9 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
 	
 	@Query("SELECT p FROM Profesor p where p.curp = :curp ")
 	Profesor findByCurp(@Param("curp")String curp);
+	
+	@Query("SELECT p FROM Profesor p where p.rfc = :rfc ")
+	Profesor findByRFC(@Param("rfc")String rfc);
 
 	@Query("SELECT p FROM Profesor p "
 			+ "WHERE upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
@@ -53,4 +56,10 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
 	@Query("update Profesor p set p.nombre =:nombre, p.apellido_paterno=:apellido_paterno, p.apellido_materno=:apellido_materno,p.correo=:correo, p.clave_plantel=:clave_plantel, p.ciudad_localidad=:ciudad_localidad where p.curp =:curp")
 	@Transactional
 	void updateProfesor(@Param("nombre") String nombre,@Param("apellido_paterno") String apellido_paterno,@Param("apellido_materno") String apellido_materno,@Param("correo") String correo,@Param("clave_plantel") String clave_plantel,@Param("ciudad_localidad") String ciudad_localidad,@Param("curp") String curp);
+	
+	
+	@Modifying(clearAutomatically = true)
+	@Query("update Profesor p set p.nombre =:nombre, p.apellido_paterno=:apellido_paterno, p.apellido_materno=:apellido_materno,p.correo=:correo, p.clave_plantel=:clave_plantel, p.ciudad_localidad=:ciudad_localidad where p.rfc =:rfc")
+	@Transactional
+	void updateProfesorByRFC(@Param("nombre") String nombre,@Param("apellido_paterno") String apellido_paterno,@Param("apellido_materno") String apellido_materno,@Param("correo") String correo,@Param("clave_plantel") String clave_plantel,@Param("ciudad_localidad") String ciudad_localidad,@Param("rfc") String rfc);
 }

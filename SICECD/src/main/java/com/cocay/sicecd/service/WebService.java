@@ -306,10 +306,20 @@ public class WebService {
 				apellido_materno = completos.get(1);
 			}
 
-			Profesor exits = profesor.findByCurp(curp);
+			//Profesor exits = profesor.findByCurp(curp);
+			Profesor exits_rfc = profesor.findByRFC(rfc);
 			// Considerando que nuestra base de datos ya esta poblada se hace esta condicion
 			// en caso de que no mandara un null
-			if (exits == null) {
+			
+			if(exits_rfc==null) {
+				profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, rfc, email, institucion, ciudad, 1, 1, 1,
+						1);
+			}else if(rfc.equals(exits_rfc.getRfc())) {
+				profesor.updateProfesorByRFC(nombre, apellido_paterno, apellido_materno, email, institucion, ciudad,
+						exits_rfc.getRfc());
+			}
+			
+			/*if (exits == null) {
 				profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, rfc, email, institucion, ciudad, 1, 1, 1,
 						1);
 
@@ -320,7 +330,8 @@ public class WebService {
 				profesor.updateProfesor(nombre, apellido_paterno, apellido_materno, email, institucion, ciudad,
 						exits.getCurp());
 
-			} else {
+			} */
+			else {
 				LOGGER.debug("No se pudo agregar al profesor");
 			}
 		}
