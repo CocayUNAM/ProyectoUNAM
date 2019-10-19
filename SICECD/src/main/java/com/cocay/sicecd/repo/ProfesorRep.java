@@ -51,6 +51,11 @@ public interface ProfesorRep extends PagingAndSortingRepository<Profesor, Intege
     @Query(value = "insert into Profesor (nombre,apellido_paterno,apellido_materno,curp,rfc,correo,clave_plantel,ciudad_localidad,fk_id_estado,fk_id_grado_profesor,fk_id_turno,id_genero) VALUES (:nombre,:apellido_paterno,:apellido_materno,:curp,:rfc,:email,:institution,:city,:id_estado,:id_grado_profesor,:id_turno,:id_genero)", nativeQuery = true)
     @Transactional
     void saveT(@Param("nombre") String firstname, @Param("apellido_paterno") String apellido_paterno, @Param("apellido_materno") String apellido_materno,@Param("curp") String curp,@Param("rfc") String rfc,@Param("email") String email,@Param("institution") String institution,@Param("city") String city,@Param("id_estado") int id_estado,@Param("id_grado_profesor") int id_grado_profesor,@Param("id_turno") int id_turno,@Param("id_genero") int genero);
+
+	@Modifying
+    @Query(value = "insert into Profesor (nombre,apellido_paterno,apellido_materno,curp,rfc,correo,clave_plantel,ciudad_localidad,fk_id_estado,fk_id_grado_profesor,fk_id_turno,id_genero) VALUES (:nombre,:apellido_paterno,:apellido_materno,:curp,:rfc,:email,:institution,:city,:id_estado,:id_grado_profesor,:id_turno,:id_genero)", nativeQuery = true)
+    @Transactional
+    void saveT(@Param("nombre") String firstname, @Param("apellido_paterno") String apellido_paterno, @Param("apellido_materno") String apellido_materno,@Param("curp") String curp,@Param("rfc") String rfc,@Param("email") String email,@Param("institution") String institution,@Param("city") String city);
 	
 	@Modifying(clearAutomatically = true)
 	@Query("update Profesor p set p.nombre =:nombre, p.apellido_paterno=:apellido_paterno, p.apellido_materno=:apellido_materno,p.correo=:correo, p.clave_plantel=:clave_plantel, p.ciudad_localidad=:ciudad_localidad where p.curp =:curp")

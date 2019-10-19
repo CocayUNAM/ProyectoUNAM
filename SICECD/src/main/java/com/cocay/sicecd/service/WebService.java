@@ -216,6 +216,12 @@ public class WebService {
 			String nombre_curso = jsonProductObject.getString("shortname");
 			String id_grupo = jsonProductObject.getString("idnumber");
 			String[] claves = separaNombreCurso(id_grupo);
+			if(claves.length!=2) {
+				String error = "Error guardando Curso, formato IdNumber incorrecto:"+id_grupo+" - "+nombre_curso; 
+				log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_CURSO, error);
+				LOGGER.error(error);
+				continue;
+			}
 			String clave_curso = claves[0];
 			String clave_grupo = claves[1];
 			Curso exits = curso_rep.findByUniqueClaveCurso(clave_curso);
@@ -271,6 +277,12 @@ public class WebService {
 			boolean aprobado = aprobadoCalificacion(result);
 			Profesor exits = profesor.findByCurp(curp);
 			String[] claves = separaNombreCurso(id_grupo);
+			if(claves.length!=2) {
+				String error = "Error guardando Inscripción, formato IdNumber incorrecto:"+id_grupo+" - "+curp; 
+				log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_INSCRIPCION, error);
+				LOGGER.error(error);
+				continue;
+			}
 			String clave_curso = claves[0];
 			String clave_grupo = claves[1];
 			System.out.println(clave_grupo);
@@ -344,7 +356,7 @@ public class WebService {
 			
 			if(exits_rfc==null) {
 				try {
-					profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, rfc, email, institucion, ciudad, 1, 1, 1, 1);
+					profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, rfc, email, institucion, ciudad, 33, 5, 4, 3);
 				} catch (Exception ex) {
 					String error = "Error: "+ex.toString()+"	|	";
 					error=error+"Nombre:"+nombre+"	|	";

@@ -91,19 +91,19 @@ public class Profesor {
 	@Column(name = "stTabla", nullable = true)
 	Integer stTabla;
 	
-	@ManyToOne(targetEntity=Turno.class)
+	@ManyToOne(targetEntity=Turno.class, optional = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_turno",referencedColumnName="pk_id_turno",insertable = true, updatable = true)
+	@JoinColumn(name = "fk_id_turno", referencedColumnName="pk_id_turno", insertable = true, updatable = true, nullable = true)
 	Turno fk_id_turno;
 
-	@ManyToOne(targetEntity=Genero.class)
+	@ManyToOne(targetEntity=Genero.class, optional = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "id_genero", referencedColumnName="pk_id_genero",insertable = true, updatable = true)
+	@JoinColumn(name = "id_genero", referencedColumnName="pk_id_genero", insertable = true, updatable = true, nullable = true)
 	Genero id_genero;
 	
-	@ManyToOne(targetEntity=Grado_profesor.class)
+	@ManyToOne(targetEntity=Grado_profesor.class, optional = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_grado_profesor",referencedColumnName="pk_id_grado_profesor",insertable = true, updatable = true)
+	@JoinColumn(name = "fk_id_grado_profesor", referencedColumnName="pk_id_grado_profesor", insertable = true, updatable = true, nullable = true)
 	Grado_profesor fk_id_grado_profesor;
 	
 	@OneToMany(mappedBy = "fk_id_profesor", targetEntity=Inscripcion.class)
@@ -114,9 +114,9 @@ public class Profesor {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Certificado> certificados = new ArrayList<>();
 	
-	@ManyToOne(targetEntity=Estado.class)
+	@ManyToOne(targetEntity=Estado.class, optional = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinColumn(name = "fk_id_estado", referencedColumnName="pk_id_estado",insertable = true, updatable = true)
+	@JoinColumn(name = "fk_id_estado", referencedColumnName="pk_id_estado", insertable = true, updatable = true, nullable = true)
 	Estado fk_id_estado;
 	
 	public Profesor(){}

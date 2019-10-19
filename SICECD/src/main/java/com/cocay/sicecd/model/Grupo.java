@@ -13,12 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-@Table(name = "Grupo")
+@Table(name = "Grupo", uniqueConstraints=@UniqueConstraint(columnNames={"fk_id_curso", "clave"}))
 public class Grupo {
 	
 	@Id
@@ -26,7 +27,7 @@ public class Grupo {
 	@Column(name = "pk_id_grupo")
 	int pk_id_grupo;
 	
-	@Column(name = "clave", nullable = false, length=8, unique=true)
+	@Column(name = "clave", nullable = false, length=8, unique=false)
 	String clave;
 	
 	@Column(name = "fecha_inicio", nullable = true)
