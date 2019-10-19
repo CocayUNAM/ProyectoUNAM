@@ -217,6 +217,15 @@ INSERT INTO public.url_ws_inscripcion(activa, nombre, url) VALUES(false, 'Moodle
 INSERT INTO public.url_ws_profesor(activa, nombre, url) VALUES(false, 'Moodle Test 1', 'http://127.0.0.1/WB/api/users/read.php');
 COMMIT;
 
+INSERT INTO public.url_ws(activa, url, varios) VALUES(false, 'http://unamedu.serveftp.com:8585/mod/simplecertificate/wscertificado.php', false);
+INSERT INTO public.url_ws(activa, url, varios) VALUES(true, 'http://unamedu.serveftp.com:8585/mod/simplecertificate/wscertificados.php', true);
+COMMIT;
+
+INSERT INTO public.url_ws_curso(activa, nombre, url) VALUES(true, 'Moodle Test 1', 'http://unamedu.serveftp.com:8585/WB/api/users/courses.php');
+INSERT INTO public.url_ws_inscripcion(activa, nombre, url) VALUES(true, 'Moodle Test 1', 'http://unamedu.serveftp.com:8585/WB/api/users/grades.php');
+INSERT INTO public.url_ws_profesor(activa, nombre, url) VALUES(true, 'Moodle Test 1', 'http://unamedu.serveftp.com:8585/WB/api/users/read.php');
+COMMIT;
+
 /*
 Cambio de propietario
 */
