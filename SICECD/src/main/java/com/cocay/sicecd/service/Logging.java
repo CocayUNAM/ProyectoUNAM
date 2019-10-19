@@ -54,6 +54,9 @@ public class Logging {
 		log.setHora(new Date());
 		log.setFk_id_log_evento_sys(evento.findById(action).get());
 		if (comentario!=null){
+			if(comentario.length()>1000) {
+				comentario=comentario.substring(0,999);
+			}
 			log.setComentario(comentario);
 		}
 		logr.save(log);

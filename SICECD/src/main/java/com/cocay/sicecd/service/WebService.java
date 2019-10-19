@@ -20,6 +20,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.cocay.sicecd.LogTypes;
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
 import com.cocay.sicecd.model.Inscripcion;
@@ -220,7 +221,16 @@ public class WebService {
 			Curso exits = curso_rep.findByUniqueClaveCurso(clave_curso);
 
 			if (exits == null) {
-				curso_rep.saveC(clave_curso, nombre_curso);
+				try {
+					curso_rep.saveC(clave_curso, nombre_curso);
+				} catch (Exception ex) {
+					String error = "Error: "+ex.toString()+"	|	";
+					error=error+"Clave Curso:"+clave_curso+"	|	";
+					error=error+"Nombre Curso:"+nombre_curso;
+					log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_CURSO, error);
+					LOGGER.error("Error guardando Curso en carga Batch WS", ex);
+					ex.printStackTrace();
+				}
 				exits = curso_rep.findByUniqueClaveCurso(clave_curso);
 
 			} else {
@@ -232,7 +242,16 @@ public class WebService {
 
 			Grupo exits_group = grupo_rep.findByClaveGrupoIdCurso(clave_grupo, exits);
 			if (exits_group == null) {
-				grupo_rep.saveC(clave_grupo, exits.getPk_id_curso());
+				try {
+					grupo_rep.saveC(clave_grupo, exits.getPk_id_curso());
+				} catch (Exception ex) {
+					String error = "Error: "+ex.toString()+"	|	";
+					error=error+"Clave Curso:"+clave_curso+"	|	";
+					error=error+"ID Curso:"+exits.getPk_id_curso();
+					log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_GRUPO, error);
+					LOGGER.error("Error guardando Grupo en carga Batch WS", ex);
+					ex.printStackTrace();
+				}
 
 			} else {
 				LOGGER.debug("Ya existe el grupo");
@@ -271,7 +290,19 @@ public class WebService {
 							calificacion = calificacion.substring(0, 3);
 							calificacion = calificacion.replace(".", "");
 						}
-						inscripcionRep.saveI(grupo.getPk_id_grupo(), exits.getPk_id_profesor(), calificacion, aprobado);
+						try {
+							inscripcionRep.saveI(grupo.getPk_id_grupo(), exits.getPk_id_profesor(), calificacion, aprobado);
+						} catch (Exception ex) {
+							String error = "Error: "+ex.toString()+"	|	";
+							error=error+"ID Grupo:"+grupo.getPk_id_grupo()+"	|	";
+							error=error+"ID Profesor:"+exits.getPk_id_profesor()+"	|	";
+							error=error+"Calificacion:"+calificacion+"	|	";
+							error=error+"Aprobado:"+aprobado+"	|	";
+							log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_INSCRIPCION, error);
+							LOGGER.error("Error guardando Incripción en carga Batch WS", ex);
+							ex.printStackTrace();
+							
+						}
 					}
 				}
 			}
@@ -312,8 +343,22 @@ public class WebService {
 			// en caso de que no mandara un null
 			
 			if(exits_rfc==null) {
-				profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, rfc, email, institucion, ciudad, 1, 1, 1,
-						1);
+				try {
+					profesor.saveT(nombre, apellido_paterno, apellido_materno, curp, rfc, email, institucion, ciudad, 1, 1, 1, 1);
+				} catch (Exception ex) {
+					String error = "Error: "+ex.toString()+"	|	";
+					error=error+"Nombre:"+nombre+"	|	";
+					error=error+"Apellido Paterno:"+apellido_paterno+"	|	";
+					error=error+"Apellido Materno:"+apellido_materno+"	|	";
+					error=error+"CURP:"+curp+"	|	";
+					error=error+"RFC:"+rfc+"	|	";
+					error=error+"Email:"+email+"	|	";
+					error=error+"Institucion:"+institucion+"	|	";
+					error=error+"Ciudad:"+ciudad;
+					log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_PROFESOR, error);
+					LOGGER.error("Error guardando Profesor en carga Batch WS", ex);
+					ex.printStackTrace();
+				}
 			}else if(rfc.equals(exits_rfc.getRfc())) {
 				profesor.updateProfesorByRFC(nombre, apellido_paterno, apellido_materno, email, institucion, ciudad,
 						exits_rfc.getRfc());

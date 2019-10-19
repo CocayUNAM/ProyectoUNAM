@@ -29,7 +29,7 @@ public class Log_sys {
 	@Column(name = "hora", nullable = false)
 	Date hora;
 	
-	@Column(name = "comentario", nullable = true, length=250)
+	@Column(name = "comentario", nullable = true, length=1000)
 	String comentario;
 
 	@ManyToOne(targetEntity=Usuario_sys.class)

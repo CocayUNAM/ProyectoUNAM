@@ -150,6 +150,10 @@ INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('RECO00', 'Ren
 INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('EDUS00', 'Edita usuario');
 INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('RECC00', 'Renvia cambio correo');
 INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('RECA00', 'Renvia activacion de cuenta');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('CWBE01', 'Error en Carga WS Batch de Profesor');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('CWBE02', 'Error en Carga WS Batch de Curso');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('CWBE03', 'Error en Carga WS Batch de Grupo');
+INSERT INTO Log_evento_sys (pk_id_log_evento_sys, nombre) VALUES ('CWBE04', 'Error en Carga WS Batch de Insripción');
 COMMIT;
 
 /*

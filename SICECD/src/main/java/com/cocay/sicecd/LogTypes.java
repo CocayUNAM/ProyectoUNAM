@@ -31,6 +31,14 @@ public final class LogTypes {
 	public static final String CARGA_BATCH_PROFESOR = "CABA01";
 	/*Accion de hacer carga bath grupo*/
 	public static final String CARGA_BATCH_GRUPO = "CABA03";
+	/*Error en Carga Batch de Profesor*/
+	public static final String CARGA_WS_BATCH_ERROR_PROFESOR = "CWBE01";
+	/*Error en Carga Batch de Curso*/
+	public static final String CARGA_WS_BATCH_ERROR_CURSO = "CWBE02";
+	/*Error en Carga Batch de Grupo*/
+	public static final String CARGA_WS_BATCH_ERROR_GRUPO = "CWBE03";
+	/*Error en Carga Batch de Inscripcion*/
+	public static final String CARGA_WS_BATCH_ERROR_INSCRIPCION = "CWBE04";
 	/*Accion de hacer consulta a WS de constancias (nuevas, nunca antes traidas)*/
 	public static final String EXTRACCION_CONSTANCIAS_NUEVAS = "ECNU00";
 	/*Accion de hacer consulta a WS de constancias (actualiza)*/
