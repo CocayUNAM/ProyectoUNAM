@@ -106,7 +106,7 @@ public class WebService {
 			@Override
 			public ReturnTypeOne call() throws Exception {
 				LOGGER.info("Start Thread WS One");
-				get_Profesores();
+				//get_Profesores();
 				cdl1.countDown();
 				LOGGER.info("Finish Thread WS One");
 				return null;
@@ -117,7 +117,7 @@ public class WebService {
 			@Override
 			public ReturnTypeTwo call() throws Exception {
 				LOGGER.info("Start Thread WS Second");
-				get_Curso();
+				//get_Curso();
 				cdl2.countDown();
 				LOGGER.info("Finish Thread WS Second");
 				return null;
