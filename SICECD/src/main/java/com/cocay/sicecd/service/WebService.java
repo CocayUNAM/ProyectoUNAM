@@ -289,14 +289,14 @@ public class WebService {
 
 			Curso curso = curso_rep.findByUniqueClaveCurso(clave_curso);
 			if(curso == null) {
-				LOGGER.debug("No existe el curso");
+				LOGGER.info("No existe el curso: "+clave_grupo+" - "+curp);
 			}else {
 				Grupo grupo = grupo_rep.findByClaveGrupoIdCurso(clave_grupo, curso);
 				if (grupo == null) {
-					LOGGER.debug("No existe el grupo");
+					LOGGER.info("No existe el grupo: "+clave_grupo+" - "+curp);
 				} else {
 					if(exits==null) {
-						LOGGER.debug("No existe el profesor");
+						LOGGER.info("No existe el profesor: "+clave_grupo+" - "+curp);
 					}else {
 						if(calificacion.length()>3) {
 							calificacion = calificacion.substring(0, 3);
