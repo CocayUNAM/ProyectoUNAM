@@ -336,7 +336,6 @@ public class WebService {
 			String email = jsonProductObject.getString("email");
 			String institucion = jsonProductObject.getString("institution");
 			String ciudad = jsonProductObject.getString("city");
-			String calificacion = jsonProductObject.getString("grade");
 			String rfc;
 			if(curp.length()>10) {
 				rfc = curp.substring(0, 10);
