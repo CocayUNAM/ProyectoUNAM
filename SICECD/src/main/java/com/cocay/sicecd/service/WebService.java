@@ -94,7 +94,7 @@ public class WebService {
 	 * inmediatamente. Si la segunda tarea aún se está ejecutando, la llamada
 	 * bloquea el subproceso actual hasta que se calcula el valor.
 	 */
-	@Scheduled(cron = "${ws.scheduleImportData}")
+	
 	public void run() {
 		final CountDownLatch cdl1 = new CountDownLatch(1);
 	    final CountDownLatch cdl2 = new CountDownLatch(1);
@@ -191,7 +191,7 @@ public class WebService {
 		}
 
 	}
-
+	@Scheduled(cron = "${ws.scheduleImportData}")
 	public void get_Calificaciones() {
 
 		LinkedList<Url_ws_inscripcion> links = new LinkedList<>(urls_inscripcion.findVarios());
@@ -203,7 +203,7 @@ public class WebService {
 			System.out.println("Se conecto" + url.getUrl());
 			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
 			System.out.println(json);
-			insert_Grade(json);
+			//insert_Grade(json);
 			// log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
 			// log.setTrace(LogTypes.AGREGAR_PROFESOR);
 		}
@@ -303,7 +303,7 @@ public class WebService {
 							calificacion = calificacion.replace(".", "");
 						}
 						try {
-							inscripcionRep.saveI(grupo.getPk_id_grupo(), exits.getPk_id_profesor(), calificacion, aprobado);
+							//inscripcionRep.saveI(grupo.getPk_id_grupo(), exits.getPk_id_profesor(), calificacion, aprobado);
 						} catch (Exception ex) {
 							String error = "Error: "+ex.toString()+"	|	";
 							error=error+"ID Grupo:"+grupo.getPk_id_grupo()+"	|	";
