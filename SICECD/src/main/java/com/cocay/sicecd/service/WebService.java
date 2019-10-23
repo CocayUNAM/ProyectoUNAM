@@ -68,6 +68,8 @@ public class WebService {
 	@Value("${ws.url_key}")
 	private String key;
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+	private static int FIRST_ELEMENT = 0;
+	private static int SECOND_ELEMENT = 1;
 
 	public interface ReturnTypeOne {
 	}
@@ -203,12 +205,42 @@ public class WebService {
 			System.out.println("Se conecto" + url.getUrl());
 			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
 			System.out.println(json);
-			//insert_Grade(json);
+			insert_Grade(json);
 			// log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
 			// log.setTrace(LogTypes.AGREGAR_PROFESOR);
 		}
 	}
-
+/*	public void  inserta_calificaciones(String jSonResultString) {
+		JSONArray arr = new JSONArray(jSonResultString);
+		for (int i = FIRST_ELEMENT; i < SECOND_ELEMENT; i++) {
+			JSONObject jsonProductObject = arr.getJSONObject(i);
+			String nombre_curso = jsonProductObject.getString("shortname");
+			String id_grupo = jsonProductObject.getString("idnumber");
+			String[] claves = separaNombreCurso(id_grupo);
+			if(claves.length!=2) {
+				String error = "Error guardando Curso, formato IdNumber incorrecto:"+id_grupo+" - "+nombre_curso; 
+				log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_CURSO, error);
+				LOGGER.error(error);
+				continue;
+			}
+			String clave_curso = claves[0];
+			String clave_grupo = claves[1];
+			System.out.println(claves);
+			
+		}
+		//System.out.println("First: " + arr.getJSONObject(FIRST_ELEMENT).toString());
+		//String nombre_curso = jsonProductObject.getString("grade");
+		for (int i = SECOND_ELEMENT; i < arr.length(); i++) {
+			JSONObject jsonProductObject = arr.getJSONObject(i);
+			String calificacion = jsonProductObject.getString("grade");
+			String profesor = jsonProductObject.getString("username");
+			System.out.println(calificacion);
+			System.out.println(profesor);
+			
+		}
+		
+		
+	}*/
 	public void insert_Course(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
 		for (int i = 0; i < arr.length(); i++) {
@@ -268,24 +300,33 @@ public class WebService {
 
 	public void insert_Grade(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
-		for (int i = 0; i < arr.length(); i++) {
+		String clave_curso=null;
+		String clave_grupo=null;
+		for (int i = FIRST_ELEMENT; i < SECOND_ELEMENT; i++) {
 			JSONObject jsonProductObject = arr.getJSONObject(i);
-			String calificacion = jsonProductObject.getString("grade");
-			String curp = jsonProductObject.getString("username");
+			String nombre_curso = jsonProductObject.getString("shortname");
 			String id_grupo = jsonProductObject.getString("idnumber");
-			double result = Double.parseDouble(calificacion);
-			boolean aprobado = aprobadoCalificacion(result);
-			Profesor exits = profesor.findByCurp(curp);
 			String[] claves = separaNombreCurso(id_grupo);
 			if(claves.length!=2) {
-				String error = "Error guardando Inscripción, formato IdNumber incorrecto:"+id_grupo+" - "+curp; 
-				log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_INSCRIPCION, error);
+				String error = "Error guardando Curso, formato IdNumber incorrecto:"+id_grupo+" - "+nombre_curso; 
+				log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_CURSO, error);
 				LOGGER.error(error);
 				continue;
 			}
-			String clave_curso = claves[0];
-			String clave_grupo = claves[1];
-			System.out.println(clave_grupo);
+			clave_curso = claves[0];
+			clave_grupo = claves[1];
+			System.out.println(claves);
+			
+		}
+		
+		for (int i = SECOND_ELEMENT; i < arr.length(); i++) {
+			JSONObject jsonProductObject = arr.getJSONObject(i);
+			String calificacion = jsonProductObject.getString("grade");
+			String curp = jsonProductObject.getString("username");
+			double result = Double.parseDouble(calificacion);
+			boolean aprobado = aprobadoCalificacion(result);
+			Profesor exits = profesor.findByCurp(curp);
+
 
 			Curso curso = curso_rep.findByUniqueClaveCurso(clave_curso);
 			if(curso == null) {
