@@ -40,13 +40,13 @@
 				<!-- START CUERPO HTML -->
 				<section id="main-content">
 					<div class="row">
-						<div class="col-lg-10">
+						<div class="col-lg-11">
 						
 							<!-- START OPCIONES DE CONSULTA: EXPORTAR Y DESCARGAR -->
 							<div class="card">
 								<div class="row">
 									<div class="col-sm-4"><p class="font-weight-light">Exportar historial: </p></div>
-									<div class="col-sm-8"><p class="font-weight-light" th:text="'Descargar documentos de ' + ${nombre} + ' ' + ${apellido_paterno}"></p></div>
+									<div class="col-sm-5"><p class="font-weight-light" th:text="'Descargar documentos de ' + ${nombre} + ' ' + ${apellido_paterno}"></p></div>
 								</div>
 								
 								<div class="row">
@@ -61,7 +61,7 @@
 											<span>PDF</span>
 										</a>
 									</div>
-									<div class="dt-buttons col-sm-8">
+									<div class="dt-buttons col-sm-5">
 										<!-- Botón Descargar CURP -->
 										<td th:if="${controller.existeDocumento(id_profesor, 1)}">
 											<a id="BtnDownloadCURP" class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="bootstrap-data-table-export" th:href="@{/descargas(id=${id_profesor},tipo='curp')}" target="_blank">
@@ -96,6 +96,13 @@
 											</a>
 										</td>
 									</div>
+									
+									<div class="dt-buttons col-sm-2">
+										<td>
+											<button class="dt-button buttons-csv buttons-html5" onClick="history.go(-2)">Regresar al panel de búsqueda</button>
+										</td>
+									</div>
+									
 								</div>
 							</div>
 							<!-- END OPCIONES DE CONSULTA: EXPORTAR Y DESCARGAR -->

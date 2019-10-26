@@ -50,13 +50,13 @@
                                             <tbody>
                                                 <tr data-th-each="profesor : ${profesores}">
                                                 	<td>
-                                                		<a th:text="${controller.formatoCadena(#strings.concat(profesor?.nombre, ' ', profesor?.apellido_paterno, ' ', profesor?.apellido_materno), 1)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Nombre</a>
+                                                		<a th:text="${controller.formatoCadena(#strings.concat(profesor?.nombre, ' ', profesor?.apellido_paterno, ' ', profesor?.apellido_materno), 1)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}">Nombre</a>
                                                 	</td>
                                                 	<td>
-                                                		<a th:text="${#strings.toLowerCase(profesor?.correo)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">Correo</a>
+                                                		<a th:text="${#strings.toLowerCase(profesor?.correo)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}">Correo</a>
                                                 	</td>
                                                 	<td>
-                                                		<a th:text="${#strings.toUpperCase(profesor?.rfc)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}" target="_blank">RFC</a>
+                                                		<a th:text="${#strings.toUpperCase(profesor?.rfc)}" th:href="@{/ficha_profesor/(id=${profesor.pk_id_profesor})}">RFC</a>
                                                 	</td>
                                                 	<td>
                                                 		<a th:text="${profesor?.fk_id_grado_profesor?.nombre}">Grado de Estudios</a>
