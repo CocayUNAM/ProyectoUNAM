@@ -101,7 +101,7 @@
 											id="altausuario">
 
 											<div class="form-group row">
-												<label class="col-lg-4 col-form-label" for="rfc" >Rfc
+												<label class="col-lg-4 col-form-label" for="rfc" >RFC
 													<span class="text-danger">*</span>
 												</label>
 												<div class="col-lg-8">
@@ -215,7 +215,7 @@
 
             $("#altausuario").validate({
                 event: "blur", rules: { 'rfc': "required", 'correo': "required email", 'nombre': "required", 'apellidopaterno': "required", 'apellidomaterno': "required" },
-                messages: { 'rfc': "Por favor el rfc", 'correo': "Por favor, indica una direcci&oacute;n de e-mail v&aacute;lida",  'nombre': "Por favor indica el nombre",  'apellidopaterno': "Por favor indica el apellido paterno", 'apellidomaterno': "Por favor indica el apellido materno"  },
+                messages: { 'rfc': "Por favor el RFC", 'correo': "Por favor, indica una direcci&oacute;n de e-mail v&aacute;lida",  'nombre': "Por favor indica el nombre",  'apellidopaterno': "Por favor indica el apellido paterno", 'apellidomaterno': "Por favor indica el apellido materno"  },
                 errorElement: "label",
                 submitHandler: function (form) {
     							console.log("envia");
