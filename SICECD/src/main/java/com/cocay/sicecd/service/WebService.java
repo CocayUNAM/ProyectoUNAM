@@ -68,6 +68,8 @@ public class WebService {
 	@Value("${ws.url_key}")
 	private String key;
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+	private static int FIRST_ELEMENT = 0;
+	private static int SECOND_ELEMENT = 1;
 
 	public interface ReturnTypeOne {
 	}
@@ -94,7 +96,7 @@ public class WebService {
 	 * inmediatamente. Si la segunda tarea aún se está ejecutando, la llamada
 	 * bloquea el subproceso actual hasta que se calcula el valor.
 	 */
-	@Scheduled(cron = "${ws.scheduleImportData}")
+	
 	public void run() {
 		final CountDownLatch cdl1 = new CountDownLatch(1);
 	    final CountDownLatch cdl2 = new CountDownLatch(1);
@@ -191,7 +193,7 @@ public class WebService {
 		}
 
 	}
-
+	@Scheduled(cron = "${ws.scheduleImportData}")
 	public void get_Calificaciones() {
 
 		LinkedList<Url_ws_inscripcion> links = new LinkedList<>(urls_inscripcion.findVarios());
@@ -208,7 +210,37 @@ public class WebService {
 			// log.setTrace(LogTypes.AGREGAR_PROFESOR);
 		}
 	}
-
+/*	public void  inserta_calificaciones(String jSonResultString) {
+		JSONArray arr = new JSONArray(jSonResultString);
+		for (int i = FIRST_ELEMENT; i < SECOND_ELEMENT; i++) {
+			JSONObject jsonProductObject = arr.getJSONObject(i);
+			String nombre_curso = jsonProductObject.getString("shortname");
+			String id_grupo = jsonProductObject.getString("idnumber");
+			String[] claves = separaNombreCurso(id_grupo);
+			if(claves.length!=2) {
+				String error = "Error guardando Curso, formato IdNumber incorrecto:"+id_grupo+" - "+nombre_curso; 
+				log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_CURSO, error);
+				LOGGER.error(error);
+				continue;
+			}
+			String clave_curso = claves[0];
+			String clave_grupo = claves[1];
+			System.out.println(claves);
+			
+		}
+		//System.out.println("First: " + arr.getJSONObject(FIRST_ELEMENT).toString());
+		//String nombre_curso = jsonProductObject.getString("grade");
+		for (int i = SECOND_ELEMENT; i < arr.length(); i++) {
+			JSONObject jsonProductObject = arr.getJSONObject(i);
+			String calificacion = jsonProductObject.getString("grade");
+			String profesor = jsonProductObject.getString("username");
+			System.out.println(calificacion);
+			System.out.println(profesor);
+			
+		}
+		
+		
+	}*/
 	public void insert_Course(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
 		for (int i = 0; i < arr.length(); i++) {
@@ -268,24 +300,33 @@ public class WebService {
 
 	public void insert_Grade(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
-		for (int i = 0; i < arr.length(); i++) {
+		String clave_curso=null;
+		String clave_grupo=null;
+		for (int i = FIRST_ELEMENT; i < SECOND_ELEMENT; i++) {
 			JSONObject jsonProductObject = arr.getJSONObject(i);
-			String calificacion = jsonProductObject.getString("grade");
-			String curp = jsonProductObject.getString("username");
+			String nombre_curso = jsonProductObject.getString("shortname");
 			String id_grupo = jsonProductObject.getString("idnumber");
-			double result = Double.parseDouble(calificacion);
-			boolean aprobado = aprobadoCalificacion(result);
-			Profesor exits = profesor.findByCurp(curp);
 			String[] claves = separaNombreCurso(id_grupo);
 			if(claves.length!=2) {
-				String error = "Error guardando Inscripción, formato IdNumber incorrecto:"+id_grupo+" - "+curp; 
-				log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_INSCRIPCION, error);
+				String error = "Error guardando Curso, formato IdNumber incorrecto:"+id_grupo+" - "+nombre_curso; 
+				log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_CURSO, error);
 				LOGGER.error(error);
 				continue;
 			}
-			String clave_curso = claves[0];
-			String clave_grupo = claves[1];
-			System.out.println(clave_grupo);
+			clave_curso = claves[0];
+			clave_grupo = claves[1];
+			System.out.println(claves);
+			
+		}
+		
+		for (int i = SECOND_ELEMENT; i < arr.length(); i++) {
+			JSONObject jsonProductObject = arr.getJSONObject(i);
+			String calificacion = jsonProductObject.getString("grade");
+			String curp = jsonProductObject.getString("username");
+			double result = Double.parseDouble(calificacion);
+			boolean aprobado = aprobadoCalificacion(result);
+			Profesor exits = profesor.findByCurp(curp);
+
 
 			Curso curso = curso_rep.findByUniqueClaveCurso(clave_curso);
 			if(curso == null) {
@@ -303,7 +344,7 @@ public class WebService {
 							calificacion = calificacion.replace(".", "");
 						}
 						try {
-							inscripcionRep.saveI(grupo.getPk_id_grupo(), exits.getPk_id_profesor(), calificacion, aprobado);
+							//inscripcionRep.saveI(grupo.getPk_id_grupo(), exits.getPk_id_profesor(), calificacion, aprobado);
 						} catch (Exception ex) {
 							String error = "Error: "+ex.toString()+"	|	";
 							error=error+"ID Grupo:"+grupo.getPk_id_grupo()+"	|	";
