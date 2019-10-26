@@ -53,12 +53,11 @@ a {
 	</div>
 	<br>
 	<form method="POST" th:action="@{/login}" class="login">
-		<input type="text" placeholder="username" name="username"><br>
-		<input type="password" placeholder="password" name="password"><br>
-		<input type="submit" value="Login" id="logEnvia">
-		<div id="error" th:if="${param.error}">Invalid username or
-			password.</div>
-		<div th:if="${param.logout}">You have been logged out.</div>
+		<input type="text" placeholder="RFC" name="username" maxlength="13" style="text-transform: uppercase;" ><br>
+		<input type="password" placeholder="Contraseña" name="password"><br>
+		<input type="submit" value="Inicia sesion" id="logEnvia">
+		<div id="error" th:if="${param.error}">Usuario o contraseña invalida.</div>
+		<div th:if="${param.logout}">Has cerrado sesion exitosamente.</div>
 
 		<a href="#" data-toggle="modal" data-target="#exampleModal"
 			data-whatever="@mdo">Recupera tu contrase&ntilde;a</a>
@@ -128,7 +127,7 @@ a {
 	<script type="text/javascript">
     $("#cambio").validate({
         event: "blur", rules: { 'rfc': "required" },
-        messages: { 'rfc': "Por favor ingrese el rfc" },
+        messages: { 'rfc': "Por favor ingrese el RFC" },
         errorElement: "label",
         submitHandler: function (form) {
 						console.log("envia");
