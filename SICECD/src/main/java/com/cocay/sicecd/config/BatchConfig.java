@@ -105,7 +105,7 @@ public class BatchConfig  {
 
 	@Bean
 	public Step step1(ItemReader<Curso> importReader) {
-		return stepBuilderFactory.get("step1").<Curso, Curso>chunk(2)
+		return stepBuilderFactory.get("step1").<Curso, Curso>chunk(1000)
 				.reader(importReader)
 				.faultTolerant()
 				.skip(ExhaustedRetryException.class)
@@ -141,7 +141,7 @@ public class BatchConfig  {
 
 	@Bean
 	public Step stepGrupo(ItemReader<Grupo> importReader) {
-		return stepBuilderFactory.get("stepGrupo").<Grupo, Grupo>chunk(2)
+		return stepBuilderFactory.get("stepGrupo").<Grupo, Grupo>chunk(1000)
 				.reader(importReader)
 				.faultTolerant()
 				.skip(ExhaustedRetryException.class)
@@ -177,7 +177,7 @@ public class BatchConfig  {
 
 	@Bean
 	public Step stepProfesor(ItemReader<Profesor> importReader) {
-		return stepBuilderFactory.get("stepProfesor").<Profesor, Profesor>chunk(2)
+		return stepBuilderFactory.get("stepProfesor").<Profesor, Profesor>chunk(1000)
 				.reader(importReader)
 				.faultTolerant()
 				.skip(ExhaustedRetryException.class)
@@ -214,7 +214,7 @@ public class BatchConfig  {
 
 	@Bean
 	public Step stepInscripcion(ItemReader<Inscripcion> importReader) {
-		return stepBuilderFactory.get("stepInscripcion").<Inscripcion, Inscripcion>chunk(2)
+		return stepBuilderFactory.get("stepInscripcion").<Inscripcion, Inscripcion>chunk(1000)
 				.reader(importReader)
 				.faultTolerant()
 				.skip(ExhaustedRetryException.class)

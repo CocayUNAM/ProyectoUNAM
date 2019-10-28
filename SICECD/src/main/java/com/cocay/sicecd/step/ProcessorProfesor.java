@@ -70,7 +70,7 @@ public class ProcessorProfesor implements ItemProcessor<Profesor, Profesor> {
             
             return profesor;
         }else {
-        	String mensaje = "Error en la tabla Profesor, campo RFC: "+rfc+" ya existente";
+        	String mensaje = "El profesor: "+rfc+" ya existe actualmente";
 			String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
 			Query query = em.createNativeQuery(consulta);
 			query.executeUpdate();

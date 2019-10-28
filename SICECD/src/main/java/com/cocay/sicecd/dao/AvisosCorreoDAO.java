@@ -88,19 +88,21 @@ public class AvisosCorreoDAO {
 				"	PROF.fk_id_turno fk_id_turno,\n" + 
 				"	INS.fk_id_grupo fk_id_grupo\n" + 
 				"FROM INSCRIPCION INS \n" + 
-				"	INNER JOIN PROFESOR PROF ON PROF.pk_id_profesor = INS.fk_id_profesor\n" + 
-				"	INNER JOIN GRUPO GRP ON INS.fk_id_grupo = GRP.pk_id_grupo\n" + 
-				"	INNER JOIN CURSO CUR ON GRP.fk_id_curso = CUR.pk_id_curso) PROFESORES";
+				"	FULL OUTER JOIN PROFESOR PROF ON PROF.pk_id_profesor = INS.fk_id_profesor\n" + 
+				"	FULL OUTER JOIN GRUPO GRP ON INS.fk_id_grupo = GRP.pk_id_grupo\n" + 
+				"	FULL OUTER JOIN CURSO CUR ON GRP.fk_id_curso = CUR.pk_id_curso) PROFESORES";
+		
+		System.out.println("filtros "+filtroCorreoDTO);
 		
 		if(filtroCorreoDTO != null) {
 			consulta += " WHERE ";
 			if(filtroCorreoDTO.getNombre() != null && !filtroCorreoDTO.getNombre().equals("")) {
-				consulta += " NOMBRE LIKE '%"+filtroCorreoDTO.getNombre()+"%'";
+				consulta += " NOMBRE ILIKE '%"+filtroCorreoDTO.getNombre()+"%'";
 				bool = true;
 			}
 			
 			if(filtroCorreoDTO.getClave() != null && !filtroCorreoDTO.getClave().equals("")) {
-				consulta += (bool ? " OR " : " " )+"CLAVE LIKE '%"+filtroCorreoDTO.getClave()+"%'";
+				consulta += (bool ? " OR " : " " )+"CLAVE ILIKE '%"+filtroCorreoDTO.getClave()+"%'";
 				bool = true;
 			}
 			
@@ -120,7 +122,7 @@ public class AvisosCorreoDAO {
 			}
 			
 			if(filtroCorreoDTO.getNombres() != null && !filtroCorreoDTO.getNombres().equals("")) {
-				consulta += (bool ? " OR " : " " )+" NOMBRES LIKE '%"+filtroCorreoDTO.getNombres()+"%'";
+				consulta += (bool ? " OR " : " " )+" NOMBRES ILIKE '%"+filtroCorreoDTO.getNombres()+"%'";
 				bool = true;
 			}
 			

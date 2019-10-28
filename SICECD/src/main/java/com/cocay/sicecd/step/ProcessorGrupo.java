@@ -50,7 +50,7 @@ public class ProcessorGrupo implements ItemProcessor<Grupo, Grupo> {
 		 */
 		Profesor profesor = profesorRep.findByRfc(cdProfesor);
 		
-		Curso curso = cursoRep.findByUniqueClave(cdCurso);
+		Curso curso = cursoRep.findByNombre(cdCurso);
 		
 		String clave = grupo.getClave();
 		Grupo grp = grupoRep.findByClaveGrupo(clave);
@@ -64,7 +64,7 @@ public class ProcessorGrupo implements ItemProcessor<Grupo, Grupo> {
 	        
 	        return grupo;
 		}else {
-			String mensaje = "Error en la tabla Grupo, campo clave: "+clave+" ya existente";
+			String mensaje = "El grupo: "+clave+" ya existe actualmente";
 			String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
 			Query query = em.createNativeQuery(consulta);
 			query.executeUpdate();

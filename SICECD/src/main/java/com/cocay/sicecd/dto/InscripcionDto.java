@@ -19,6 +19,8 @@ public class InscripcionDto {
 	String calif;
 	
 	String jsonNombres;
+	
+	String temp_curso;
 
 	public String getIdGrupo() {
 		return idGrupo;
@@ -99,4 +101,14 @@ public class InscripcionDto {
 	public void setJsonNombres(String jsonNombres) {
 		this.jsonNombres = jsonNombres;
 	}
+
+	public String getTemp_curso() {
+		return temp_curso;
+	}
+
+	public void setTemp_curso(String temp_curso) {
+		this.temp_curso = temp_curso;
+	}
+	
+	
 }

@@ -52,7 +52,7 @@ public class ProcessorCurso implements ItemProcessor<Curso, Curso> {
 			curso.setStTabla(1);
 			return curso;
 		}else {
-			String mensaje = "Error en la tabla Curso, campo clave: "+claveCurso+" ya existente";
+			String mensaje = "El curso: "+claveCurso+" ya existe actualmente";
 			String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
 			Query query = em.createNativeQuery(consulta);
 			query.executeUpdate();

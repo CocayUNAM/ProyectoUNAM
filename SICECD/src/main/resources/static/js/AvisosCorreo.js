@@ -47,7 +47,6 @@ function llenadoCorreos() {
 }
 
 function formatterTableCheckInput(value, row, index){
-	console.log("prueba check 2");
 	return configCheck("checkCorreos", "checkCorreos_"+index, "validarCheckAll();");	
 }
 
@@ -151,6 +150,10 @@ function filtroCorreo(){
 	
 	if(stInscripcion == 1){
 		filtros.idGrupo = $("input[name='ins_grupo']").val();
+	}
+	
+	if(JSON.stringify(filtros) == "{}"){
+		filtros = null;
 	}
 	
 	filtrosCorreos(filtros).done(function(data){

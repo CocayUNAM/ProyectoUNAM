@@ -16,6 +16,8 @@ public class CursoDto {
 	
 	String idCurso;
 	
+	String tipoCurso;
+	
 	int total;
 
 	public String getClave() {
@@ -81,6 +83,15 @@ public class CursoDto {
 	public void setTotal(int total) {
 		this.total = total;
 	}
+
+	public String getTipoCurso() {
+		return tipoCurso;
+	}
+
+	public void setTipoCurso(String tipoCurso) {
+		this.tipoCurso = tipoCurso;
+	}
+	
 	
 	
 }

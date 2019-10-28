@@ -27,6 +27,8 @@ public class GrupoDto {
 	String anombre;
 	
 	String apaterno;
+	
+	String temp_curso;
 
 	public String getClave() {
 		return clave;
@@ -132,4 +134,13 @@ public class GrupoDto {
 		this.apaterno = apaterno;
 	}
 
+	public String getTemp_curso() {
+		return temp_curso;
+	}
+
+	public void setTemp_curso(String temp_curso) {
+		this.temp_curso = temp_curso;
+	}
+
+	
 }

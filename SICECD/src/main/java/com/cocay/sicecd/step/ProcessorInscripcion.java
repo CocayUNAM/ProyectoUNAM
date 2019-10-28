@@ -46,7 +46,7 @@ public class ProcessorInscripcion implements ItemProcessor<Inscripcion, Inscripc
         String cdGrupo = inscripcion.getTempGrupo();
         String cdProfesor = inscripcion.getTempProfesor();
         
-        Curso curso = cursoRep.findByUniqueClave(inscripcion.getTempCurso());
+        Curso curso = cursoRep.findByNombre(inscripcion.getTempCurso());
         Grupo grupo = grupoRep.findByClaveGrupoIdCurso(cdGrupo, curso);
     	Profesor profesor = profesorRep.findByRfc(cdProfesor);
         
@@ -60,7 +60,7 @@ public class ProcessorInscripcion implements ItemProcessor<Inscripcion, Inscripc
         	if(!ins.getTempGrupo().equals(cdGrupo)) {
         		return inscripcion;
         	}else {
-        		String mensaje = "Error en la tabla Inscripcion, Profesor con rfc: "+cdProfesor+" ya inscrito en el grupo: "+cdGrupo;
+        		String mensaje = "El profesor con rfc: "+cdProfesor+" se encuentra inscrito en el grupo: "+cdGrupo;
     			String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
     			Query query = em.createNativeQuery(consulta);
     			query.executeUpdate();
