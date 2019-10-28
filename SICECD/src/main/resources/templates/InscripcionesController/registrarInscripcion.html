@@ -206,7 +206,17 @@
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
 
-			            if (value.search(/[A-Z][0-9][^#&<>""~;$^%{}°¬|?/*\(\)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+			            if (value === '') {
+			            	var elem = $(document.createElement('h4'))
+				               .attr('id','mensaje').html("Error : faltan rellenar campos obligatorios");
+							  $('#mensaje').replaceWith(elem);
+							  $("#mensaje").css("color","red");
+							  $("#mensaje").css("visibility","visible");
+							  $('#spin').css("visibility","hidden");
+							  $("#volver").css("visibility","hidden");
+							  $("#limpiar").css("visibility","hidden");
+							  $("#revisar").css("visibility","visible");
+							  $("#mensaje").css("visibility","visible");
 			                return false;
 			            }
 
@@ -217,11 +227,6 @@
 			$.fn.bootstrapValidator.validators.rfc = {
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
-
-			            if (value.search(/^([A-Z\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1]))((-)?([A-Z\d]{3}))?$/) < 0) {
-			                return false;
-			            }
-
 			            return true;
 			        }
 			};
