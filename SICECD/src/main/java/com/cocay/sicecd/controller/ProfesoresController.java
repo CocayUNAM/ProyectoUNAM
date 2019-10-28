@@ -117,7 +117,7 @@ public class ProfesoresController {
 		/*------------------------------------------------------------------------------*/
 		/*Datos por default para la tabla*/
 		
-		List<Estado> est = stRep.findByNombre("Sin definir");
+		List<Estado> est = stRep.findByNombre("No definido");
 		
 		Optional<Turno> trn = tRep.findById(4);
 		
@@ -233,14 +233,17 @@ public class ProfesoresController {
 				}
 				
 				String fechaSt = prof.getfNacimiento();
-				Date fecha = null;
-				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
-					profe.setFechaNac(fecha);
-				} catch (ParseException e) {
-					e.printStackTrace();
-					profe.setFechaNac(null);
-				}  
+				
+				if(!fechaSt.equals("")) {
+					Date fecha = null;
+					try {
+						fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
+						profe.setFechaNac(fecha);
+					} catch (ParseException e) {
+						e.printStackTrace();
+						profe.setFechaNac(null);
+					}  
+				}
 				
 //				/*base*/
 				Integer estado = Integer.parseInt(prof.getEstado());

@@ -56,10 +56,16 @@ public class GrupoController {
 		StringBuilder sb2 = new StringBuilder();
 		
 		StringBuilder nc = new StringBuilder();
+		StringBuilder cc = new StringBuilder();
 		
 		for(Curso c : list_p1) {
 			claves.add(c.getClave());
 			sb1.append(c.getClave() + ",");
+		}
+		
+		for(Curso c : list_p1) {
+			cc.append(c.getNombre() + ",");
+			claves.add(cc.toString());
 		}
 		
 		for(Profesor p : list_p2) {
@@ -75,6 +81,9 @@ public class GrupoController {
 		String re = sb1.toString();
 		sb1.setLength(re.length() - 1);
 		
+		String nomc = cc.toString();
+		cc.setLength(nomc.length() - 1);
+		
 		String rep = sb2.toString();
 		sb2.setLength(rep.length() - 1);
 		
@@ -86,6 +95,7 @@ public class GrupoController {
 		gp.setJsonC(sb1.toString());
 		gp.setJsonP(sb2.toString());
 		gp.setJsonNombres(nc.toString());
+		gp.setJsonNombresCurso(cc.toString());
 		
 		if(!list_p1.isEmpty()) {
 			model.put("datos", gp);

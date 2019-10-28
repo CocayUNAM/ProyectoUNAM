@@ -131,7 +131,7 @@ public class ModificarUsuarios {
 				proRep.save(p);
 			}
 		}
-		list_p1 = list_p1.stream().filter(x -> x.getFk_id_estado().getPk_id_estado() != 33).collect(Collectors.toList());
+		list_p1 = list_p1.stream().filter(x -> x.getFk_id_estado().getPk_id_estado() != 34).collect(Collectors.toList());
 		
 		if(!list_p1.isEmpty()) {
 			model.put("profesores", list_p1);
@@ -993,7 +993,7 @@ public class ModificarUsuarios {
 		}
 		
 		//Se filtran todos los profesores que no tengan fecha de nacimiento
-		list_p1 = list_p1.stream().filter(x -> x.getFk_id_estado().getPk_id_estado() == 33).collect(Collectors.toList());
+		list_p1 = list_p1.stream().filter(x -> x.getFk_id_estado().getPk_id_estado() == 34).collect(Collectors.toList());
 		
 		
 		if(!list_p1.isEmpty()) {

@@ -121,7 +121,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="nac">Fecha de nacimiento<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa" onkeydown="return false">
+                                                    <input type="date" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa">
                                                 </div>
                                             </div>
                                             
@@ -157,7 +157,7 @@
                                                 <label class="col-lg-4 control-label" for="estado">Estado <span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
                                                     <select class="js-select2 form-control" id="estado" name="estado" style="width: 100%;">
-                                                    	<option value="34">Sin definir</option>
+                                                    	<option value="33">Sin definir</option>
                                                         <option value="1">Aguascalientes</option>
 														<option value="2">Baja California</option>
 														<option value="3">Baja California Sur</option>
@@ -376,7 +376,7 @@
 			            var hoy = new Date();
 			            
 			            var varFecha = new Date(value);
-		            			            
+			            
 			            hoy.setHours(0,0,0,0);
 						
 			            if($('#nac').val().length > 0){

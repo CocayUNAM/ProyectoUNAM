@@ -99,7 +99,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="clave">Clave <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="clave" name="clave" placeholder="Ejemplo: A001" maxlength = "8" required>
+                                                    <input type="text" class="form-control" id="clave" name="clave" placeholder="Ejemplo: A001" maxlength = "8">
                                                 </div>
                                             </div>
                                             
@@ -172,29 +172,11 @@
     <script>
 		$(document).ready(function() {
 			
-			$('input').filter('[required]:visible').each(function() {
-				  if ( $(this).val() === '' )
-					  var elem = $(document.createElement('h4'))
-								               .attr('id','mensaje').html("Error : faltan rellenar campos obligatorios");
-					  $('#mensaje').replaceWith(elem);
-					  $("#mensaje").css("color","red");
-					  $("#mensaje").css("visibility","visible");
-					  $('#spin').css("visibility","hidden");
-					  $("#volver").css("visibility","hidden");
-					  $("#limpiar").css("visibility","hidden");
-					  $("#revisar").css("visibility","visible");
-					  $("#mensaje").css("visibility","visible");
-			});
-			
 			var texto = "[[${datos.jsonC}]]";
 			
 			var cursos = texto.split(",");
 			
 		    var select = document.getElementById( 'curso' );
-
-		    for( curso in cursos ) {
-		        select.add( new Option( cursos[curso] ) );
-		    };
 		    
 			var rfctext = "[[${datos.jsonP}]]";
 			
@@ -204,15 +186,26 @@
 			
 			var ncs = nc.split(",");
 			
-			console.log(ncs);
+			var cc = "[[${datos.jsonNombresCurso}]]";
+			
+			var ccs = cc.split(",");
+			
+			console.log(ccs);
 			
 		    var select2 = document.getElementById( 'asesor' );
 				
 		    i = 0;
 		    
+		    j = 0;
+		    
 		    for( rfc in rfcs ) {
 		        select2.add( new Option(ncs[i] + " " + rfcs[rfc], rfcs[rfc]) );
 		        i = i + 1;
+		    };
+		    
+		    for( curso in cursos ) {
+		        select.add( new Option(ccs[j] + " " + cursos[curso], cursos[curso]) );
+		        j = j + 1;
 		    };
 			
 			$.fn.bootstrapValidator.validators.fecha = {
@@ -235,7 +228,17 @@
 			        validate: function(validator, $field, options) {
 			            var value = $field.val();
 
-			            if (value.search(/[A-Z][0-9][^#&<>""~;$^%{}°¬|?/*\(\)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+			            if (value === '') {
+			            	var elem = $(document.createElement('h4'))
+				               .attr('id','mensaje').html("Error : faltan rellenar campos obligatorios");
+							  $('#mensaje').replaceWith(elem);
+							  $("#mensaje").css("color","red");
+							  $("#mensaje").css("visibility","visible");
+							  $('#spin').css("visibility","hidden");
+							  $("#volver").css("visibility","hidden");
+							  $("#limpiar").css("visibility","hidden");
+							  $("#revisar").css("visibility","visible");
+							  $("#mensaje").css("visibility","visible");
 			                return false;
 			            }
 
@@ -274,11 +277,11 @@
 		        	clave: {
 		                validators: {
 		                    clave: {
-		                        message: ' Verifica que el formato sea como el del ejemplo y no mayor a 8 caracteres '
+		                        message: 'No '
 		                    }, 
 		                    
 		                    notEmpty: {
-		                        message: ' No puede estar vacio '
+		                        message: 'puede estar vacio '
 		                    }
 		                }
 		            },
@@ -294,11 +297,11 @@
 		            curso: {
 		                validators: {
 		                    clave: {
-		                        message: ' Verifica que el formato sea como el del ejemplo '
+		                        message: 'No '
 		                    }, 
 		                    
 		                    notEmpty: {
-		                        message: ' No puede estar vacio '
+		                        message: 'puede estar vacio '
 		                    }
 		                }
 		            },

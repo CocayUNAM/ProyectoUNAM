@@ -99,7 +99,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="clave">Clave <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="clave" name="clave" placeholder="Ejemplo: A001" maxlength = "8" required>		
+                                                    <input type="text" class="form-control" id="clave" name="clave" placeholder="Ejemplo: A001" maxlength = "8">		
                                                 </div>
                                             </div>
                                             
@@ -127,7 +127,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="nombre">Nombre <span class="text-danger">*</span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Agregue el nombre del curso, primera letra en mayuscula" maxlength = "150" required>
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Agregue el nombre del curso, primera letra en mayuscula" maxlength = "150">
                                                 </div>
                                             </div>
                                                                                         
@@ -168,31 +168,27 @@
     <script>
 		$(document).ready(function() {
 			
-			 $('input,textarea,select').filter('[required]:visible').each(function() {
-			  if ( $(this).val() === '' )
-				  var elem = $(document.createElement('h4'))
-							               .attr('id','mensaje').html("Error : faltan rellenar campos obligatorios");
-				  $('#mensaje').replaceWith(elem);
-				  $("#mensaje").css("color","red");
-				  $("#mensaje").css("visibility","visible");
-				  $('#spin').css("visibility","hidden");
-				  $("#volver").css("visibility","hidden");
-				  $("#limpiar").css("visibility","hidden");
-				  $("#revisar").css("visibility","visible");
-				  $("#mensaje").css("visibility","visible");
-			});
-			
-			 $.fn.bootstrapValidator.validators.clave = {
+				 $.fn.bootstrapValidator.validators.clave = {
 				        validate: function(validator, $field, options) {
 				            var value = $field.val();
 
-				            if (value.search(/[A-Z][0-9][^#&<>""~;$^%{}°¬|?/*\(\)@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {
+				            if (value === '') {
+				            	var elem = $(document.createElement('h4'))
+					               .attr('id','mensaje').html("Error : faltan rellenar campos obligatorios");
+								  $('#mensaje').replaceWith(elem);
+								  $("#mensaje").css("color","red");
+								  $("#mensaje").css("visibility","visible");
+								  $('#spin').css("visibility","hidden");
+								  $("#volver").css("visibility","hidden");
+								  $("#limpiar").css("visibility","hidden");
+								  $("#revisar").css("visibility","visible");
+								  $("#mensaje").css("visibility","visible");
 				                return false;
 				            }
 
 				            return true;
 				        }
-				    };
+				};
 				
 				$.fn.bootstrapValidator.validators.horas = {
 				        validate: function(validator, $field, options) {
@@ -211,6 +207,20 @@
 				$.fn.bootstrapValidator.validators.nombre = {
 				        validate: function(validator, $field, options) {
 				            var value = $field.val();
+				            
+				            if (value === '') {
+				            	var elem = $(document.createElement('h4'))
+					               .attr('id','mensaje').html("Error : faltan rellenar campos obligatorios");
+								  $('#mensaje').replaceWith(elem);
+								  $("#mensaje").css("color","red");
+								  $("#mensaje").css("visibility","visible");
+								  $('#spin').css("visibility","hidden");
+								  $("#volver").css("visibility","hidden");
+								  $("#limpiar").css("visibility","hidden");
+								  $("#revisar").css("visibility","visible");
+								  $("#mensaje").css("visibility","visible");
+				                return false;
+				            }
 
 				            if (value.search(/[ A-ZäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.-][a-zA-Z][^#&<>°¬|""~;$^%{}?/*@!.,:¡¿=''_\+\-\\]{1,20}$/) < 0) {				
 				                return false;
@@ -231,11 +241,11 @@
 				            clave: {
 				                validators: {
 				                    clave: {
-				                        message: ' Verifica que el formato sea como el del ejemplo '
+				                        message: 'No '
 				                    }, 
 				                    
 				                    notEmpty: {
-				                        message: ' No puede estar vacio '
+				                        message: 'puede estar vacio '
 				                    }
 				                }
 				            },

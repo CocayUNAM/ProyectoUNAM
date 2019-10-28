@@ -23,6 +23,8 @@ public class GrupoDto {
 	String jsonNombres;
 	
 	String claveCurso;
+
+	String jsonNombresCurso;
 	
 	String anombre;
 	
@@ -142,5 +144,12 @@ public class GrupoDto {
 		this.temp_curso = temp_curso;
 	}
 
-	
+	public String getJsonNombresCurso() {
+		return jsonNombresCurso;
+	}
+
+	public void setJsonNombresCurso(String jsonNombresCurso) {
+		this.jsonNombresCurso = jsonNombresCurso;
+	}
+
 }
