@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -201,14 +202,14 @@ public class WebService {
 			LOGGER.debug("No hay urls para el proceso ObtenerCalificaciones");
 			return;
 		}
-		for (Url_ws_inscripcion url : links) {
-			System.out.println("Se conecto" + url.getUrl());
-			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
+		//for (Url_ws_inscripcion url : links) {
+			//System.out.println("Se conecto" + url.getUrl());
+			String json = jsonGetRequest(/*url.getUrl() */"http://unamedu.serveftp.com:8585/WB/api/users/grades.php"+ "?clave=" + key);
 			System.out.println(json);
 			insert_Grade(json);
 			// log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
 			// log.setTrace(LogTypes.AGREGAR_PROFESOR);
-		}
+		//}
 	}
 /*	public void  inserta_calificaciones(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
@@ -302,12 +303,33 @@ public class WebService {
 		JSONArray arr = new JSONArray(jSonResultString);
 		String clave_curso=null;
 		String clave_grupo=null;
-		for (int i = FIRST_ELEMENT; i < SECOND_ELEMENT; i++) {
+		for (int i = 0; i < arr.length(); i++) {
 			JSONObject jsonProductObject = arr.getJSONObject(i);
-			String nombre_curso = jsonProductObject.getString("shortname");
-			String id_grupo = jsonProductObject.getString("idnumber");
-			String[] claves = separaNombreCurso(id_grupo);
-			if(claves.length!=2) {
+			String nombre_curso=jsonProductObject.getJSONObject("materia").getJSONObject("datos").getString("shortname");
+			String id_curso=jsonProductObject.getJSONObject("materia").getJSONObject("datos").getString("shortname");
+			JSONArray arrObj = jsonProductObject.getJSONObject("materia").getJSONArray("inscripcion");
+
+
+			
+			for (int j = 0; j < arrObj.length(); j++) {
+			    JSONObject row = arrObj.getJSONObject(j);
+			    String profesor = row.getJSONObject("profesor").getString("username");
+			    String grade = row.getJSONObject("profesor").getString("grade");
+			    System.out.println("Profesor"+profesor);
+			    System.out.println("Calificacion"+grade);
+			    System.out.println("______________________");
+			}
+
+			//String nombre_curso = jsonProductObject.getString("materia");
+			//String id_grupo = jsonProductObject.getString("datos");
+			System.out.println("***********************");
+			System.out.println("______________________");
+			System.out.println(nombre_curso);
+			System.out.println(id_curso);
+			System.out.println("______________________");
+			System.out.println("***********************");
+			//String[] claves = separaNombreCurso(id_grupo);
+			/*if(claves.length!=2) {
 				String error = "Error guardando Curso, formato IdNumber incorrecto:"+id_grupo+" - "+nombre_curso; 
 				log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_CURSO, error);
 				LOGGER.error(error);
@@ -315,10 +337,10 @@ public class WebService {
 			}
 			clave_curso = claves[0];
 			clave_grupo = claves[1];
-			System.out.println(claves);
+			System.out.println(claves);*/
 			
 		}
-		
+		/*
 		for (int i = SECOND_ELEMENT; i < arr.length(); i++) {
 			JSONObject jsonProductObject = arr.getJSONObject(i);
 			String calificacion = jsonProductObject.getString("grade");
@@ -360,7 +382,7 @@ public class WebService {
 				}
 			}
 
-		}
+		}*/
 	}
 
 	public void insert_update_Profesor(String jSonResultString) {
