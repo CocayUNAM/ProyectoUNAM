@@ -2,6 +2,7 @@ package com.cocay.sicecd.controller;
 
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,8 +54,8 @@ public class ConsultaProfesorController {
 	@RequestMapping(value = "/consultaProfesor", method = RequestMethod.POST)
 	public ModelAndView consultaProfesor(ModelMap model, HttpServletRequest request) {
 		try {
-			String curps = request.getParameter("curp").toUpperCase().trim();
-			String rfcs = request.getParameter("rfc").toUpperCase().trim();
+			String curp = request.getParameter("curp").toUpperCase().trim();
+			String rfc = request.getParameter("rfc").toUpperCase().trim();
 		
 			String nombre = normalizar(request.getParameter("nombre")).toUpperCase().trim();
 			String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase().trim();
@@ -64,98 +65,56 @@ public class ConsultaProfesorController {
 			Integer id_genero = Integer.parseInt(request.getParameter("genero"));
 			Integer id_estado = Integer.parseInt(request.getParameter("estados"));
 			Integer id_turno = Integer.parseInt(request.getParameter("turno"));
+			
+			List<Profesor> profesores = new ArrayList<Profesor>();
+			List<Profesor> profesores2 = new ArrayList<Profesor>();
 		
-			List<Profesor>	list_p1 = profesorRep.findAll();
-			List<Profesor>	list_p2 = profesorRep.findAll();
-		
-			//Filtrando por CURP
-			if (curps != "") {
-				for (Profesor p : list_p1) {
-					String pcurp = p.getCurp().toUpperCase().trim(); 
-					if( !pcurp.contains(curps) ) {
-						list_p2.remove(p);
-					}
-				}
+			if (curp=="" && rfc=="" && nombre=="" && apellido_paterno=="" && apellido_materno=="") {
+				profesores = profesorRep.findAll();
+				profesores2 = profesorRep.findAll();
+			} else {
+				profesores = profesorRep.findByParams(curp, rfc, nombre, apellido_paterno, apellido_materno);
+				profesores2 = profesorRep.findByParams(curp, rfc, nombre, apellido_paterno, apellido_materno);
 			}
-		
-			//Filtrando por RFC
-			if (rfcs != "") {
-				for (Profesor p : list_p1) {
-					String prfc = p.getRfc().toUpperCase().trim(); 
-					if( !prfc.contains(rfcs) ) {
-						list_p2.remove(p);
-					}
-				}
-			}
-		
-			//Filtrando por Nombre
-			if (nombre != "") {
-				for (Profesor p : list_p1) {
-					String nom = normalizar(p.getNombre()).toUpperCase().trim();
-					if( !nom.contains(nombre) ) {
-						list_p2.remove(p);
-					}
-				}
-			}
-		
-			//Filtrando por Apellido Materno
-			if (apellido_paterno != "") {
-				for (Profesor p : list_p1) {
-					String ap = normalizar(p.getApellido_paterno()).toUpperCase().trim();
-					if( !ap.contains(apellido_paterno) ) {
-						list_p2.remove(p);
-					}
-				}
-			}
-		
-			//Filtrando por Apellido Materno
-			if (apellido_materno != "") {
-				for (Profesor p : list_p1) {
-					String am = normalizar(p.getApellido_materno()).toUpperCase().trim();
-					if( !am.contains(apellido_materno) ) {
-						list_p2.remove(p);
-					}
-				}
-			}
-						
+			
 			//Filtrando por grado de estudios
 			if (id_grado != 5) {
-				for(Profesor p : list_p1) {
+				for(Profesor p : profesores2) {
 					if(p.getFk_id_grado_profesor().getPk_id_grado_profesor() != id_grado) {
-						list_p2.remove(p);
+						profesores.remove(p);
 					}
 				}
 			}
 			
 			//Filtrando por género
 			if ( id_genero != 3) {
-				for(Profesor p : list_p1) {
+				for(Profesor p : profesores2) {
 					if(p.getId_genero().getPk_id_genero() != id_genero) {
-						list_p2.remove(p);
+						profesores.remove(p);
 					}
 				}
 			}
 			
 			//Filtrando por estado
 			if(id_estado != 33 ) {
-				for(Profesor p : list_p1) {
+				for(Profesor p : profesores2) {
 					if(p.getFk_id_estado().getPk_id_estado() != id_estado) {
-						list_p2.remove(p);
+						profesores.remove(p);
 					}
 				}
 			}
 			
 			//Filtrando por turno
 			if( id_turno != 4) {
-				for(Profesor p : list_p1) {
+				for(Profesor p : profesores2) {
 					if(p.getFk_id_turno().getPk_id_turno() != id_turno) {
-						list_p2.remove(p);
+						profesores.remove(p);
 					}
 				}
 			}
 		
-			if(!list_p2.isEmpty() || list_p2.size() > 0) {
-				model.put("profesores", list_p2);
+			if(!profesores.isEmpty() || profesores.size() > 0) {
+				model.put("profesores", profesores);
 				model.put("controller", controller);
 				return new ModelAndView("/ConsultarProfesor/muestraListaProfesor", model);
 			} else {

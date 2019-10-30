@@ -10,12 +10,28 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Profesor;
 
 
 @Repository
 public interface ProfesorRep extends CrudRepository<Profesor, Integer>{
 	
+	/**
+	 * 
+	 * @return
+	 */
+	@Query("SELECT p FROM Profesor p "
+			+ "WHERE p.curp LIKE CONCAT('%',:curp,'%') "
+			+ "AND p.rfc LIKE CONCAT('%',:rfc,'%') "
+			+ "AND upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
+			+ "AND upper(p.apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "
+			+ "AND upper(p.apellido_materno) LIKE CONCAT('%',:apellido_materno,'%') ")
+	List<Profesor> findByParams(@Param("curp") String curp,
+			@Param("rfc") String rfc,
+			@Param("nombre") String nombre,
+			@Param("apellido_paterno") String apellido_paterno,
+			@Param("apellido_materno") String apellido_materno);
 
 	@Query("SELECT p FROM Profesor p")
 	List<Profesor> findAll();
