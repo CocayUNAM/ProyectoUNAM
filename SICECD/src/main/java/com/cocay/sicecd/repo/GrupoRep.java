@@ -28,24 +28,45 @@ public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
 	
 	/*
 	 * @author Derian Estrada
-	 * Consultas por Asesor
+	 * Consultar grupo por asesor
 	 */
 	@Query(value = "SELECT * FROM Grupo WHERE fk_id_profesor = :id_asesor", nativeQuery = true)
 	List<Grupo> findByIdAsesor(@Param("id_asesor")Integer id_asesor);
 	
 	/*
 	 * @author Derian Estrada
-	 * Consultas por Clave
+	 * Consultar grupo por clave
 	 */
 	@Query("SELECT g FROM Grupo g WHERE upper(g.clave) LIKE CONCAT('%',:clave,'%')")
 	List<Grupo> findByClave(@Param("clave") String clave);
 	
 	/*
 	 * @author Derian Estrada
-	 * Consultas Simples por Fecha
+	 * Consultar grupo por fecha y clave
 	 */
-	@Query(value = "SELECT * FROM Grupo WHERE fecha_inicio >= :fecha_ini AND fecha_fin <= :fecha_fin", nativeQuery = true)
-	List<Grupo> findByFecha(@Param("fecha_ini") Date fecha_ini, @Param("fecha_fin") Date fecha_fin);
+	@Query("SELECT g FROM Grupo g "
+			+ "WHERE g.fecha_inicio >= :fecha_ini "
+			+ "AND g.fecha_inicio <= :fecha_fin "
+			+ "AND upper(g.clave) LIKE CONCAT('%',:clave,'%') ")
+	List<Grupo> findByFechaInicio(@Param("fecha_ini") Date fecha_ini, @Param("fecha_fin") Date fecha_fin, @Param("clave") String clave);
+	
+	@Query("SELECT g FROM Grupo g "
+			+ "WHERE g.fecha_fin >= :fecha_ini "
+			+ "AND g.fecha_fin <= :fecha_fin "
+			+ "AND upper(g.clave) LIKE CONCAT('%',:clave,'%') ")
+	List<Grupo> findByFechaFin(@Param("fecha_ini") Date fecha_ini, @Param("fecha_fin") Date fecha_fin, @Param("clave") String clave);
+	
+	@Query("SELECT g FROM Grupo g "
+			+ "WHERE g.fecha_inicio >= :fecha_ini_1 "
+			+ "AND g.fecha_inicio <= :fecha_ini_2 "
+			+ "AND g.fecha_fin >= :fecha_fin_1 "
+			+ "AND g.fecha_fin <= :fecha_fin_2 "
+			+ "AND upper(g.clave) LIKE CONCAT('%',:clave,'%') ")
+	List<Grupo> findByFecha(@Param("fecha_ini_1") Date fecha_ini_1,
+			@Param("fecha_ini_2") Date fecha_ini_2,
+			@Param("fecha_fin_1") Date fecha_fin_1,
+			@Param("fecha_fin_2") Date fecha_fin_2,
+			@Param("clave") String clave);
 	
 	/*
 	 * @author Derian Estrada
@@ -79,4 +100,3 @@ public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
 	@Query("SELECT g FROM Grupo g WHERE upper(g.clave) = :clave")
 	Grupo findByClaveGrupo(@Param("clave") String clave);
 }
-

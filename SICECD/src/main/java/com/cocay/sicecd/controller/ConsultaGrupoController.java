@@ -25,6 +25,7 @@ import com.cocay.sicecd.repo.GrupoRep;
 
 @Controller
 public class ConsultaGrupoController {
+	
 	@Autowired
 	GrupoRep grupo;
 	@Autowired
@@ -53,40 +54,30 @@ public class ConsultaGrupoController {
 		
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date fecha_ini, fecha_fin;
-			List<Grupo> grupos_1, grupos_2;
+			List<Grupo> grupos, grupos2;
 			
 			if (fecha_inicio_grupo != "" && fecha_fin_grupo != ""){
 				fecha_ini = format.parse(fecha_inicio_grupo);
 				fecha_fin = format.parse(fecha_fin_grupo);
-				grupos_1 = grupo.findByFecha(fecha_ini, fecha_fin);
-				grupos_2 = grupo.findByFecha(fecha_ini, fecha_fin);
-			}else {
-				grupos_1 = grupo.findAll();
-				grupos_2 = grupo.findAll();
-			}
-			
-			//Filtrando por clave de grupo
-			if (clave_grupo != null) {
-				for(Grupo g : grupos_1) {
-					String gclave = normalizar( g.getClave() ).toUpperCase().trim();
-					if(!gclave.contains(clave_grupo)){
-						grupos_2.remove(g);
-					}
-				}
+				grupos = grupo.findByFechaInicio(fecha_ini, fecha_fin, clave_grupo);
+				grupos2 = grupo.findByFechaInicio(fecha_ini, fecha_fin, clave_grupo);
+			} else {
+				grupos = grupo.findByClave(clave_grupo);
+				grupos2 = grupo.findByClave(clave_grupo);
 			}
 		
 			//Filtrando por clave de curso
 			if (curso_grupo != null) {
-				for(Grupo g : grupos_1) {
+				for(Grupo g : grupos2) {
 					String gclave = normalizar( g.getFk_id_curso().getClave() ).toUpperCase().trim();
 					if( !gclave.contains(curso_grupo) ) {
-						grupos_2.remove(g);
+						grupos.remove(g);
 					}
 				}
 			}
 		
-			if(!grupos_2.isEmpty() || grupos_2.size() > 0) {
-				model.put("grupos", grupos_2);
+			if(!grupos.isEmpty() || grupos.size() > 0) {
+				model.put("grupos", grupos);
 				model.put("controller", controller);
 				return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
 			} else {
@@ -116,52 +107,42 @@ public class ConsultaGrupoController {
 		
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2;
-			List<Grupo> grupos_1, grupos_2;
+			List<Grupo> grupos, grupos2;
 		
 			if(fecha_inicio_grupo_1 != "" && fecha_fin_grupo_1 == "") {
 				fecha_ini_1 = format.parse(fecha_inicio_grupo_1);
 				fecha_ini_2 = format.parse(fecha_inicio_grupo_2);
-				grupos_1 = grupo.findByFechaInicio(fecha_ini_1, fecha_ini_2);
-				grupos_2 = grupo.findByFechaInicio(fecha_ini_1, fecha_ini_2);
+				grupos = grupo.findByFechaInicio(fecha_ini_1, fecha_ini_2, clave_grupo);
+				grupos2 = grupo.findByFechaInicio(fecha_ini_1, fecha_ini_2, clave_grupo);
 			}else if (fecha_inicio_grupo_1 == "" && fecha_fin_grupo_1 != ""){
 				fecha_fin_1 = format.parse(fecha_fin_grupo_1);
 				fecha_fin_2 = format.parse(fecha_fin_grupo_2);
-				grupos_1 = grupo.findByFechaFin(fecha_fin_1, fecha_fin_2);
-				grupos_2 = grupo.findByFechaFin(fecha_fin_1, fecha_fin_2);
+				grupos = grupo.findByFechaFin(fecha_fin_1, fecha_fin_2, clave_grupo);
+				grupos2 = grupo.findByFechaFin(fecha_fin_1, fecha_fin_2, clave_grupo);
 			}else if (fecha_inicio_grupo_1 != "" && fecha_fin_grupo_1 != ""){
 				fecha_ini_1 = format.parse(fecha_inicio_grupo_1);
 				fecha_ini_2 = format.parse(fecha_inicio_grupo_2);
 				fecha_fin_1 = format.parse(fecha_fin_grupo_1);
 				fecha_fin_2 = format.parse(fecha_fin_grupo_2);
-				grupos_1 = grupo.findByFecha(fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2);
-				grupos_2 = grupo.findByFecha(fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2);
+				grupos = grupo.findByFecha(fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2, clave_grupo);
+				grupos2 = grupo.findByFecha(fecha_ini_1, fecha_ini_2, fecha_fin_1, fecha_fin_2, clave_grupo);
 			}else {
-				grupos_1 = grupo.findAll();
-				grupos_2 = grupo.findAll();
-			}
-		
-			//Filtrando por clave de grupo
-			if (clave_grupo != null) {
-				for(Grupo g : grupos_1) {
-					String gclave = normalizar( g.getClave() ).toUpperCase().trim();
-					if(!gclave.contains(clave_grupo)){
-						grupos_2.remove(g);
-					}
-				}
+				grupos = grupo.findAll();
+				grupos2 = grupo.findAll();
 			}
 		
 			//Filtrando por clave de curso
 			if (curso_grupo != null) {
-				for(Grupo g : grupos_1) {
+				for(Grupo g : grupos2) {
 					String gclave = normalizar( g.getFk_id_curso().getClave() ).toUpperCase().trim();
 					if( !gclave.contains(curso_grupo) ) {
-						grupos_2.remove(g);
+						grupos.remove(g);
 					}
 				}
 			}
 		
-			if(!grupos_2.isEmpty() || grupos_2.size() > 0) {
-				model.put("grupos", grupos_2);
+			if(!grupos.isEmpty() || grupos.size() > 0) {
+				model.put("grupos", grupos);
 				model.put("controller", controller);
 				return new ModelAndView("ConsultarGrupo/muestraListaGrupo",model);
 			} else {
