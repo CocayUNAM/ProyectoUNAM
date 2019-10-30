@@ -80,7 +80,7 @@ public class ConsultaProfesorController {
 			//Filtrando por grado de estudios
 			if (id_grado != 5) {
 				for(Profesor p : profesores2) {
-					if(p.getFk_id_grado_profesor().getPk_id_grado_profesor() != id_grado) {
+					if(p.getFk_id_grado_profesor()==null || p.getFk_id_grado_profesor().getPk_id_grado_profesor() != id_grado) {
 						profesores.remove(p);
 					}
 				}
@@ -89,7 +89,7 @@ public class ConsultaProfesorController {
 			//Filtrando por género
 			if ( id_genero != 3) {
 				for(Profesor p : profesores2) {
-					if(p.getId_genero().getPk_id_genero() != id_genero) {
+					if(p.getId_genero()==null || p.getId_genero().getPk_id_genero() != id_genero) {
 						profesores.remove(p);
 					}
 				}
@@ -98,7 +98,7 @@ public class ConsultaProfesorController {
 			//Filtrando por estado
 			if(id_estado != 33 ) {
 				for(Profesor p : profesores2) {
-					if(p.getFk_id_estado().getPk_id_estado() != id_estado) {
+					if(p.getFk_id_estado()==null || p.getFk_id_estado().getPk_id_estado() != id_estado) {
 						profesores.remove(p);
 					}
 				}
@@ -107,7 +107,7 @@ public class ConsultaProfesorController {
 			//Filtrando por turno
 			if( id_turno != 4) {
 				for(Profesor p : profesores2) {
-					if(p.getFk_id_turno().getPk_id_turno() != id_turno) {
+					if(p.getFk_id_turno()==null || p.getFk_id_turno().getPk_id_turno() != id_turno) {
 						profesores.remove(p);
 					}
 				}

@@ -3,6 +3,7 @@ package com.cocay.sicecd.controller;
 import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cocay.sicecd.model.Curso;
 import com.cocay.sicecd.model.Grupo;
+import com.cocay.sicecd.model.Profesor;
 import com.cocay.sicecd.repo.CursoRep;
 
 
@@ -47,41 +49,29 @@ public class ConsultaCursoController {
 			String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 			Integer id_tipo = Integer.parseInt(request.getParameter("tipos_cursos"));
 		
-			List<Curso> cursos1, cursos2;
-			cursos1 = curso.findAll();
-			cursos2 = curso.findAll();
+			List<Curso> cursos = new ArrayList<Curso>();
+			List<Curso> cursos2 = new ArrayList<Curso>();
+		
+			if (nombre_curso=="" && clave_curso=="") {
+				cursos = curso.findAll();
+				cursos2 = curso.findAll();
+			} else {
+				cursos = curso.findByParams(nombre_curso, clave_curso);
+				cursos2 = curso.findByParams(nombre_curso, clave_curso);
+			}
+			
 		
 			//Filtrando por tipo de curso
 			if (id_tipo != 0) {
-				for(Curso c : cursos1) {
-					if(c.getFk_id_tipo_curso().getPk_id_tipo_curso() != id_tipo ) {
-						cursos2.remove(c);
+				for(Curso c : cursos2) {
+					if(c.getFk_id_tipo_curso()==null || c.getFk_id_tipo_curso().getPk_id_tipo_curso() != id_tipo) {
+						cursos.remove(c);
 					}
 				}
 			}
 		
-			//Filtrando por clave de curso
-			if (clave_curso != "") {
-				for(Curso c : cursos1) {
-					String cclave = normalizar(c.getClave()).toUpperCase().trim();
-					if(!cclave.contains(clave_curso)){
-						cursos2.remove(c);
-					}
-				}
-			}
-		
-			//Filtrando por nombre de curso
-			if (nombre_curso != "") {
-				for(Curso c : cursos1) {
-					String cnom = normalizar(c.getNombre()).toUpperCase().trim();
-					if(!cnom.contains(nombre_curso)){
-						cursos2.remove(c);
-					}
-				}
-			}
-		
-			if(!cursos2.isEmpty() || cursos2.size() > 0 ) {
-				model.put("cursos", cursos2);
+			if(!cursos.isEmpty() || cursos.size() > 0 ) {
+				model.put("cursos", cursos);
 				return new ModelAndView("ConsultarCurso/muestraListaCurso",model);
 			} else {
 				return new ModelAndView("/Avisos/ErrorBusqueda");

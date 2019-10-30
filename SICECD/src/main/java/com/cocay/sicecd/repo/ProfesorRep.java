@@ -17,10 +17,6 @@ import com.cocay.sicecd.model.Profesor;
 @Repository
 public interface ProfesorRep extends CrudRepository<Profesor, Integer>{
 	
-	/**
-	 * 
-	 * @return
-	 */
 	@Query("SELECT p FROM Profesor p "
 			+ "WHERE p.curp LIKE CONCAT('%',:curp,'%') "
 			+ "AND p.rfc LIKE CONCAT('%',:rfc,'%') "
