@@ -69,9 +69,12 @@ public class ConsultaProfesorController {
 			List<Profesor> profesores = new ArrayList<Profesor>();
 			List<Profesor> profesores2 = new ArrayList<Profesor>();
 		
-			if (curp=="" && rfc=="" && nombre=="" && apellido_paterno=="" && apellido_materno=="") {
+			if (curp=="" && rfc=="" && nombre=="" && apellido_paterno=="" && apellido_materno=="" && id_estado == 33) {
 				profesores = profesorRep.findAll();
 				profesores2 = profesorRep.findAll();
+			} else if (id_estado != 33) {
+				profesores = profesorRep.findByParams(curp, rfc, nombre, apellido_paterno, apellido_materno, id_estado);
+				profesores2 = profesorRep.findByParams(curp, rfc, nombre, apellido_paterno, apellido_materno, id_estado);
 			} else {
 				profesores = profesorRep.findByParams(curp, rfc, nombre, apellido_paterno, apellido_materno);
 				profesores2 = profesorRep.findByParams(curp, rfc, nombre, apellido_paterno, apellido_materno);
@@ -90,15 +93,6 @@ public class ConsultaProfesorController {
 			if ( id_genero != 3) {
 				for(Profesor p : profesores2) {
 					if(p.getId_genero()==null || p.getId_genero().getPk_id_genero() != id_genero) {
-						profesores.remove(p);
-					}
-				}
-			}
-			
-			//Filtrando por estado
-			if(id_estado != 33 ) {
-				for(Profesor p : profesores2) {
-					if(p.getFk_id_estado()==null || p.getFk_id_estado().getPk_id_estado() != id_estado) {
 						profesores.remove(p);
 					}
 				}

@@ -37,6 +37,20 @@ public interface ProfesorRep extends CrudRepository<Profesor, Integer>{
 			@Param("nombre") String nombre,
 			@Param("apellido_paterno") String apellido_paterno,
 			@Param("apellido_materno") String apellido_materno);
+	
+	@Query(value="SELECT * FROM Profesor "
+			+ "WHERE curp LIKE CONCAT('%',:curp,'%') "
+			+ "AND rfc LIKE CONCAT('%',:rfc,'%') "
+			+ "AND upper(nombre) LIKE CONCAT('%',:nombre,'%') "
+			+ "AND upper(apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "
+			+ "AND upper(apellido_materno) LIKE CONCAT('%',:apellido_materno,'%') "
+			+ "AND fk_id_estado=:estado", nativeQuery=true)
+	List<Profesor> findByParams(@Param("curp") String curp,
+			@Param("rfc") String rfc,
+			@Param("nombre") String nombre,
+			@Param("apellido_paterno") String apellido_paterno,
+			@Param("apellido_materno") String apellido_materno,
+			@Param("estado") Integer estado);
 
 	@Query("SELECT p FROM Profesor p")
 	List<Profesor> findAll();
