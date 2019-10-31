@@ -66,7 +66,6 @@ public class ConsultaInscripcionController {
 	public ModelAndView consultaInscripciones(ModelMap model,HttpServletRequest request) throws ParseException {
 		
 		/* Datos del profesor */
-		String curp = request.getParameter("curp").toUpperCase().trim();
 		String rfc = request.getParameter("rfc").toUpperCase().trim();
 		String nombre = normalizar(request.getParameter("nombre")).toUpperCase().trim();
 		String apellido_paterno = normalizar(request.getParameter("apellido_paterno")).toUpperCase().trim();
@@ -91,8 +90,8 @@ public class ConsultaInscripcionController {
 		List<Inscripcion> ins_cursos = new ArrayList<Inscripcion>();
 		
 		//Se obtienen las inscripciones pertenecientes al profesor buscado
-		if (rfc != "" || curp != "" || nombre != "" || apellido_paterno != "" || id_grado != 5 || id_genero != 3 || id_turno != 4) {
-			ins_profes = obtenerInsProfes(rfc, curp, nombre, apellido_paterno, id_grado, id_genero, id_turno);
+		if (rfc != "" || nombre != "" || apellido_paterno != "" || id_grado != 5 || id_genero != 3 || id_turno != 4) {
+			ins_profes = obtenerInsProfes(rfc, nombre, apellido_paterno, id_grado, id_genero, id_turno);
 		}
 		
 		//Se obtienen las inscripciones pertenecientes al grupo buscado
@@ -233,33 +232,20 @@ public class ConsultaInscripcionController {
 	 */
 	public List<Inscripcion> obtenerInsGrupos(String clave, String fecha_inicio_1, String fecha_inicio_2) throws ParseException {
 		List<Inscripcion> ins_grupos = new ArrayList<Inscripcion>();
-		List<Grupo> grupos1, grupos2;
+		List<Grupo> grupos;
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha_ini_1, fecha_ini_2;
 		
-		//Filtrando por Fecha de Inicio
-		if(fecha_inicio_1 != "" && fecha_inicio_2 != "") {
+		if (fecha_inicio_1 != "" && fecha_inicio_2 != ""){
 			fecha_ini_1 = format.parse(fecha_inicio_1);
 			fecha_ini_2 = format.parse(fecha_inicio_2);
-			grupos1 = grupo_rep.findByFechaInicio(fecha_ini_1, fecha_ini_2);
-			grupos2 = grupo_rep.findByFechaInicio(fecha_ini_1, fecha_ini_2);
+			grupos = grupo_rep.findByFechaInicio(fecha_ini_1, fecha_ini_2, clave);
 		} else {
-			grupos1 = grupo_rep.findAll();
-			grupos2 = grupo_rep.findAll();
+			grupos = grupo_rep.findByClave(clave);
 		}
 		
-		//Filtrando por Clave de Grupo
-		if (clave != null) {
-			for(Grupo g : grupos1) {
-				String gclave = normalizar( g.getClave() ).toUpperCase().trim();
-				if(!gclave.contains(clave)){
-					grupos2.remove(g);
-				}
-			}
-		}
-		
-		for (Grupo g : grupos2) {
+		for (Grupo g : grupos) {
 			ins_grupos.addAll(g.getInscripciones());
 		}
 		
@@ -270,7 +256,6 @@ public class ConsultaInscripcionController {
 	 * Se busca la lista de inscripciones de acuerdo tomando como parámetros
 	 * los datos ingresados en la sección de 'Profesores'.
 	 * @param rfc
-	 * @param curp
 	 * @param nombre
 	 * @param apellido_paterno
 	 * @param id_grado
@@ -279,70 +264,55 @@ public class ConsultaInscripcionController {
 	 * @return una lista de Inscripciones
 	 * @throws ParseException
 	 */
-	public List<Inscripcion> obtenerInsProfes(String rfc, String curp, String nombre, String apellido_paterno, Integer id_grado, Integer id_genero, Integer id_turno) throws ParseException {
+	public List<Inscripcion> obtenerInsProfes(String rfc, String nombre, String apellido_paterno, Integer id_grado, Integer id_genero, Integer id_turno) throws ParseException {
 		List<Inscripcion> ins_profes = new ArrayList<Inscripcion>();
-		List<Profesor> profes1 = profesor_rep.findAll();
-		List<Profesor> profes2 = profesor_rep.findAll();
 		
 		//Caso: Búsqueda por RFC
 		if (rfc != "" ) {
 			Profesor p = profesor_rep.findByRfc(rfc);
 			ins_profes.addAll(p.getInscripciones());
-		//Caso: Búsqueda por CURP
-		} else if (curp != "") {
-			Profesor p = profesor_rep.findByCurp(curp);
-			ins_profes.addAll(p.getInscripciones());
 		//Caso: Búsqueda por los filtros restantes
 		} else {
-			//Filtrando por Nombre
-			if (nombre != "") {
-				for (Profesor p : profes1) {
-					String nom = normalizar(p.getNombre()).toUpperCase().trim();
-					if( !nom.contains(nombre) ) {
-						profes2.remove(p);
-					}
-				}
-			}
 			
-			//Filtrando por Apellido Paterno
-			if (apellido_paterno != "") {
-				for (Profesor p : profes1) {
-					String ap = normalizar(p.getApellido_paterno()).toUpperCase().trim();
-					if( !ap.contains(apellido_paterno) ) {
-						profes2.remove(p);
-					}
-				}
+			List<Profesor> profes = new ArrayList<Profesor>();
+			List<Profesor> profes2 = new ArrayList<Profesor>();
+			
+			if (nombre != "" || apellido_paterno != "") {
+				String nom = normalizar(nombre.toUpperCase().trim());
+				String ap = normalizar(apellido_paterno.toUpperCase().trim());
+				profes = profesor_rep.findByName(nom, ap);
+				profes2 = profesor_rep.findByName(nom, ap);
 			}
 									
 			//Filtrando por grado de estudios
 			if (id_grado != 5) {
-				for(Profesor p : profes1) {
+				for(Profesor p : profes2) {
 					if(p.getFk_id_grado_profesor().getPk_id_grado_profesor() != id_grado) {
-						profes2.remove(p);
+						profes.remove(p);
 					}
 				}
 			}
 						
 			//Filtrando por género
 			if ( id_genero != 3) {
-				for(Profesor p : profes1) {
+				for(Profesor p : profes2) {
 					if(p.getId_genero().getPk_id_genero() != id_genero) {
-						profes2.remove(p);
+						profes.remove(p);
 					}
 				}
 			}
 			
 			//Filtrando por turno
 			if( id_turno != 4) {
-				for(Profesor p : profes1) {
+				for(Profesor p : profes2) {
 					if(p.getFk_id_turno().getPk_id_turno() != id_turno) {
-						profes2.remove(p);
+						profes.remove(p);
 					}
 				}
 			}
 			
 			//Se agregan las inscripciones de cada uno de los profesores
-			for (Profesor p : profes2) {
+			for (Profesor p : profes) {
 				ins_profes.addAll(p.getInscripciones());
 			}
 		}

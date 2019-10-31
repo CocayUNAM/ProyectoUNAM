@@ -50,30 +50,20 @@ public class ConsultaCursoController {
 			Integer id_tipo = Integer.parseInt(request.getParameter("tipos_cursos"));
 		
 			List<Curso> cursos = new ArrayList<Curso>();
-			List<Curso> cursos2 = new ArrayList<Curso>();
 		
-			if (nombre_curso=="" && clave_curso=="") {
+			if (nombre_curso=="" && clave_curso=="" && id_tipo==0) {
 				cursos = curso.findAll();
-				cursos2 = curso.findAll();
-			} else {
+			} else if( (nombre_curso != "" || clave_curso != "") && id_tipo==0 ) {
 				cursos = curso.findByParams(nombre_curso, clave_curso);
-				cursos2 = curso.findByParams(nombre_curso, clave_curso);
-			}
-			
-		
-			//Filtrando por tipo de curso
-			if (id_tipo != 0) {
-				for(Curso c : cursos2) {
-					if(c.getFk_id_tipo_curso()==null || c.getFk_id_tipo_curso().getPk_id_tipo_curso() != id_tipo) {
-						cursos.remove(c);
-					}
-				}
+			} else {
+				cursos = curso.findByParams(nombre_curso, clave_curso, id_tipo);
 			}
 		
 			if(!cursos.isEmpty() || cursos.size() > 0 ) {
 				model.put("cursos", cursos);
 				return new ModelAndView("ConsultarCurso/muestraListaCurso",model);
 			} else {
+				model.addAttribute("mensaje", "Tu búsqueda no arrojo ningún resultado");
 				return new ModelAndView("/Avisos/ErrorBusqueda");
 			}
 		} catch (NullPointerException e) {

@@ -17,6 +17,15 @@ import com.cocay.sicecd.model.Profesor;
 @Repository
 public interface ProfesorRep extends CrudRepository<Profesor, Integer>{
 	
+	@Query("SELECT p FROM Profesor p where p.pk_id_profesor = :id ")
+	Profesor findByID(@Param("id")Integer id);
+	
+	@Query("SELECT p FROM Profesor p "
+			+ "WHERE upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
+			+ "AND upper(p.apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') ")
+	List<Profesor> findByName(@Param("nombre") String nombre,
+					@Param("apellido_paterno") String apellido_paterno);
+	
 	@Query("SELECT p FROM Profesor p "
 			+ "WHERE p.curp LIKE CONCAT('%',:curp,'%') "
 			+ "AND p.rfc LIKE CONCAT('%',:rfc,'%') "
@@ -35,9 +44,6 @@ public interface ProfesorRep extends CrudRepository<Profesor, Integer>{
 	@Query("SELECT p FROM Profesor p ORDER BY p.pk_id_profesor DESC")
 	List<Profesor> findHigherID();
 	
-	@Query("SELECT p FROM Profesor p where p.pk_id_profesor = :id ")
-	Profesor findByID(@Param("id")Integer id);
-	
 	@Query("SELECT p FROM Profesor p where UPPER(p.rfc) = UPPER(:rfc) ")
 	Profesor findByRfc(@Param("rfc")String rfc);
 	
@@ -46,7 +52,7 @@ public interface ProfesorRep extends CrudRepository<Profesor, Integer>{
 	
 	@Query("SELECT p FROM Profesor p where UPPER(p.rfc) = UPPER(:rfc) ")
 	Profesor findByRFC(@Param("rfc")String rfc);
-
+	
 	@Query("SELECT p FROM Profesor p "
 			+ "WHERE upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
 			+ "AND upper(p.apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "
