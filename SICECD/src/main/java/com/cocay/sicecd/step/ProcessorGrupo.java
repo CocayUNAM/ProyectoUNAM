@@ -55,16 +55,29 @@ public class ProcessorGrupo implements ItemProcessor<Grupo, Grupo> {
 		String clave = grupo.getClave();
 		Grupo grp = grupoRep.findByClaveGrupo(clave);
 		
-		if(grp == null) {
-			grupo.setFk_id_curso(curso);
-			grupo.setFk_id_profesor(profesor);
-			grupo.setStTabla(1);
-	        
-	        System.out.println("Objeto convertido a grupo ");
-	        
-	        return grupo;
+		System.out.println("clave"+clave);
+		System.out.println("grp"+grp);
+		
+		if(curso != null) {
+			if(grp == null) {
+				grupo.setFk_id_curso(curso);
+				grupo.setFk_id_profesor(profesor);
+				grupo.setStTabla(1);
+		        
+		        System.out.println("Objeto convertido a grupo ");
+		        
+		        return grupo;
+				
+			}else {
+				String mensaje = "El grupo: "+clave+" ya existe actualmente";
+				String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
+				Query query = em.createNativeQuery(consulta);
+				query.executeUpdate();
+				return null;
+			}
+			
 		}else {
-			String mensaje = "El grupo: "+clave+" ya existe actualmente";
+			String mensaje = "Error al buscar: "+cdCurso+" (Verifique los datos)";
 			String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
 			Query query = em.createNativeQuery(consulta);
 			query.executeUpdate();

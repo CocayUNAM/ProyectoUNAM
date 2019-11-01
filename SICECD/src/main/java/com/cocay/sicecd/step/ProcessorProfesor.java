@@ -49,33 +49,42 @@ public class ProcessorProfesor implements ItemProcessor<Profesor, Profesor> {
         String cdTurno = profesor.getTempTurno();
         String cdGenero = profesor.getTempGenero();
         String cdGrado = profesor.getTempGradoP();
-        
+        String rfc = profesor.getRfc();
         Estado estado = estadoRep.findByNombreEstado(cdEstado);
     	Turno turno = turnoRep.findByNombreTurno(cdTurno);
     	Genero genero = generoRep.findByNombreGenero(cdGenero);
     	Grado_profesor gradoP = gradoProfesor.findByNombreGrado(cdGrado);
-
-        
-        profesor.setFk_id_estado(estado);
-        profesor.setFk_id_turno(turno);
-        profesor.setFk_id_grado_profesor(gradoP);
-        profesor.setGenero(genero);
-        profesor.setStTabla(1);
-        String rfc = profesor.getRfc();
-        Profesor p = profesorRep.findByRfc(rfc);
-        if(p == null) {
-        	System.out.println(profesor.toString());
+        if(estado != null && turno != null && genero != null && gradoP != null) {
+        	profesor.setFk_id_estado(estado);
+            profesor.setFk_id_turno(turno);
+            profesor.setFk_id_grado_profesor(gradoP);
+            profesor.setGenero(genero);
+            profesor.setStTabla(1);
             
-            System.out.println("Objeto convertido a profesor ");
-            
-            return profesor;
+            Profesor p = profesorRep.findByRfc(rfc);
+            if(p == null) {
+            	System.out.println(profesor.toString());
+                
+                System.out.println("Objeto convertido a profesor ");
+               
+                return profesor;
+                
+            }else {
+            	String mensaje = "El profesor: "+rfc+" ya existe actualmente";
+    			String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
+    			Query query = em.createNativeQuery(consulta);
+    			query.executeUpdate();
+            	return null;
+            }
+        	
         }else {
-        	String mensaje = "El profesor: "+rfc+" ya existe actualmente";
+        	String mensaje = "Error al agregar profesor con rfc: "+rfc+" (Verifique los datos)";
 			String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
 			Query query = em.createNativeQuery(consulta);
 			query.executeUpdate();
         	return null;
         }
+        
         
     }
 }
