@@ -3,7 +3,6 @@ package com.cocay.sicecd.controller;
 import java.text.Normalizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,8 +27,7 @@ public class ConsultaGrupoController {
 	
 	@Autowired
 	GrupoRep grupo;
-	@Autowired
-	CursoRep curso;
+
 	@Autowired
 	ConsultaGrupoController controller;
 	
@@ -55,6 +53,7 @@ public class ConsultaGrupoController {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date fecha_ini, fecha_fin;
 			List<Grupo> grupos, grupos2;
+			
 			
 			if (fecha_inicio_grupo != "" && fecha_fin_grupo != ""){
 				fecha_ini = format.parse(fecha_inicio_grupo);
