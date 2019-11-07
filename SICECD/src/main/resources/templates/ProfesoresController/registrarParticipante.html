@@ -121,7 +121,7 @@
                                             <div class="form-group row">
                                                 <label class="col-lg-4 control-label" for="nac">Fecha de nacimiento<span class="text-danger"></span></label>
                                                 <div class="col-lg-8">
-                                                    <input type="date" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa">
+                                                    <input type="text" class="form-control" id="nac" name="nac" placeholder="dd/mm/aaaa">
                                                 </div>
                                             </div>
                                             
@@ -312,6 +312,7 @@
     <script src="/js/lib/form-validation/jquery.validate-init.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
     <script src="/js/scripts.js"></script>
+    <script src="//oss.maxcdn.com/momentjs/2.8.2/moment.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
     <script>
 		$(document).ready(function() {
@@ -375,12 +376,16 @@
 			            var value = $field.val();
 			            var hoy = new Date();
 			            
-			            var varFecha = new Date(value);
+			            function convertDate(inputFormat) {
+			            	  function pad(s) { return (s < 10) ? '0' + s : s; }
+			            	  var d = new Date(inputFormat)
+			            	  return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
+			            }
 			            
 			            hoy.setHours(0,0,0,0);
 						
 			            if($('#nac').val().length > 0){
-			  
+			            	var varFecha = new Date(convertDate(value));
 				            if (varFecha >= hoy) {
 				                return false;
 				            }
@@ -580,9 +585,14 @@
 		        	
 		        	nac : {
 		        		validators :{
-		        			fecha : {
-		        				message : 'No se aceptan fechas futuras, revisa que sea una fecha valida'
-		        			}
+		        			date: {
+		                        format: 'DD/MM/YYYY',
+		                        message: 'Introduce una fecha valida.'
+		                    },
+		                    
+		                    fecha: {
+		                        message: 'Verifica que la fecha no sea futura y no sea hoy.'
+		                    }
 		        		}
 		        	}
 		        }

@@ -146,24 +146,19 @@ public class GrupoController {
 		
 		grupo.setClave(clave);
 		
-		List<Curso> cursop = cursoRep.findByClave(curso);
-		if(!cursop.isEmpty()) {
-			grupo.setFk_id_curso(cursop.get(0));
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN)
-		            .body("¡Curso no encontrado!");
-		}
+		System.out.println(curso);
 		
-		System.out.println(asesor);
-		if(!asesor.contains("Sin definir")) {
-			Profesor profe = profRep.findByRfc(asesor);
-			if(profe != null) {
-				grupo.setFk_id_profesor(profe);
-			} else {
-				return ResponseEntity.status(HttpStatus.FORBIDDEN)
-			            .body("¡Asesor no encontrado!");
-			}
-		}
+		Curso cursop = cursoRep.findForClave(curso);
+		
+		if(cursop != null) {
+			grupo.setFk_id_curso(cursop);
+		} 
+		
+		Profesor profe = profRep.findByRfc(asesor);
+		if(profe != null) {
+			grupo.setFk_id_profesor(profe);
+		} 
+		
 		log.setTrace(LogTypes.REGISTRAR_GRUPO);
 
 		grupoRep.save(grupo);

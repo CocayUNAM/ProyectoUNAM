@@ -25,6 +25,9 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	@Query("SELECT c FROM Curso c WHERE upper(c.clave) LIKE CONCAT('%',:clave,'%')")
 	List<Curso> findByClave(@Param("clave") String clave);
 	
+	@Query("SELECT c FROM Curso c WHERE c.clave = :clave")
+	Curso findForClave(@Param("clave") String clave);
+	
 	/*
 	 * @author Derian Estrada
 	 */
