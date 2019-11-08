@@ -95,7 +95,7 @@ public class InscripcionesController {
 		Inscripcion inst = new Inscripcion();
 
 		String grupo = ins.getIdGrupo();
-		List<Grupo> grupop = grupoRep.findByClave(grupo);
+		Grupo grupop = grupoRep.findForClave(grupo);
 
 		String par = ins.getIdProfesor();
 		Profesor profe = profRep.findByRfc(par);
@@ -106,17 +106,18 @@ public class InscripcionesController {
 		
 		ArrayList<String> rfcs = new ArrayList<String>();
 		
-		for(Grupo g : grupop) {
-			rfcs.add(g.getFk_id_profesor().getRfc());
+		if(grupop.getFk_id_profesor()!=null) {
+			System.out.println("Si encontre un profesor!!!!!!!!");
+			rfcs.add(grupop.getFk_id_profesor().getRfc());
 		}
 		
-		if(rfcs.contains(profe.getRfc())) {
+		if(!rfcs.isEmpty() && rfcs.contains(profe.getRfc())) {
 			System.out.println("Sí lo contengo! es:");
 			System.out.println(profe.getRfc());
 			return ResponseEntity.ok("{\"message\":\"¡El participante ya había sido registrado con este grupo!\"}");
 		}
 		
-		inst.setFk_id_grupo(grupop.get(0));
+		inst.setFk_id_grupo(grupop);
 		
 		inst.setFk_id_profesor(profe);
 		

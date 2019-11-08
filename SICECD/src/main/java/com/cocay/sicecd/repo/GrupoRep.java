@@ -41,6 +41,13 @@ public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
 	List<Grupo> findByClave(@Param("clave") String clave);
 	
 	/*
+	 * @author Andrés Barbosa
+	 * Consultar grupo por clave sin formato.
+	 */
+	@Query("SELECT g FROM Grupo g WHERE g.clave = :clave ")
+	Grupo findForClave(@Param("clave") String clave);
+	
+	/*
 	 * @author Derian Estrada
 	 * Consultar grupo por fecha y clave
 	 */
