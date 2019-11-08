@@ -49,11 +49,10 @@ public class ConsultaCursoController {
 			String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 			Integer id_tipo = Integer.parseInt(request.getParameter("tipos_cursos"));
 		
+			//List<Curso> cursos = curso.findByParams(nombre_curso, clave_curso);
 			List<Curso> cursos = new ArrayList<Curso>();
 		
-			if (nombre_curso=="" && clave_curso=="" && id_tipo==0) {
-				cursos = curso.findAll();
-			} else if( (nombre_curso != "" || clave_curso != "") && id_tipo==0 ) {
+			if (id_tipo==0) {
 				cursos = curso.findByParams(nombre_curso, clave_curso);
 			} else {
 				cursos = curso.findByParams(nombre_curso, clave_curso, id_tipo);
