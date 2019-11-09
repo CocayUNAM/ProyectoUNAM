@@ -54,7 +54,6 @@ public class ConsultaProfesorController {
 	@RequestMapping(value = "/consultaProfesor", method = RequestMethod.POST)
 	public ModelAndView consultaProfesor(ModelMap model, HttpServletRequest request) {
 		try {
-			String curp = request.getParameter("curp").toUpperCase().trim();
 			String rfc = request.getParameter("rfc").toUpperCase().trim();
 		
 			String nombre = normalizar(request.getParameter("nombre")).toUpperCase().trim();
@@ -67,18 +66,20 @@ public class ConsultaProfesorController {
 			Integer id_turno = Integer.parseInt(request.getParameter("turno"));
 			
 			List<Profesor> profesores = new ArrayList<Profesor>();
-			List<Profesor> profesores2 = new ArrayList<Profesor>();
+			//List<Profesor> profesores2 = new ArrayList<Profesor>();
 		
-			if (curp=="" && rfc=="" && nombre=="" && apellido_paterno=="" && apellido_materno=="" && id_estado == 33) {
+			if (rfc=="" && nombre=="" && apellido_paterno=="" && apellido_materno=="" && id_estado == 33) {
 				profesores = profesorRep.findAll();
-				profesores2 = profesorRep.findAll();
+				//profesores2 = profesorRep.findAll();
 			} else if (id_estado != 33) {
-				profesores = profesorRep.findByParams(curp, rfc, nombre, apellido_paterno, apellido_materno, id_estado);
-				profesores2 = profesorRep.findByParams(curp, rfc, nombre, apellido_paterno, apellido_materno, id_estado);
+				profesores = profesorRep.findByParams(rfc, nombre, apellido_paterno, apellido_materno, id_estado);
+				//profesores2 = profesorRep.findByParams(rfc, nombre, apellido_paterno, apellido_materno, id_estado);
 			} else {
-				profesores = profesorRep.findByParams(curp, rfc, nombre, apellido_paterno, apellido_materno);
-				profesores2 = profesorRep.findByParams(curp, rfc, nombre, apellido_paterno, apellido_materno);
+				profesores = profesorRep.findByParams(rfc, nombre, apellido_paterno, apellido_materno);
+				//profesores2 = profesorRep.findByParams(rfc, nombre, apellido_paterno, apellido_materno);
 			}
+			
+			List<Profesor> profesores2 = new ArrayList<Profesor>(profesores);
 			
 			//Filtrando por grado de estudios
 			if (id_grado != 5) {
@@ -122,15 +123,23 @@ public class ConsultaProfesorController {
 		}
 	}
 	
-	public String normalizar(String src) {
+	/**
+	 * Normaliza una cadena quitándole acentos, dieresis y cedillas.
+	 * No quita la ñ.
+	 * @param src
+	 * @return
+	 */
+	public String normalizar(String cadena) {
 		
-		if(src == null) {
+		if (cadena == null) {
 			return "";
 		}
 		
+		cadena = cadena.replace('ñ' , '\001');
         return Normalizer
-                .normalize(src , Normalizer.Form.NFD)
-                .replaceAll("[^\\p{ASCII}]" , "");
+                .normalize(cadena , Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]" , "")
+                .replace('\001', 'ñ');
     }
 	
 	/**

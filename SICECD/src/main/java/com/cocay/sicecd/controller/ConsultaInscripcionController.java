@@ -39,7 +39,7 @@ public class ConsultaInscripcionController {
 	InscripcionRep ins_rep;
 	
 	@Autowired
-	ProfesorRep profesor_rep;
+	ProfesorRep profesorRep;
 	
 	@Autowired
 	CursoRep curso_rep;
@@ -75,6 +75,7 @@ public class ConsultaInscripcionController {
 		
 		/* Datos del curso */
 		String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase().trim();
+		System.out.println(nombre_curso);
 		String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 		Integer id_tipo = Integer.parseInt(request.getParameter("tipos"));
 		
@@ -85,27 +86,17 @@ public class ConsultaInscripcionController {
 		String fecha_1 = request.getParameter("fecha_1");
 		String fecha_2 = request.getParameter("fecha_2");
 		
-		List<Inscripcion> ins_grupos = new ArrayList<Inscripcion>();
 		List<Inscripcion> ins_profes = new ArrayList<Inscripcion>();
-		List<Inscripcion> ins_cursos = new ArrayList<Inscripcion>();
+		List<Inscripcion> ins_cursos_grupos = new ArrayList<Inscripcion>();
 		
 		//Se obtienen las inscripciones pertenecientes al profesor buscado
-		if (rfc != "" || nombre != "" || apellido_paterno != "" || id_grado != 5 || id_genero != 3 || id_turno != 4) {
-			ins_profes = obtenerInsProfes(rfc, nombre, apellido_paterno, id_grado, id_genero, id_turno);
-		}
+		ins_profes = obtenerInsProfes(rfc, nombre, apellido_paterno, id_grado, id_genero, id_turno);
 		
-		//Se obtienen las inscripciones pertenecientes al grupo buscado
-		if ( clave_grupo != "" || fecha_1 != "" || fecha_2 != "" ) {
-			ins_grupos = obtenerInsGrupos(clave_grupo, fecha_1, fecha_2);
-		}
-		
-		//Se obtienen las inscripciones pertenecientes al curso buscado
-		if ( clave_curso != "" || nombre_curso != "" || id_tipo != 0 ) {
-			ins_cursos = obtenerInsCursos(clave_curso, nombre_curso, id_tipo);
-		}
+		//Se obtienen las inscripciones pertenecientes al curso y grupo buscado
+		ins_cursos_grupos = obtenerInsCursosGrupos(clave_curso, nombre_curso, id_tipo, clave_grupo, fecha_1, fecha_2);
 		
 		//Merge entre cursos, grupos y profes
-		List<Inscripcion> inscripciones = obtenerIns(ins_cursos, ins_grupos, ins_profes);
+		List<Inscripcion> inscripciones = obtenerIns(ins_cursos_grupos, ins_profes);
 		
 		if ( inscripciones != null || inscripciones.size() > 0 ) {
 			model.put("ins", inscripciones);
@@ -122,45 +113,21 @@ public class ConsultaInscripcionController {
 	 * @param ins_profes Inscripciones encontradas en la sección profes.
 	 * @return una lista de las inscripciones que se encuentran en la lista de profes y grupos.
 	 */
-	public List<Inscripcion> obtenerIns (List<Inscripcion> ins_cursos, List<Inscripcion> ins_grupos, List<Inscripcion> ins_profes) {
+	public List<Inscripcion> obtenerIns (List<Inscripcion> ins_cursos_grupos, List<Inscripcion> ins_profes) {
 		List<Inscripcion> inscripciones = new ArrayList<Inscripcion>();
 		
-		if (ins_grupos.size() > 0 && ins_cursos.size() == 0 && ins_profes.size() == 0 ) {
-			inscripciones = ins_grupos;
-		} else if (ins_grupos.size() == 0 && ins_cursos.size() > 0 && ins_profes.size() == 0 ) {
-			inscripciones = ins_cursos;
-		} if (ins_grupos.size() == 0 && ins_cursos.size() == 0 && ins_profes.size() > 0 ) {
+		if (ins_cursos_grupos.size() > 0 && ins_profes.size() == 0) {
+			inscripciones = ins_cursos_grupos; 
+		} else if (ins_cursos_grupos.size() == 0 && ins_profes.size() > 0) {
 			inscripciones = ins_profes;
-		} else if (ins_grupos.size() > 0 && ins_cursos.size() > 0 && ins_profes.size() == 0 ) {
+		} else {
 			
-			for (Inscripcion ins : ins_cursos) {
-				if (ins_grupos.contains(ins)) {
-					inscripciones.add(ins);
-				}
-			}
-
-		} else if (ins_grupos.size() > 0 && ins_cursos.size() == 0 && ins_profes.size() > 0 ) {
-			
-			for (Inscripcion ins : ins_profes) {
-				if (ins_grupos.contains(ins)) {
-					inscripciones.add(ins);
-				}
-			}
-
-		}  else if (ins_grupos.size() == 0 && ins_cursos.size() > 0 && ins_profes.size() > 0 ) {
-			
-			for (Inscripcion ins : ins_cursos) {
+			for (Inscripcion ins : ins_cursos_grupos) {
 				if (ins_profes.contains(ins)) {
 					inscripciones.add(ins);
 				}
 			}
-
-		} else {
-			for (Inscripcion ins : ins_profes) {
-				if (ins_grupos.contains(ins) && ins_cursos.contains(ins)) {
-					inscripciones.add(ins);
-				}
-			}
+			
 		}
 		
 		return inscripciones;
@@ -171,85 +138,48 @@ public class ConsultaInscripcionController {
 	 * los datos ingresados en la sección de 'Cursos'.
 	 * @param clave_curso
 	 * @param id_tipo
-	 * @return una lista de Inscripciones.
-	 * @throws ParseException
-	 */
-	public List<Inscripcion> obtenerInsCursos(String clave_curso, String nombre_curso, Integer id_tipo) {
-		List<Inscripcion> ins_cursos = new ArrayList<Inscripcion>();
-		List<Curso> cursos1, cursos2;
-		List<Grupo> grupos = grupo_rep.findAll();
-		cursos1 = curso_rep.findAll();
-		cursos2 = curso_rep.findAll();
-		
-		//Filtrando por tipo de curso
-		if (id_tipo != 0) {
-			for(Curso c : cursos1) {
-				if(c.getFk_id_tipo_curso().getPk_id_tipo_curso() != id_tipo ) {
-					cursos2.remove(c);
-				}
-			}
-		}
-		
-		//Filtrando por clave de curso
-		if (clave_curso != "") {
-			for(Curso c : cursos1) {
-				String cclave = normalizar(c.getClave()).toUpperCase().trim();
-				if(!cclave.contains(clave_curso)){
-					cursos2.remove(c);
-				}
-			}
-		}
-		
-		//Filtrando por nombre de curso
-		if (nombre_curso != "") {
-			for(Curso c : cursos1) {
-				String cnom = normalizar(c.getNombre()).toUpperCase().trim();
-				if(!cnom.contains(nombre_curso)){
-					cursos2.remove(c);
-				}
-			}
-		}
-		
-		//Obteniendo inscripciones
-		for (Curso c : cursos2) {
-			for (Grupo g : grupos) {
-				if ( g.getFk_id_curso().getPk_id_curso() == c.getPk_id_curso() ) {
-					ins_cursos.addAll(g.getInscripciones());
-				}
-			}
-		}
-		
-		return ins_cursos;
-	}
-	
-	/**
-	 * Se busca la lista de inscripciones de acuerdo tomando como parámetros
-	 * los datos ingresados en la sección de 'Grupos'.
-	 * @param clave
+	 * @param clave_grupo
 	 * @param fecha_inicio_1
 	 * @param fecha_inicio_2
 	 * @return una lista de Inscripciones.
+	 * @throws ParseException
 	 */
-	public List<Inscripcion> obtenerInsGrupos(String clave, String fecha_inicio_1, String fecha_inicio_2) throws ParseException {
-		List<Inscripcion> ins_grupos = new ArrayList<Inscripcion>();
-		List<Grupo> grupos;
+	public List<Inscripcion> obtenerInsCursosGrupos(String clave_curso, String nombre_curso, Integer id_tipo,
+			String clave_grupo, String fecha_inicio_1, String fecha_inicio_2) throws ParseException {
+		List<Inscripcion> ins = new ArrayList<Inscripcion>();
+		List<Curso> cursos = new ArrayList<Curso>();
+		List<Grupo> grupos = new ArrayList<Grupo>();
+	
+		//Obteniendo cursos
+		if (id_tipo==0) {
+			cursos = curso_rep.findByParams(nombre_curso, clave_curso);
+		} else {
+			cursos = curso_rep.findByParams(nombre_curso, clave_curso, id_tipo);
+		}
 		
+		//Obteniendo grupos
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date fecha_ini_1, fecha_ini_2;
 		
 		if (fecha_inicio_1 != "" && fecha_inicio_2 != ""){
 			fecha_ini_1 = format.parse(fecha_inicio_1);
 			fecha_ini_2 = format.parse(fecha_inicio_2);
-			grupos = grupo_rep.findByFechaInicio(fecha_ini_1, fecha_ini_2, clave);
+			grupos = grupo_rep.findByFechaInicio(fecha_ini_1, fecha_ini_2, clave_grupo);
+		//} else if (clave_grupo != ""){
 		} else {
-			grupos = grupo_rep.findByClave(clave);
+			grupos = grupo_rep.findByClave(clave_grupo);
 		}
 		
-		for (Grupo g : grupos) {
-			ins_grupos.addAll(g.getInscripciones());
+		//Obteniendo inscripciones
+		for (Curso c : cursos) {
+			for (Grupo g : grupos) {
+				if ( g.getFk_id_curso().getPk_id_curso() == c.getPk_id_curso() ) {
+					ins.addAll(g.getInscripciones());
+				}
+			}
 		}
 		
-		return ins_grupos;
+		return ins;
 	}
 	
 	/**
@@ -267,9 +197,12 @@ public class ConsultaInscripcionController {
 	public List<Inscripcion> obtenerInsProfes(String rfc, String nombre, String apellido_paterno, Integer id_grado, Integer id_genero, Integer id_turno) throws ParseException {
 		List<Inscripcion> ins_profes = new ArrayList<Inscripcion>();
 		
+		List<Profesor> profesores = new ArrayList<Profesor>();
+		List<Profesor> profesores2 = new ArrayList<Profesor>();
+		
 		//Caso: Búsqueda por RFC
 		if (rfc != "" ) {
-			Profesor p = profesor_rep.findByRfc(rfc);
+			Profesor p = profesorRep.findByRfc(rfc);
 			ins_profes.addAll(p.getInscripciones());
 		//Caso: Búsqueda por los filtros restantes
 		} else {
@@ -278,10 +211,9 @@ public class ConsultaInscripcionController {
 			List<Profesor> profes2 = new ArrayList<Profesor>();
 			
 			if (nombre != "" || apellido_paterno != "") {
-				String nom = normalizar(nombre.toUpperCase().trim());
-				String ap = normalizar(apellido_paterno.toUpperCase().trim());
-				profes = profesor_rep.findByName(nom, ap);
-				profes2 = profesor_rep.findByName(nom, ap);
+				profes = profesorRep.findByName(nombre, apellido_paterno);
+				//profes2 = profesorRep.findByName(nombre, apellido_paterno);
+				profes2 = new ArrayList<Profesor> (profes);
 			}
 									
 			//Filtrando por grado de estudios
@@ -320,12 +252,6 @@ public class ConsultaInscripcionController {
 		return ins_profes;
 	}
 	
-	public String normalizar(String src) {
-        return Normalizer
-                .normalize(src , Normalizer.Form.NFD)
-                .replaceAll("[^\\p{ASCII}]" , "");
-    }
-	
 	/**
 	 * Obtiene el id de un certificado de un profesor que haya aprobado un curso.
 	 * @param id_profesor
@@ -356,6 +282,25 @@ public class ConsultaInscripcionController {
 		
 		return res;
 	}
+	
+	/**
+	 * Normaliza una cadena quitándole acentos, dieresis y cedillas.
+	 * No quita la ñ.
+	 * @param src
+	 * @return
+	 */
+	public String normalizar(String cadena) {
+		
+		if (cadena == null) {
+			return "";
+		}
+		
+		cadena = cadena.replace('ñ' , '\001');
+        return Normalizer
+                .normalize(cadena , Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]" , "")
+                .replace('\001', 'ñ');
+    }
 	
 	/**
 	 * Le aplica un formato al nombre de un profesor para que cada letra
