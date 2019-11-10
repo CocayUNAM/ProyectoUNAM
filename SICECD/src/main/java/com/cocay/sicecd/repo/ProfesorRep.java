@@ -27,25 +27,23 @@ public interface ProfesorRep extends CrudRepository<Profesor, Integer>{
 					@Param("apellido_paterno") String apellido_paterno);
 	
 	@Query("SELECT p FROM Profesor p "
-			+ "WHERE p.curp LIKE CONCAT('%',:curp,'%') "
-			+ "AND p.rfc LIKE CONCAT('%',:rfc,'%') "
+			+ "WHERE p.rfc LIKE CONCAT('%',:rfc,'%') "
 			+ "AND upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
 			+ "AND upper(p.apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "
 			+ "AND upper(p.apellido_materno) LIKE CONCAT('%',:apellido_materno,'%') ")
-	List<Profesor> findByParams(@Param("curp") String curp,
+	List<Profesor> findByParams(
 			@Param("rfc") String rfc,
 			@Param("nombre") String nombre,
 			@Param("apellido_paterno") String apellido_paterno,
 			@Param("apellido_materno") String apellido_materno);
 	
 	@Query(value="SELECT * FROM Profesor "
-			+ "WHERE curp LIKE CONCAT('%',:curp,'%') "
-			+ "AND rfc LIKE CONCAT('%',:rfc,'%') "
+			+ "WHERE AND rfc LIKE CONCAT('%',:rfc,'%') "
 			+ "AND upper(nombre) LIKE CONCAT('%',:nombre,'%') "
 			+ "AND upper(apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "
 			+ "AND upper(apellido_materno) LIKE CONCAT('%',:apellido_materno,'%') "
 			+ "AND fk_id_estado=:estado", nativeQuery=true)
-	List<Profesor> findByParams(@Param("curp") String curp,
+	List<Profesor> findByParams(
 			@Param("rfc") String rfc,
 			@Param("nombre") String nombre,
 			@Param("apellido_paterno") String apellido_paterno,

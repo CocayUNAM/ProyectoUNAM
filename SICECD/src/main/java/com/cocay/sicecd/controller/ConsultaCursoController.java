@@ -42,14 +42,14 @@ public class ConsultaCursoController {
 	 * @author Derian Estrada
 	 */
 	@RequestMapping(value = "/consultaCurso", method = RequestMethod.POST)
-	public ModelAndView consultaSimpleCurso(ModelMap model,HttpServletRequest request) throws ParseException {
+	public ModelAndView consultaCurso(ModelMap model,HttpServletRequest request) throws ParseException {
 		
 		try {
 			String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase().trim();
+			System.out.println(nombre_curso);
 			String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 			Integer id_tipo = Integer.parseInt(request.getParameter("tipos_cursos"));
 		
-			//List<Curso> cursos = curso.findByParams(nombre_curso, clave_curso);
 			List<Curso> cursos = new ArrayList<Curso>();
 		
 			if (id_tipo==0) {
@@ -72,9 +72,22 @@ public class ConsultaCursoController {
 		}
 	}
 	
-	public String normalizar(String src) {
+	/**
+	 * Normaliza una cadena quitándole acentos, dieresis y cedillas.
+	 * No quita la ñ.
+	 * @param src
+	 * @return
+	 */
+	public String normalizar(String cadena) {
+		
+		if (cadena == null) {
+			return "";
+		}
+		
+		cadena = cadena.replace('ñ' , '\001');
         return Normalizer
-                .normalize(src , Normalizer.Form.NFD)
-                .replaceAll("[^\\p{ASCII}]" , "");
+                .normalize(cadena , Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]" , "")
+                .replace('\001', 'ñ');
     }
 }
