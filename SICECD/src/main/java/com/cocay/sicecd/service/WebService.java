@@ -98,7 +98,7 @@ public class WebService {
 	 * inmediatamente. Si la segunda tarea aún se está ejecutando, la llamada
 	 * bloquea el subproceso actual hasta que se calcula el valor.
 	 */
-
+	@Scheduled(cron = "${ws.scheduleImportData}")
 	public void run() {
 		final CountDownLatch cdl1 = new CountDownLatch(1);
 	    final CountDownLatch cdl2 = new CountDownLatch(1);
@@ -195,7 +195,7 @@ public class WebService {
 		}
 
 	}
-	@Scheduled(cron = "${ws.scheduleImportData}")
+	
 	public void get_Calificaciones() {
 
 		LinkedList<Url_ws_inscripcion> links = new LinkedList<>(urls_inscripcion.findVarios());
@@ -203,15 +203,14 @@ public class WebService {
 			LOGGER.debug("No hay urls para el proceso ObtenerCalificaciones");
 			return;
 		}
-		//for (Url_ws_inscripcion url : links) {
-			//System.out.println("Se conecto" + url.getUrl());
-			//String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
-		String json = jsonGetRequest("http://unamedu.serveftp.com:8585/WB/api/users/grades.php?clave=p7AvQB");
+		for (Url_ws_inscripcion url : links) {
+			System.out.println("Se conecto" + url.getUrl());
+			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
 			System.out.println(json);
 			insert_Grade(json);
 			// log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
 			// log.setTrace(LogTypes.AGREGAR_PROFESOR);
-		//}
+		}
 	}
 
 	public void insert_Course(String jSonResultString) {
