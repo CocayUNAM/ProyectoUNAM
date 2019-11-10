@@ -202,14 +202,14 @@ public class WebService {
 			LOGGER.debug("No hay urls para el proceso ObtenerCalificaciones");
 			return;
 		}
-		//for (Url_ws_inscripcion url : links) {
-			//System.out.println("Se conecto" + url.getUrl());
-			String json = jsonGetRequest(/*url.getUrl() */"http://unamedu.serveftp.com:8585/WB/api/users/grades.php"+ "?clave=" + key);
+		for (Url_ws_inscripcion url : links) {
+			System.out.println("Se conecto" + url.getUrl());
+			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
 			System.out.println(json);
 			insert_Grade(json);
 			// log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
 			// log.setTrace(LogTypes.AGREGAR_PROFESOR);
-		//}
+		}
 	}
 /*	public void  inserta_calificaciones(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
