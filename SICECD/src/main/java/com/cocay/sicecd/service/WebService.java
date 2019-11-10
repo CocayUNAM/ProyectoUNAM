@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -97,7 +98,7 @@ public class WebService {
 	 * inmediatamente. Si la segunda tarea aún se está ejecutando, la llamada
 	 * bloquea el subproceso actual hasta que se calcula el valor.
 	 */
-	
+
 	public void run() {
 		final CountDownLatch cdl1 = new CountDownLatch(1);
 	    final CountDownLatch cdl2 = new CountDownLatch(1);
@@ -202,46 +203,17 @@ public class WebService {
 			LOGGER.debug("No hay urls para el proceso ObtenerCalificaciones");
 			return;
 		}
-		for (Url_ws_inscripcion url : links) {
-			System.out.println("Se conecto" + url.getUrl());
-			String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
+		//for (Url_ws_inscripcion url : links) {
+			//System.out.println("Se conecto" + url.getUrl());
+			//String json = jsonGetRequest(url.getUrl() + "?clave=" + key);
+		String json = jsonGetRequest("http://unamedu.serveftp.com:8585/WB/api/users/grades.php?clave=p7AvQB");
 			System.out.println(json);
 			insert_Grade(json);
 			// log.setTrace(LogTypes.ACTUALIZAR_PROFESOR);
 			// log.setTrace(LogTypes.AGREGAR_PROFESOR);
-		}
+		//}
 	}
-/*	public void  inserta_calificaciones(String jSonResultString) {
-		JSONArray arr = new JSONArray(jSonResultString);
-		for (int i = FIRST_ELEMENT; i < SECOND_ELEMENT; i++) {
-			JSONObject jsonProductObject = arr.getJSONObject(i);
-			String nombre_curso = jsonProductObject.getString("shortname");
-			String id_grupo = jsonProductObject.getString("idnumber");
-			String[] claves = separaNombreCurso(id_grupo);
-			if(claves.length!=2) {
-				String error = "Error guardando Curso, formato IdNumber incorrecto:"+id_grupo+" - "+nombre_curso; 
-				log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_CURSO, error);
-				LOGGER.error(error);
-				continue;
-			}
-			String clave_curso = claves[0];
-			String clave_grupo = claves[1];
-			System.out.println(claves);
-			
-		}
-		//System.out.println("First: " + arr.getJSONObject(FIRST_ELEMENT).toString());
-		//String nombre_curso = jsonProductObject.getString("grade");
-		for (int i = SECOND_ELEMENT; i < arr.length(); i++) {
-			JSONObject jsonProductObject = arr.getJSONObject(i);
-			String calificacion = jsonProductObject.getString("grade");
-			String profesor = jsonProductObject.getString("username");
-			System.out.println(calificacion);
-			System.out.println(profesor);
-			
-		}
-		
-		
-	}*/
+
 	public void insert_Course(String jSonResultString) {
 		JSONArray arr = new JSONArray(jSonResultString);
 		for (int i = 0; i < arr.length(); i++) {
@@ -303,86 +275,70 @@ public class WebService {
 		JSONArray arr = new JSONArray(jSonResultString);
 		String clave_curso=null;
 		String clave_grupo=null;
+		String nombre_curso=null;
+		String id_curso=null;
+		String curp =null;
+		String grade =null;
 		for (int i = 0; i < arr.length(); i++) {
 			JSONObject jsonProductObject = arr.getJSONObject(i);
-			String nombre_curso=jsonProductObject.getJSONObject("materia").getJSONObject("datos").getString("shortname");
-			String id_curso=jsonProductObject.getJSONObject("materia").getJSONObject("datos").getString("shortname");
+			nombre_curso=jsonProductObject.getJSONObject("materia").getJSONObject("datos").getString("shortname");
+			id_curso=jsonProductObject.getJSONObject("materia").getJSONObject("datos").getString("idnumber");
 			JSONArray arrObj = jsonProductObject.getJSONObject("materia").getJSONArray("inscripcion");
 
-
-			
 			for (int j = 0; j < arrObj.length(); j++) {
 			    JSONObject row = arrObj.getJSONObject(j);
-			    String profesor = row.getJSONObject("profesor").getString("username");
-			    String grade = row.getJSONObject("profesor").getString("grade");
-			    System.out.println("Profesor"+profesor);
-			    System.out.println("Calificacion"+grade);
-			    System.out.println("______________________");
+			    curp = row.getJSONObject("profesor").getString("username");
+			    grade = row.getJSONObject("profesor").getString("grade");
+
 			}
 
-			//String nombre_curso = jsonProductObject.getString("materia");
-			//String id_grupo = jsonProductObject.getString("datos");
-			System.out.println("***********************");
-			System.out.println("______________________");
 			System.out.println(nombre_curso);
 			System.out.println(id_curso);
-			System.out.println("______________________");
-			System.out.println("***********************");
-			//String[] claves = separaNombreCurso(id_grupo);
-			/*if(claves.length!=2) {
-				String error = "Error guardando Curso, formato IdNumber incorrecto:"+id_grupo+" - "+nombre_curso; 
+			String[] claves = separaNombreCurso(id_curso);
+			if(claves.length!=2) {
+				String error = "Error guardando Curso, formato IdNumber incorrecto:"+id_curso+" - "+nombre_curso; 
 				log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_CURSO, error);
 				LOGGER.error(error);
 				continue;
 			}
 			clave_curso = claves[0];
 			clave_grupo = claves[1];
-			System.out.println(claves);*/
-			
 		}
-		/*
-		for (int i = SECOND_ELEMENT; i < arr.length(); i++) {
-			JSONObject jsonProductObject = arr.getJSONObject(i);
-			String calificacion = jsonProductObject.getString("grade");
-			String curp = jsonProductObject.getString("username");
-			double result = Double.parseDouble(calificacion);
-			boolean aprobado = aprobadoCalificacion(result);
-			Profesor exits = profesor.findByCurp(curp);
-
-
-			Curso curso = curso_rep.findByUniqueClaveCurso(clave_curso);
-			if(curso == null) {
-				LOGGER.info("No existe el curso: "+clave_grupo+" - "+curp);
-			}else {
-				Grupo grupo = grupo_rep.findByClaveGrupoIdCurso(clave_grupo, curso);
-				if (grupo == null) {
-					LOGGER.info("No existe el grupo: "+clave_grupo+" - "+curp);
-				} else {
-					if(exits==null) {
-						LOGGER.info("No existe el profesor: "+clave_grupo+" - "+curp);
-					}else {
-						if(calificacion.length()>3) {
-							calificacion = calificacion.substring(0, 3);
-							calificacion = calificacion.replace(".", "");
-						}
-						try {
-							//inscripcionRep.saveI(grupo.getPk_id_grupo(), exits.getPk_id_profesor(), calificacion, aprobado);
-						} catch (Exception ex) {
-							String error = "Error: "+ex.toString()+"	|	";
-							error=error+"ID Grupo:"+grupo.getPk_id_grupo()+"	|	";
-							error=error+"ID Profesor:"+exits.getPk_id_profesor()+"	|	";
-							error=error+"Calificacion:"+calificacion+"	|	";
-							error=error+"Aprobado:"+aprobado+"	|	";
-							log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_INSCRIPCION, error);
-							LOGGER.error("Error guardando Incripción en carga Batch WS", ex);
-							ex.printStackTrace();
-							
-						}
+		
+		double result = Double.parseDouble(grade);
+		boolean aprobado = aprobadoCalificacion(result);
+		Profesor exits = profesor.findByCurp(curp);
+		Curso curso = curso_rep.findByUniqueClaveCurso(clave_curso);
+		if(curso == null) {
+			LOGGER.info("No existe el curso: "+clave_grupo+" - "+curp);
+		}else {
+			Grupo grupo = grupo_rep.findByClaveGrupoIdCurso(clave_grupo, curso);
+			if (grupo == null) {
+				LOGGER.info("No existe el grupo: "+clave_grupo+" - "+curp);
+			} else {
+				if(exits==null) {
+					LOGGER.info("No existe el profesor: "+clave_grupo+" - "+curp);
+				}else {
+					if(grade.length()>3) {
+						grade = grade.substring(0, 3);
+						grade = grade.replace(".", "");
+					}
+					try {
+						inscripcionRep.saveI(grupo.getPk_id_grupo(), exits.getPk_id_profesor(), grade, aprobado);
+					} catch (Exception ex) {
+						String error = "Error: "+ex.toString()+"	|	";
+						error=error+"ID Grupo:"+grupo.getPk_id_grupo()+"	|	";
+						error=error+"ID Profesor:"+exits.getPk_id_profesor()+"	|	";
+						error=error+"Calificacion:"+grade+"	|	";
+						error=error+"Aprobado:"+aprobado+"	|	";
+						log.logtrace(LogTypes.CARGA_WS_BATCH_ERROR_INSCRIPCION, error);
+						LOGGER.error("Error guardando Incripción en carga Batch WS", ex);
+						ex.printStackTrace();
+						
 					}
 				}
 			}
-
-		}*/
+		}
 	}
 
 	public void insert_update_Profesor(String jSonResultString) {
