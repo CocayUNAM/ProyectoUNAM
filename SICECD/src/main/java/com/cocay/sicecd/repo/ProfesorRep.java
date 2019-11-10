@@ -17,26 +17,44 @@ import com.cocay.sicecd.model.Profesor;
 @Repository
 public interface ProfesorRep extends CrudRepository<Profesor, Integer>{
 	
+	@Query("SELECT p FROM Profesor p where p.pk_id_profesor = :id ")
+	Profesor findByID(@Param("id")Integer id);
+	
 	@Query("SELECT p FROM Profesor p "
-			+ "WHERE p.curp LIKE CONCAT('%',:curp,'%') "
-			+ "AND p.rfc LIKE CONCAT('%',:rfc,'%') "
+			+ "WHERE upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
+			+ "AND upper(p.apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') ")
+	List<Profesor> findByName(@Param("nombre") String nombre,
+					@Param("apellido_paterno") String apellido_paterno);
+	
+	@Query("SELECT p FROM Profesor p "
+			+ "WHERE p.rfc LIKE CONCAT('%',:rfc,'%') "
 			+ "AND upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
 			+ "AND upper(p.apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "
 			+ "AND upper(p.apellido_materno) LIKE CONCAT('%',:apellido_materno,'%') ")
-	List<Profesor> findByParams(@Param("curp") String curp,
+	List<Profesor> findByParams(
 			@Param("rfc") String rfc,
 			@Param("nombre") String nombre,
 			@Param("apellido_paterno") String apellido_paterno,
 			@Param("apellido_materno") String apellido_materno);
+	
+	@Query(value="SELECT * FROM Profesor "
+			+ "WHERE AND rfc LIKE CONCAT('%',:rfc,'%') "
+			+ "AND upper(nombre) LIKE CONCAT('%',:nombre,'%') "
+			+ "AND upper(apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "
+			+ "AND upper(apellido_materno) LIKE CONCAT('%',:apellido_materno,'%') "
+			+ "AND fk_id_estado=:estado", nativeQuery=true)
+	List<Profesor> findByParams(
+			@Param("rfc") String rfc,
+			@Param("nombre") String nombre,
+			@Param("apellido_paterno") String apellido_paterno,
+			@Param("apellido_materno") String apellido_materno,
+			@Param("estado") Integer estado);
 
 	@Query("SELECT p FROM Profesor p")
 	List<Profesor> findAll();
 	
 	@Query("SELECT p FROM Profesor p ORDER BY p.pk_id_profesor DESC")
 	List<Profesor> findHigherID();
-	
-	@Query("SELECT p FROM Profesor p where p.pk_id_profesor = :id ")
-	Profesor findByID(@Param("id")Integer id);
 	
 	@Query("SELECT p FROM Profesor p where UPPER(p.rfc) = UPPER(:rfc) ")
 	Profesor findByRfc(@Param("rfc")String rfc);
@@ -46,7 +64,7 @@ public interface ProfesorRep extends CrudRepository<Profesor, Integer>{
 	
 	@Query("SELECT p FROM Profesor p where UPPER(p.rfc) = UPPER(:rfc) ")
 	Profesor findByRFC(@Param("rfc")String rfc);
-
+	
 	@Query("SELECT p FROM Profesor p "
 			+ "WHERE upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
 			+ "AND upper(p.apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "

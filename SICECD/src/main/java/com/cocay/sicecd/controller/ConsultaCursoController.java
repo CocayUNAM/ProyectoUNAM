@@ -42,38 +42,27 @@ public class ConsultaCursoController {
 	 * @author Derian Estrada
 	 */
 	@RequestMapping(value = "/consultaCurso", method = RequestMethod.POST)
-	public ModelAndView consultaSimpleCurso(ModelMap model,HttpServletRequest request) throws ParseException {
+	public ModelAndView consultaCurso(ModelMap model,HttpServletRequest request) throws ParseException {
 		
 		try {
 			String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase().trim();
+			System.out.println(nombre_curso);
 			String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 			Integer id_tipo = Integer.parseInt(request.getParameter("tipos_cursos"));
 		
 			List<Curso> cursos = new ArrayList<Curso>();
-			List<Curso> cursos2 = new ArrayList<Curso>();
 		
-			if (nombre_curso=="" && clave_curso=="") {
-				cursos = curso.findAll();
-				cursos2 = curso.findAll();
-			} else {
+			if (id_tipo==0) {
 				cursos = curso.findByParams(nombre_curso, clave_curso);
-				cursos2 = curso.findByParams(nombre_curso, clave_curso);
-			}
-			
-		
-			//Filtrando por tipo de curso
-			if (id_tipo != 0) {
-				for(Curso c : cursos2) {
-					if(c.getFk_id_tipo_curso()==null || c.getFk_id_tipo_curso().getPk_id_tipo_curso() != id_tipo) {
-						cursos.remove(c);
-					}
-				}
+			} else {
+				cursos = curso.findByParams(nombre_curso, clave_curso, id_tipo);
 			}
 		
 			if(!cursos.isEmpty() || cursos.size() > 0 ) {
 				model.put("cursos", cursos);
 				return new ModelAndView("ConsultarCurso/muestraListaCurso",model);
 			} else {
+				model.addAttribute("mensaje", "Tu búsqueda no arrojo ningún resultado");
 				return new ModelAndView("/Avisos/ErrorBusqueda");
 			}
 		} catch (NullPointerException e) {
@@ -83,9 +72,22 @@ public class ConsultaCursoController {
 		}
 	}
 	
-	public String normalizar(String src) {
+	/**
+	 * Normaliza una cadena quitándole acentos, dieresis y cedillas.
+	 * No quita la ñ.
+	 * @param src
+	 * @return
+	 */
+	public String normalizar(String cadena) {
+		
+		if (cadena == null) {
+			return "";
+		}
+		
+		cadena = cadena.replace('ñ' , '\001');
         return Normalizer
-                .normalize(src , Normalizer.Form.NFD)
-                .replaceAll("[^\\p{ASCII}]" , "");
+                .normalize(cadena , Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]" , "")
+                .replace('\001', 'ñ');
     }
 }

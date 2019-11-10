@@ -28,8 +28,7 @@ public class ConsultaGrupoController {
 	
 	@Autowired
 	GrupoRep grupo;
-	@Autowired
-	CursoRep curso;
+
 	@Autowired
 	ConsultaGrupoController controller;
 	
@@ -54,20 +53,19 @@ public class ConsultaGrupoController {
 		
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			Date fecha_ini, fecha_fin;
-			List<Grupo> grupos, grupos2;
+			List<Grupo> grupos;
 			
 			if (fecha_inicio_grupo != "" && fecha_fin_grupo != ""){
 				fecha_ini = format.parse(fecha_inicio_grupo);
 				fecha_fin = format.parse(fecha_fin_grupo);
 				grupos = grupo.findByFechaInicio(fecha_ini, fecha_fin, clave_grupo);
-				grupos2 = grupo.findByFechaInicio(fecha_ini, fecha_fin, clave_grupo);
 			} else {
 				grupos = grupo.findByClave(clave_grupo);
-				grupos2 = grupo.findByClave(clave_grupo);
 			}
 		
 			//Filtrando por clave de curso
 			if (curso_grupo != null) {
+				List<Grupo> grupos2 = new ArrayList<Grupo>(grupos);
 				for(Grupo g : grupos2) {
 					String gclave = normalizar( g.getFk_id_curso().getClave() ).toUpperCase().trim();
 					if( !gclave.contains(curso_grupo) ) {
@@ -156,14 +154,23 @@ public class ConsultaGrupoController {
 		}
 	}
 	
-	public String normalizar(String src) {
-		if(src == null) {
+	/**
+	 * Normaliza una cadena quitándole acentos, dieresis y cedillas.
+	 * No quita la ñ.
+	 * @param src
+	 * @return
+	 */
+	public String normalizar(String cadena) {
+		
+		if (cadena == null) {
 			return "";
 		}
 		
+		cadena = cadena.replace('ñ' , '\001');
         return Normalizer
-                .normalize(src , Normalizer.Form.NFD)
-                .replaceAll("[^\\p{ASCII}]" , "");
+                .normalize(cadena , Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]" , "")
+                .replace('\001', 'ñ');
     }
 	
 	/**

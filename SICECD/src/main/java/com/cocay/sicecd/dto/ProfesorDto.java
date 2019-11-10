@@ -55,6 +55,16 @@ public class ProfesorDto {
 	String cdMensaje;
 	
 	String cdAsunto;
+	
+	String formFecha;
+
+	public String getFormFecha() {
+		return formFecha;
+	}
+
+	public void setFormFecha(String formFecha) {
+		this.formFecha = formFecha;
+	}
 
 	public String getaPaterno() {
 		return aPaterno;

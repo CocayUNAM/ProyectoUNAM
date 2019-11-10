@@ -124,7 +124,7 @@ public class GrupoController {
 		
 		if(fInicio != "") {
 			try {
-				fechaI = new SimpleDateFormat("yyyy-MM-dd").parse(fInicio);
+				fechaI = new SimpleDateFormat("dd/MM/yyyy").parse(fInicio);
 				grupo.setFecha_inicio(fechaI);
 			} catch (ParseException e1) {
 				e1.printStackTrace();
@@ -135,7 +135,7 @@ public class GrupoController {
 		Date fechaT = null;
 		if(fTermino != "") {
 			try {
-				fechaT = new SimpleDateFormat("yyyy-MM-dd").parse(fTermino);
+				fechaT = new SimpleDateFormat("dd/MM/yyyy").parse(fTermino);
 				grupo.setFecha_fin(fechaT);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
@@ -146,24 +146,19 @@ public class GrupoController {
 		
 		grupo.setClave(clave);
 		
-		List<Curso> cursop = cursoRep.findByClave(curso);
-		if(!cursop.isEmpty()) {
-			grupo.setFk_id_curso(cursop.get(0));
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN)
-		            .body("¡Curso no encontrado!");
-		}
+		System.out.println(curso);
 		
-		System.out.println(asesor);
-		if(!asesor.contains("Sin definir")) {
-			Profesor profe = profRep.findByRfc(asesor);
-			if(profe != null) {
-				grupo.setFk_id_profesor(profe);
-			} else {
-				return ResponseEntity.status(HttpStatus.FORBIDDEN)
-			            .body("¡Asesor no encontrado!");
-			}
-		}
+		Curso cursop = cursoRep.findForClave(curso);
+		
+		if(cursop != null) {
+			grupo.setFk_id_curso(cursop);
+		} 
+		
+		Profesor profe = profRep.findByRfc(asesor);
+		if(profe != null) {
+			grupo.setFk_id_profesor(profe);
+		} 
+		
 		log.setTrace(LogTypes.REGISTRAR_GRUPO);
 
 		grupoRep.save(grupo);

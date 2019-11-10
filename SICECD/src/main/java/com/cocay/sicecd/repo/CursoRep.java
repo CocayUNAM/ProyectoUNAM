@@ -16,29 +16,34 @@ import com.cocay.sicecd.model.Profesor;
 @Repository
 public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	
-	@Query("SELECT c FROM Curso c")
-	List<Curso> findAll();
-	
-	@Query("SELECT c FROM Curso c "
-			+ "WHERE c.nombre LIKE CONCAT('%',:nombre,'%') "
-			+ "AND c.clave LIKE CONCAT('%',:clave,'%')")
-	List<Curso> findByParams(@Param("nombre") String nombre, @Param("clave") String clave);
-	
-	@Query("SELECT c FROM Curso c where c.pk_id_curso = :fk_id_curso ")
-	Curso findByID(@Param("fk_id_curso") int fk_id_curso);
+	@Query(value="SELECT * FROM Curso", nativeQuery = true)
+	List<Curso> loadAllCursos();
 	
 	@Query("SELECT c FROM Curso c where c.nombre = :nombre")
 	Curso findByNombre(@Param("nombre") String nombre);
 	
-	/*
-	 * @author Derian Estrada
-	 * Consultas por Clave
-	 */
 	@Query("SELECT c FROM Curso c WHERE upper(c.clave) LIKE CONCAT('%',:clave,'%')")
 	List<Curso> findByClave(@Param("clave") String clave);
 	
-	@Query(value="SELECT * FROM Curso", nativeQuery = true)
-	List<Curso> loadAllCursos();
+	@Query("SELECT c FROM Curso c WHERE c.clave = :clave")
+	Curso findForClave(@Param("clave") String clave);
+	
+	/*
+	 * @author Derian Estrada
+	 */
+	@Query("SELECT c FROM Curso c")
+	List<Curso> findAll();
+	
+	@Query(value="SELECT * FROM Curso "
+			+ "WHERE UPPER(nombre) LIKE CONCAT('%',:nombre,'%') "
+			+ "AND UPPER(clave) LIKE CONCAT('%',:clave,'%')", nativeQuery=true)
+	List<Curso> findByParams(@Param("nombre") String nombre, @Param("clave") String clave);
+	
+	@Query(value="SELECT * FROM Curso "
+			+ "WHERE UPPER(nombre) LIKE CONCAT('%',:nombre,'%') "
+			+ "AND UPPER(clave) LIKE CONCAT('%',:clave,'%') "
+			+ "AND fk_id_tipo_curso=:tipo", nativeQuery=true)
+	List<Curso> findByParams(@Param("nombre") String nombre, @Param("clave") String clave, @Param("tipo") Integer tipo);
 	
 	/*
 	 * @author Héctor Santaella Marín
@@ -55,6 +60,4 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	
 	@Query("SELECT c FROM Curso c WHERE upper(c.clave) = :clave")
 	Curso findByUniqueClaveCurso(@Param("clave") String clave);
-	
-
 }

@@ -41,6 +41,13 @@ public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
 	List<Grupo> findByClave(@Param("clave") String clave);
 	
 	/*
+	 * @author Andrés Barbosa
+	 * Consultar grupo por clave sin formato.
+	 */
+	@Query("SELECT g FROM Grupo g WHERE g.clave = :clave ")
+	Grupo findForClave(@Param("clave") String clave);
+	
+	/*
 	 * @author Derian Estrada
 	 * Consultar grupo por fecha y clave
 	 */
@@ -67,20 +74,6 @@ public interface GrupoRep extends PagingAndSortingRepository<Grupo, Integer>{
 			@Param("fecha_fin_1") Date fecha_fin_1,
 			@Param("fecha_fin_2") Date fecha_fin_2,
 			@Param("clave") String clave);
-	
-	/*
-	 * @author Derian Estrada
-	 * Consultas Avanzadas por Fecha
-	 */
-	@Query(value = "SELECT * FROM Grupo WHERE fecha_inicio >= :fecha_ini_1 AND fecha_inicio <= :fecha_ini_2", nativeQuery = true)
-	List<Grupo> findByFechaInicio(@Param("fecha_ini_1") Date fecha_ini_1, @Param("fecha_ini_2") Date fecha_ini_2);
-	
-	@Query(value = "SELECT * FROM Grupo WHERE fecha_fin >= :fecha_fin_1 AND fecha_fin <= :fecha_fin_2", nativeQuery = true)
-	List<Grupo> findByFechaFin(@Param("fecha_fin_1") Date fecha_fin_1, @Param("fecha_fin_2") Date fecha_fin_2);
-	
-	@Query(value = "SELECT * FROM Grupo WHERE fecha_inicio >= :fecha_ini_1 AND fecha_inicio <= :fecha_ini_2 AND fecha_fin >= :fecha_fin_1 AND fecha_fin <= :fecha_fin_2", nativeQuery = true)
-	List<Grupo> findByFecha(@Param("fecha_ini_1") Date fecha_ini_1, @Param("fecha_ini_2") Date fecha_ini_2,
-							@Param("fecha_fin_1") Date fecha_fin_1, @Param("fecha_fin_2") Date fecha_fin_2);
 	
 	/*
 	 * @author Héctor Santaella Marín

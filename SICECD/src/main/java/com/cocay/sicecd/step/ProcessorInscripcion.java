@@ -50,25 +50,35 @@ public class ProcessorInscripcion implements ItemProcessor<Inscripcion, Inscripc
         Grupo grupo = grupoRep.findByClaveGrupoIdCurso(cdGrupo, curso);
     	Profesor profesor = profesorRep.findByRfc(cdProfesor);
         
-        inscripcion.setFk_id_grupo(grupo);
-        inscripcion.setFk_id_profesor(profesor);
-        inscripcion.setStTabla(1);
         
-        Inscripcion ins = inscripcionRep.findByP(cdProfesor);
         
-        if(ins != null) {
-        	if(!ins.getTempGrupo().equals(cdGrupo)) {
-        		return inscripcion;
-        	}else {
-        		String mensaje = "El profesor con rfc: "+cdProfesor+" se encuentra inscrito en el grupo: "+cdGrupo;
-    			String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
-    			Query query = em.createNativeQuery(consulta);
-    			query.executeUpdate();
-    			return null;
-        	}
+        
+        if(curso != null && grupo != null && profesor != null) {
+        	inscripcion.setFk_id_grupo(grupo);
+            inscripcion.setFk_id_profesor(profesor);
+            inscripcion.setStTabla(1);
+            Inscripcion ins = inscripcionRep.findByP(cdProfesor);
+            if(ins != null) {
+            	if(!ins.getTempGrupo().equals(cdGrupo)) {
+            		return inscripcion;
+            	}else {
+            		String mensaje = "El profesor con rfc: "+cdProfesor+" se encuentra inscrito en el grupo: "+cdGrupo;
+        			String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
+        			Query query = em.createNativeQuery(consulta);
+        			query.executeUpdate();
+        			return null;
+            	}
+            }else {
+            	return inscripcion;
+            }
         }else {
-        	return inscripcion;
+        	String mensaje = "Error al inscribir el profesor: "+cdProfesor+" en el grupo: "+cdGrupo;
+			String consulta = "INSERT INTO errores (mensaje, estado) VALUES ('"+mensaje+"', 1)";
+			Query query = em.createNativeQuery(consulta);
+			query.executeUpdate();
+			return null;
         }
+        
         
     }
 }
