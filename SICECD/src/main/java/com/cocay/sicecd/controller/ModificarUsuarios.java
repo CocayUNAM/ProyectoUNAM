@@ -173,6 +173,10 @@ public class ModificarUsuarios {
 		
 		if(cambio.getFechaNac() != null) {
 			prof.setfNacimiento(cambio.getFechaNac().toString().substring(0, 10));
+		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+
+			String ffecha = formatter.format(cambio.getFechaNac()); 
+			prof.setFormFecha(ffecha);
 		} 
 		
 		if(cambio.getCurp() != null) {
@@ -185,10 +189,6 @@ public class ModificarUsuarios {
 		prof.setEstado(Integer.toString(cambio.getFk_id_estado().getPk_id_estado()));
 		
 		prof.setNombreEstado(cambio.getFk_id_estado().getNombre());
-		
-		if(cambio.getFechaNac() != null) {
-			prof.setfNacimiento(cambio.getFechaNac().toString().substring(0, 10));
-		}
 		
 		prof.setGenero(Integer.toString(cambio.getGenero().getPk_id_genero()));
 		
@@ -261,24 +261,19 @@ public class ModificarUsuarios {
 			mod.setApellido_materno(profesor.getaMaterno());
 		}
 		
-		if(mod.getCurp() == null) {
-			cambios += "Curp de " + mod.getCurp() + " a " + profesor.getCurp()
-			+ "\n";
-			mod.setCurp(profesor.getCurp());
-		} else {
+		if(mod.getCurp() != null) {
 			Profesor repetido = proRep.findByCurp(profesor.getCurp());
-			if(repetido != null && mod.getRfc() != repetido.getRfc()) {
+			if(repetido != null && mod.getRfc() != repetido.getRfc() && !mod.getCurp().equals("")) {
 				return ResponseEntity.ok("Error: curp ya registrada");
-			}
+			} else {
 			
-			if (!mod.getCurp().equals(profesor.getCurp())) {
-				cambios += "Curp de " + mod.getCurp() + " a " + profesor.getCurp()
-						+ "\n";
-				mod.setCurp(profesor.getCurp());
+				if (!mod.getCurp().equals(profesor.getCurp())) {
+					cambios += "Curp de " + mod.getCurp() + " a " + profesor.getCurp()
+							+ "\n";
+					mod.setCurp(profesor.getCurp());
+				}
 			}
 		}
-		
-		
 		
 		if (!mod.getCorreo().equals(profesor.getCorreo())) {
 			cambios += "Correo de " + mod.getCorreo() + " a " + profesor.getCorreo()
@@ -368,7 +363,7 @@ public class ModificarUsuarios {
 			String fechaSt = profesor.getfNacimiento();
 			Date fecha = null;
 			try {
-				fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
+				fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaSt);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -378,7 +373,7 @@ public class ModificarUsuarios {
 				String fechaSt = profesor.getfNacimiento();
 				Date fecha = null;
 				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
+					fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaSt);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -586,30 +581,27 @@ public class ModificarUsuarios {
 			}
 		}
 		
-		Grupo gpo = grRep.findByClave(ins.getIdGrupo()).get(0); 
+		Grupo gpo = grRep.findForClave(ins.getIdGrupo()); 
 		
 		if(gpo != null) {
 			if (!mod.getFk_id_grupo().getClave().equals(ins.getIdGrupo())) {
 				mod.setFk_id_grupo(gpo);
 			}
-		} else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN)
-		            .body("¡Grupo no encontrado!");
 		}
 		
 		String grupo = ins.getIdGrupo();
 		
-		List<Grupo> grupop = grRep.findByClave(grupo);
+		Grupo grupop = grRep.findForClave(grupo);
 		
 		ArrayList<String> rfcs = new ArrayList<String>();
 		
-		for(Grupo g : grupop) {
-			rfcs.add(g.getFk_id_profesor().getRfc());
+		if(grupop.getFk_id_profesor()!=null) {
+			rfcs.add(grupop.getFk_id_profesor().getRfc());
 		}
 		
 		Profesor pro = proRep.findByRfc(ins.getIdProfesor());
 		
-		if(rfcs.contains(pro.getRfc())) {
+		if(!rfcs.isEmpty() && rfcs.contains(pro.getRfc())) {
 			System.out.println("Sí lo contengo! es:");
 			System.out.println(pro.getRfc());
 			return ResponseEntity.ok("Error : El participante ya habia sido registrado con este grupo");
@@ -720,10 +712,16 @@ public class ModificarUsuarios {
 		StringBuilder sb2 = new StringBuilder();
 		
 		StringBuilder nc = new StringBuilder();
+		StringBuilder cc = new StringBuilder();
 		
 		for(Curso c : list_p1) {
 			claves.add(c.getClave());
 			sb1.append(c.getClave() + ",");
+		}
+		
+		for(Curso c : list_p1) {
+			cc.append(c.getNombre() + ",");
+			claves.add(cc.toString());
 		}
 		
 		for(Profesor p : list_p2) {
@@ -738,6 +736,9 @@ public class ModificarUsuarios {
 		
 		String re = sb1.toString();
 		sb1.setLength(re.length() - 1);
+		
+		String nomc = cc.toString();
+		cc.setLength(nomc.length() - 1);
 		
 		String rep = sb2.toString();
 		sb2.setLength(rep.length() - 1);
@@ -762,13 +763,23 @@ public class ModificarUsuarios {
 		gdto.setJsonC(sb1.toString());
 		gdto.setJsonP(sb2.toString());
 		gdto.setJsonNombres(nc.toString());
+		gdto.setJsonNombresCurso(cc.toString());
 		
 		if(gr.getFecha_inicio() != null) {
 			gdto.setInicio(gr.getFecha_inicio().toString().substring(0, 10));
+		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+
+			String ffecha = formatter.format(gr.getFecha_inicio()); 
+			gdto.setFormatoInicio(ffecha);
 		}
 		
 		if(gr.getFecha_fin() != null) {
 			gdto.setTermino(gr.getFecha_fin().toString().substring(0, 10));
+			
+		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+
+			String ffecha = formatter.format(gr.getFecha_fin()); 
+			gdto.setFormatoTermino(ffecha);
 		}
 		
 		ModelAndView model = new ModelAndView("ModificarUsuario/pantallaModificacionG");
@@ -795,7 +806,7 @@ public class ModificarUsuarios {
 			if(grp.getInicio() != "") {
 				Date fecha = null;
 				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getInicio());
+					fecha = new SimpleDateFormat("dd/MM/yyyy").parse(grp.getInicio());
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}  
@@ -808,7 +819,7 @@ public class ModificarUsuarios {
 					+ "\n";
 					Date fecha = null;
 					try {
-						fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getInicio());
+						fecha = new SimpleDateFormat("dd/MM/yyyy").parse(grp.getInicio());
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}  
@@ -821,7 +832,7 @@ public class ModificarUsuarios {
 			if(grp.getTermino() != "") {
 				Date fecha = null;
 				try {
-					fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getTermino());
+					fecha = new SimpleDateFormat("dd/MM/yyyy").parse(grp.getTermino());
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}  
@@ -834,7 +845,7 @@ public class ModificarUsuarios {
 					+ "\n";
 					Date fecha = null;
 					try {
-						fecha = new SimpleDateFormat("yyyy-MM-dd").parse(grp.getTermino());
+						fecha = new SimpleDateFormat("dd/MM/yyyy").parse(grp.getTermino());
 					} catch (ParseException e) {
 						e.printStackTrace();
 					} 
@@ -859,7 +870,7 @@ public class ModificarUsuarios {
 			mod.setFk_id_profesor(null);
 		}
 		
-		Curso cur = crRep.findByClave(grp.getCurso()).get(0);
+		Curso cur = crRep.findForClave(grp.getCurso());
 		
 		if(cur != null) {
 			if (!mod.getFk_id_curso().getClave().equals(grp.getCurso())) {
@@ -1020,6 +1031,11 @@ public class ModificarUsuarios {
 		
 		if(cambio.getFechaNac() != null) {
 			pdt.setfNacimiento(cambio.getFechaNac().toString().substring(0, 10));
+			
+		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+
+			String ffecha = formatter.format(cambio.getFechaNac()); 
+			pdt.setFormFecha(ffecha);
 		} 
 		
 		pdt.setGenero(cambio.getGenero().toString());
@@ -1028,14 +1044,16 @@ public class ModificarUsuarios {
 		
 		pdt.setRfc(cambio.getRfc());
 		
+		pdt.setTelefono(cambio.getTelefono());
+		
 		ModelAndView model = new ModelAndView("ModificarUsuario/pantallaModificacionA");
 		model.addObject("asesor", pdt);
 		return model;
 	}
 	
 	@PostMapping(value = "/editarasesor")
-	private ResponseEntity<String> editarAsesor(@RequestBody Profesor profesor) {
-		int id = profesor.getPk_id_profesor();
+	private ResponseEntity<String> editarAsesor(@RequestBody ProfesorDto profesor) {
+		int id = profesor.getIdProfesor();
 		
 		Profesor mod = proRep.findById(id).get();
 		
@@ -1045,19 +1063,19 @@ public class ModificarUsuarios {
 			cambios += "Rfc de " + mod.getRfc() + " a " + profesor.getRfc() + "\n";
 			mod.setRfc(profesor.getRfc());
 		}
-		if (!mod.getNombre().equals(profesor.getNombre())) {
-			cambios += "Nombre de " + mod.getNombre() + " a " + profesor.getNombre() + "\n";
-			mod.setNombre(profesor.getNombre());
+		if (!mod.getNombre().equals(profesor.getNombres())) {
+			cambios += "Nombre de " + mod.getNombre() + " a " + profesor.getNombres() + "\n";
+			mod.setNombre(profesor.getNombres());
 		}
-		if (!mod.getApellido_paterno().equals(profesor.getApellido_paterno())) {
-			cambios += "Apellido Paterno de " + mod.getApellido_paterno() + " a " + profesor.getApellido_paterno()
+		if (!mod.getApellido_paterno().equals(profesor.getaPaterno())) {
+			cambios += "Apellido Paterno de " + mod.getApellido_paterno() + " a " + profesor.getaPaterno()
 					+ "\n";
-			mod.setApellido_paterno(profesor.getApellido_paterno());
+			mod.setApellido_paterno(profesor.getaPaterno());
 		}
-		if (!mod.getApellido_materno().equals(profesor.getApellido_materno())) {
-			cambios += "Apellido Materno de " + mod.getApellido_materno() + " a " + profesor.getApellido_materno()
+		if (!mod.getApellido_materno().equals(profesor.getaMaterno())) {
+			cambios += "Apellido Materno de " + mod.getApellido_materno() + " a " + profesor.getaMaterno()
 					+ "\n";
-			mod.setApellido_materno(profesor.getApellido_materno());
+			mod.setApellido_materno(profesor.getaMaterno());
 		}
 		
 		if (!mod.getCorreo().equals(profesor.getCorreo())) {
@@ -1079,15 +1097,26 @@ public class ModificarUsuarios {
 		}
 		
 		if(mod.getFechaNac() == null) {
-			mod.setFechaNac(profesor.getFechaNac());
+			String fechaSt = profesor.getfNacimiento();
+			Date fecha = null;
+			try {
+				fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaSt);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			mod.setFechaNac(fecha);
 		} else {
-			if(profesor.getFechaNac() != null) {
-				if (!mod.getFechaNac().equals(profesor.getFechaNac())) {
-					cambios += "Fecha de termino de " + mod.getFechaNac() + " a " + profesor.getFechaNac()
-					+ "\n";
+			if(profesor.getfNacimiento() != null) {
+				String fechaSt = profesor.getfNacimiento();
+				Date fecha = null;
+				try {
+					fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaSt);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				if (!mod.getFechaNac().equals(fecha)) {
 					Calendar calendario = Calendar.getInstance();
-					calendario.setTime(profesor.getFechaNac());
-					calendario.add(Calendar.DAY_OF_YEAR, 1);
+					calendario.setTime(fecha);
 					mod.setFechaNac(calendario.getTime());
 				}
 			}

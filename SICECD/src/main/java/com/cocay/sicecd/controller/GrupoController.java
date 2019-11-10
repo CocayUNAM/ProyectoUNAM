@@ -124,7 +124,7 @@ public class GrupoController {
 		
 		if(fInicio != "") {
 			try {
-				fechaI = new SimpleDateFormat("yyyy-MM-dd").parse(fInicio);
+				fechaI = new SimpleDateFormat("dd/MM/yyyy").parse(fInicio);
 				grupo.setFecha_inicio(fechaI);
 			} catch (ParseException e1) {
 				e1.printStackTrace();
@@ -135,7 +135,7 @@ public class GrupoController {
 		Date fechaT = null;
 		if(fTermino != "") {
 			try {
-				fechaT = new SimpleDateFormat("yyyy-MM-dd").parse(fTermino);
+				fechaT = new SimpleDateFormat("dd/MM/yyyy").parse(fTermino);
 				grupo.setFecha_fin(fechaT);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block

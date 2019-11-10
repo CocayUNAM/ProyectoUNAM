@@ -93,7 +93,7 @@ public class ProfesoresController {
 		String fechaSt = prof.getfNacimiento();
 		Date fecha = null;
 		try {
-			fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
+			fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaSt);
 			pro.setFechaNac(fecha);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -237,7 +237,7 @@ public class ProfesoresController {
 				if(!fechaSt.equals("")) {
 					Date fecha = null;
 					try {
-						fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaSt);
+						fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaSt);
 						profe.setFechaNac(fecha);
 					} catch (ParseException e) {
 						e.printStackTrace();

@@ -31,6 +31,26 @@ public class GrupoDto {
 	String apaterno;
 	
 	String temp_curso;
+	
+	String formatoInicio;
+	
+	String formatoTermino;
+
+	public String getFormatoInicio() {
+		return formatoInicio;
+	}
+
+	public void setFormatoInicio(String formatoInicio) {
+		this.formatoInicio = formatoInicio;
+	}
+
+	public String getFormatoTermino() {
+		return formatoTermino;
+	}
+
+	public void setFormatoTermino(String formatoTermino) {
+		this.formatoTermino = formatoTermino;
+	}
 
 	public String getClave() {
 		return clave;
