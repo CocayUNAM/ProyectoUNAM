@@ -32,7 +32,7 @@ Logging log;
 	private ResponseEntity<String> enviarecupera(@RequestBody Usuario_sys consulta) {
 		String mensaje="";
 		if (! _usuarioSys.existsByRfc(consulta.getRfc())) {
-			mensaje="rfc no valido";
+			mensaje="RFC no valido";
 		}else {
 			Usuario_sys guardado=_usuarioSys.findByRfc(consulta.getRfc()).get(0);
 			String codigo = String.valueOf((int) (Math.random() * 1000) + 1);
