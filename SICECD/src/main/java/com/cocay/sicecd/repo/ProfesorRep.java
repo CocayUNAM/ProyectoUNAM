@@ -21,16 +21,16 @@ public interface ProfesorRep extends CrudRepository<Profesor, Integer>{
 	Profesor findByID(@Param("id")Integer id);
 	
 	@Query("SELECT p FROM Profesor p "
-			+ "WHERE upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
-			+ "AND upper(p.apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') ")
+			+ "WHERE TRANSLATE(UPPER(p.nombre),'ÁÉÍÓÚÄËÏÖÜ','AEIOUAEIOU') LIKE CONCAT('%',:nombre,'%') "
+			+ "AND TRANSLATE(UPPER(p.apellido_paterno),'ÁÉÍÓÚÄËÏÖÜ','AEIOUAEIOU') LIKE CONCAT('%',:apellido_paterno,'%')")
 	List<Profesor> findByName(@Param("nombre") String nombre,
 					@Param("apellido_paterno") String apellido_paterno);
 	
 	@Query("SELECT p FROM Profesor p "
 			+ "WHERE p.rfc LIKE CONCAT('%',:rfc,'%') "
-			+ "AND upper(p.nombre) LIKE CONCAT('%',:nombre,'%') "
-			+ "AND upper(p.apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "
-			+ "AND upper(p.apellido_materno) LIKE CONCAT('%',:apellido_materno,'%') ")
+			+ "AND TRANSLATE(UPPER(p.nombre),'ÁÉÍÓÚÄËÏÖÜ','AEIOUAEIOU') LIKE CONCAT('%',:nombre,'%') "
+			+ "AND TRANSLATE(UPPER(p.apellido_paterno),'ÁÉÍÓÚÄËÏÖÜ','AEIOUAEIOU') LIKE CONCAT('%',:apellido_paterno,'%') "
+			+ "AND TRANSLATE(UPPER(p.apellido_materno),'ÁÉÍÓÚÄËÏÖÜ','AEIOUAEIOU') LIKE CONCAT('%',:apellido_materno,'%')")
 	List<Profesor> findByParams(
 			@Param("rfc") String rfc,
 			@Param("nombre") String nombre,
@@ -39,9 +39,9 @@ public interface ProfesorRep extends CrudRepository<Profesor, Integer>{
 	
 	@Query(value="SELECT * FROM Profesor "
 			+ "WHERE AND rfc LIKE CONCAT('%',:rfc,'%') "
-			+ "AND upper(nombre) LIKE CONCAT('%',:nombre,'%') "
-			+ "AND upper(apellido_paterno) LIKE CONCAT('%',:apellido_paterno,'%') "
-			+ "AND upper(apellido_materno) LIKE CONCAT('%',:apellido_materno,'%') "
+			+ "AND TRANSLATE(UPPER(p.nombre),'ÁÉÍÓÚÄËÏÖÜ','AEIOUAEIOU') LIKE CONCAT('%',:nombre,'%') "
+			+ "AND TRANSLATE(UPPER(p.apellido_paterno),'ÁÉÍÓÚÄËÏÖÜ','AEIOUAEIOU') LIKE CONCAT('%',:apellido_paterno,'%') "
+			+ "AND TRANSLATE(UPPER(p.apellido_materno),'ÁÉÍÓÚÄËÏÖÜ','AEIOUAEIOU') LIKE CONCAT('%',:apellido_materno,'%') "
 			+ "AND fk_id_estado=:estado", nativeQuery=true)
 	List<Profesor> findByParams(
 			@Param("rfc") String rfc,
