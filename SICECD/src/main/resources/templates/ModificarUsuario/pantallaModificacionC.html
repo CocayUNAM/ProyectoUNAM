@@ -274,6 +274,8 @@ $(document).ready(function() {
 								// setting a timeout
 								$("#mensaje").css("visibility","hidden")
 								$('#spin').css("visibility","visible")
+								$("#limpiar").css("visibility","hidden");
+								$("#volver").css("visibility","hidden");
 										
 							},
 							//dataType:'json',
@@ -287,6 +289,8 @@ $(document).ready(function() {
 							$("#volver").css("visibility","hidden");
 							$("#revisar").css("visibility","visible");
 							$("#mensaje").css("visibility","visible");
+							$("#mensaje").css("position","absolute");
+							$("#mensaje").css("left","55px");
 						},
 						success : function(respuesta, status) {
 							$('#spin').css("visibility","hidden")
@@ -296,8 +300,14 @@ $(document).ready(function() {
 							$("#mensaje").css("color","green");
 							$("#revisar").css("visibility","hidden");
 							$("#limpiar").css("visibility","visible");
+							$("#limpiar").css("position","absolute");
+							$("#limpiar").css("right","145px");
 							$("#volver").css("visibility","visible");
+							$("#volver").css("position","absolute");
+							$("#volver").css("right","15px");
 							$("#mensaje").css("visibility","visible");
+							$("#mensaje").css("position","absolute");
+							$("#mensaje").css("left","83px");
 						}
 						});
 		            
