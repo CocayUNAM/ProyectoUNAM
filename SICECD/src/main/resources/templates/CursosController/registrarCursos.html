@@ -183,6 +183,8 @@
 								  $("#limpiar").css("visibility","hidden");
 								  $("#revisar").css("visibility","visible");
 								  $("#mensaje").css("visibility","visible");
+								  $("#mensaje").css("position","absolute");
+								  $("#mensaje").css("left","25px");
 				                return false;
 				            }
 
@@ -219,6 +221,8 @@
 								  $("#limpiar").css("visibility","hidden");
 								  $("#revisar").css("visibility","visible");
 								  $("#mensaje").css("visibility","visible");
+								  $("#mensaje").css("position","absolute");
+								  $("#mensaje").css("left","25px");
 				                return false;
 				            }
 
@@ -311,6 +315,8 @@
 								$("#volver").css("visibility","hidden");
 								$("#revisar").css("visibility","visible");
 								$("#mensaje").css("visibility","visible");
+								$("#mensaje").css("position","absolute");
+								$("#mensaje").css("left","55px");
 							},
 							success : function(respuesta, status) {
 								$('#spin').css("visibility","hidden")
@@ -320,8 +326,14 @@
 								$("#mensaje").css("color","green");
 								$("#revisar").css("visibility","hidden");
 								$("#limpiar").css("visibility","visible");
+								$("#limpiar").css("position","absolute");
+								$("#limpiar").css("right","145px");
 								$("#volver").css("visibility","visible");
+								$("#volver").css("position","absolute");
+								$("#volver").css("right","15px");
 								$("#mensaje").css("visibility","visible");
+								$("#mensaje").css("position","absolute");
+								$("#mensaje").css("left","83px");
 							}
 						});
 			            
