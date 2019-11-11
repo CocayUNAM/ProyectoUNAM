@@ -92,30 +92,30 @@ public class Profesor {
 	Integer stTabla;
 	
 	@ManyToOne(targetEntity=Turno.class, optional = true)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	@JoinColumn(name = "fk_id_turno", referencedColumnName="pk_id_turno", insertable = true, updatable = true, nullable = true)
 	Turno fk_id_turno;
 
 	@ManyToOne(targetEntity=Genero.class, optional = true)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	@JoinColumn(name = "id_genero", referencedColumnName="pk_id_genero", insertable = true, updatable = true, nullable = true)
 	Genero id_genero;
 	
 	@ManyToOne(targetEntity=Grado_profesor.class, optional = true)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	@JoinColumn(name = "fk_id_grado_profesor", referencedColumnName="pk_id_grado_profesor", insertable = true, updatable = true, nullable = true)
 	Grado_profesor fk_id_grado_profesor;
 	
 	@OneToMany(mappedBy = "fk_id_profesor", targetEntity=Inscripcion.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<Inscripcion> inscripciones = new ArrayList<>();
 
 	@OneToMany(mappedBy = "fk_id_profesor",targetEntity=Certificado.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<Certificado> certificados = new ArrayList<>();
 	
 	@ManyToOne(targetEntity=Estado.class, optional = true)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	@JoinColumn(name = "fk_id_estado", referencedColumnName="pk_id_estado", insertable = true, updatable = true, nullable = true)
 	Estado fk_id_estado;
 	

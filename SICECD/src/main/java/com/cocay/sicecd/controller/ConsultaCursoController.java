@@ -46,7 +46,6 @@ public class ConsultaCursoController {
 		
 		try {
 			String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase().trim();
-			System.out.println(nombre_curso);
 			String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 			Integer id_tipo = Integer.parseInt(request.getParameter("tipos_cursos"));
 		

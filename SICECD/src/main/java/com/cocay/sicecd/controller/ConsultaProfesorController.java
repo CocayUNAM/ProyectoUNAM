@@ -70,13 +70,10 @@ public class ConsultaProfesorController {
 		
 			if (rfc=="" && nombre=="" && apellido_paterno=="" && apellido_materno=="" && id_estado == 33) {
 				profesores = profesorRep.findAll();
-				//profesores2 = profesorRep.findAll();
 			} else if (id_estado != 33) {
 				profesores = profesorRep.findByParams(rfc, nombre, apellido_paterno, apellido_materno, id_estado);
-				//profesores2 = profesorRep.findByParams(rfc, nombre, apellido_paterno, apellido_materno, id_estado);
 			} else {
 				profesores = profesorRep.findByParams(rfc, nombre, apellido_paterno, apellido_materno);
-				//profesores2 = profesorRep.findByParams(rfc, nombre, apellido_paterno, apellido_materno);
 			}
 			
 			List<Profesor> profesores2 = new ArrayList<Profesor>(profesores);
