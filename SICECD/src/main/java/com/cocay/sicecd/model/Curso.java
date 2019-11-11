@@ -49,22 +49,22 @@ public class Curso {
 	Integer stTabla;
 
 	@ManyToOne(targetEntity=Grupo.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	@JoinColumn(name = "fk_id_grupo",referencedColumnName="pk_id_grupo",insertable = true, updatable = true)
 	Grupo fk_id_grupo;
 	
 	
 	@ManyToOne(targetEntity=Tipo_curso.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	@JoinColumn(name = "fk_id_tipo_curso", referencedColumnName="pk_id_tipo_curso")
 	Tipo_curso fk_id_tipo_curso;
 	
 	@OneToMany(mappedBy = "fk_id_curso",targetEntity=Grupo.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<Grupo> grupos = new ArrayList<>();
 
 	@OneToMany(mappedBy = "fk_id_curso",targetEntity=Certificado.class)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<Certificado> certificados = new ArrayList<>();
 	
 	public Curso(){}
