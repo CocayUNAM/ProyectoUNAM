@@ -310,6 +310,8 @@
 							$("#volver").css("visibility","hidden");
 							$("#revisar").css("visibility","visible");
 							$("#mensaje").css("visibility","visible");
+							$("#mensaje").css("position","absolute");
+							$("#mensaje").css("left","100px");
 						},
 						success : function(respuesta, status) {
 							if(respuesta.message == "¡El participante ya había sido registrado con este grupo!"){

@@ -283,19 +283,22 @@
 							// setting a timeout
 							$("#mensaje").css("visibility","hidden")
 							$('#spin').css("visibility","visible")
-									
+							$("#limpiar").css("visibility","hidden");
+							$("#volver").css("visibility","hidden");									
 						},
 						//dataType:'json',
 						error : function(status) {
 							$('#spin').css("visibility","hidden")
 							var elem = $(document.createElement('h4'))
-							               .attr('id','mensaje').html("Error : Revisa que sean correctas las claves de asesor y grupo");
+							               .attr('id','mensaje').html("Error : No se ha encontrado informacion.");
 							$('#mensaje').replaceWith(elem);
 							$("#mensaje").css("color","red");
 							$("#limpiar").css("visibility","hidden");
 							$("#volver").css("visibility","hidden");
 							$("#revisar").css("visibility","visible");
 							$("#mensaje").css("visibility","visible");
+							$("#mensaje").css("position","absolute");
+							$("#mensaje").css("left","100px");
 						},
 						success : function(respuesta, status) {
 							if(respuesta == "Error : El participante ya habia sido registrado con este grupo"){
@@ -308,6 +311,8 @@
 								$("#volver").css("visibility","hidden");
 								$("#revisar").css("visibility","visible");
 								$("#mensaje").css("visibility","visible");
+								$("#mensaje").css("position","absolute");
+								$("#mensaje").css("left","55px");
 							} else  {
 								$('#spin').css("visibility","hidden")
 								var elem = $(document.createElement('h4'))
@@ -316,8 +321,14 @@
 								$("#mensaje").css("color","green");
 								$("#revisar").css("visibility","hidden");
 								$("#limpiar").css("visibility","visible");
+								$("#limpiar").css("position","absolute");
+								$("#limpiar").css("right","145px");
 								$("#volver").css("visibility","visible");
+								$("#volver").css("position","absolute");
+								$("#volver").css("right","15px");
 								$("#mensaje").css("visibility","visible");
+								$("#mensaje").css("position","absolute");
+								$("#mensaje").css("left","83px");
 							}
 						}
 					});
