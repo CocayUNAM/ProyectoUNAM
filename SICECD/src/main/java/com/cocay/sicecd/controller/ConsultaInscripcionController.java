@@ -74,8 +74,8 @@ public class ConsultaInscripcionController {
 		Integer id_turno = Integer.parseInt(request.getParameter("turno"));
 		
 		/* Datos del curso */
-		String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase().trim();
-		System.out.println(nombre_curso);
+		String nombre_curso_acento = request.getParameter("nombre_curso").toUpperCase().trim();
+		String nombre_curso = normalizar(nombre_curso_acento);
 		String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 		Integer id_tipo = Integer.parseInt(request.getParameter("tipos"));
 		
@@ -212,7 +212,6 @@ public class ConsultaInscripcionController {
 			
 			if (nombre != "" || apellido_paterno != "") {
 				profes = profesorRep.findByName(nombre, apellido_paterno);
-				//profes2 = profesorRep.findByName(nombre, apellido_paterno);
 				profes2 = new ArrayList<Profesor> (profes);
 			}
 									

@@ -35,12 +35,12 @@ public interface CursoRep extends PagingAndSortingRepository<Curso, Integer>{
 	List<Curso> findAll();
 	
 	@Query(value="SELECT * FROM Curso "
-			+ "WHERE UPPER(nombre) LIKE CONCAT('%',:nombre,'%') "
+			+ "WHERE TRANSLATE(UPPER(nombre),'ÁÉÍÓÚÄËÏÖÜ','AEIOUAEIOU' ) LIKE CONCAT('%',:nombre,'%') "
 			+ "AND UPPER(clave) LIKE CONCAT('%',:clave,'%')", nativeQuery=true)
 	List<Curso> findByParams(@Param("nombre") String nombre, @Param("clave") String clave);
 	
 	@Query(value="SELECT * FROM Curso "
-			+ "WHERE UPPER(nombre) LIKE CONCAT('%',:nombre,'%') "
+			+ "WHERE TRANSLATE(UPPER(nombre),'ÁÉÍÓÚÄËÏÖÜ','AEIOUAEIOU') LIKE CONCAT('%',:nombre,'%') "
 			+ "AND UPPER(clave) LIKE CONCAT('%',:clave,'%') "
 			+ "AND fk_id_tipo_curso=:tipo", nativeQuery=true)
 	List<Curso> findByParams(@Param("nombre") String nombre, @Param("clave") String clave, @Param("tipo") Integer tipo);

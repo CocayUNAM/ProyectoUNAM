@@ -45,7 +45,8 @@ public class ConsultaCursoController {
 	public ModelAndView consultaCurso(ModelMap model,HttpServletRequest request) throws ParseException {
 		
 		try {
-			String nombre_curso = normalizar(request.getParameter("nombre_curso")).toUpperCase().trim();
+			String nombre_curso_acento = request.getParameter("nombre_curso").toUpperCase().trim();
+			String nombre_curso = normalizar(nombre_curso_acento);
 			String clave_curso = request.getParameter("clave_curso").toUpperCase().trim();
 			Integer id_tipo = Integer.parseInt(request.getParameter("tipos_cursos"));
 		
