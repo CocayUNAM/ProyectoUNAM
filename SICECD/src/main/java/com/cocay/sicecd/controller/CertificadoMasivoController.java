@@ -42,6 +42,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.json.*;
 import org.slf4j.Logger;
@@ -290,6 +291,7 @@ public class CertificadoMasivoController {
 	 * Metodo que obtiene certificados masivamente para traer nuevos archivos. 
 	 * @throws Exception
 	 */
+	@Transactional
 	@Scheduled(cron = "${ws.scheduleTransfer}")
 	public void scheduleTaskWithCronExpression() throws Exception {
 		LinkedList<Url_ws> links = new LinkedList<>(urls.findVarios());
